@@ -1,0 +1,62 @@
+name: school_diary_tracker
+description: >
+  Driver-facing school bus tracking app (pickup/drop management, live trip
+  tracking). Flutter migration of the legacy Android "SchoolDiary Tracker" /
+  "Euro Tracker" apps.
+publish_to: "none"
+version: 1.0.0+1
+
+environment:
+  sdk: ">=3.4.0 <4.0.0"
+  flutter: ">=3.22.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+
+  # State management (MVVM ViewModel layer)
+  flutter_riverpod: ^2.5.1
+
+  dio: ^5.7.0
+  shared_preferences: ^2.3.2
+
+  # Routing
+  go_router: ^14.2.0
+
+  # Localization
+  intl: ^0.19.0
+
+  # Background location tracking
+  geolocator: ^13.0.1
+  permission_handler: ^11.3.1
+
+  google_maps_flutter: ^2.9.0
+
+  icons_launcher: ^2.1.7
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0
+  build_runner: ^2.4.11
+
+flutter:
+  uses-material-design: true
+  generate: true # enables `flutter gen-l10n` from lib/l10n/*.arb via l10n.yaml
+
+  # Carried over verbatim from the Android project's assets/fonts/ — this is
+  # the same MyriadPro family the original app used (FontUtils.java).
+  fonts:
+    - family: MyriadPro
+      fonts:
+        - asset: assets/fonts/MyriadPro-Regular.otf
+        - asset: assets/fonts/MyriadPro-Semibold.otf
+          weight: 600
+
+  # NOTE: launcher icons are intentionally left out of this scaffold step.
+  # The original app ships two different launcher icons per flavor
+  # (@drawable/school_bus vs @drawable/bus) as Android vector/raster
+  # drawables, not directly reusable as Flutter image assets without
+  # export. This is flagged as a manual step below rather than guessed at.

@@ -1,0 +1,31 @@
+{
+  "@@locale": "en",
+
+  "appTitleSchoolDiary": "SD Tracker",
+  "@appTitleSchoolDiary": {
+    "description": "App display name for the SchoolDiaryRouteTracker flavor. Mirrors res/values/strings.xml app_name for that flavor in the Android project."
+  },
+
+  "appTitleEuro": "Euro Tracker",
+  "@appTitleEuro": {
+    "description": "App display name for the EuroWebGenieRouteTracker flavor."
+  },
+
+  "genericLoading": "Loading...",
+  "genericError": "Something went wrong",
+  "genericRetry": "Retry",
+
+  "loginEmailOrPhoneLabel": "Email or phone number",
+  "loginPasswordLabel": "Password",
+  "loginButton": "Login",
+  "loginForgotPassword": "Forgot password?",
+  "loginErrorEnterUsername": "Please enter username",
+  "loginErrorEnterPassword": "Please enter password",
+  "loginErrorInvalidEmailOrPhone": "Please enter a valid email or phone number",
+  "loginErrorFailed": "Login failed. Please try again.",
+  "forgotPasswordEmailLabel": "Email",
+  "forgotPasswordSend": "Send",
+  "forgotPasswordCancel": "Cancel",
+  "forgotPasswordSuccess": "If that email exists, a reset link has been sent.",
+  "forgotPasswordInvalidEmail": "Please enter a valid email"
+}

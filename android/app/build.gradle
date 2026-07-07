@@ -1,0 +1,68 @@
+plugins {
+    id "com.android.application"
+    id "kotlin-android"
+    // The Flutter Gradle Plugin must be applied after the Android and Kotlin Gradle plugins.
+    id "dev.flutter.flutter-gradle-plugin"
+}
+
+android {
+    namespace = "com.ufony.school_diary_tracker"
+    compileSdk = flutter.compileSdkVersion
+    ndkVersion = flutter.ndkVersion
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8
+    }
+
+    defaultConfig {
+        // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
+        applicationId = "com.ufony.school_diary_tracker"
+        // You can update the following values to match your application needs.
+        // For more information, see: https://flutter.dev/to/review-gradle-config.
+        minSdk = flutter.minSdkVersion
+        targetSdk = flutter.targetSdkVersion
+        versionCode = flutter.versionCode
+        versionName = flutter.versionName
+    }
+
+    flavorDimensions += "normal"
+
+    productFlavors {
+        create("schoolDiaryRouteTracker") {
+            dimension = "normal"
+            applicationId = "com.ufony.SDTracker"
+            versionCode = 50
+            versionName = "1.0.5"
+            resValue "string","app_name", "SD Tracker"
+            // Original used manifestPlaceholders[appIcon] = "@drawable/school_bus"
+            // for a runtime-selected launcher icon via placeholder. Flutter's
+            // standard approach is a per-flavor mipmap/ic_launcher set instead
+            // (see "Launcher icons" note below) — functionally equivalent,
+            // cleaner in Flutter's build system.
+        }
+        create("euroWebGenieRouteTracker") {
+            dimension = "normal"
+            applicationId = "com.ufony.schooldiarytracker"
+            versionCode = 132
+            versionName = "3.0.1"
+            resValue "string","app_name","Euro Tracker"
+        }
+    }
+
+    buildTypes {
+        release {
+            // TODO: Add your own signing config for the release build.
+            // Signing with the debug keys for now, so `flutter run --release` works.
+            signingConfig = signingConfigs.debug
+        }
+    }
+}
+
+flutter {
+    source = "../.."
+}
