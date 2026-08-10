@@ -2,6 +2,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/di/providers.dart';
 import '../../../core/storage/local_storage_service.dart';
+import '../../../core/utils/app_constants.dart';
 import '../../../data/models/route_response.dart';
 import '../../../data/repositories/route_repository.dart';
 
@@ -96,12 +97,12 @@ class HomeViewModel extends StateNotifier<HomeState> {
   /// `"[]"`) — that's Step 7/8's concern (the stops/children feature
   /// doesn't exist yet), not duplicated here as dead placeholder calls.
   Future<void> selectRoute(RouteResponse route) async {
-    await _storage.setString(StorageKeys.routeId, route.id.toString());
+    await _storage.setString(StorageKeys.ROUTE_ID, route.id.toString());
   }
 }
 
 final homeViewModelProvider =
-    StateNotifierProvider.autoDispose<HomeViewModel, HomeState>((ref) {
+    StateNotifierProvider<HomeViewModel, HomeState>((ref) {
   return HomeViewModel(
     ref.watch(routeRepositoryProvider),
     ref.watch(localStorageServiceProvider),

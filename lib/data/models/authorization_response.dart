@@ -1,9 +1,5 @@
 import 'user_role.dart';
 
-/// Ported from `Authorization.java` — the `login` endpoint's response
-/// shape. Field names kept identical to the original JSON contract
-/// (`session.id`, `allUsers`, etc.) since the backend team owns that
-/// contract and nothing here should silently diverge from it.
 class AuthorizationResponse {
   final String? status;
   final AuthSession session;

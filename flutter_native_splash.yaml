@@ -1,0 +1,15 @@
+# Run with: dart run flutter_native_splash:create --path=flutter_native_splash-school_diary.yaml
+#
+# Matches the original SplashActivity's full-brand-color background +
+# centered bus artwork. Placeholder icon — see pubspec.yaml's assets note.
+
+flutter_native_splash:
+  color: "#FFFFFF" # ported AppColors.primary — same as SplashScreen.dart
+  image: assets/icons/launcher_icon_school_diary.png
+
+  android_12:
+    color: "#FFFFFF"
+    image: assets/icons/launcher_icon_school_diary.png
+
+  android: true
+  ios: true

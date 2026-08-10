@@ -4,31 +4,22 @@ import 'package:go_router/go_router.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import '../../../core/routing/app_router.dart';
+import '../../../core/utils/app_constants.dart';
 import '../../../data/models/route_response.dart';
+import '../../../l10n/generated/app_localizations.dart';
 import '../viewmodel/trip_viewmodel.dart';
 
 /// Flutter equivalent of `TransportActivity` + `transport_activity.xml`.
-/// Uses `google_maps_flutter` in place of the original's Google Maps
-/// Android SDK v2 `MapFragment`/`GoogleMap` — same underlying map
-/// provider, modern cross-platform binding.
-///
-/// See `TripViewModel.stopTrip()`'s doc comment for an important note:
-/// the original's Stop button here had no working click handler at all in
-/// production. This version's Stop button is real, working functionality,
-/// not a straight port.
 class TransportMapScreen extends ConsumerWidget {
   final RouteResponse route;
 
   const TransportMapScreen({super.key, required this.route});
 
-  // Original's default camera position before any fix arrives:
-  // `new LatLng(21.0000, 78.0000)` — roughly the geographic center of
-  // India. Kept as-is; it's a reasonable default for this app's actual
-  // deployment region, not an arbitrary placeholder to second-guess.
   static const _defaultPosition = LatLng(21.0000, 78.0000);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context)!;
     final state = ref.watch(tripViewModelProvider(route));
 
     final busPosition = state.currentPosition != null
@@ -45,73 +36,133 @@ class TransportMapScreen extends ConsumerWidget {
       }
     });
 
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(route.name),
-        actions: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 12),
-            child: Center(
-              child: Text(
-                state.currentPosition == null
-                    ? 'Waiting for GPS...'
-                    : 'Updated ${state.secondsSinceLastUpdate}s ago',
-                style: const TextStyle(fontSize: 12),
+    final markers = <Marker>{
+      Marker(
+        markerId: const MarkerId('bus'),
+        position: busPosition,
+        icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueAzure),
+        infoWindow: InfoWindow(title: l10n.mapCurrentPosition),
+        zIndex: 2,
+      ),
+    };
+
+    final polylinePoints = <LatLng>[];
+    if (state.currentPosition != null) {
+      polylinePoints.add(busPosition);
+    }
+
+    for (final stop in state.stops) {
+      if (stop.latitude != null && stop.longitude != null) {
+        final pos = LatLng(stop.latitude!, stop.longitude!);
+        polylinePoints.add(pos);
+        markers.add(
+          Marker(
+            markerId: MarkerId('stop_${stop.id ?? stop.address}'),
+            position: pos,
+            infoWindow: InfoWindow(
+              title: stop.address ?? 'Stop',
+              snippet: l10n.stopsSummary(
+                stop.selectedCount,
+                stop.totalPickedDropped,
+                stop.children.length,
+                l10n.stopsStatusComplete,
               ),
             ),
           ),
-        ],
-      ),
-      body: Stack(
-        children: [
-          GoogleMap(
-            initialCameraPosition:
-                CameraPosition(target: busPosition, zoom: 15),
-            markers: {
-              Marker(
-                markerId: const MarkerId('bus'),
-                position: busPosition,
-                infoWindow: const InfoWindow(title: 'Current Position'),
+        );
+      }
+    }
+
+    return PopScope(
+      canPop: false,
+      onPopInvokedWithResult: (didPop, result) async {
+        if (didPop) return;
+        await _confirmStop(context, ref);
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(route.name),
+          actions: [
+            IconButton(
+              icon: const Icon(Icons.checklist),
+              tooltip: l10n.mapStopsTooltip,
+              onPressed: () => context.push(
+                Constants.STOPS_ROUTE,
+                extra: StopsRouteArgs(routeId: route.id, routeName: route.name),
               ),
-            },
-            myLocationEnabled: true,
-          ),
-          if (state.currentPosition == null)
-            const Positioned(
-              top: 16,
-              left: 0,
-              right: 0,
-              child: Center(child: CircularProgressIndicator()),
             ),
-        ],
-      ),
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: state.isStopping ? null : () => _confirmStop(context, ref),
-        icon: const Icon(Icons.stop),
-        label: Text(state.isStopping ? 'Stopping...' : 'Stop'),
-        backgroundColor: Colors.red,
+            IconButton(
+              icon: const Icon(Icons.groups),
+              tooltip: l10n.mapChildrenTooltip,
+              onPressed: () => context.push(
+                Constants.CHILDREN_ROUTE,
+                extra: StopsRouteArgs(routeId: route.id, routeName: route.name),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 12),
+              child: Center(
+                child: Text(
+                  state.currentPosition == null
+                      ? l10n.mapWaitingGps
+                      : l10n.mapUpdatedAgo(state.secondsSinceLastUpdate),
+                  style: const TextStyle(fontSize: 12),
+                ),
+              ),
+            ),
+          ],
+        ),
+        body: Stack(
+          children: [
+            GoogleMap(
+              initialCameraPosition:
+                  CameraPosition(target: busPosition, zoom: 15),
+              markers: markers,
+              polylines: {
+                if (polylinePoints.length > 1)
+                  Polyline(
+                    polylineId: const PolylineId('route'),
+                    points: polylinePoints,
+                    color: Colors.blue,
+                    width: 5,
+                  ),
+              },
+              myLocationEnabled: true,
+            ),
+            if (state.currentPosition == null || state.isLoadingStops)
+              const Positioned(
+                top: 16,
+                left: 0,
+                right: 0,
+                child: Center(child: CircularProgressIndicator()),
+              ),
+          ],
+        ),
+        floatingActionButton: FloatingActionButton.extended(
+          onPressed: state.isStopping ? null : () => _confirmStop(context, ref),
+          icon: const Icon(Icons.stop),
+          label: Text(state.isStopping ? l10n.mapStopping : l10n.mapStop),
+          backgroundColor: Colors.red,
+        ),
       ),
     );
   }
 
-  /// Ported from `BusRunningActivity.ShowAlertDialog()`'s Yes/No
-  /// confirmation — the only working stop-confirmation flow that existed
-  /// anywhere in the original codebase (see `TripViewModel.stopTrip()`
-  /// for the full explanation of why this screen didn't have its own).
   Future<void> _confirmStop(BuildContext context, WidgetRef ref) async {
+    final l10n = AppLocalizations.of(context)!;
     final confirmed = await showDialog<bool>(
       context: context,
       builder: (dialogContext) => AlertDialog(
-        title: const Text('Confirm'),
-        content: const Text('Do you really want to close the trip?'),
+        title: Text(l10n.mapConfirmTitle),
+        content: Text(l10n.mapConfirmMessage),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(dialogContext).pop(false),
-            child: const Text('No'),
+            child: Text(l10n.mapNo),
           ),
           TextButton(
             onPressed: () => Navigator.of(dialogContext).pop(true),
-            child: const Text('Yes'),
+            child: Text(l10n.mapYes),
           ),
         ],
       ),
@@ -122,23 +173,17 @@ class TransportMapScreen extends ConsumerWidget {
     final stopped =
         await ref.read(tripViewModelProvider(route).notifier).stopTrip();
     if (stopped && context.mounted) {
-      context.go(AppRoutes.homeShell);
+      context.go(Constants.HOME_ROUTE);
     }
   }
 
-  /// Ported from `TransportActivity`'s 65-second watchdog
-  /// (`ShowAlertDialogFail`) — originally also vibrated the device and
-  /// played a sound via `MediaSounds`; those are cosmetic and can be
-  /// added back easily if you'd like (not included here to keep this
-  /// step focused on the core tracking/stop functionality).
   void _showReconnectWarning(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context)!;
     showDialog<void>(
       context: context,
       builder: (dialogContext) => AlertDialog(
-        title: const Text('Tracker'),
-        content: const Text(
-          'Location update failing frequently, Please check your internet.',
-        ),
+        title: Text(l10n.mapReconnectTitle),
+        content: Text(l10n.mapReconnectMessage),
         actions: [
           TextButton(
             onPressed: () {
@@ -147,7 +192,7 @@ class TransportMapScreen extends ConsumerWidget {
                   .dismissReconnectWarning();
               Navigator.of(dialogContext).pop();
             },
-            child: const Text('Ok'),
+            child: Text(l10n.genericOk),
           ),
         ],
       ),

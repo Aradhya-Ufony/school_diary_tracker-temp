@@ -6,14 +6,11 @@
     "description": "App display name for the SchoolDiaryRouteTracker flavor. Mirrors res/values/strings.xml app_name for that flavor in the Android project."
   },
 
-  "appTitleEuro": "Euro Tracker",
-  "@appTitleEuro": {
-    "description": "App display name for the EuroWebGenieRouteTracker flavor."
-  },
-
   "genericLoading": "Loading...",
   "genericError": "Something went wrong",
   "genericRetry": "Retry",
+  "genericSuccess": "Success",
+  "genericOk": "Ok",
 
   "loginEmailOrPhoneLabel": "Email or phone number",
   "loginPasswordLabel": "Password",
@@ -27,5 +24,109 @@
   "forgotPasswordSend": "Send",
   "forgotPasswordCancel": "Cancel",
   "forgotPasswordSuccess": "If that email exists, a reset link has been sent.",
-  "forgotPasswordInvalidEmail": "Please enter a valid email"
+  "forgotPasswordInvalidEmail": "Please enter a valid email",
+
+  "homeTitle": "Home",
+  "homeHi": "Hi, {name}",
+  "@homeHi": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "homeSearchHint": "Search routes",
+  "homeNoRoutes": "No routes available",
+  "homeStart": "Start",
+  "homeLogout": "Logout",
+  "homeMenuLanguage": "Language",
+  "homeMenuAppInfo": "App Info",
+
+  "languageTitle": "Language",
+
+  "appInfoTitle": "App Info",
+  "appInfoVersion": "App Version",
+  "appInfoBuild": "Build Number",
+  "appInfoPackage": "Package",
+  "appInfoDevice": "Device Model",
+  "appInfoOS": "OS Version",
+
+  "tripConfirmTitle": "Tracker",
+  "tripConfirmCancel": "Cancel",
+  "tripConfirmOk": "OK",
+  "tripErrorLocationRequired": "Location permission is required to start a trip.",
+
+  "stopsUndoTooltip": "Undo pick/drop",
+  "stopsSubmitCount": "Submit ({count})",
+  "@stopsSubmitCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "stopsUndoCount": "Undo ({count})",
+  "@stopsUndoCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "stopsCancelledSuccess": "Cancelled successfully",
+  "stopsSubmittedSuccess": "Submitted successfully",
+  "stopsGenericError": "Something went wrong. Please try again.",
+  "stopsDefaultLabel": "Stop",
+  "stopsSummary": "{selected} selected · {done}/{total} {status}",
+  "@stopsSummary": {
+    "placeholders": {
+      "selected": { "type": "int" },
+      "done": { "type": "int" },
+      "total": { "type": "int" },
+      "status": { "type": "String" }
+    }
+  },
+  "stopsStatusDone": "done",
+  "stopsStatusComplete": "complete",
+  "stopsTypePick": "Pick",
+  "stopsTypeDrop": "Drop",
+  "stopsActionUndo": "Undo",
+
+  "childrenTitle": "Children — {routeName}",
+  "@childrenTitle": {
+    "placeholders": {
+      "routeName": { "type": "String" }
+    }
+  },
+  "childrenStatusPicked": "Picked",
+  "childrenStatusDropped": "Dropped",
+  "childrenStatusPending": "Pending",
+  "childrenActionGuardians": "Guardians",
+  "childrenNoGuardians": "No authorized guardians on file for this child.",
+  "childrenGuardiansFor": "Authorized guardians for {name}",
+  "@childrenGuardiansFor": {
+    "placeholders": {
+      "name": { "type": "String" }
+    }
+  },
+
+  "mapStopsTooltip": "Stops",
+  "mapChildrenTooltip": "Children & guardians",
+  "mapWaitingGps": "Waiting for GPS...",
+  "mapUpdatedAgo": "Updated {seconds}s ago",
+  "@mapUpdatedAgo": {
+    "placeholders": {
+      "seconds": { "type": "int" }
+    }
+  },
+  "mapConfirmTitle": "Confirm",
+  "mapConfirmMessage": "Do you really want to close the trip?",
+  "mapNo": "No",
+  "mapYes": "Yes",
+  "mapStopping": "Stopping...",
+  "mapStop": "Stop",
+  "mapReconnectTitle": "Tracker",
+  "mapReconnectMessage": "Location update failing frequently, Please check your internet.",
+  "mapCurrentPosition": "Current Position",
+  "splashDriverApp": "Driver App"
 }

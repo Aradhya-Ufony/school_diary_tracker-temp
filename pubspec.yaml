@@ -19,28 +19,61 @@ dependencies:
   # State management (MVVM ViewModel layer)
   flutter_riverpod: ^2.5.1
 
-  dio: ^5.7.0
-  shared_preferences: ^2.3.2
-
   # Routing
   go_router: ^14.2.0
 
   # Localization
   intl: ^0.19.0
 
-  # Background location tracking
+  # Networking (Step 2) — replaces the Android app's hand-rolled
+  # HttpURLConnection/AsyncTask networking with a proper typed client.
+  dio: ^5.7.0
+  http_parser: ^4.0.0
+
+  # Local storage (Step 3) — Flutter equivalent of PreferenceManager's
+  # SharedPreferences usage.
+  shared_preferences: ^2.3.2
+
+  # Background location tracking (Step 5) — replaces the Android app's
+  # FusedLocationProviderClient/GoogleApiClient-based LocationService.
   geolocator: ^13.0.1
   permission_handler: ^11.3.1
 
+  # Evacuation Drill Evidence Media (Step 1)
+  image_picker: ^1.1.2
+  flutter_image_compress: ^2.3.0
+  path_provider: ^2.1.4
+  exif: ^3.3.0
+
+  # Live trip map (Step 6) — replaces the Google Maps Android SDK v2
+
+  # (MapFragment/GoogleMap) used in TransportActivity.
   google_maps_flutter: ^2.9.0
 
-  icons_launcher: ^2.1.7
+  # App Info screen (Step 9) — replaces Android's PackageManager/Build
+  # calls in AppInfoActivity.
+  package_info_plus: ^8.1.1
+  device_info_plus: ^11.1.1
+
+  # Crash reporting (Step 10) — replaces the Java/Kotlin
+  # CrashReportingUtil + native Firebase Crashlytics/Analytics SDKs.
+  # firebase_analytics is included even though the original never logs
+  # custom events (confirmed via grep) — same as the original, it was a
+  # real dependency there too, primarily for Crashlytics' "breadcrumb
+  # logs" feature, which needs Analytics enabled to work.
+  firebase_core: 4.12.1
+  firebase_analytics: 12.4.5
+  firebase_crashlytics: 5.2.6
+  video_player: ^2.8.2
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^4.0.0
   build_runner: ^2.4.11
+  flutter_launcher_icons: ^0.13.1
+
+  flutter_native_splash: ^2.4.3
 
 flutter:
   uses-material-design: true
@@ -55,8 +88,24 @@ flutter:
         - asset: assets/fonts/MyriadPro-Semibold.otf
           weight: 600
 
-  # NOTE: launcher icons are intentionally left out of this scaffold step.
-  # The original app ships two different launcher icons per flavor
-  # (@drawable/school_bus vs @drawable/bus) as Android vector/raster
-  # drawables, not directly reusable as Flutter image assets without
-  # export. This is flagged as a manual step below rather than guessed at.
+  # Real brand assets, pulled directly from the original Android project's
+  # res/drawable/ (the binary PNGs were actually present in the handed-over
+  # source — confirmed and copied, not reconstructed):
+  #   - assets/icons/launcher_icon_{school_diary,euro}.png are the REAL
+  #     launcher icons — confirmed via AndroidManifest.xml's
+  #     android:icon="${appIcon}" + build.gradle's per-flavor
+  #     manifestPlaceholders, which point directly at
+  #     @drawable/school_bus / @drawable/bus (the bus illustrations
+  #     themselves are the launcher icon, not a separate ic_launcher
+  #     asset — the mipmap-*/ic_launcher.webp files in the original are
+  #     unused Android Studio template leftovers, never referenced by
+  #     the manifest).
+  #   - assets/images/school_bus.png / bus.png — same two images, used
+  #     again as the large splash-screen illustration (SplashActivity).
+  #   - assets/images/ufony_icon.png / webgenie_icon.png — the small
+  #     per-flavor badge overlay on the splash screen.
+  #   - assets/images/avatar_contact3x.png — default child avatar
+  #     fallback (ChildAdapter.kt/UndoChildAdapter.kt).
+  assets:
+    - assets/icons/
+    - assets/images/

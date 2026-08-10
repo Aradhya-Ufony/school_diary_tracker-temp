@@ -3,6 +3,7 @@ import 'package:dio/dio.dart';
 import '../../core/network/api_client.dart';
 import '../../core/network/api_endpoints.dart';
 import '../../core/storage/local_storage_service.dart';
+import '../../core/utils/app_constants.dart';
 import '../models/route_response.dart';
 import '../models/trip_request.dart';
 import '../models/user_location.dart';
@@ -50,7 +51,7 @@ class TripRepository {
     // the new trip ID as a raw numeric string body, not JSON. Matched
     // exactly rather than assuming a JSON wrapper that isn't there.
     final tripId = int.parse(response.data.toString().trim());
-    await _storage.setString(StorageKeys.tripId, tripId.toString());
+    await _storage.setString(StorageKeys.TRIP_ID, tripId.toString());
     return tripId;
   }
 
@@ -60,7 +61,7 @@ class TripRepository {
   }) async {
     final request = TripUpdateRequest(id: tripId, location: location);
     await _apiClient.post(ApiEndpoints.tripStop, data: request.toJson());
-    await _storage.remove(StorageKeys.tripId);
+    await _storage.remove(StorageKeys.TRIP_ID);
   }
 
   /// Ported from `UpdateTripLocationTask`, which used
@@ -81,7 +82,7 @@ class TripRepository {
   }
 
   int? get activeTripId {
-    final stored = _storage.getString(StorageKeys.tripId);
+    final stored = _storage.getString(StorageKeys.TRIP_ID);
     return stored != null ? int.tryParse(stored) : null;
   }
 }

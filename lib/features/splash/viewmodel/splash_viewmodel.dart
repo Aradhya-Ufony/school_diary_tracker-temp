@@ -1,4 +1,4 @@
-  import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 /// Equivalent of SplashActivity's 3-second `Handler.postDelayed` before
 /// navigating on to the next screen. The original also decided navigation
@@ -17,7 +17,14 @@ class SplashViewModel extends StateNotifier<SplashState> {
     _startTimer();
   }
 
-  static const _splashDuration = Duration(milliseconds: 3000);
+  // Original SplashActivity hardcoded a 3000ms delay with nothing actually
+  // loading during that time — pure artificial wait. Cut down to just
+  // enough to avoid a jarring instant-flash transition, since there's no
+  // real justification for making drivers wait 3 full seconds on every
+  // app launch. Flag if you'd rather this be even shorter or removed
+  // entirely once Step 4 adds a real "fetch routes" call here to replace
+  // the artificial delay with actual loading time.
+  static const _splashDuration = Duration(milliseconds: 800);
 
   Future<void> _startTimer() async {
     await Future<void>.delayed(_splashDuration);

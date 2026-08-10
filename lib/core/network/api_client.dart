@@ -1,77 +1,82 @@
+import 'dart:developer' as dev;
 import 'package:dio/dio.dart';
-
-import '../flavors/flavor_config.dart';
+import 'package:school_diary_tracker/core/utils/app_constants.dart';
+import '../services/crash_reporting_service.dart';
 import '../storage/local_storage_service.dart';
 import 'api_exception.dart';
 
-/// Flutter equivalent of `NetworkUtils.java`. The original hand-rolled
-/// every request with `HttpURLConnection` + `AsyncTask` and manually set
-/// four headers on every single call site. This centralizes that into one
-/// Dio instance with an interceptor, so individual repository methods
-/// (Step 4 onward) just call `apiClient.get(...)` / `.post(...)` without
-/// repeating header logic.
-///
-/// Headers sent, matching the original exactly:
-///   Content-Type: application/json      (Constants.CONTENT_TYPE_JSON)
-///   Accept-Encoding: gzip                (Dio does this automatically;
-///                                          no manual header needed)
-///   Authorization: Basic <token>         (only if a token is stored —
-///                                          see note in the class doc
-///                                          above about the original
-///                                          always attempting this even
-///                                          pre-login)
-///   application-id: <package name>       (BuildConfig.APPLICATION_ID)
-///   user-id: <current user's id>         (only if a user is stored)
-///
-/// HTTPS is enforced structurally: [FlavorConfig.baseUrl] is always an
-/// `https://` URL and nothing in this client ever falls back to plain
-/// HTTP, matching your decision to drop cleartext entirely.
+/// Centralized Dio client that handles:
+/// 1. Automatic Header injection (Authorization, user-id, application-id)
+/// 2. Structured logging (URL, Screen, User, Route)
+/// 3. Global error mapping and Crashlytics reporting
 class ApiClient {
   final Dio _dio;
   final LocalStorageService _storage;
+  final CrashReportingService _crashReporting;
+  final String Function()? _getScreen;
 
   ApiClient({
-    required FlavorConfig flavorConfig,
     required LocalStorageService storage,
+    required CrashReportingService crashReporting,
+    String Function()? getScreen,
   })  : _storage = storage,
+        _crashReporting = crashReporting,
+        _getScreen = getScreen,
         _dio = Dio(
           BaseOptions(
-            baseUrl: flavorConfig.baseUrl,
-            contentType: 'application/json',
-            connectTimeout: const Duration(seconds: 15),
-            receiveTimeout: const Duration(seconds: 15),
+            baseUrl: Constants.BASE_URL,
+            contentType: Constants.CONTENT_TYPE_JSON,
+            connectTimeout: const Duration(seconds: 30),
+            receiveTimeout: const Duration(seconds: 30),
           ),
         ) {
     _dio.interceptors.add(
       InterceptorsWrapper(
         onRequest: (options, handler) {
-          final token = _storage.getString(StorageKeys.authToken);
+          // 1. Inject Auth Token
+          final token = _storage.getString(StorageKeys.AUTH_TOKEN);
           if (token != null) {
-            options.headers['Authorization'] = token;
+            options.headers[Constants.AUTHORIZATION_HEADER] = token;
           }
 
-          final userJson = _storage.getString(StorageKeys.currentUser);
+          // 2. Extract User ID from stored JSON
+          final userJson = _storage.getString(StorageKeys.CURRENT_USER);
+          String? userId;
           if (userJson != null) {
-            // Only the id is needed for the header; parsed lazily here
-            // rather than keeping a duplicate cached UserRole object in
-            // this layer — AuthRepository owns the actual User model.
             final idMatch = RegExp(r'"id"\s*:\s*(\d+)').firstMatch(userJson);
             if (idMatch != null) {
-              options.headers['user-id'] = idMatch.group(1);
+              userId = idMatch.group(1);
+              options.headers[Constants.USER_ID_HEADER] = userId;
             }
           }
 
-          // NOTE: hardcoded here rather than read from the real build
-          // config, since that needs the `package_info_plus` package
-          // (not added yet — deliberately keeping Step 2's dependency
-          // list minimal). These two strings must stay in sync with the
-          // applicationId values in android_flavor_config/app_build.gradle.snippet
-          // and the iOS PRODUCT_BUNDLE_IDENTIFIER — flag if you'd like
-          // package_info_plus added now instead to remove this
-          // duplication.
-          options.headers['application-id'] = flavorConfig.isSchoolDiary
-              ? 'com.ufony.SDTracker'
-              : 'com.ufony.schooldiarytracker';
+          // 3. Inject App ID
+          options.headers[Constants.APPLICATION_ID_HEADER] = Constants.APPLICATION_ID;
+
+          // 4. Resolve Route ID and Screen Context
+          final routeId = _storage.getString(StorageKeys.ROUTE_ID);
+          final screen = options.extra[Constants.SCREEN_EXTRA_KEY] as String? ?? _getScreen?.call() ?? 'Unknown Screen';
+
+          // Attach screen to extra so it's available in the response/error phase
+          options.extra[Constants.SCREEN_EXTRA_KEY] = screen;
+
+          // 5. Format request data for logging
+          String? dataStr;
+          if (options.data != null) {
+            if (options.data is FormData) {
+              final formData = options.data as FormData;
+              final fields = formData.fields.map((e) => '${e.key}: ${e.value}').join(', ');
+              dataStr = 'FormData(fields: [$fields])';
+            } else {
+              dataStr = options.data.toString();
+            }
+          }
+
+          // 6. LOG REQUEST: Full URI, Screen, IDs and Data
+          dev.log(
+            'API REQUEST: ${options.method} ${options.uri} | screen: $screen | user-id: $userId | route-id: $routeId${dataStr != null ? ' | data: $dataStr' : ''}',
+            name: 'ApiClient',
+          );
 
           handler.next(options);
         },
@@ -79,29 +84,101 @@ class ApiClient {
     );
   }
 
-  Future<Response<dynamic>> get(String path, {Map<String, dynamic>? query}) {
-    return _run(() => _dio.get(path, queryParameters: query));
-  }
-
-  Future<Response<dynamic>> post(
-    String path, {
-    Object? data,
-    Map<String, dynamic>? query,
-    Options? options,
-  }) {
+  Future<Response<dynamic>> get(
+      String path, {
+        Map<String, dynamic>? query,
+        String? screen,
+      }) {
     return _run(
-      () => _dio.post(path, data: data, queryParameters: query, options: options),
+          () => _dio.get(
+        path,
+        queryParameters: query,
+        options: Options(extra: {Constants.SCREEN_EXTRA_KEY: screen}),
+      ),
     );
   }
 
-  Future<Response<dynamic>> put(String path, {Object? data}) {
-    return _run(() => _dio.put(path, data: data));
+  Future<Response<dynamic>> post(
+      String path, {
+        Object? data,
+        Map<String, dynamic>? query,
+        Options? options,
+        String? screen,
+        void Function(int, int)? onSendProgress,
+      }) {
+    final mergedOptions = options ?? Options();
+    mergedOptions.extra ??= {};
+    if (screen != null) mergedOptions.extra![Constants.SCREEN_EXTRA_KEY] = screen;
+
+    return _run(
+          () => _dio.post(
+            path,
+            data: data,
+            queryParameters: query,
+            options: mergedOptions,
+            onSendProgress: onSendProgress,
+          ),
+    );
+  }
+
+  Future<Response<dynamic>> put(
+      String path, {
+        Object? data,
+        String? screen,
+      }) {
+    return _run(
+          () => _dio.put(
+        path,
+        data: data,
+        options: Options(extra: {Constants.SCREEN_EXTRA_KEY: screen}),
+      ),
+    );
   }
 
   Future<T> _run<T>(Future<T> Function() request) async {
     try {
-      return await request();
+      final response = await request();
+      if (response is Response) {
+        final screen = response.requestOptions.extra[Constants.SCREEN_EXTRA_KEY] as String? ?? 'Unknown';
+
+        // LOG SUCCESS: Full URI and status
+        dev.log(
+          'API RESPONSE: ${response.statusCode} ${response.requestOptions.uri} | screen: $screen',
+          name: 'ApiClient',
+        );
+      }
+      return response;
     } on DioException catch (e) {
+      final userJson = _storage.getString(StorageKeys.CURRENT_USER);
+      final idMatch = userJson != null
+          ? RegExp(r'"id"\s*:\s*(\d+)').firstMatch(userJson)
+          : null;
+      final userId = idMatch?.group(1);
+      final routeId = _storage.getString(StorageKeys.ROUTE_ID);
+      final screen = e.requestOptions.extra[Constants.SCREEN_EXTRA_KEY] as String? ?? 'Unknown';
+
+      // LOG ERROR: Full URI, IDs, and Error Message
+      dev.log(
+        'API ERROR: ${e.response?.statusCode} ${e.requestOptions.uri} | screen: $screen | user-id: $userId | route-id: $routeId | message: ${e.message}',
+        name: 'ApiClient',
+        error: e,
+      );
+
+      // Report to Crashlytics
+      await _crashReporting.logApiFailure(
+        exception: e,
+        endpoint: e.requestOptions.uri.toString(),
+        responseCode: e.response?.statusCode,
+        extraInfo: {
+          Constants.TIMESTAMP_EXTRA_KEY: DateTime.now().toIso8601String(),
+          if (userId != null)
+            Constants.USER_ID_EXTRA_KEY: userId,
+          Constants.SCREEN_EXTRA_KEY: screen,
+          Constants.ROUTE_ID_EXTRA_KEY: routeId ?? 'none',
+        },
+        data: e.response?.data?.toString() ?? e.message ?? '',
+      );
+      print("SERVER ERROR RESPONSE DATA: ${e.response?.data}");
       throw _mapError(e);
     }
   }

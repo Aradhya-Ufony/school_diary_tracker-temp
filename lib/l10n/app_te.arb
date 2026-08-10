@@ -1,0 +1,23 @@
+{
+  "@@locale": "te",
+
+  "appTitleSchoolDiary": "SD Tracker",
+
+  "genericLoading": "లోడ్ అవుతోంది, దయచేసి వేచి ఉండండి",
+  "genericError": "క్షమించండి, మా సర్వర్‌లో లోపం సంభవించింది. దయచేసి మళ్ళీ ప్రయత్నించండి.",
+  "genericRetry": "మళ్ళీ ప్రయత్నించండి",
+
+  "loginEmailOrPhoneLabel": "Email or phone number",
+  "loginPasswordLabel": "Password",
+  "loginButton": "Login",
+  "loginForgotPassword": "Forgot password?",
+  "loginErrorEnterUsername": "Please enter username",
+  "loginErrorEnterPassword": "Please enter password",
+  "loginErrorInvalidEmailOrPhone": "Please enter a valid email or phone number",
+  "loginErrorFailed": "Login failed. Please try again.",
+  "forgotPasswordEmailLabel": "Email",
+  "forgotPasswordSend": "Send",
+  "forgotPasswordCancel": "Cancel",
+  "forgotPasswordSuccess": "If that email exists, a reset link has been sent.",
+  "forgotPasswordInvalidEmail": "Please enter a valid email"
+}

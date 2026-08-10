@@ -1,33 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-
-import '../../../core/di/providers.dart';
-import '../../../core/routing/app_router.dart';
-import '../../../core/theme/app_colors.dart';
+import '../../../core/utils/app_constants.dart';
 import '../../auth/viewmodel/login_viewmodel.dart';
 import '../viewmodel/splash_viewmodel.dart';
 
-/// Flutter equivalent of `SplashActivity` + `splash_activity.xml`.
-///
-/// Auto-login redirect now matches `LoginActivity.startNavigation()`'s
-/// `PreferenceManager.getCurrentUser(context) != null` check — that logic
-/// originally lived in LoginActivity (Splash unconditionally always went
-/// to Login, which then silently redirected again to Home if already
-/// logged in, causing a brief double-navigation). Doing the check once,
-/// here, is a small structural improvement: no flash of the login screen
-/// for an already-authenticated driver.
-///
-/// The original also did a GPS-enabled check and created an external
-/// storage directory in this screen — neither is ported here; see the
-/// Step 1 notes for why (dead code / centralized properly in Step 5).
 class SplashScreen extends ConsumerWidget {
   const SplashScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final splashState = ref.watch(splashViewModelProvider);
-    final flavorConfig = ref.watch(flavorConfigProvider);
 
     if (splashState.isReady) {
       // Scheduled after the current frame so it's safe to navigate from
@@ -35,32 +18,38 @@ class SplashScreen extends ConsumerWidget {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         if (!context.mounted) return;
         final isLoggedIn = ref.read(authRepositoryProvider).isLoggedIn;
-        context.go(isLoggedIn ? AppRoutes.homeShell : AppRoutes.login);
+        context.go(isLoggedIn ? Constants.HOME_ROUTE : Constants.LOGIN_ROUTE);
       });
     }
 
     return Scaffold(
-      backgroundColor: AppColors.primary,
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Icon(
-              Icons.directions_bus_filled_rounded,
-              color: Colors.white,
-              size: 96,
-            ),
-            const SizedBox(height: 16),
-            Text(
-              flavorConfig.appName,
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 24,
-                fontWeight: FontWeight.w600,
-                fontFamily: 'MyriadPro',
+      backgroundColor: AppColors.PRIMARY,
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 20),
+          child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  // Small badge overlay — matches SplashActivity's `splash_icon` ImageView.
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(12),
+                    child: Image.asset(
+                      'assets/images/ufony_icon.png',
+                      width: 50,
+                      height: 50,
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                  // Large bus illustration — matches SplashActivity's `splash_image` ImageView.
+                  Image.asset(
+                    'assets/images/school_bus.png',
+                    width: 200,
+                    height: 200,
+                  ),
+                ],
               ),
             ),
-          ],
         ),
       ),
     );

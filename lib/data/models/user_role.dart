@@ -40,11 +40,11 @@ class UserRole {
   /// Matches `LoginActivity`'s case-insensitive role check used to pick
   /// which user record from a multi-role account becomes the "current
   /// user" for this app.
-  bool get isDriverOrCareTaker =>
-      role.equalsIgnoreCaseAny(const ['driver', 'caretaker']);
-}
-
-extension on String {
-  bool equalsIgnoreCaseAny(List<String> options) =>
-      options.any((o) => o.toLowerCase() == toLowerCase());
+//   bool get isAuthorized =>
+//       role.equalsIgnoreCaseAny(const ['driver', 'caretaker', 'admin']);}
+//
+//
+// extension on String {
+//   bool equalsIgnoreCaseAny(List<String> options) =>
+//       options.any((o) => o.toLowerCase() == toLowerCase());
 }

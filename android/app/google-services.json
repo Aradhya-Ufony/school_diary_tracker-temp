@@ -1,0 +1,816 @@
+{
+  "project_info": {
+    "project_number": "137452521998",
+    "firebase_url": "https://pacific-song-523.firebaseio.com",
+    "project_id": "pacific-song-523",
+    "storage_bucket": "pacific-song-523.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:137452521998:android:a460171ef6651fab908a5f",
+        "android_client_info": {
+          "package_name": "com.euro.eurokidscare"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "137452521998-jesfqvmd3fnlkvmkftrht9jfb6gso9ee.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDFr-tzTxtTGFJ_HjZDX4V2OhHeuFrfUIg"
+        },
+        {
+          "current_key": "AIzaSyBfvnAqxzk1mTNRN-oGF4L6GgFasdbOVMY"
+        },
+        {
+          "current_key": "AIzaSyD9Z5VRD4voBkYbflGzvffxr0CpEu1MThA"
+        },
+        {
+          "current_key": "AIzaSyDjJ4tzWu4p-zr9gD8sjAkZAg8iXk0i_9U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "137452521998-jesfqvmd3fnlkvmkftrht9jfb6gso9ee.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "137452521998-3l2ifb6p0595noducilkt7kl0ji7e9er.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.ufony.NpsDiary"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:137452521998:android:eb7bd01950bd938b",
+        "android_client_info": {
+          "package_name": "com.eurokids.eurokidscare"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "137452521998-jesfqvmd3fnlkvmkftrht9jfb6gso9ee.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDFr-tzTxtTGFJ_HjZDX4V2OhHeuFrfUIg"
+        },
+        {
+          "current_key": "AIzaSyBfvnAqxzk1mTNRN-oGF4L6GgFasdbOVMY"
+        },
+        {
+          "current_key": "AIzaSyD9Z5VRD4voBkYbflGzvffxr0CpEu1MThA"
+        },
+        {
+          "current_key": "AIzaSyDjJ4tzWu4p-zr9gD8sjAkZAg8iXk0i_9U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "137452521998-jesfqvmd3fnlkvmkftrht9jfb6gso9ee.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "137452521998-3l2ifb6p0595noducilkt7kl0ji7e9er.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.ufony.NpsDiary"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:137452521998:android:105f50de8c94f86e",
+        "android_client_info": {
+          "package_name": "com.euros.EuroKidsCARE"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "137452521998-jesfqvmd3fnlkvmkftrht9jfb6gso9ee.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDFr-tzTxtTGFJ_HjZDX4V2OhHeuFrfUIg"
+        },
+        {
+          "current_key": "AIzaSyBfvnAqxzk1mTNRN-oGF4L6GgFasdbOVMY"
+        },
+        {
+          "current_key": "AIzaSyD9Z5VRD4voBkYbflGzvffxr0CpEu1MThA"
+        },
+        {
+          "current_key": "AIzaSyDjJ4tzWu4p-zr9gD8sjAkZAg8iXk0i_9U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "137452521998-jesfqvmd3fnlkvmkftrht9jfb6gso9ee.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "137452521998-3l2ifb6p0595noducilkt7kl0ji7e9er.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.ufony.NpsDiary"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:137452521998:android:d11df572b6b68a1d",
+        "android_client_info": {
+          "package_name": "com.euroschoolindia.webgenie"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "137452521998-b26cbm3niq73uqo5goc6ioeqibp833vf.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.euroschoolindia.webgenie",
+            "certificate_hash": "b9322ffad6260b1f65431ef30bd0791d2fae793e"
+          }
+        },
+        {
+          "client_id": "137452521998-jesfqvmd3fnlkvmkftrht9jfb6gso9ee.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDFr-tzTxtTGFJ_HjZDX4V2OhHeuFrfUIg"
+        },
+        {
+          "current_key": "AIzaSyBfvnAqxzk1mTNRN-oGF4L6GgFasdbOVMY"
+        },
+        {
+          "current_key": "AIzaSyD9Z5VRD4voBkYbflGzvffxr0CpEu1MThA"
+        },
+        {
+          "current_key": "AIzaSyDjJ4tzWu4p-zr9gD8sjAkZAg8iXk0i_9U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "137452521998-jesfqvmd3fnlkvmkftrht9jfb6gso9ee.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "137452521998-3l2ifb6p0595noducilkt7kl0ji7e9er.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.ufony.NpsDiary"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:137452521998:android:3056d1ed80a116b2",
+        "android_client_info": {
+          "package_name": "com.ufony"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "137452521998-jesfqvmd3fnlkvmkftrht9jfb6gso9ee.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDFr-tzTxtTGFJ_HjZDX4V2OhHeuFrfUIg"
+        },
+        {
+          "current_key": "AIzaSyBfvnAqxzk1mTNRN-oGF4L6GgFasdbOVMY"
+        },
+        {
+          "current_key": "AIzaSyD9Z5VRD4voBkYbflGzvffxr0CpEu1MThA"
+        },
+        {
+          "current_key": "AIzaSyDjJ4tzWu4p-zr9gD8sjAkZAg8iXk0i_9U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "137452521998-jesfqvmd3fnlkvmkftrht9jfb6gso9ee.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "137452521998-3l2ifb6p0595noducilkt7kl0ji7e9er.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.ufony.NpsDiary"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:137452521998:android:6e36c6cea7c7acd0908a5f",
+        "android_client_info": {
+          "package_name": "com.ufony.Beginnerworld"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "137452521998-jesfqvmd3fnlkvmkftrht9jfb6gso9ee.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDFr-tzTxtTGFJ_HjZDX4V2OhHeuFrfUIg"
+        },
+        {
+          "current_key": "AIzaSyBfvnAqxzk1mTNRN-oGF4L6GgFasdbOVMY"
+        },
+        {
+          "current_key": "AIzaSyD9Z5VRD4voBkYbflGzvffxr0CpEu1MThA"
+        },
+        {
+          "current_key": "AIzaSyDjJ4tzWu4p-zr9gD8sjAkZAg8iXk0i_9U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "137452521998-jesfqvmd3fnlkvmkftrht9jfb6gso9ee.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "137452521998-3l2ifb6p0595noducilkt7kl0ji7e9er.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.ufony.NpsDiary"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:137452521998:android:3dba943e517c7fbe",
+        "android_client_info": {
+          "package_name": "com.ufony.Daycarez"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "137452521998-jesfqvmd3fnlkvmkftrht9jfb6gso9ee.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDFr-tzTxtTGFJ_HjZDX4V2OhHeuFrfUIg"
+        },
+        {
+          "current_key": "AIzaSyBfvnAqxzk1mTNRN-oGF4L6GgFasdbOVMY"
+        },
+        {
+          "current_key": "AIzaSyD9Z5VRD4voBkYbflGzvffxr0CpEu1MThA"
+        },
+        {
+          "current_key": "AIzaSyDjJ4tzWu4p-zr9gD8sjAkZAg8iXk0i_9U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "137452521998-jesfqvmd3fnlkvmkftrht9jfb6gso9ee.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "137452521998-3l2ifb6p0595noducilkt7kl0ji7e9er.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.ufony.NpsDiary"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:137452521998:android:d338c491d351bec1908a5f",
+        "android_client_info": {
+          "package_name": "com.ufony.Lyceum"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "137452521998-rnbeeimp2jk31rlr25drq16jd1fjc79b.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ufony.Lyceum",
+            "certificate_hash": "4bcb823d096bb071704d3c8dfd117b82c4f3b81b"
+          }
+        },
+        {
+          "client_id": "137452521998-jesfqvmd3fnlkvmkftrht9jfb6gso9ee.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDFr-tzTxtTGFJ_HjZDX4V2OhHeuFrfUIg"
+        },
+        {
+          "current_key": "AIzaSyBfvnAqxzk1mTNRN-oGF4L6GgFasdbOVMY"
+        },
+        {
+          "current_key": "AIzaSyD9Z5VRD4voBkYbflGzvffxr0CpEu1MThA"
+        },
+        {
+          "current_key": "AIzaSyDjJ4tzWu4p-zr9gD8sjAkZAg8iXk0i_9U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "137452521998-jesfqvmd3fnlkvmkftrht9jfb6gso9ee.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "137452521998-3l2ifb6p0595noducilkt7kl0ji7e9er.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.ufony.NpsDiary"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:137452521998:android:5482f6d89495abc8908a5f",
+        "android_client_info": {
+          "package_name": "com.ufony.SDTracker"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "137452521998-dq03gsmchg7c3a6l7rjv167bviie7ipv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ufony.SDTracker",
+            "certificate_hash": "d27465a45eb5287a0d4cf0d1ab2c9827080a7bd7"
+          }
+        },
+        {
+          "client_id": "137452521998-jesfqvmd3fnlkvmkftrht9jfb6gso9ee.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDFr-tzTxtTGFJ_HjZDX4V2OhHeuFrfUIg"
+        },
+        {
+          "current_key": "AIzaSyBfvnAqxzk1mTNRN-oGF4L6GgFasdbOVMY"
+        },
+        {
+          "current_key": "AIzaSyD9Z5VRD4voBkYbflGzvffxr0CpEu1MThA"
+        },
+        {
+          "current_key": "AIzaSyDjJ4tzWu4p-zr9gD8sjAkZAg8iXk0i_9U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "137452521998-jesfqvmd3fnlkvmkftrht9jfb6gso9ee.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "137452521998-3l2ifb6p0595noducilkt7kl0ji7e9er.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.ufony.NpsDiary"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:137452521998:android:d818e144f14935e4908a5f",
+        "android_client_info": {
+          "package_name": "com.ufony.SatvaPreSchool"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "137452521998-2t9ljgbk11ops78gqerbugsn7utbeq80.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ufony.SatvaPreSchool",
+            "certificate_hash": "15fe48eca9e27f483b26a77134382a79054d5e54"
+          }
+        },
+        {
+          "client_id": "137452521998-jesfqvmd3fnlkvmkftrht9jfb6gso9ee.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDFr-tzTxtTGFJ_HjZDX4V2OhHeuFrfUIg"
+        },
+        {
+          "current_key": "AIzaSyBfvnAqxzk1mTNRN-oGF4L6GgFasdbOVMY"
+        },
+        {
+          "current_key": "AIzaSyD9Z5VRD4voBkYbflGzvffxr0CpEu1MThA"
+        },
+        {
+          "current_key": "AIzaSyDjJ4tzWu4p-zr9gD8sjAkZAg8iXk0i_9U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "137452521998-jesfqvmd3fnlkvmkftrht9jfb6gso9ee.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "137452521998-3l2ifb6p0595noducilkt7kl0ji7e9er.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.ufony.NpsDiary"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:137452521998:android:fb88fc7ea9a19195",
+        "android_client_info": {
+          "package_name": "com.ufony.SchoolDiary"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "137452521998-4nk0lgvr38a4c5ugblcbtg5s1mothi3p.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ufony.SchoolDiary",
+            "certificate_hash": "f5d5d3014b63edee4bcd9315b687d99f66e366f6"
+          }
+        },
+        {
+          "client_id": "137452521998-jesfqvmd3fnlkvmkftrht9jfb6gso9ee.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDFr-tzTxtTGFJ_HjZDX4V2OhHeuFrfUIg"
+        },
+        {
+          "current_key": "AIzaSyBfvnAqxzk1mTNRN-oGF4L6GgFasdbOVMY"
+        },
+        {
+          "current_key": "AIzaSyD9Z5VRD4voBkYbflGzvffxr0CpEu1MThA"
+        },
+        {
+          "current_key": "AIzaSyDjJ4tzWu4p-zr9gD8sjAkZAg8iXk0i_9U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "137452521998-jesfqvmd3fnlkvmkftrht9jfb6gso9ee.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "137452521998-3l2ifb6p0595noducilkt7kl0ji7e9er.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.ufony.NpsDiary"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:137452521998:android:370c25f11133fb40908a5f",
+        "android_client_info": {
+          "package_name": "com.ufony.cosmos"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "137452521998-jesfqvmd3fnlkvmkftrht9jfb6gso9ee.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDFr-tzTxtTGFJ_HjZDX4V2OhHeuFrfUIg"
+        },
+        {
+          "current_key": "AIzaSyBfvnAqxzk1mTNRN-oGF4L6GgFasdbOVMY"
+        },
+        {
+          "current_key": "AIzaSyD9Z5VRD4voBkYbflGzvffxr0CpEu1MThA"
+        },
+        {
+          "current_key": "AIzaSyDjJ4tzWu4p-zr9gD8sjAkZAg8iXk0i_9U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "137452521998-jesfqvmd3fnlkvmkftrht9jfb6gso9ee.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "137452521998-3l2ifb6p0595noducilkt7kl0ji7e9er.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.ufony.NpsDiary"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:137452521998:android:54b3bfc51a983d9d908a5f",
+        "android_client_info": {
+          "package_name": "com.ufony.kido"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "137452521998-jesfqvmd3fnlkvmkftrht9jfb6gso9ee.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDFr-tzTxtTGFJ_HjZDX4V2OhHeuFrfUIg"
+        },
+        {
+          "current_key": "AIzaSyBfvnAqxzk1mTNRN-oGF4L6GgFasdbOVMY"
+        },
+        {
+          "current_key": "AIzaSyD9Z5VRD4voBkYbflGzvffxr0CpEu1MThA"
+        },
+        {
+          "current_key": "AIzaSyDjJ4tzWu4p-zr9gD8sjAkZAg8iXk0i_9U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "137452521998-jesfqvmd3fnlkvmkftrht9jfb6gso9ee.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "137452521998-3l2ifb6p0595noducilkt7kl0ji7e9er.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.ufony.NpsDiary"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:137452521998:android:96e2af2c6b00c1cc908a5f",
+        "android_client_info": {
+          "package_name": "com.ufony.kidoindia"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "137452521998-jesfqvmd3fnlkvmkftrht9jfb6gso9ee.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDFr-tzTxtTGFJ_HjZDX4V2OhHeuFrfUIg"
+        },
+        {
+          "current_key": "AIzaSyBfvnAqxzk1mTNRN-oGF4L6GgFasdbOVMY"
+        },
+        {
+          "current_key": "AIzaSyD9Z5VRD4voBkYbflGzvffxr0CpEu1MThA"
+        },
+        {
+          "current_key": "AIzaSyDjJ4tzWu4p-zr9gD8sjAkZAg8iXk0i_9U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "137452521998-jesfqvmd3fnlkvmkftrht9jfb6gso9ee.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "137452521998-3l2ifb6p0595noducilkt7kl0ji7e9er.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.ufony.NpsDiary"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:137452521998:android:a07cab3c7adfc446",
+        "android_client_info": {
+          "package_name": "com.ufony.npsdiary"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "137452521998-jesfqvmd3fnlkvmkftrht9jfb6gso9ee.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDFr-tzTxtTGFJ_HjZDX4V2OhHeuFrfUIg"
+        },
+        {
+          "current_key": "AIzaSyBfvnAqxzk1mTNRN-oGF4L6GgFasdbOVMY"
+        },
+        {
+          "current_key": "AIzaSyD9Z5VRD4voBkYbflGzvffxr0CpEu1MThA"
+        },
+        {
+          "current_key": "AIzaSyDjJ4tzWu4p-zr9gD8sjAkZAg8iXk0i_9U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "137452521998-jesfqvmd3fnlkvmkftrht9jfb6gso9ee.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "137452521998-3l2ifb6p0595noducilkt7kl0ji7e9er.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.ufony.NpsDiary"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:137452521998:android:e1593f785b927e79908a5f",
+        "android_client_info": {
+          "package_name": "com.ufony.school_diary_tracker"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "137452521998-jesfqvmd3fnlkvmkftrht9jfb6gso9ee.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDFr-tzTxtTGFJ_HjZDX4V2OhHeuFrfUIg"
+        },
+        {
+          "current_key": "AIzaSyBfvnAqxzk1mTNRN-oGF4L6GgFasdbOVMY"
+        },
+        {
+          "current_key": "AIzaSyD9Z5VRD4voBkYbflGzvffxr0CpEu1MThA"
+        },
+        {
+          "current_key": "AIzaSyDjJ4tzWu4p-zr9gD8sjAkZAg8iXk0i_9U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "137452521998-jesfqvmd3fnlkvmkftrht9jfb6gso9ee.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "137452521998-3l2ifb6p0595noducilkt7kl0ji7e9er.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.ufony.NpsDiary"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:137452521998:android:768961226486fbec908a5f",
+        "android_client_info": {
+          "package_name": "com.ufony.schooldiarytracker"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "137452521998-jesfqvmd3fnlkvmkftrht9jfb6gso9ee.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDFr-tzTxtTGFJ_HjZDX4V2OhHeuFrfUIg"
+        },
+        {
+          "current_key": "AIzaSyBfvnAqxzk1mTNRN-oGF4L6GgFasdbOVMY"
+        },
+        {
+          "current_key": "AIzaSyD9Z5VRD4voBkYbflGzvffxr0CpEu1MThA"
+        },
+        {
+          "current_key": "AIzaSyDjJ4tzWu4p-zr9gD8sjAkZAg8iXk0i_9U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "137452521998-jesfqvmd3fnlkvmkftrht9jfb6gso9ee.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "137452521998-3l2ifb6p0595noducilkt7kl0ji7e9er.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.ufony.NpsDiary"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

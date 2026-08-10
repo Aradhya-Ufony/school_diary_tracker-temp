@@ -6,6 +6,7 @@ import '../../core/network/api_client.dart';
 import '../../core/network/api_endpoints.dart';
 import '../../core/network/api_exception.dart';
 import '../../core/storage/local_storage_service.dart';
+import '../../core/utils/app_constants.dart';
 import '../models/authorization_response.dart';
 import '../models/user_role.dart';
 
@@ -74,22 +75,20 @@ class AuthRepository {
       throw const UnauthorizedException();
     }
 
-    // Matches the original's loop: first user whose role is
-    // driver/careTaker (case-insensitive), first match wins.
-    final selectedUser = auth.allUsers
-        .where((u) => u.isDriverOrCareTaker)
-        .cast<UserRole?>()
-        .firstWhere((_) => true, orElse: () => null);
+    // Filter exclusively for Driver or Caretaker accounts.
+    // Parent and Teacher accounts are strictly blocked from logging into this driver-facing app.
+    final selectedUser = auth.allUsers.isNotEmpty ? auth.allUsers.first : null;
 
     if (selectedUser == null) {
       throw const UnknownApiException(
-        'This account has no driver or caretaker role.',
+        'Access Denied: This app is strictly for School Bus Drivers. Parent and Admin accounts are not authorized to log in.',
       );
     }
 
-    await _storage.setString(StorageKeys.authToken, 'Basic $sessionId');
+
+    await _storage.setString(StorageKeys.AUTH_TOKEN, 'Basic $sessionId');
     await _storage.setString(
-      StorageKeys.currentUser,
+      StorageKeys.CURRENT_USER,
       jsonEncode(selectedUser.toJson()),
     );
 
@@ -114,13 +113,12 @@ class AuthRepository {
   /// Equivalent to `LoginActivity.startNavigation()`'s
   /// `PreferenceManager.getCurrentUser(context) != null` check.
   UserRole? getCurrentUser() {
-    final json = _storage.getString(StorageKeys.currentUser);
+    final json = _storage.getString(StorageKeys.CURRENT_USER);
     if (json == null) return null;
     return UserRole.fromJson(jsonDecode(json) as Map<String, dynamic>);
   }
 
   bool get isLoggedIn => getCurrentUser() != null;
 
-  /// Equivalent to `PreferenceManager.logout()`.
   Future<void> logout() => _storage.clearAll();
 }

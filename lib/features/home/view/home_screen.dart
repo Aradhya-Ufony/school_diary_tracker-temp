@@ -3,16 +3,14 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../core/di/providers.dart';
-import '../../../core/routing/app_router.dart';
+import '../../../core/utils/app_constants.dart';
 import '../../../data/models/route_response.dart';
+import '../../../l10n/generated/app_localizations.dart';
 import '../../auth/viewmodel/login_viewmodel.dart';
 import '../viewmodel/home_viewmodel.dart';
 
 /// Flutter equivalent of `HomeTabActivity` + `AllRouteFragment` +
-/// `home_activity.xml`. The original's Favourites tab was commented out
-/// of the ViewPager adapter (`FavouriteFragment` is dead code, never
-/// actually shown) — so only the "All Routes" list is ported; nothing
-/// about a tab layer was dropped, there was only ever one working tab.
+/// `home_activity.xml`.
 class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
 
@@ -32,22 +30,86 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final state = ref.watch(homeViewModelProvider);
     final user = ref.watch(authRepositoryProvider).getCurrentUser();
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(user != null ? 'Hi, ${user.firstName}' : 'Home'),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.logout),
-            tooltip: 'Logout',
-            onPressed: () async {
-              await ref.read(authRepositoryProvider).logout();
-              if (context.mounted) context.go(AppRoutes.login);
-            },
-          ),
-        ],
+        title: Text(
+          user != null ? l10n.homeHi(user.firstName) : l10n.homeTitle,
+        ),
+      ),
+      drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: [
+            DrawerHeader(
+              decoration: const BoxDecoration(
+                color: Color(0xFF1E3A8A),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  const Icon(Icons.account_circle, size: 60, color: Colors.white),
+                  const SizedBox(height: 10),
+                  Text(
+                    user != null ? l10n.homeHi(user.firstName) : l10n.homeTitle,
+                    style: const TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
+                  ),
+                  if (user != null)
+                    Text(
+                      user.role,
+                      style: const TextStyle(color: Colors.white70, fontSize: 14),
+                    ),
+                ],
+              ),
+            ),
+            ListTile(
+              leading: const Icon(Icons.person),
+              title: const Text('Driver Details'),
+              onTap: () {
+                Navigator.pop(context);
+                context.push(Constants.DRIVER_DETAILS_ROUTE);
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.warning_amber_rounded),
+              title: const Text('Drill'),
+              onTap: () {
+                Navigator.pop(context);
+                context.push(Constants.DRILL_LIST_ROUTE);
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.language),
+              title: Text(l10n.homeMenuLanguage),
+              onTap: () {
+                Navigator.pop(context);
+                context.push(Constants.LANGUAGE_ROUTE);
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.info_outline),
+              title: Text(l10n.homeMenuAppInfo),
+              onTap: () {
+                Navigator.pop(context);
+                context.push(Constants.APP_INFO_ROUTE);
+              },
+            ),
+            const Divider(),
+            ListTile(
+              leading: const Icon(Icons.logout),
+              title: Text(l10n.homeLogout),
+              onTap: () async {
+                Navigator.pop(context);
+                await ref.read(authRepositoryProvider).logout();
+                if (context.mounted) context.go(Constants.LOGIN_ROUTE);
+              },
+            ),
+          ],
+        ),
       ),
       body: RefreshIndicator(
         onRefresh: () => ref.read(homeViewModelProvider.notifier).refresh(),
@@ -57,10 +119,10 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
               padding: const EdgeInsets.all(12),
               child: TextField(
                 controller: _searchController,
-                decoration: const InputDecoration(
-                  prefixIcon: Icon(Icons.search),
-                  hintText: 'Search routes',
-                  border: OutlineInputBorder(),
+                decoration: InputDecoration(
+                  prefixIcon: const Icon(Icons.search),
+                  hintText: l10n.homeSearchHint,
+                  border: const OutlineInputBorder(),
                   isDense: true,
                 ),
                 onChanged: (value) =>
@@ -76,8 +138,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                 child: Center(child: Text(state.error!)),
               )
             else if (state.filteredRoutes.isEmpty)
-              const Expanded(
-                child: Center(child: Text('No routes available')),
+              Expanded(
+                child: Center(child: Text(l10n.homeNoRoutes)),
               )
             else
               Expanded(
@@ -92,35 +154,34 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                         onPressed: _isStarting
                             ? null
                             : () => _confirmAndStart(context, route),
-                        child: const Text('Start'),
+                        child: Text(l10n.homeStart),
                       ),
                     );
                   },
                 ),
               ),
+
           ],
         ),
       ),
     );
   }
 
-  /// Ported from `RoutesAdapter.ShowAlertDialog()` (the "Tracker" /
-  /// route-name confirmation before calling `listListener.onSuccess()`)
-  /// combined with `HomeTabActivity.startRoute()`.
   Future<void> _confirmAndStart(BuildContext context, RouteResponse route) async {
+    final l10n = AppLocalizations.of(context)!;
     final confirmed = await showDialog<bool>(
       context: context,
       builder: (dialogContext) => AlertDialog(
-        title: const Text('Tracker'),
+        title: Text(l10n.tripConfirmTitle),
         content: Text(route.name),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(dialogContext).pop(false),
-            child: const Text('Cancel'),
+            child: Text(l10n.tripConfirmCancel),
           ),
           TextButton(
             onPressed: () => Navigator.of(dialogContext).pop(true),
-            child: const Text('OK'),
+            child: Text(l10n.tripConfirmOk),
           ),
         ],
       ),
@@ -136,8 +197,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
       if (context.mounted) {
         setState(() => _isStarting = false);
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Location permission is required to start a trip.'),
+          SnackBar(
+            content: Text(l10n.tripErrorLocationRequired),
           ),
         );
       }
@@ -149,7 +210,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
 
     if (context.mounted) {
       setState(() => _isStarting = false);
-      context.go(AppRoutes.tripMap, extra: route);
+      context.go(Constants.TRIP_MAP_ROUTE, extra: route);
     }
   }
+
 }

@@ -3,6 +3,7 @@ import 'dart:convert';
 import '../../core/network/api_client.dart';
 import '../../core/network/api_endpoints.dart';
 import '../../core/storage/local_storage_service.dart';
+import '../../core/utils/app_constants.dart';
 import '../models/route_response.dart';
 
 /// Ported from `TransportTask.GetRoutesTask` (networking) combined with
@@ -45,8 +46,10 @@ class RouteRepository {
     final response = await _apiClient.get(ApiEndpoints.route);
 
     if (response.statusCode == 204) {
-      // Matches the original's HTTP_NO_CONTENT -> "no route available"
-      // path.
+      final cached = getCachedRoutes();
+      if (cached.isNotEmpty) {
+        return cached;
+      }
       return [];
     }
 
@@ -64,7 +67,7 @@ class RouteRepository {
     final deduped = _dedupeByName(routes);
 
     await _storage.setString(
-      StorageKeys.allRoutes,
+      StorageKeys.ALL_ROUTES,
       jsonEncode(deduped.map((r) => r.toJson()).toList()),
     );
 
@@ -77,7 +80,7 @@ class RouteRepository {
   /// `AllRouteFragment.onCreateView` checking cache before its own
   /// fetch).
   List<RouteResponse> getCachedRoutes() {
-    final json = _storage.getString(StorageKeys.allRoutes);
+    final json = _storage.getString(StorageKeys.ALL_ROUTES);
     if (json == null) return [];
     final list = jsonDecode(json) as List<dynamic>;
     return list

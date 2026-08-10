@@ -1,0 +1,23 @@
+{
+  "@@locale": "mr",
+
+  "appTitleSchoolDiary": "SD Tracker",
+
+  "genericLoading": "लोड होत आहे, कृपया प्रतीक्षा करा",
+  "genericError": "क्षमस्व, आमच्या सर्व्हरवर त्रुटी आली आहे. कृपया पुन्हा प्रयत्न करा.",
+  "genericRetry": "पुन्हा प्रयत्न करा",
+
+  "loginEmailOrPhoneLabel": "Email or phone number",
+  "loginPasswordLabel": "Password",
+  "loginButton": "Login",
+  "loginForgotPassword": "Forgot password?",
+  "loginErrorEnterUsername": "Please enter username",
+  "loginErrorEnterPassword": "Please enter password",
+  "loginErrorInvalidEmailOrPhone": "Please enter a valid email or phone number",
+  "loginErrorFailed": "Login failed. Please try again.",
+  "forgotPasswordEmailLabel": "Email",
+  "forgotPasswordSend": "Send",
+  "forgotPasswordCancel": "Cancel",
+  "forgotPasswordSuccess": "If that email exists, a reset link has been sent.",
+  "forgotPasswordInvalidEmail": "Please enter a valid email"
+}

@@ -6,16 +6,19 @@ import '../../../core/utils/validators.dart';
 import '../../../data/models/user_role.dart';
 import '../../../data/repositories/auth_repository.dart';
 
-/// State for the login screen. Ported from the validation/progress-dialog
-/// flow in `LoginActivity`, but as declarative state instead of imperative
-/// Toast/ProgressDialog calls.
+enum LoginValidationError {
+  emptyUsername,
+  emptyPassword,
+  invalidEmailOrPhone,
+}
+
 sealed class LoginState {
   const LoginState();
 }
 
 class LoginIdle extends LoginState {
-  final String? fieldError; // e.g. "enter a valid email or phone"
-  const LoginIdle({this.fieldError});
+  final LoginValidationError? validationError;
+  const LoginIdle({this.validationError});
 }
 
 class LoginLoading extends LoginState {
@@ -28,8 +31,10 @@ class LoginSuccess extends LoginState {
 }
 
 class LoginFailure extends LoginState {
-  final String message;
-  const LoginFailure(this.message);
+  final String? message;
+  final bool isGenericError;
+
+  const LoginFailure({this.message, this.isGenericError = false});
 }
 
 class LoginViewModel extends StateNotifier<LoginState> {
@@ -37,38 +42,21 @@ class LoginViewModel extends StateNotifier<LoginState> {
 
   LoginViewModel(this._authRepository) : super(const LoginIdle());
 
-  /// Deliberately **not** a 1:1 port of the original's validation order —
-  /// flagging this as a real behavioral change, not just a comment fix.
-  ///
-  /// In `LoginActivity`, the email/phone format check happens first, in
-  /// the button's `onClick` handler, *before* `login()` is ever called.
-  /// Because an empty string fails both `isEmail()` and `isPhoneNo()`,
-  /// that means the original's own "Please enter username" / "Please
-  /// enter password" checks (inside `login()`) are unreachable dead code
-  /// in practice — an empty field always surfaces the generic "enter a
-  /// valid email" message instead, regardless of which field was empty.
-  ///
-  /// This version checks empty-username -> empty-password -> format, so
-  /// each case gets its own accurate message. This is a genuine UX
-  /// improvement over the original's effectively-dead validation
-  /// branches, not a neutral refactor — flagging it here in case you'd
-  /// rather I replicate the original's exact (arguably confusing)
-  /// behavior instead.
   Future<void> login({required String username, required String password}) async {
     final trimmedUsername = username.trim();
     final trimmedPassword = password.trim();
 
     if (trimmedUsername.isEmpty) {
-      state = const LoginIdle(fieldError: 'Please enter username');
+      state = const LoginIdle(validationError: LoginValidationError.emptyUsername);
       return;
     }
     if (trimmedPassword.isEmpty) {
-      state = const LoginIdle(fieldError: 'Please enter password');
+      state = const LoginIdle(validationError: LoginValidationError.emptyPassword);
       return;
     }
     if (!Validators.isEmailOrPhone(trimmedUsername)) {
       state = const LoginIdle(
-        fieldError: 'Please enter a valid email or phone number',
+        validationError: LoginValidationError.invalidEmailOrPhone,
       );
       return;
     }
@@ -81,9 +69,9 @@ class LoginViewModel extends StateNotifier<LoginState> {
       );
       state = LoginSuccess(user);
     } on ApiException catch (e) {
-      state = LoginFailure(e.message);
+      state = LoginFailure(message: e.message);
     } catch (_) {
-      state = const LoginFailure('Login failed. Please try again.');
+      state = const LoginFailure(isGenericError: true);
     }
   }
 
