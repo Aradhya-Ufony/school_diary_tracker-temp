@@ -8,7 +8,31 @@ abstract class Validators {
 
   static bool isPhoneNo(String text) => _phoneRegex.hasMatch(text.trim());
 
+  static bool isValidPhoneForCountry(String text, {required String countryCode}) {
+    final cleaned = text.replaceAll(RegExp(r'[\-\s()+\x00-\x1F]'), '').trim();
+    switch (countryCode.toUpperCase()) {
+      case 'US':
+      case 'CA':
+      case 'IN':
+        return cleaned.length == 10 && RegExp(r'^[0-9]+$').hasMatch(cleaned);
+      case 'IL':
+        return (cleaned.length == 9 || cleaned.length == 10) && RegExp(r'^[0-9]+$').hasMatch(cleaned);
+      default:
+        return cleaned.length >= 6 && cleaned.length <= 15 && RegExp(r'^[0-9]+$').hasMatch(cleaned);
+    }
+  }
+
   static bool isEmailOrPhone(String text) => isEmail(text) || isPhoneNo(text);
+
+  static bool isEmailOrValidPhone(String text, {required String countryCode}) {
+    if (isEmail(text)) return true;
+    // If it has manual prefix "+", it might contain the country code as well, so we can clean and check standard bounds.
+    if (text.trim().startsWith('+')) {
+      final cleaned = text.replaceAll(RegExp(r'[\-\s()+\x00-\x1F]'), '').trim();
+      return cleaned.length >= 7 && cleaned.length <= 15 && RegExp(r'^[0-9]+$').hasMatch(cleaned);
+    }
+    return isValidPhoneForCountry(text, countryCode: countryCode);
+  }
 
   static String currentTimeStamp() {
     final now = DateTime.now();

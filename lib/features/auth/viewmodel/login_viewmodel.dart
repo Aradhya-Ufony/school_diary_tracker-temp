@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../core/di/providers.dart';
 import '../../../core/network/api_exception.dart';
 import '../../../core/utils/validators.dart';
+import '../../../data/models/country.dart';
 import '../../../data/models/user_role.dart';
 import '../../../data/repositories/auth_repository.dart';
 
@@ -37,12 +38,25 @@ class LoginFailure extends LoginState {
   const LoginFailure({this.message, this.isGenericError = false});
 }
 
+final selectedCountryProvider = StateProvider<Country>((ref) {
+  return const Country(
+    name: 'United States',
+    code: 'US',
+    dialCode: 1,
+    displayDialCode: '+1',
+  );
+});
+
 class LoginViewModel extends StateNotifier<LoginState> {
   final AuthRepository _authRepository;
 
   LoginViewModel(this._authRepository) : super(const LoginIdle());
 
-  Future<void> login({required String username, required String password}) async {
+  Future<void> login({
+    required String username,
+    required String password,
+    required Country country,
+  }) async {
     final trimmedUsername = username.trim();
     final trimmedPassword = password.trim();
 
@@ -54,17 +68,31 @@ class LoginViewModel extends StateNotifier<LoginState> {
       state = const LoginIdle(validationError: LoginValidationError.emptyPassword);
       return;
     }
-    if (!Validators.isEmailOrPhone(trimmedUsername)) {
+
+    if (!Validators.isEmailOrValidPhone(trimmedUsername, countryCode: country.code)) {
       state = const LoginIdle(
         validationError: LoginValidationError.invalidEmailOrPhone,
       );
       return;
     }
 
+    // Payload Normalization
+    String finalUsername = trimmedUsername;
+    if (!Validators.isEmail(trimmedUsername)) {
+      if (trimmedUsername.startsWith('+')) {
+        // Manual prefix entered, send as-is
+        finalUsername = trimmedUsername;
+      } else {
+        // Numeric without prefix, concatenate selected country's dial code with phone digits
+        final cleanedPhone = trimmedUsername.replaceAll(RegExp(r'[\-\s()+\x00-\x1F]'), '');
+        finalUsername = '${country.displayDialCode}$cleanedPhone';
+      }
+    }
+
     state = const LoginLoading();
     try {
       final user = await _authRepository.login(
-        username: trimmedUsername,
+        username: finalUsername,
         password: trimmedPassword,
       );
       state = LoginSuccess(user);

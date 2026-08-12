@@ -3,8 +3,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../../../core/di/providers.dart';
 import '../../../core/utils/app_constants.dart';
+import '../../../data/models/country.dart';
 import '../../../l10n/generated/app_localizations.dart';
 import '../viewmodel/login_viewmodel.dart';
+import 'country_picker_sheet.dart';
 
 class LoginScreen extends ConsumerStatefulWidget {
   const LoginScreen({super.key});
@@ -16,18 +18,45 @@ class LoginScreen extends ConsumerStatefulWidget {
 class _LoginScreenState extends ConsumerState<LoginScreen> {
   final _usernameController = TextEditingController();
   final _passwordController = TextEditingController();
+  bool _showPrefix = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _usernameController.addListener(_onUsernameChanged);
+  }
 
   @override
   void dispose() {
+    _usernameController.removeListener(_onUsernameChanged);
     _usernameController.dispose();
     _passwordController.dispose();
     super.dispose();
+  }
+
+  void _onUsernameChanged() {
+    final text = _usernameController.text.trim();
+    final isNumeric = text.isNotEmpty && RegExp(r'^[0-9]+$').hasMatch(text);
+    final shouldShow = isNumeric && !text.startsWith('+');
+    if (shouldShow != _showPrefix) {
+      setState(() {
+        _showPrefix = shouldShow;
+      });
+    }
+  }
+
+  String _countryCodeToEmoji(String countryCode) {
+    if (countryCode.length != 2) return '🌐';
+    final int firstLetter = countryCode.toUpperCase().codeUnitAt(0) - 0x41 + 0x1F1E6;
+    final int secondLetter = countryCode.toUpperCase().codeUnitAt(1) - 0x41 + 0x1F1E6;
+    return String.fromCharCode(firstLetter) + String.fromCharCode(secondLetter);
   }
 
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     final loginState = ref.watch(loginViewModelProvider);
+    final selectedCountry = ref.watch(selectedCountryProvider);
 
     ref.listen<LoginState>(loginViewModelProvider, (previous, next) async {
       if (next is LoginSuccess) {
@@ -83,10 +112,80 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                       color: Colors.white,
                     ),
                     const SizedBox(height: 32),
+                    Align(
+                      alignment: Alignment.centerRight,
+                      child: InkWell(
+                        onTap: () async {
+                          final country = await CountryPickerSheet.show(context);
+                          if (country != null) {
+                            ref.read(selectedCountryProvider.notifier).state = country;
+                          }
+                        },
+                        borderRadius: BorderRadius.circular(16),
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+                          decoration: BoxDecoration(
+                            color: Colors.white.withOpacity(0.15),
+                            borderRadius: BorderRadius.circular(16),
+                            border: Border.all(color: Colors.white30, width: 1),
+                          ),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Text(
+                                _countryCodeToEmoji(selectedCountry.code),
+                                style: const TextStyle(fontSize: 14),
+                              ),
+                              const SizedBox(width: 4),
+                              Text(
+                                selectedCountry.name.length > 15
+                                    ? '${selectedCountry.name.substring(0, 15)}...'
+                                    : selectedCountry.name,
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                              const SizedBox(width: 2),
+                              const Icon(
+                                Icons.arrow_drop_down,
+                                color: Colors.white,
+                                size: 14,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 4),
                     _whiteTextField(
                       controller: _usernameController,
                       label: l10n.loginEmailOrPhoneLabel,
                       keyboardType: TextInputType.emailAddress,
+                      prefix: AnimatedSize(
+                        duration: const Duration(milliseconds: 250),
+                        curve: Curves.easeInOut,
+                        child: _showPrefix
+                            ? Container(
+                                margin: const EdgeInsets.only(right: 8.0, bottom: 2.0),
+                                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                                decoration: BoxDecoration(
+                                  color: Colors.white24,
+                                  borderRadius: BorderRadius.circular(4),
+                                  border: Border.all(color: Colors.white54, width: 1),
+                                ),
+                                child: Text(
+                                  selectedCountry.displayDialCode,
+                                  style: const TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 14,
+                                  ),
+                                ),
+                              )
+                            : const SizedBox.shrink(),
+                      ),
                     ),
                     const SizedBox(height: 16),
                     _whiteTextField(
@@ -108,6 +207,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                           : () => ref.read(loginViewModelProvider.notifier).login(
                         username: _usernameController.text,
                         password: _passwordController.text,
+                        country: selectedCountry,
                       ),
                       child: isLoading
                           ? const SizedBox(
@@ -143,6 +243,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     required String label,
     TextInputType? keyboardType,
     bool obscureText = false,
+    Widget? prefix,
   }) {
     return TextField(
       controller: controller,
@@ -153,6 +254,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
       decoration: InputDecoration(
         labelText: label,
         labelStyle: const TextStyle(color: Colors.white70),
+        prefix: prefix,
         enabledBorder: const UnderlineInputBorder(
           borderSide: BorderSide(color: Colors.white70),
         ),
