@@ -281,7 +281,7 @@ class _DrillSummaryScreenState extends ConsumerState<DrillSummaryScreen> {
                       style: const TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 14,
-                          color: Color(0xFF1E3A8A)),
+                          color: AppColors.PRIMARY),
                     ),
                   ],
                 ),
@@ -450,7 +450,7 @@ class _DrillSummaryScreenState extends ConsumerState<DrillSummaryScreen> {
                   width: double.infinity,
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFF1E3A8A),
+                      backgroundColor: AppColors.PRIMARY,
                       padding: const EdgeInsets.symmetric(vertical: 16),
                     ),
                     onPressed: () => context.go(Constants.DRILL_LIST_ROUTE),

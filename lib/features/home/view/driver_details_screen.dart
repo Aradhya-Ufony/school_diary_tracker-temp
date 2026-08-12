@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
+import '../../../core/utils/app_constants.dart';
 import '../../auth/viewmodel/login_viewmodel.dart';
 
 class DriverDetailsScreen extends ConsumerWidget {
@@ -21,7 +21,7 @@ class DriverDetailsScreen extends ConsumerWidget {
     const dob = '';
     const endorsements = '';
 
-    const primaryColor = Color(0xFF1E3A8A);
+    const primaryColor = AppColors.PRIMARY;
 
     return Scaffold(
       appBar: AppBar(
@@ -396,7 +396,7 @@ class DriverDetailsScreen extends ConsumerWidget {
             decoration: BoxDecoration(
               color: const Color(0xFFF1F5F9),
               borderRadius: BorderRadius.circular(20),
-              border: Border.all(color: const Color(0xFF1E3A8A), width: 3),
+              border: Border.all(color: AppColors.PRIMARY, width: 3),
               boxShadow: [
                 BoxShadow(
                   color: Colors.black.withOpacity(0.3),
@@ -413,11 +413,11 @@ class DriverDetailsScreen extends ConsumerWidget {
                   children: [
                     const Row(
                       children: [
-                        Icon(Icons.security, color: Color(0xFF1E3A8A)),
+                        Icon(Icons.security, color: AppColors.PRIMARY),
                         SizedBox(width: 8),
                         Text(
                           'NATIONAL DRIVER LICENSE',
-                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14, color: Color(0xFF1E3A8A)),
+                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14, color: AppColors.PRIMARY),
                         ),
                       ],
                     ),

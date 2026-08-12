@@ -52,11 +52,13 @@ class StopsState {
 class StopsViewModel extends StateNotifier<StopsState> {
   final StopsRepository _stopsRepository;
   final int activeRouteId;
+  final String routeName;
   final bool isUndoMode;
 
   StopsViewModel({
     required StopsRepository stopsRepository,
     required this.activeRouteId,
+    required this.routeName,
     required this.isUndoMode,
   })  : _stopsRepository = stopsRepository,
         super(const StopsState()) {
@@ -69,6 +71,12 @@ class StopsViewModel extends StateNotifier<StopsState> {
       // Single-route list — see StopsRepository's doc comment on why this
       // isn't the original's full-route-list batching.
       final result = await _stopsRepository.getStops([activeRouteId]);
+      
+      // Recount stop headers based on visibility constraints
+      for (final stop in result.stops) {
+        _recount(stop);
+      }
+
       state = state.copyWith(
         isLoading: false,
         stops: result.stops,
@@ -86,9 +94,20 @@ class StopsViewModel extends StateNotifier<StopsState> {
 
   Future<void> refresh() => _load();
 
+  bool _isChildActionEnabled(StopChild child) {
+    final nameUpper = routeName.trim().toUpperCase();
+    if (nameUpper.endsWith('(IN)')) {
+      return child.type == 'pick';
+    } else if (nameUpper.endsWith('(OUT)')) {
+      return child.type == 'drop';
+    }
+    return true; // default if neither
+  }
+
   /// Toggles one child's checkbox — matches the original's checkbox-tap
   /// branch (`isDrop = false` call site): visual-only, no network call.
   void toggleChild(RouteStop stop, StopChild child) {
+    if (!isUndoMode && !_isChildActionEnabled(child)) return;
     child.checked = !child.checked;
     _recount(stop);
     state = state.copyWith(stops: [...state.stops]);
@@ -97,7 +116,10 @@ class StopsViewModel extends StateNotifier<StopsState> {
   /// Matches the stop-level "select all" checkbox.
   void toggleSelectAll(RouteStop stop) {
     stop.allSelected = !stop.allSelected;
-    for (final child in stop.children) {
+    final targetChildren = isUndoMode
+        ? stop.children.where((c) => c.pickedOrDropped)
+        : stop.children.where((c) => !c.pickedOrDropped && _isChildActionEnabled(c));
+    for (final child in targetChildren) {
       child.checked = stop.allSelected;
     }
     _recount(stop);
@@ -113,9 +135,12 @@ class StopsViewModel extends StateNotifier<StopsState> {
   }
 
   void _recount(RouteStop stop) {
-    stop.selectedCount = stop.children.where((c) => c.checked).length;
+    final targetChildren = isUndoMode
+        ? stop.children.where((c) => c.pickedOrDropped)
+        : stop.children.where((c) => !c.pickedOrDropped && _isChildActionEnabled(c));
+    stop.selectedCount = targetChildren.where((c) => c.checked).length;
     stop.allSelected =
-        stop.children.isNotEmpty && stop.selectedCount == stop.children.length;
+        targetChildren.isNotEmpty && stop.selectedCount == targetChildren.length;
   }
 
   /// Matches the original's `children != null` branch: submit just one
@@ -144,7 +169,10 @@ class StopsViewModel extends StateNotifier<StopsState> {
     bool isDropDirection = true;
 
     for (final stop in state.stops) {
-      for (final child in stop.children) {
+      final targetChildren = isUndoMode
+          ? stop.children.where((c) => c.pickedOrDropped)
+          : stop.children.where((c) => !c.pickedOrDropped && _isChildActionEnabled(c));
+      for (final child in targetChildren) {
         if (!child.checked) continue;
         final routeId = _routeIdFor(child.id);
         if (routeId == null) continue;
@@ -197,22 +225,29 @@ final stopsViewModelProvider = StateNotifierProvider.autoDispose
   return StopsViewModel(
     stopsRepository: ref.watch(stopsRepositoryProvider),
     activeRouteId: args.routeId,
+    routeName: args.routeName,
     isUndoMode: args.isUndoMode,
   );
 });
 
 class StopsArgs {
   final int routeId;
+  final String routeName;
   final bool isUndoMode;
 
-  const StopsArgs({required this.routeId, this.isUndoMode = false});
+  const StopsArgs({
+    required this.routeId,
+    required this.routeName,
+    this.isUndoMode = false,
+  });
 
   @override
   bool operator ==(Object other) =>
       other is StopsArgs &&
       other.routeId == routeId &&
+      other.routeName == routeName &&
       other.isUndoMode == isUndoMode;
 
   @override
-  int get hashCode => Object.hash(routeId, isUndoMode);
+  int get hashCode => Object.hash(routeId, routeName, isUndoMode);
 }

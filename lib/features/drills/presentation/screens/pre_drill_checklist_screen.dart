@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import '../../../../core/utils/app_constants.dart';
 import '../providers/drill_providers.dart';
 
 class PreDrillChecklistScreen extends ConsumerWidget {
@@ -10,6 +11,124 @@ class PreDrillChecklistScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(drillChecklistProvider);
     final notifier = ref.read(drillChecklistProvider.notifier);
+
+    final onBusStudents = state.items.values.where((item) => item.wasOnBus).toList()
+      ..sort((a, b) => a.childName.toLowerCase().compareTo(b.childName.toLowerCase()));
+
+    final absentStudents = state.items.values.where((item) => !item.wasOnBus).toList()
+      ..sort((a, b) => a.childName.toLowerCase().compareTo(b.childName.toLowerCase()));
+
+    final listItems = <Widget>[
+      // Section 1: ON BUS
+      Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              'ON BUS (${onBusStudents.length})',
+              style: const TextStyle(fontWeight: FontWeight.bold, color: AppColors.PRIMARY, fontSize: 14),
+            ),
+            Text(
+              'Evacuated: ${state.evacuatedCount}/${state.totalOnBus}',
+              style: const TextStyle(fontWeight: FontWeight.bold, color: Color(0xFF16A34A), fontSize: 14),
+            ),
+          ],
+        ),
+      ),
+      if (onBusStudents.isEmpty)
+        const Padding(
+          padding: EdgeInsets.symmetric(vertical: 24, horizontal: 16),
+          child: Center(
+            child: Text(
+              'No students marked on bus.',
+              style: TextStyle(fontStyle: FontStyle.italic, color: Colors.grey),
+            ),
+          ),
+        )
+      else
+        ...onBusStudents.map((item) => Container(
+              key: ValueKey('on_bus_${item.childId}'),
+              margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(8),
+                border: Border.all(
+                  color: item.isUnaccounted ? const Color(0xFFDC2626) : Colors.grey.shade300,
+                  width: item.isUnaccounted ? 2.0 : 1.0,
+                ),
+                color: item.isUnaccounted ? const Color(0xFFFEF2F2) : Colors.white,
+              ),
+              child: CheckboxListTile(
+                activeColor: AppColors.PRIMARY,
+                title: Text(
+                  item.childName,
+                  style: TextStyle(
+                    fontWeight: item.isUnaccounted ? FontWeight.bold : FontWeight.normal,
+                    color: item.isUnaccounted ? const Color(0xFF991B1B) : Colors.black,
+                  ),
+                ),
+                subtitle: Text(
+                  item.isEvacuated ? 'Evacuated' : 'ON BUS — NOT EVACUATED',
+                  style: TextStyle(
+                    color: item.isUnaccounted ? const Color(0xFFDC2626) : Colors.grey,
+                  ),
+                ),
+                value: item.isEvacuated,
+                onChanged: (val) => notifier.toggleEvacuated(item.childId, val ?? false),
+              ),
+            )),
+
+      const SizedBox(height: 12),
+      // Section 2: ABSENT
+      Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        child: Text(
+          'ABSENT / NOT ON BUS (${absentStudents.length})',
+          style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.grey, fontSize: 14),
+        ),
+      ),
+      if (absentStudents.isEmpty)
+        const Padding(
+          padding: EdgeInsets.symmetric(vertical: 24, horizontal: 16),
+          child: Center(
+            child: Text(
+              'No absent students.',
+              style: TextStyle(fontStyle: FontStyle.italic, color: Colors.grey),
+            ),
+          ),
+        )
+      else
+        ...absentStudents.map((item) => Container(
+              key: ValueKey('absent_${item.childId}'),
+              margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(8),
+                border: Border.all(
+                  color: Colors.grey.shade300,
+                  width: 1.0,
+                ),
+                color: Colors.grey.shade100,
+              ),
+              child: ListTile(
+                title: Text(
+                  item.childName,
+                  style: const TextStyle(
+                    fontStyle: FontStyle.italic,
+                    fontWeight: FontWeight.normal,
+                    color: Colors.black54,
+                  ),
+                ),
+                subtitle: const Text(
+                  'NOT ON BUS',
+                  style: TextStyle(
+                    fontStyle: FontStyle.italic,
+                    color: Colors.grey,
+                  ),
+                ),
+                enabled: false,
+              ),
+            )),
+    ];
 
     return Scaffold(
       appBar: AppBar(
@@ -78,58 +197,8 @@ class PreDrillChecklistScreen extends ConsumerWidget {
                       ),
                     ),
                     Expanded(
-                      child: ListView.builder(
-                        itemCount: state.items.length,
-                        itemBuilder: (context, index) {
-                          final item = state.items.values.elementAt(index);
-                          return Container(
-                            margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(8),
-                              border: Border.all(
-                                color: item.isUnaccounted ? const Color(0xFFDC2626) : Colors.grey.shade300,
-                                width: item.isUnaccounted ? 2.0 : 1.0,
-                              ),
-                              color: item.wasOnBus ? (item.isUnaccounted ? const Color(0xFFFEF2F2) : Colors.white) : Colors.grey.shade300,
-                            ),
-                            child: item.wasOnBus
-                            ? CheckboxListTile(
-                              title: Text(
-                                item.childName,
-                                style: TextStyle(
-                                  fontWeight: item.isUnaccounted ? FontWeight.bold : FontWeight.normal,
-                                  color: item.isUnaccounted ? const Color(0xFF991B1B) : Colors.black,
-                                ),
-                              ),
-                              subtitle: Text(
-                                item.isEvacuated ? 'Evacuated' : 'ON BUS — NOT EVACUATED',
-                                style: TextStyle(
-                                  color: item.isUnaccounted ? const Color(0xFFDC2626) : Colors.grey,
-                                ),
-                              ),
-                              value: item.isEvacuated,
-                              onChanged: (val) => notifier.toggleEvacuated(item.childId, val ?? false),
-                            )
-                            : ListTile(
-                              title: Text(
-                                item.childName,
-                                style: TextStyle(
-                                  fontStyle: FontStyle.italic,
-                                  fontWeight: FontWeight.normal,
-                                  color: Colors.black,
-                                ),
-                              ),
-                              subtitle: Text(
-                                'NOT ON BUS',
-                                style: TextStyle(
-                                  fontStyle: FontStyle.italic,
-                                  color: Colors.black,
-                                ),
-                              ),
-                              enabled: false,
-                            )
-                          );
-                        },
+                      child: ListView(
+                        children: listItems,
                       ),
                     ),
                     Container(
@@ -137,7 +206,7 @@ class PreDrillChecklistScreen extends ConsumerWidget {
                       width: double.infinity,
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color(0xFF1E3A8A),
+                          backgroundColor: AppColors.PRIMARY,
                           padding: const EdgeInsets.symmetric(vertical: 16),
                         ),
                         onPressed: () => context.push('/drills/evidence'),

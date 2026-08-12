@@ -2,6 +2,5 @@ flutter_launcher_icons:
   image_path: "assets/icons/launcher_icon_school_diary.png"
   android: true
   ios: true
-  adaptive_icon_background: "#2c98a3"
+  adaptive_icon_background: "#03a8f4"
   adaptive_icon_foreground: "assets/icons/launcher_icon_school_diary.png"
-  adaptive_icon_foreground_inset: 24

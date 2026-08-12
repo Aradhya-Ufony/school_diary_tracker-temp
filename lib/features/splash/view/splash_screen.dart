@@ -27,12 +27,13 @@ class SplashScreen extends ConsumerWidget {
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 20),
-          child: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  // Small badge overlay — matches SplashActivity's `splash_icon` ImageView.
-                  ClipRRect(
+          child: Stack(
+            children: [
+              // 1. Pinned to the top center
+              Align(
+                alignment: Alignment.topCenter,
+                child: SafeArea(
+                  child: ClipRRect(
                     borderRadius: BorderRadius.circular(12),
                     child: Image.asset(
                       'assets/images/ufony_icon.png',
@@ -40,16 +41,34 @@ class SplashScreen extends ConsumerWidget {
                       height: 50,
                     ),
                   ),
-                  const SizedBox(height: 16),
-                  // Large bus illustration — matches SplashActivity's `splash_image` ImageView.
-                  Image.asset(
-                    'assets/images/school_bus.png',
-                    width: 200,
-                    height: 200,
-                  ),
-                ],
+                ),
               ),
-            ),
+
+              // 2. Pinned to the exact center of the screen
+              Align(
+                alignment: Alignment.center,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Image.asset(
+                      'assets/images/school_bus_splash.png',
+                      width: 200,
+                      height: 200,
+                    ),
+                    const SizedBox(height: 10),
+                    const Text(
+                      "School Diary Tracker",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 30,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

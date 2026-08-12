@@ -25,7 +25,7 @@ class StopsScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = AppLocalizations.of(context)!;
-    final args = StopsArgs(routeId: routeId, isUndoMode: isUndoMode);
+    final args = StopsArgs(routeId: routeId, routeName: routeName, isUndoMode: isUndoMode);
     final state = ref.watch(stopsViewModelProvider(args));
     final viewModel = ref.read(stopsViewModelProvider(args).notifier);
 
@@ -60,26 +60,44 @@ class StopsScreen extends ConsumerWidget {
             ? const Center(child: CircularProgressIndicator())
             : state.error != null && state.stops.isEmpty
                 ? Center(child: Text(state.error!))
-                : ListView.builder(
-                    itemCount: state.stops.length,
-                    itemBuilder: (context, index) {
-                      final stop = state.stops[index];
-                      return _StopCard(
-                        stop: stop,
-                        isUndoMode: isUndoMode,
-                        onToggleSelectAll: () => viewModel.toggleSelectAll(stop),
-                        onToggleExpanded: () => viewModel.toggleExpanded(stop),
-                        onToggleChild: (child) =>
-                            viewModel.toggleChild(stop, child),
-                        onSubmitSingle: (child) async {
-                          final ok = await viewModel.submitSingleChild(child);
-                          if (context.mounted) {
-                            _showResultSnackBar(context, ok, isUndoMode);
-                          }
-                        },
+                : () {
+                    final displayStops = isUndoMode
+                        ? state.stops
+                            .where((s) => s.children.any((c) => c.pickedOrDropped))
+                            .toList()
+                        : state.stops;
+                    if (displayStops.isEmpty) {
+                      return Center(
+                        child: Text(
+                          isUndoMode
+                              ? 'No changes available to undo.'
+                              : 'No stops available.',
+                          style: const TextStyle(fontSize: 16),
+                        ),
                       );
-                    },
-                  ),
+                    }
+                    return ListView.builder(
+                      itemCount: displayStops.length,
+                      itemBuilder: (context, index) {
+                        final stop = displayStops[index];
+                        return _StopCard(
+                          stop: stop,
+                          routeName: routeName,
+                          isUndoMode: isUndoMode,
+                          onToggleSelectAll: () => viewModel.toggleSelectAll(stop),
+                          onToggleExpanded: () => viewModel.toggleExpanded(stop),
+                          onToggleChild: (child) =>
+                              viewModel.toggleChild(stop, child),
+                          onSubmitSingle: (child) async {
+                            final ok = await viewModel.submitSingleChild(child);
+                            if (context.mounted) {
+                              _showResultSnackBar(context, ok, isUndoMode);
+                            }
+                          },
+                        );
+                      },
+                    );
+                  }(),
       ),
       floatingActionButton: checkedCount == 0
           ? null
@@ -116,6 +134,7 @@ class StopsScreen extends ConsumerWidget {
 
 class _StopCard extends StatelessWidget {
   final RouteStop stop;
+  final String routeName;
   final bool isUndoMode;
   final VoidCallback onToggleSelectAll;
   final VoidCallback onToggleExpanded;
@@ -124,6 +143,7 @@ class _StopCard extends StatelessWidget {
 
   const _StopCard({
     required this.stop,
+    required this.routeName,
     required this.isUndoMode,
     required this.onToggleSelectAll,
     required this.onToggleExpanded,
@@ -131,9 +151,24 @@ class _StopCard extends StatelessWidget {
     required this.onSubmitSingle,
   });
 
+  bool _isChildActionEnabled(StopChild child, String routeName) {
+    final nameUpper = routeName.trim().toUpperCase();
+    if (nameUpper.endsWith('(IN)')) {
+      return child.type == 'pick';
+    } else if (nameUpper.endsWith('(OUT)')) {
+      return child.type == 'drop';
+    }
+    return true; // default if neither
+  }
+
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
+    final checkableChildren = isUndoMode
+        ? stop.children.where((c) => c.pickedOrDropped)
+        : stop.children.where((c) => !c.pickedOrDropped && _isChildActionEnabled(c, routeName));
+    final hasCheckable = checkableChildren.isNotEmpty;
+
     return Card(
       margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
       child: Column(
@@ -141,7 +176,7 @@ class _StopCard extends StatelessWidget {
         children: [
           CheckboxListTile(
             value: stop.allSelected,
-            onChanged: (_) => onToggleSelectAll(),
+            onChanged: hasCheckable ? (_) => onToggleSelectAll() : null,
             title: Text(
               stop.address ?? l10n.stopsDefaultLabel,
               style: const TextStyle(fontWeight: FontWeight.bold),
@@ -150,7 +185,7 @@ class _StopCard extends StatelessWidget {
               l10n.stopsSummary(
                 stop.selectedCount,
                 stop.totalPickedDropped,
-                stop.children.length,
+                isUndoMode ? stop.totalPickedDropped : stop.children.length,
                 isUndoMode ? l10n.stopsStatusDone : l10n.stopsStatusComplete,
               ),
             ),
@@ -163,9 +198,51 @@ class _StopCard extends StatelessWidget {
             ),
           ),
           if (stop.expanded)
-            ...stop.children.map(
+            ...(isUndoMode
+                    ? stop.children.where((c) => c.pickedOrDropped)
+                    : stop.children)
+                .map(
               (child) {
                 final resolvedUrl = resolveImageUrl(child.photoUrl);
+                final actionEnabled = _isChildActionEnabled(child, routeName);
+
+                // Hide checkbox if not in undo mode and either action is disabled or already completed
+                final hideCheckbox = !isUndoMode && (!actionEnabled || child.pickedOrDropped);
+
+                if (hideCheckbox) {
+                  return ListTile(
+                    leading: const SizedBox(
+                      width: 24, // aligns with checkbox spacing
+                    ),
+                    title: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        CircleAvatar(
+                          radius: 18,
+                          backgroundImage: resolvedUrl != null
+                              ? NetworkImage(resolvedUrl)
+                              : const AssetImage(Constants.CONTACT_AVATAR)
+                                  as ImageProvider,
+                        ),
+                        const SizedBox(width: 12),
+                        Expanded(child: Text(child.fullName)),
+                      ],
+                    ),
+                    trailing: TextButton(
+                      onPressed: null, // Disabled
+                      child: Text(
+                        child.pickedOrDropped
+                            ? (child.type == 'pick'
+                                ? l10n.childrenStatusPicked
+                                : l10n.childrenStatusDropped)
+                            : (child.type == 'pick'
+                                ? l10n.stopsTypePick
+                                : l10n.stopsTypeDrop),
+                      ),
+                    ),
+                  );
+                }
+
                 return CheckboxListTile(
                   value: child.checked,
                   onChanged: (_) => onToggleChild(child),
@@ -184,9 +261,7 @@ class _StopCard extends StatelessWidget {
                     ],
                   ),
                   secondary: TextButton(
-                    onPressed: child.pickedOrDropped && !isUndoMode
-                        ? null
-                        : () => onSubmitSingle(child),
+                    onPressed: () => onSubmitSingle(child),
                     child: Text(
                       isUndoMode
                           ? l10n.stopsActionUndo

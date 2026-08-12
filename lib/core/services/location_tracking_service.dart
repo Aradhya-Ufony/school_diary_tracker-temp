@@ -15,41 +15,35 @@ class LocationTrackingService {
   StreamSubscription<Position>? _subscription;
   final _positionController = StreamController<UserLocation>.broadcast();
 
-  bool _isFirstFix = true;
-  int? _tripId;
+
 
   Stream<UserLocation> get positionStream => _positionController.stream;
 
   bool get isRunning => _subscription != null;
-  int? get currentTripId => _tripId;
+  int? get currentTripId => _tripRepository.activeTripId;
 
   Future<bool> requestPermissions() async {
+    final serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      return false;
+    }
+
     var permission = await Geolocator.checkPermission();
     if (permission == LocationPermission.denied) {
       permission = await Geolocator.requestPermission();
     }
+
     if (permission == LocationPermission.denied ||
         permission == LocationPermission.deniedForever) {
       return false;
     }
 
-    if (Platform.isIOS) {
-      // "Always" is requested separately on iOS/geolocator — see the
-      // class doc comment above for why this matters for background
-      // tracking specifically.
-      if (permission != LocationPermission.always) {
-        permission = await Geolocator.requestPermission();
-      }
-    }
-
-    return await Geolocator.isLocationServiceEnabled();
+    return true;
   }
 
 
   Future<void> start(RouteResponse route) async {
     await stop();
-    _isFirstFix = true;
-    _tripId = null;
 
     final settings = _buildLocationSettings();
 
@@ -66,15 +60,10 @@ class LocationTrackingService {
     _positionController.add(location);
 
     try {
-      if (_isFirstFix) {
-        _tripId = await _tripRepository.startTrip(
-          route: route,
-          location: location,
-        );
-        _isFirstFix = false;
-      } else if (_tripId != null) {
+      final tripId = _tripRepository.activeTripId;
+      if (tripId != null) {
         await _tripRepository.updateLocation(
-          tripId: _tripId!,
+          tripId: tripId,
           location: location,
         );
       }

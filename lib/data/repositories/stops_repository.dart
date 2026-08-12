@@ -1,6 +1,7 @@
 import 'dart:convert';
 import '../../core/network/api_client.dart';
 import '../../core/network/api_endpoints.dart';
+import '../../core/storage/local_storage_service.dart';
 import '../models/child_pick_drop_request.dart';
 import '../models/route_stop.dart';
 
@@ -19,8 +20,13 @@ import '../models/route_stop.dart';
 /// multi-route batching — ask before assuming either way.
 class StopsRepository {
   final ApiClient _apiClient;
+  final LocalStorageService _storage;
 
-  StopsRepository({required ApiClient apiClient}) : _apiClient = apiClient;
+  StopsRepository({
+    required ApiClient apiClient,
+    required LocalStorageService storage,
+  })  : _apiClient = apiClient,
+        _storage = storage;
 
   /// Returns stops keyed by route ID, matching the original's
   /// `RouteMap: HashMap<Long, HashSet<Long>>` (route -> the set of child
@@ -32,19 +38,38 @@ class StopsRepository {
   /// built it for).
   Future<StopsResult> getStops(List<int> routeIds) async {
     final routeIdsParam = routeIds.join(',');
-    final response = await _apiClient.get(
-      ApiEndpoints.tripRoutesStops,
-      query: {'routeIds': routeIdsParam},
-    );
+    final cacheKey = 'stops_data_$routeIdsParam';
+    dynamic list;
 
-    if (response.statusCode == 204) {
-      // Matches the original's HTTP_NO_CONTENT -> "route not active" path.
-      throw const RouteNotActiveException();
+    try {
+      final response = await _apiClient.get(
+        ApiEndpoints.tripRoutesStops,
+        query: {'routeIds': routeIdsParam},
+      );
+
+      if (response.statusCode == 204) {
+        // Matches the original's HTTP_NO_CONTENT -> "route not active" path.
+        throw const RouteNotActiveException();
+      }
+
+      list = response.data is String
+          ? jsonDecode(response.data as String) as List<dynamic>
+          : response.data as List<dynamic>;
+
+      // Cache the raw JSON data
+      await _storage.setString(cacheKey, jsonEncode(list));
+    } catch (e) {
+      if (e is RouteNotActiveException) {
+        rethrow;
+      }
+      // Attempt to load from cache
+      final cachedJson = _storage.getString(cacheKey);
+      if (cachedJson != null) {
+        list = jsonDecode(cachedJson) as List<dynamic>;
+      } else {
+        rethrow;
+      }
     }
-
-    final list = response.data is String
-        ? jsonDecode(response.data as String) as List<dynamic>
-        : response.data as List<dynamic>;
 
     final stops = <RouteStop>[];
     final routeMap = <int, Set<int>>{};
@@ -78,10 +103,16 @@ class StopsRepository {
     required bool isDrop,
   }) async {
     final endpoint = isDrop ? ApiEndpoints.droppedTo : ApiEndpoints.pickedFrom;
-    await _apiClient.post(
-      endpoint,
-      data: payload.map((p) => p.toJson()).toList(),
-    );
+    for (final p in payload) {
+      await _apiClient.post(
+        endpoint,
+        data: {
+          'routeId': p.routeId,
+          'children': [p.childId.join(',')],
+          'timeStamp': p.timeStamp,
+        },
+      );
+    }
   }
 
   /// Ported from `UndochildPickDropTask` — notably, the original does
@@ -90,10 +121,16 @@ class StopsRepository {
   /// (the server infers what's being undone from existing state). Matched
   /// exactly — no `isDrop` parameter here at all, on purpose.
   Future<void> cancelPickDrop(List<ChildPickDropRequest> payload) async {
-    await _apiClient.post(
-      ApiEndpoints.cancelPickDrop,
-      data: payload.map((p) => p.toJson()).toList(),
-    );
+    for (final p in payload) {
+      await _apiClient.post(
+        ApiEndpoints.cancelPickDrop,
+        data: {
+          'routeId': p.routeId,
+          'children': [p.childId.join(',')],
+          'timeStamp': p.timeStamp,
+        },
+      );
+    }
   }
 }
 

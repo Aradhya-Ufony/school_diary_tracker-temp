@@ -62,6 +62,7 @@ class TripViewModel extends StateNotifier<TripState> {
 
   StreamSubscription<UserLocation>? _positionSub;
   Timer? _watchdogTimer;
+  int _pollTicks = 0;
 
   TripViewModel({
     required this.route,
@@ -89,6 +90,7 @@ class TripViewModel extends StateNotifier<TripState> {
         isLoadingStops: false,
         stops: result.stops,
       );
+      await _pollBusLocation();
     } catch (e) {
       state = state.copyWith(
         isLoadingStops: false,
@@ -97,12 +99,25 @@ class TripViewModel extends StateNotifier<TripState> {
     }
   }
 
+  Future<void> _pollBusLocation() async {
+    final tripId = _tripRepository.activeTripId;
+    if (tripId == null) return;
+    try {
+      final loc = await _tripRepository.getTripLocation(tripId);
+      if (loc != null) {
+        state = state.copyWith(
+          currentPosition: loc,
+          secondsSinceLastUpdate: 0,
+          showReconnectWarning: false,
+        );
+      }
+    } catch (_) {}
+  }
+
   void _onPosition(UserLocation location) {
-    state = state.copyWith(
-      currentPosition: location,
-      secondsSinceLastUpdate: 0,
-      showReconnectWarning: false,
-    );
+    // Local driver device updates are sent to the server in background.
+    // The bus location displayed on the map is polled from the server.
+    // So we do not update currentPosition here.
   }
 
   void _tick() {
@@ -111,6 +126,11 @@ class TripViewModel extends StateNotifier<TripState> {
       secondsSinceLastUpdate: next,
       showReconnectWarning: next % 65 == 0,
     );
+    _pollTicks++;
+    if (_pollTicks >= 5) {
+      _pollTicks = 0;
+      _pollBusLocation();
+    }
   }
 
   void dismissReconnectWarning() {

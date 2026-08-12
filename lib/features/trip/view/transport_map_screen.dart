@@ -10,15 +10,28 @@ import '../../../l10n/generated/app_localizations.dart';
 import '../viewmodel/trip_viewmodel.dart';
 
 /// Flutter equivalent of `TransportActivity` + `transport_activity.xml`.
-class TransportMapScreen extends ConsumerWidget {
+class TransportMapScreen extends ConsumerStatefulWidget {
   final RouteResponse route;
 
   const TransportMapScreen({super.key, required this.route});
 
+  @override
+  ConsumerState<TransportMapScreen> createState() => _TransportMapScreenState();
+}
+
+class _TransportMapScreenState extends ConsumerState<TransportMapScreen> {
   static const _defaultPosition = LatLng(21.0000, 78.0000);
+  GoogleMapController? _mapController;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  void dispose() {
+    _mapController?.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final route = widget.route;
     final l10n = AppLocalizations.of(context)!;
     final state = ref.watch(tripViewModelProvider(route));
 
@@ -30,7 +43,23 @@ class TransportMapScreen extends ConsumerWidget {
                 route.startLocation!.longitude)
             : _defaultPosition);
 
-    ref.listen(tripViewModelProvider(route), (previous, next) {
+    ref.listen<TripState>(tripViewModelProvider(route), (previous, next) {
+      if (next.error != null && (previous == null || previous.error != next.error)) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(next.error!),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
+      if (next.currentPosition != null &&
+          (previous == null || previous.currentPosition != next.currentPosition)) {
+        _mapController?.animateCamera(
+          CameraUpdate.newLatLng(
+            LatLng(next.currentPosition!.latitude, next.currentPosition!.longitude),
+          ),
+        );
+      }
       if (next.showReconnectWarning && context.mounted) {
         _showReconnectWarning(context, ref);
       }
@@ -46,9 +75,37 @@ class TransportMapScreen extends ConsumerWidget {
       ),
     };
 
+    if (route.startLocation != null) {
+      markers.add(
+        Marker(
+          markerId: const MarkerId('start_location'),
+          position: LatLng(route.startLocation!.latitude, route.startLocation!.longitude),
+          icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueOrange),
+          infoWindow: InfoWindow(
+            title: 'Start Location',
+            snippet: route.name,
+          ),
+        ),
+      );
+    }
+
+    if (route.endLocation != null) {
+      markers.add(
+        Marker(
+          markerId: const MarkerId('end_location'),
+          position: LatLng(route.endLocation!.latitude, route.endLocation!.longitude),
+          icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueOrange),
+          infoWindow: InfoWindow(
+            title: 'End Location',
+            snippet: route.name,
+          ),
+        ),
+      );
+    }
+
     final polylinePoints = <LatLng>[];
-    if (state.currentPosition != null) {
-      polylinePoints.add(busPosition);
+    if (route.startLocation != null) {
+      polylinePoints.add(LatLng(route.startLocation!.latitude, route.startLocation!.longitude));
     }
 
     for (final stop in state.stops) {
@@ -71,6 +128,10 @@ class TransportMapScreen extends ConsumerWidget {
           ),
         );
       }
+    }
+
+    if (route.endLocation != null) {
+      polylinePoints.add(LatLng(route.endLocation!.latitude, route.endLocation!.longitude));
     }
 
     return PopScope(
@@ -117,6 +178,9 @@ class TransportMapScreen extends ConsumerWidget {
             GoogleMap(
               initialCameraPosition:
                   CameraPosition(target: busPosition, zoom: 15),
+              onMapCreated: (controller) {
+                _mapController = controller;
+              },
               markers: markers,
               polylines: {
                 if (polylinePoints.length > 1)
@@ -171,9 +235,9 @@ class TransportMapScreen extends ConsumerWidget {
     if (confirmed != true || !context.mounted) return;
 
     final stopped =
-        await ref.read(tripViewModelProvider(route).notifier).stopTrip();
+        await ref.read(tripViewModelProvider(widget.route).notifier).stopTrip();
     if (stopped && context.mounted) {
-      context.go(Constants.HOME_ROUTE);
+      context.go(Constants.DVIR_POST_TRIP_ROUTE, extra: widget.route);
     }
   }
 
@@ -188,7 +252,7 @@ class TransportMapScreen extends ConsumerWidget {
           TextButton(
             onPressed: () {
               ref
-                  .read(tripViewModelProvider(route).notifier)
+                  .read(tripViewModelProvider(widget.route).notifier)
                   .dismissReconnectWarning();
               Navigator.of(dialogContext).pop();
             },

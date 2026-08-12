@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import '../../core/network/api_client.dart';
 import '../../core/network/api_endpoints.dart';
+import '../../core/storage/local_storage_service.dart';
 import '../models/child_with_guardians.dart';
 
 /// **This whole feature is restored, not ported** — flagging clearly why.
@@ -26,16 +27,37 @@ import '../models/child_with_guardians.dart';
 /// and cached for nothing. Flag if you'd rather this stayed unbuilt.
 class ChildrenRepository {
   final ApiClient _apiClient;
+  final LocalStorageService _storage;
 
-  ChildrenRepository({required ApiClient apiClient}) : _apiClient = apiClient;
+  ChildrenRepository({
+    required ApiClient apiClient,
+    required LocalStorageService storage,
+  })  : _apiClient = apiClient,
+        _storage = storage;
 
   Future<List<ChildWithGuardians>> getChildren(int routeId) async {
-    final response =
-        await _apiClient.get('${ApiEndpoints.routeChildren}/$routeId');
+    final cacheKey = 'children_data_$routeId';
+    dynamic list;
 
-    final list = response.data is String
-        ? jsonDecode(response.data as String) as List<dynamic>
-        : response.data as List<dynamic>;
+    try {
+      final response =
+          await _apiClient.get('${ApiEndpoints.routeChildren}/$routeId');
+
+      list = response.data is String
+          ? jsonDecode(response.data as String) as List<dynamic>
+          : response.data as List<dynamic>;
+
+      // Cache the raw JSON data
+      await _storage.setString(cacheKey, jsonEncode(list));
+    } catch (e) {
+      // Attempt to load from cache
+      final cachedJson = _storage.getString(cacheKey);
+      if (cachedJson != null) {
+        list = jsonDecode(cachedJson) as List<dynamic>;
+      } else {
+        rethrow;
+      }
+    }
 
     return list
         .map((e) => ChildWithGuardians.fromJson(e as Map<String, dynamic>))

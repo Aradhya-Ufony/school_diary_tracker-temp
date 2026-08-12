@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
+import '../../../../core/utils/app_constants.dart';
 import '../../../../core/utils/image_utils.dart';
 import '../../../../data/models/drill_evidence.dart';
 import '../providers/drill_providers.dart';
@@ -26,50 +27,6 @@ class _EvidenceCaptureScreenState extends ConsumerState<EvidenceCaptureScreen> {
     super.dispose();
   }
 
-  void _showMediaSelectionSheet(BuildContext context, ImageSource source) {
-    final notifier = ref.read(drillChecklistProvider.notifier);
-    final mediaService = ref.read(mediaCompressionServiceProvider);
-    
-    showModalBottomSheet(
-      context: context,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
-      ),
-      builder: (bottomSheetContext) => SafeArea(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 12),
-              child: Text(
-                source == ImageSource.camera ? 'Capture Evidence' : 'Select Evidence',
-                style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-              ),
-            ),
-            const Divider(height: 1),
-            ListTile(
-              leading: const Icon(Icons.photo_outlined, color: Color(0xFF1E3A8A)),
-              title: Text(source == ImageSource.camera ? 'Take Photo' : 'Choose Photo'),
-              onTap: () async {
-                Navigator.of(bottomSheetContext).pop();
-                final item = await mediaService.pickAndCompressMedia(source, isVideo: false);
-                if (item != null) notifier.addEvidence(item);
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.videocam_outlined, color: Color(0xFF1E3A8A)),
-              title: Text(source == ImageSource.camera ? 'Record Video' : 'Choose Video'),
-              onTap: () async {
-                Navigator.of(bottomSheetContext).pop();
-                final item = await mediaService.pickAndCompressMedia(source, isVideo: true);
-                if (item != null) notifier.addEvidence(item);
-              },
-            ),
-          ],
-        ),
-      ),
-    );
-  }
 
   Future<void> _confirmAndSubmit(BuildContext context) async {
     final confirmed = await showDialog<bool>(
@@ -123,7 +80,7 @@ class _EvidenceCaptureScreenState extends ConsumerState<EvidenceCaptureScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               CircularProgressIndicator(
-                valueColor: AlwaysStoppedAnimation<Color>(Color(0xFF1E3A8A)),
+                valueColor: AlwaysStoppedAnimation<Color>(AppColors.PRIMARY),
               ),
               SizedBox(height: 24),
               Text(
@@ -131,7 +88,7 @@ class _EvidenceCaptureScreenState extends ConsumerState<EvidenceCaptureScreen> {
                 style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
-                  color: Color(0xFF1E3A8A),
+                  color: AppColors.PRIMARY,
                 ),
               ),
               SizedBox(height: 8),
@@ -194,7 +151,7 @@ class _EvidenceCaptureScreenState extends ConsumerState<EvidenceCaptureScreen> {
                     width: double.infinity,
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xFF1E3A8A),
+                        backgroundColor: AppColors.PRIMARY,
                         padding: const EdgeInsets.symmetric(vertical: 16),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(8),
@@ -295,20 +252,28 @@ class _EvidenceCaptureScreenState extends ConsumerState<EvidenceCaptureScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       ElevatedButton.icon(
-                        onPressed: () => _showMediaSelectionSheet(context, ImageSource.camera),
+                        onPressed: () async {
+                          final mediaService = ref.read(mediaCompressionServiceProvider);
+                          final item = await mediaService.pickAndCompressMedia(ImageSource.camera, isVideo: false);
+                          if (item != null) notifier.addEvidence(item);
+                        },
                         icon: const Icon(
                           Icons.camera_alt,
                           color: Colors.white,
                         ),
-                        label: const Text('Camera'),
+                        label: const Text('Take Photo'),
                       ),
                       ElevatedButton.icon(
-                        onPressed: () => _showMediaSelectionSheet(context, ImageSource.gallery),
+                        onPressed: () async {
+                          final mediaService = ref.read(mediaCompressionServiceProvider);
+                          final item = await mediaService.pickAndCompressMedia(ImageSource.camera, isVideo: true);
+                          if (item != null) notifier.addEvidence(item);
+                        },
                         icon: const Icon(
-                          Icons.photo_library,
+                          Icons.videocam,
                           color: Colors.white,
                         ),
-                        label: const Text('Gallery'),
+                        label: const Text('Record Video'),
                       ),
                     ],
                   ),
@@ -403,11 +368,6 @@ class _EvidenceCaptureScreenState extends ConsumerState<EvidenceCaptureScreen> {
                             decoration: InputDecoration(
                               hintText: 'Describe drill execution, student behavior, exit paths used, and any exceptions observed...',
                               border: const OutlineInputBorder(),
-                              counterText: '${_notesController.text.trim().length} / 80 characters minimum',
-                              counterStyle: TextStyle(
-                                color: isNotesValid ? Colors.green : Colors.red,
-                                fontWeight: FontWeight.bold,
-                              ),
                             ),
                           ),
                         ],
@@ -436,7 +396,7 @@ class _EvidenceCaptureScreenState extends ConsumerState<EvidenceCaptureScreen> {
               left: 16,
               right: 16,
               child: Card(
-                color: const Color(0xFF1E3A8A),
+                color: AppColors.PRIMARY,
                 elevation: 6,
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
                 child: Padding(

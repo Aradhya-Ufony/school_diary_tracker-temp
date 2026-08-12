@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
+import '../../../../core/utils/app_constants.dart';
 
 class FullScreenMediaViewer extends StatefulWidget {
   final String? localPath;
@@ -80,7 +81,7 @@ class _FullScreenMediaViewerState extends State<FullScreenMediaViewer> {
                   _videoController!,
                   allowScrubbing: true,
                   colors: const VideoProgressColors(
-                    playedColor: Color(0xFF1E3A8A),
+                    playedColor: AppColors.PRIMARY,
                     bufferedColor: Colors.white24,
                     backgroundColor: Colors.white10,
                   ),

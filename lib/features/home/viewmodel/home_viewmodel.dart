@@ -64,14 +64,6 @@ class HomeViewModel extends StateNotifier<HomeState> {
   }
 
   Future<void> _loadRoutes() async {
-    // Show cached routes immediately (matches the original checking
-    // `PreferenceManager.getAllRoutes(context) != null` before its own
-    // network fetch), then refresh from network.
-    final cached = _routeRepository.getCachedRoutes();
-    if (cached.isNotEmpty) {
-      state = state.copyWith(allRoutes: cached);
-    }
-
     state = state.copyWith(isLoading: true, error: null);
     try {
       final routes = await _routeRepository.getRoutes();

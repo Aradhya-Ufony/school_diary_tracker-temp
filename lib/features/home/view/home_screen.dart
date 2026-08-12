@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-
 import '../../../core/di/providers.dart';
 import '../../../core/utils/app_constants.dart';
 import '../../../data/models/route_response.dart';
+import '../../../data/models/user_location.dart';
 import '../../../l10n/generated/app_localizations.dart';
 import '../../auth/viewmodel/login_viewmodel.dart';
+import '../../dvir/view/post_trip_walkaround_screen.dart';
 import '../viewmodel/home_viewmodel.dart';
 
 /// Flutter equivalent of `HomeTabActivity` + `AllRouteFragment` +
@@ -46,7 +47,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           children: [
             DrawerHeader(
               decoration: const BoxDecoration(
-                color: Color(0xFF1E3A8A),
+                color: AppColors.PRIMARY,
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -191,6 +192,50 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
 
     setState(() => _isStarting = true);
 
+    if (confirmed != true || !context.mounted) return;
+    setState(() => _isStarting = true);
+    try {
+      // 1. Fetch vehicle status from API
+      final dvirRepo = ref.read(dvirRepositoryProvider);
+      final stateResponse = await dvirRepo.getVehicleState(
+        route.vehicleId ?? 0,
+        fallbackBusNumber: route.vehicleLicenseNumber,
+      );
+      if (stateResponse.currentState == 'CERTIFIED_PENDING_VERIFICATION') {
+        if (context.mounted) {
+          setState(() => _isStarting = false);
+          // Redirect to Pre-Trip verification to review repairs and sign off
+          context.go(Constants.DVIR_PRE_TRIP_ROUTE, extra: {
+            'schoolBusId': route.vehicleId?.toString() ?? '',
+            'routeName': route.name,
+            'route': route,
+          });
+        }
+        return;
+      }
+      if (stateResponse.isBlocked) {
+        if (context.mounted) {
+          setState(() => _isStarting = false);
+          showDialog<void>(
+            context: context,
+            builder: (dialogContext) => AlertDialog(
+              title: const Text('Dispatch Blocked', style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold)),
+              content: Text(stateResponse.blockReason ?? 'Vehicle is currently OUT_OF_SERVICE.'),
+              actions: [
+                TextButton(
+                  onPressed: () => Navigator.pop(dialogContext),
+                  child: const Text('OK'),
+                )
+              ],
+            ),
+          );
+        }
+        return;
+      }
+    } catch (e) {
+      debugPrint("eDVIR state check failed: $e");
+    }
+
     final locationService = ref.read(locationTrackingServiceProvider);
     final granted = await locationService.requestPermissions();
     if (!granted) {
@@ -206,6 +251,25 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     }
 
     await ref.read(homeViewModelProvider.notifier).selectRoute(route);
+
+    try {
+      final tripRepo = ref.read(tripRepositoryProvider);
+      await tripRepo.startTrip(
+        route: route,
+        location: route.startLocation ?? const UserLocation(latitude: 0, longitude: 0),
+      );
+    } catch (e) {
+      if (context.mounted) {
+        setState(() => _isStarting = false);
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Failed to start trip on server: $e'),
+          ),
+        );
+      }
+      return;
+    }
+
     await locationService.start(route);
 
     if (context.mounted) {

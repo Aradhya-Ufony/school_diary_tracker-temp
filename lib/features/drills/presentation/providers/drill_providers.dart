@@ -192,6 +192,19 @@ class DrillChecklistNotifier extends StateNotifier<DrillChecklistState> {
     state = state.copyWith(items: newItems);
   }
 
+  void updateRosterWasOnBus(List<int> presentChildIds) {
+    final updatedItems = <int, DrillChecklistItem>{};
+    state.items.forEach((key, value) {
+      final isPresent = presentChildIds.contains(key);
+      updatedItems[key] = value.copyWith(
+        wasOnBus: isPresent,
+        isEvacuated: isPresent ? value.isEvacuated : false,
+        evacuationTime: isPresent ? value.evacuationTime : null,
+      );
+    });
+    state = state.copyWith(items: updatedItems);
+  }
+
   void addEvidence(DrillEvidence evidence) {
     state = state.copyWith(evidenceList: [...state.evidenceList, evidence]);
   }

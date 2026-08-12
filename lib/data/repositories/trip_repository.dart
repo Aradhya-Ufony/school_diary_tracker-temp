@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'package:dio/dio.dart';
 
 import '../../core/network/api_client.dart';
@@ -79,6 +80,22 @@ class TripRepository {
       data: request.toJson(),
       options: Options(sendTimeout: const Duration(seconds: 8)),
     );
+  }
+
+  Future<UserLocation?> getTripLocation(int tripId) async {
+    try {
+      final response = await _apiClient.get(
+        ApiEndpoints.tripLocation,
+        query: {'tripId': tripId},
+      );
+      if (response.data == null) return null;
+      final data = response.data is String
+          ? jsonDecode(response.data as String) as Map<String, dynamic>
+          : response.data as Map<String, dynamic>;
+      return UserLocation.fromJson(data);
+    } catch (_) {
+      return null;
+    }
   }
 
   int? get activeTripId {

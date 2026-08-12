@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import '../../../core/di/providers.dart';
 import '../../../core/utils/app_constants.dart';
 import '../../../l10n/generated/app_localizations.dart';
 import '../viewmodel/login_viewmodel.dart';
@@ -28,9 +29,13 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     final l10n = AppLocalizations.of(context)!;
     final loginState = ref.watch(loginViewModelProvider);
 
-    ref.listen<LoginState>(loginViewModelProvider, (previous, next) {
+    ref.listen<LoginState>(loginViewModelProvider, (previous, next) async {
       if (next is LoginSuccess) {
-        context.go(Constants.HOME_ROUTE);
+        final locationService = ref.read(locationTrackingServiceProvider);
+        await locationService.requestPermissions();
+        if (context.mounted) {
+          context.go(Constants.HOME_ROUTE);
+        }
       }
       else if (next is LoginFailure) {
         final message = next.isGenericError

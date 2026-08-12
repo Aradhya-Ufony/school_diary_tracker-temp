@@ -13,9 +13,9 @@ abstract class ApiEndpoints {
 
   // Stops
   static const tripRoutesStops = 'trip/routes/multiple/stops';
-  static const pickedFrom = 'AuthorizedGuardian/multiple/PickedFrom';
-  static const droppedTo = 'AuthorizedGuardian/multiple/DroppedTo';
-  static const cancelPickDrop = 'AuthorizedGuardian/multiple/CancelPickDrop';
+  static const pickedFrom = 'AuthorizedGuardian/PickedFrom';
+  static const droppedTo = 'AuthorizedGuardian/DroppedTo';
+  static const cancelPickDrop = 'AuthorizedGuardian/CancelPickDrop';
 
   // children & guardians
   static const routeChildren = 'route/children';
@@ -28,5 +28,13 @@ abstract class ApiEndpoints {
   static const drillBus = 'drill/bus';
   static const drillCompliance = 'drill/compliance';
 
-
+  //dvir endpoints
+  static const dvir = 'dvir'; //to subit pre- post- dvir
+  static const dvirLatest = 'dvir/latest'; // fetching last dvir for pre
+  static const dvirRoadside = 'dvir/roadside';
+  static const vehicleState = 'vehicle/state';  //getting the state -ACTIVE, OUT_OF_SERVICE, CERTIFIED_PENDING_VERIFICATION
+  static const dvirCertify = 'dvir/certify'; // append {defectID} to this endpoint to certify
+  static const dvirSign = 'dvir/sign';
+  // static const vehicleHistory = 'vehicle/history';
+  // static const fleetStatus = 'fleet/status';
 }

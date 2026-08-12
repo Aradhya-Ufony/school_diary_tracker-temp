@@ -44,12 +44,9 @@ class RouteRepository {
   ///    here.
   Future<List<RouteResponse>> getRoutes() async {
     final response = await _apiClient.get(ApiEndpoints.route);
+    print("RAW ROUTES RESPONSE FROM SERVER: ${response.data}");
 
     if (response.statusCode == 204) {
-      final cached = getCachedRoutes();
-      if (cached.isNotEmpty) {
-        return cached;
-      }
       return [];
     }
 
@@ -66,10 +63,7 @@ class RouteRepository {
 
     final deduped = _dedupeByName(routes);
 
-    await _storage.setString(
-      StorageKeys.ALL_ROUTES,
-      jsonEncode(deduped.map((r) => r.toJson()).toList()),
-    );
+
 
     return deduped;
   }
@@ -80,12 +74,7 @@ class RouteRepository {
   /// `AllRouteFragment.onCreateView` checking cache before its own
   /// fetch).
   List<RouteResponse> getCachedRoutes() {
-    final json = _storage.getString(StorageKeys.ALL_ROUTES);
-    if (json == null) return [];
-    final list = jsonDecode(json) as List<dynamic>;
-    return list
-        .map((e) => RouteResponse.fromJson(e as Map<String, dynamic>))
-        .toList();
+    return [];
   }
 
   void _assignSequenceNumbers(List<RouteResponse> routes) {

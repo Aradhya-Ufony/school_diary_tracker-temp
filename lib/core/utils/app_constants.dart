@@ -45,10 +45,14 @@ abstract final class Constants{
   static const String LANGUAGE_ROUTE = '/settings/language';
   static const String APP_INFO_ROUTE = '/settings/app-info';
   static const String DRILL_LIST_ROUTE = '/drills/list';
+  static const String DRILL_TYPE_ROUTE = '/drills/select-type';
+  static const String DRILL_ROSTER_MARKING_ROUTE = '/drills/marking';
   static const String DRILL_CHECKLIST_ROUTE = '/drills/checklist';
   static const String DRILL_EVIDENCE_ROUTE = '/drills/evidence';
   static const String DRILL_SUMMARY_ROUTE = '/drills/summary';
   static const String DRIVER_DETAILS_ROUTE = '/driver/details';
+  static const String DVIR_POST_TRIP_ROUTE = '/dvir/post-trip';
+  static const String DVIR_PRE_TRIP_ROUTE = '/dvir/pre-trip';
 
   //Screen Names
   static const String SPLASH = 'Splash';
@@ -61,10 +65,15 @@ abstract final class Constants{
   static const String APP_INFO = 'App Info';
   static const String DRILL = 'Drill';
   static const String DRILL_LIST = 'Drill List';
+  static const String DRILL_TYPE = 'Select Drill Type';
+  static const String DRILL_ROSTER_MARKING = 'Mark Attendance';
   static const String DRILL_CHECKLIST = 'Drill Check list';
   static const String DRILL_EVIDENCE = 'Drill Evidence';
   static const String DRILL_SUMMARY = 'Drill Summary';
   static const String DRIVER_DETAILS = 'Driver Details';
+  static const String DVIR_POST_TRIP_SCREEN = 'DVIR Post-Trip';
+  static const String DVIR_PRE_TRIP_SCREEN = 'DVIR Pre-Trip';
+
 
   //Crashlytics keys
   static const String CRASHLYTICS_API_ENDPOINT_KEY = 'api_endpoint';
@@ -88,7 +97,7 @@ abstract class StorageKeys {
 
 class AppColors {
   /// colorPrimary (#FF03A9F4)
-  static const PRIMARY = Color(0xFF14B4B9);
+  static const PRIMARY = Color(0xFF03A8F4);
 
   /// colorPrimaryDark (#ff0171c9)
   static const PRIMARY_DARK = Color(0xFF0171C9);

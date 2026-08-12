@@ -51,12 +51,18 @@ final tripRepositoryProvider = Provider<TripRepository>((ref) {
 
 /// Stops & pick/drop
 final stopsRepositoryProvider = Provider<StopsRepository>((ref) {
-  return StopsRepository(apiClient: ref.watch(apiClientProvider));
+  return StopsRepository(
+    apiClient: ref.watch(apiClientProvider),
+    storage: ref.watch(localStorageServiceProvider),
+  );
 });
 
 /// Children & guardians
 final childrenRepositoryProvider = Provider<ChildrenRepository>((ref) {
-  return ChildrenRepository(apiClient: ref.watch(apiClientProvider));
+  return ChildrenRepository(
+    apiClient: ref.watch(apiClientProvider),
+    storage: ref.watch(localStorageServiceProvider),
+  );
 });
 
 /// Background location tracking

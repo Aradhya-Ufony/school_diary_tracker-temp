@@ -134,9 +134,13 @@ class DrillLog {
         : DateTime.now();
 
     final approvedAtStr = json['approvedAt'] ?? json['ApprovedAt'] ?? json['approvedDate'] ?? json['ApprovedDate'];
+    final idVal = json['id'] ?? json['Id'] ?? json['drillLogId'] ?? json['DrillLogId'];
+    final parsedId = idVal is int
+        ? idVal
+        : (idVal is num ? idVal.toInt() : int.tryParse(idVal?.toString() ?? ''));
 
     return DrillLog(
-      id: (json['id'] ?? json['Id']) as int?,
+      id: parsedId,
       routeId: routeId,
       busId: busId,
       busNumber: (json['vehicleLicenseNumber'] ?? json['VehicleLicenseNumber'] ?? json['busNumber'] ?? json['BusNumber']) as String?,

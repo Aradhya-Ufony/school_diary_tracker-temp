@@ -6,6 +6,8 @@ import '../../data/models/route_response.dart';
 import '../../features/auth/view/login_screen.dart';
 import '../../features/children/view/children_screen.dart';
 import '../../features/drills/presentation/screens/drill_list_screen.dart';
+import '../../features/dvir/view/post_trip_walkaround_screen.dart';
+import '../../features/dvir/view/pre_trip_verification_screen.dart';
 import '../../features/home/view/home_screen.dart';
 import '../../features/home/view/driver_details_screen.dart';
 import '../../features/settings/view/app_info_screen.dart';
@@ -14,6 +16,8 @@ import '../../features/splash/view/splash_screen.dart';
 import '../../features/stops/view/stops_screen.dart';
 import '../../features/trip/view/transport_map_screen.dart';
 import '../../features/drills/presentation/screens/pre_drill_checklist_screen.dart';
+import '../../features/drills/presentation/screens/drill_type_selection_screen.dart';
+import '../../features/drills/presentation/screens/drill_roster_marking_screen.dart';
 import '../../features/drills/presentation/screens/evidence_capture_screen.dart';
 import '../../features/drills/presentation/screens/drill_summary_screen.dart';
 import '../utils/app_constants.dart';
@@ -121,6 +125,16 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         builder: (context, state) => const DrillListScreen(),
       ),
       GoRoute(
+        path: Constants.DRILL_TYPE_ROUTE,
+        name: Constants.DRILL_TYPE,
+        builder: (context, state) => const DrillTypeSelectionScreen(),
+      ),
+      GoRoute(
+        path: Constants.DRILL_ROSTER_MARKING_ROUTE,
+        name: Constants.DRILL_ROSTER_MARKING,
+        builder: (context, state) => const DrillRosterMarkingScreen(),
+      ),
+      GoRoute(
         path: Constants.DRILL_CHECKLIST_ROUTE,
         name: Constants.DRILL_CHECKLIST,
         builder: (context, state) => const PreDrillChecklistScreen(),
@@ -142,6 +156,26 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         path: Constants.DRIVER_DETAILS_ROUTE,
         name: Constants.DRIVER_DETAILS,
         builder: (context, state) => const DriverDetailsScreen(),
+      ),
+      GoRoute(
+        path: Constants.DVIR_POST_TRIP_ROUTE,
+        name: Constants.DVIR_POST_TRIP_SCREEN,
+        builder: (context, state) {
+          final route = state.extra as RouteResponse;
+          return PostTripWalkaroundScreen(route: route);
+        },
+      ),
+      GoRoute(
+        path: Constants.DVIR_PRE_TRIP_ROUTE,
+        name: Constants.DVIR_PRE_TRIP_SCREEN,
+        builder: (context, state) {
+          final args = state.extra as Map<String, dynamic>;
+          return PreTripVerificationScreen(
+            schoolBusId: args['schoolBusId'],
+            routeName: args['routeName'],
+            routeResponse: args['route'],
+          );
+        },
       ),
     ],
   );
