@@ -1,12 +1,9 @@
 {
   "@@locale": "te",
-
   "appTitleSchoolDiary": "SD Tracker",
-
   "genericLoading": "లోడ్ అవుతోంది, దయచేసి వేచి ఉండండి",
   "genericError": "క్షమించండి, మా సర్వర్‌లో లోపం సంభవించింది. దయచేసి మళ్ళీ ప్రయత్నించండి.",
   "genericRetry": "మళ్ళీ ప్రయత్నించండి",
-
   "loginEmailOrPhoneLabel": "Email or phone number",
   "loginPasswordLabel": "Password",
   "loginButton": "Login",
@@ -19,5 +16,573 @@
   "forgotPasswordSend": "Send",
   "forgotPasswordCancel": "Cancel",
   "forgotPasswordSuccess": "If that email exists, a reset link has been sent.",
-  "forgotPasswordInvalidEmail": "Please enter a valid email"
+  "forgotPasswordInvalidEmail": "Please enter a valid email",
+  "genericCancel": "Cancel",
+  "genericConfirm": "Confirm",
+  "genericEdit": "Edit",
+  "genericClose": "Close",
+  "genericBack": "BACK",
+  "genericNext": "NEXT",
+  "genericClear": "CLEAR",
+  "drillsTitle": "Evacuation Drills",
+  "drillsAssignedVehicle": "Assigned Vehicle",
+  "drillsNoBusAssigned": "No Bus Assigned",
+  "drillsChecking": "Checking...",
+  "drillsStartDrill": "Start Drill",
+  "drillsNoRoutesAvailable": "No routes available to start a drill.",
+  "drillsVehicleOutOfService": "Vehicle Out of Service",
+  "drillsVehicleOutOfServiceMessage": "This vehicle is currently out of service and cannot be used for drills.",
+  "drillsNoDrillsRecorded": "No drills recorded for bus {busNumber}",
+  "@drillsNoDrillsRecorded": {
+    "placeholders": {
+      "busNumber": {
+        "type": "String"
+      }
+    }
+  },
+  "drillsHeader": "Drill #{id} - {type}",
+  "@drillsHeader": {
+    "placeholders": {
+      "id": {
+        "type": "String"
+      },
+      "type": {
+        "type": "String"
+      }
+    }
+  },
+  "drillsSubtitle": "Conducted: {date}\nStatus: {status}",
+  "@drillsSubtitle": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      },
+      "status": {
+        "type": "String"
+      }
+    }
+  },
+  "drillsShowSummary": "Show Summary",
+  "drillRosterMarkAttendance": "Mark Attendance",
+  "drillRosterRoute": "Route: {routeName}",
+  "@drillRosterRoute": {
+    "placeholders": {
+      "routeName": {
+        "type": "String"
+      }
+    }
+  },
+  "drillRosterBus": "Bus: {busNumber}",
+  "@drillRosterBus": {
+    "placeholders": {
+      "busNumber": {
+        "type": "String"
+      }
+    }
+  },
+  "drillRosterDrillType": "Drill: {drillType}",
+  "@drillRosterDrillType": {
+    "placeholders": {
+      "drillType": {
+        "type": "String"
+      }
+    }
+  },
+  "drillRosterPresentCount": "Present: {presentCount} / {totalCount}",
+  "@drillRosterPresentCount": {
+    "placeholders": {
+      "presentCount": {
+        "type": "int"
+      },
+      "totalCount": {
+        "type": "int"
+      }
+    }
+  },
+  "drillRosterSelectAll": "Select All",
+  "drillRosterNoStudents": "No students registered on this route.",
+  "drillRosterSeat": "Seat: {seatNumber}",
+  "@drillRosterSeat": {
+    "placeholders": {
+      "seatNumber": {
+        "type": "String"
+      }
+    }
+  },
+  "drillRosterProceed": "PROCEED TO DRILL CHECKLIST",
+  "drillSummaryTitle": "Drill Summary (#{id})",
+  "@drillSummaryTitle": {
+    "placeholders": {
+      "id": {
+        "type": "int"
+      }
+    }
+  },
+  "drillSummaryLoadFailed": "Failed to load drill summary for ID #{id}.\n{error}",
+  "@drillSummaryLoadFailed": {
+    "placeholders": {
+      "id": {
+        "type": "int"
+      },
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "drillSummaryBackToDrills": "Back to Drills",
+  "drillSummaryNoData": "No drill data found.",
+  "drillSummaryApprovedAt": "Approved At: {date}",
+  "@drillSummaryApprovedAt": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "drillSummaryConductedBy": "Conducted By: {name}",
+  "@drillSummaryConductedBy": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "drillSummaryDetailsTitle": "Drill Details",
+  "drillSummaryType": "Drill Type",
+  "drillSummaryRouteId": "Route ID",
+  "drillSummaryBusNumber": "Bus Number",
+  "drillSummaryStartTime": "Start Time",
+  "drillSummaryEndTime": "End Time",
+  "drillSummaryDuration": "Duration",
+  "drillSummaryDurationValue": "{minutes} min {seconds} sec",
+  "@drillSummaryDurationValue": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      },
+      "seconds": {
+        "type": "int"
+      }
+    }
+  },
+  "drillSummaryGps": "GPS Coordinates",
+  "drillSummaryGpsValue": "Lat: {lat}, Lng: {lng}",
+  "@drillSummaryGpsValue": {
+    "placeholders": {
+      "lat": {
+        "type": "double"
+      },
+      "lng": {
+        "type": "double"
+      }
+    }
+  },
+  "drillSummaryStatus": "Status",
+  "drillSummaryApprovedAtLabel": "Approved At",
+  "drillSummaryDriverNotesTitle": "Driver Notes",
+  "drillSummaryAdminNotesTitle": "Admin Notes",
+  "drillSummaryStudentLogTitle": "Student Evacuation Log",
+  "drillSummaryEvacuatedCount": "Evacuated: {evacuatedCount}/{totalCount}",
+  "@drillSummaryEvacuatedCount": {
+    "placeholders": {
+      "evacuatedCount": {
+        "type": "int"
+      },
+      "totalCount": {
+        "type": "int"
+      }
+    }
+  },
+  "drillSummaryEvacuatedTime": "Evacuated {time}",
+  "@drillSummaryEvacuatedTime": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "drillSummaryOnBusNotEvacuated": "ON BUS - NOT EVACUATED",
+  "drillSummaryNotOnBus": "Not On Bus",
+  "drillSummarySeat": "Seat: {seatNumber}",
+  "@drillSummarySeat": {
+    "placeholders": {
+      "seatNumber": {
+        "type": "String"
+      }
+    }
+  },
+  "drillSummaryEvidenceTitle": "Evidence Media Attachments",
+  "drillSummaryVideoEvidence": "Video Evidence",
+  "drillSummaryPhotoEvidence": "Photo Evidence",
+  "drillTypeTitle": "Select Drill Type",
+  "drillTypePreparation": "DRILL PREPARATION",
+  "drillTypeBus": "Bus {busNumber}",
+  "@drillTypeBus": {
+    "placeholders": {
+      "busNumber": {
+        "type": "String"
+      }
+    }
+  },
+  "drillTypeRoute": "Route: {routeName}",
+  "@drillTypeRoute": {
+    "placeholders": {
+      "routeName": {
+        "type": "String"
+      }
+    }
+  },
+  "drillTypeNoRouteSelected": "No Route Selected",
+  "drillTypeWarning": "Ensure vehicle is parked safely before beginning execution.",
+  "drillTypeSelectRoute": "Select Route:",
+  "drillTypeClassification": "Choose drill classification:",
+  "drillTypeNameFrontDoor": "Front Door",
+  "drillTypeNameRearDoor": "Rear Door",
+  "drillTypeNameSplit": "Split",
+  "drillTypeNameSideOrRoof": "Side Or Roof",
+  "drillTypeNameBusFire": "Bus Fire",
+  "drillTypeNameDriverIncapacitation": "Driver Incapacitation",
+  "drillTypeNameDangerZone": "Danger Zone",
+  "drillTypeNameEquipmentOrientation": "Equipment Orientation",
+  "drillTypeNameOthers": "Others",
+  "drillTypeSpecifyCustom": "Specify Drill Type Description:",
+  "drillTypeCustomHint": "Enter custom evacuation drill type...",
+  "drillTypeInvalidState": "Invalid vehicle or route state.",
+  "drillTypeProceed": "PROCEED TO STUDENT ROSTER",
+  "drillEvidenceConfirmSubmission": "Confirm Drill Submission",
+  "drillEvidenceConfirmMessage": "Are you sure you want to submit this drill log? This action cannot be undone.",
+  "drillEvidenceSubmitting": "Submitting Drill Log...",
+  "drillEvidenceUploading": "Uploading evidence and checklist data",
+  "drillEvidenceSuccess": "Submission Successful!",
+  "drillEvidenceFailed": "Submission Failed",
+  "drillEvidenceSuccessMessage": "The evacuation drill log has been successfully uploaded and is pending approval.",
+  "drillEvidenceReturnToDashboard": "RETURN TO DASHBOARD",
+  "drillEvidenceRetrySubmission": "RETRY SUBMISSION",
+  "drillEvidenceTitle": "Mandatory Drill Evidence",
+  "drillEvidenceMandatoryWarning": "At least 1 photo or video evidence is mandatory to submit drill.",
+  "drillEvidenceTakePhoto": "Take Photo",
+  "drillEvidenceRecordVideo": "Record Video",
+  "drillEvidenceDriverNotesLabel": "Driver Notes (Minimum 10 characters):",
+  "drillEvidenceDriverNotesHint": "Describe drill execution, student behavior, exit paths used, and any exceptions observed...",
+  "drillEvidenceSubmitButton": "SUBMIT DRILL LOG",
+  "drillChecklistOnBusTitle": "ON BUS ({count})",
+  "@drillChecklistOnBusTitle": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "drillChecklistEvacuatedProgress": "Evacuated: {evacuatedCount}/{totalCount}",
+  "@drillChecklistEvacuatedProgress": {
+    "placeholders": {
+      "evacuatedCount": {
+        "type": "int"
+      },
+      "totalCount": {
+        "type": "int"
+      }
+    }
+  },
+  "drillChecklistNoStudentsOnBus": "No students marked on bus.",
+  "drillChecklistEvacuated": "Evacuated",
+  "drillChecklistOnBusNotEvacuated": "ON BUS — NOT EVACUATED",
+  "drillChecklistAbsentTitle": "ABSENT / NOT ON BUS ({count})",
+  "@drillChecklistAbsentTitle": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "drillChecklistNoAbsentStudents": "No absent students.",
+  "drillChecklistNotOnBus": "NOT ON BUS",
+  "drillChecklistTitle": "Evacuation Drill Checklist",
+  "drillChecklistUnaccountedWarning": "{count} Unaccounted Student(s) Remaining!",
+  "@drillChecklistUnaccountedWarning": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "drillChecklistBus": "Bus: {busNumber}",
+  "@drillChecklistBus": {
+    "placeholders": {
+      "busNumber": {
+        "type": "String"
+      }
+    }
+  },
+  "drillChecklistRouteLive": "Route (Live): {routeName}",
+  "@drillChecklistRouteLive": {
+    "placeholders": {
+      "routeName": {
+        "type": "String"
+      }
+    }
+  },
+  "drillChecklistProceed": "PROCEED TO EVIDENCE CAPTURE",
+  "dvirPreTripSignedSuccess": "Verification signed successfully. Pre-Trip unlocked.",
+  "dvirPreTripFailedToSign": "Failed to sign: {error}",
+  "@dvirPreTripFailedToSign": {
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "dvirPreTripTitle": "Pre-Trip Verification",
+  "dvirPreTripVehicleStatus": "Vehicle Status: {status}",
+  "@dvirPreTripVehicleStatus": {
+    "placeholders": {
+      "status": {
+        "type": "String"
+      }
+    }
+  },
+  "dvirPreTripActiveMessage": "This vehicle is Active and has no open defects. It is verified and safe for operation.",
+  "dvirPreTripOutOfServiceMessage": "This vehicle is Out of Service for repairs/maintenance. Safety concerns must be resolved by shop staff before dispatch.",
+  "dvirPreTripReason": "Reason: {reason}",
+  "@dvirPreTripReason": {
+    "placeholders": {
+      "reason": {
+        "type": "String"
+      }
+    }
+  },
+  "dvirPreTripDispatchCheckTitle": "VEHICLE DISPATCH CHECK",
+  "dvirPreTripBusNumber": "Bus Number: {busNumber}",
+  "@dvirPreTripBusNumber": {
+    "placeholders": {
+      "busNumber": {
+        "type": "String"
+      }
+    }
+  },
+  "dvirPreTripActiveRoute": "Active Route: {routeName}",
+  "@dvirPreTripActiveRoute": {
+    "placeholders": {
+      "routeName": {
+        "type": "String"
+      }
+    }
+  },
+  "dvirPreTripAttentionRequiredTitle": "ATTENTION REQUIRED: PRIOR DAY DEFECTS LOGGED",
+  "dvirPreTripRepairedDefect": "{description} (REPAIRED)",
+  "@dvirPreTripRepairedDefect": {
+    "placeholders": {
+      "description": {
+        "type": "String"
+      }
+    }
+  },
+  "dvirPreTripResolutionTitle": "TRANSPORT SUB-ADMIN RESOLUTION",
+  "dvirPreTripResolutionStatus": "Status: {status}",
+  "@dvirPreTripResolutionStatus": {
+    "placeholders": {
+      "status": {
+        "type": "String"
+      }
+    }
+  },
+  "dvirPreTripNoRepairsNeeded": "No repairs needed for safe operation.",
+  "dvirPreTripAcknowledgmentText": "I acknowledge that I have reviewed the last submitted defect report and verified the repairs(if any) and state that the bus is safe for operation.",
+  "dvirPreTripNoPriorDefects": "No Prior Defects Logged",
+  "dvirPreTripNoPriorDefectsMessage": "This vehicle was reported clean in the previous post-trip shift inspection.",
+  "dvirPreTripSignOffTitle": "SIGN-OFF TO PROCEED TO WALKAROUND",
+  "dvirPreTripOutofServiceButton": "VEHICLE OUT OF SERVICE",
+  "dvirPreTripReturnToHomeButton": "RETURN TO HOME",
+  "dvirPreTripSubmitVerificationButton": "SUBMIT VERIFICATION",
+  "dvirPreTripReportNewDefectsButton": "REPORT NEW DEFECTS",
+  "dvirPreTripReportNewDefectsDisabled": "Reporting new defects is disabled during repairs.",
+  "dvirPostTripPhotoAttached": "Photo attached successfully.",
+  "dvirPostTripDefectWithoutPhotoTitle": "Reporting Defect Without Photo",
+  "dvirPostTripDefectWithoutPhotoWarning": "Warning: You are reporting a defect on safety zones ({zones}) without attaching a photo. Are you sure you want to submit anyway?",
+  "@dvirPostTripDefectWithoutPhotoWarning": {
+    "placeholders": {
+      "zones": {
+        "type": "String"
+      }
+    }
+  },
+  "dvirPostTripSubmitSuccess": "eDVIR submitted successfully.",
+  "dvirPostTripInspectionTitle": "Inspection: Bus {busNumber}",
+  "@dvirPostTripInspectionTitle": {
+    "placeholders": {
+      "busNumber": {
+        "type": "String"
+      }
+    }
+  },
+  "dvirPostTripProgressLabel": "Inspection Progress",
+  "dvirPostTripZonesProgress": "{current} / {total} Zones",
+  "@dvirPostTripZonesProgress": {
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "dvirPostTripZoneHeader": "ZONE {current} OF {total}",
+  "@dvirPostTripZoneHeader": {
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "dvirPostTripPassButton": "PASS",
+  "dvirPostTripDefectButton": "DEFECT",
+  "dvirPostTripNotesLabel": "NOTES (MANDATORY ON DEFECT) & PHOTO",
+  "dvirPostTripNotesPassedHint": "Select DEFECT to enter safety concern details...",
+  "dvirPostTripNotesDefectHint": "Enter details of the safety concern...",
+  "dvirPostTripCapturePhoto": "CAPTURE DEFECT PHOTO",
+  "dvirPostTripOdometerTitle": "VEHICLE RUN TIME METRIC",
+  "dvirPostTripOdometerHeader": "Current Odometer Reading",
+  "dvirPostTripOdometerInstructions": "Enter the mileage reading exactly as shown on the bus instrument panel:",
+  "dvirPostTripOdometerLabel": "Odometer (Miles)",
+  "dvirPostTripOdometerWarning": "Please enter the odometer reading before proceeding.",
+  "dvirPostTripComplianceTitle": "COMPLIANCE CERTIFICATION",
+  "dvirPostTripSignatureTitle": "Driver Signature Verification",
+  "dvirPostTripSignatureCert": "I certify that this vehicle walkaround checklist report has been completed in compliance with FMCSA 396.11 regulations.",
+  "dvirPostTripSignatureCaptured": "Signature captured.",
+  "dvirPostTripSubmitButton": "SUBMIT INSPECTION",
+  "dvirCategoryServiceBrakes": "Service Brakes",
+  "dvirCategoryParkingBrake": "Parking Brake",
+  "dvirCategorySteeringMechanism": "Steering Mechanism",
+  "dvirCategoryLightingReflectors": "Lighting Devices & Reflectors",
+  "dvirCategoryTires": "Tires",
+  "dvirCategoryHorn": "Horn",
+  "dvirCategoryWipers": "Windshield Wipers",
+  "dvirCategoryMirrors": "Rear-Vision Mirrors",
+  "dvirCategoryWheelsRims": "Wheels and Rims",
+  "dvirCategoryEmergencyEquipment": "Emergency Equipment",
+  "dvirCategoryCouplingDevices": "Coupling Devices",
+  "dvirCategoryBusSafetySystems": "Bus-Specific Safety Systems",
+  "dvirCategoryPassengerSeating": "Passenger Seating & Restraints",
+  "dvirSigDrawTitle": "Draw Signature",
+  "dvirSigWatermark": "Sign Vertically (Bottom to Top)",
+  "dvirSigSave": "SAVE SIGNATURE",
+  "dvirSigPreviewLabel": "Captured Signature Preview:",
+  "dvirSigRedraw": "REDRAW",
+  "dvirSigTapToDraw": "TAP TO DRAW SIGNATURE (REQUIRED)",
+  "driverDetailsTitle": "Driver Details",
+  "driverDetailsId": "ID: {driverId}",
+  "@driverDetailsId": {
+    "placeholders": {
+      "driverId": {
+        "type": "String"
+      }
+    }
+  },
+  "driverDetailsLicenseTitle": "License Details",
+  "driverDetailsLicenseNoLabel": "License No",
+  "driverDetailsLicenseTypeLabel": "License Type",
+  "driverDetailsCdlClassLabel": "CDL Class",
+  "driverDetailsIssueDateLabel": "Issue Date",
+  "driverDetailsExpiryDateLabel": "Expiry Date",
+  "driverDetailsEndorsementsTitle": "Endorsements Held",
+  "driverDetailsEndorsementPassenger": "Passenger",
+  "driverDetailsEndorsementSchoolBus": "School Bus",
+  "driverDetailsLicenseDocTitle": "License Document",
+  "driverDetailsDrivingLicenseLabel": "DRIVING LICENSE",
+  "driverDetailsDrivingLicenseName": "NAME: {name}",
+  "@driverDetailsDrivingLicenseName": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "driverDetailsDrivingLicenseNo": "LIC: {licenseNo}",
+  "@driverDetailsDrivingLicenseNo": {
+    "placeholders": {
+      "licenseNo": {
+        "type": "String"
+      }
+    }
+  },
+  "driverDetailsTapToView": "Tap to View DL Document",
+  "driverDetailsPreviewLicenseNo": "LN: {licenseNo}",
+  "@driverDetailsPreviewLicenseNo": {
+    "placeholders": {
+      "licenseNo": {
+        "type": "String"
+      }
+    }
+  },
+  "driverDetailsPreviewName": "FN: {name}",
+  "@driverDetailsPreviewName": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "driverDetailsPreviewDob": "DOB: {dob}",
+  "@driverDetailsPreviewDob": {
+    "placeholders": {
+      "dob": {
+        "type": "String"
+      }
+    }
+  },
+  "driverDetailsPreviewClass": "CLASS: {cdlClass}",
+  "@driverDetailsPreviewClass": {
+    "placeholders": {
+      "cdlClass": {
+        "type": "String"
+      }
+    }
+  },
+  "driverDetailsPreviewEndorse": "ENDORSE: {endorsements}",
+  "@driverDetailsPreviewEndorse": {
+    "placeholders": {
+      "endorsements": {
+        "type": "String"
+      }
+    }
+  },
+  "driverDetailsPreviewExp": "EXP: {expiryDate}",
+  "@driverDetailsPreviewExp": {
+    "placeholders": {
+      "expiryDate": {
+        "type": "String"
+      }
+    }
+  },
+  "driverDetailsOfficialSeal": "OFFICIAL SEAL",
+  "driverDetailsHolderSignature": "HOLDER SIGNATURE",
+  "homeMenuDriverDetails": "Driver Details",
+  "homeMenuDrill": "Drill",
+  "homeMenuPreTrip": "Pre-Trip Inspection",
+  "homeErrorNoRoutesPreTrip": "No routes available to perform Pre-Trip.",
+  "homeBusLabel": "Bus: {busId}",
+  "@homeBusLabel": {
+    "placeholders": {
+      "busId": {
+        "type": "String"
+      }
+    }
+  },
+  "homeDispatchBlocked": "Dispatch Blocked",
+  "homeVehicleReady": "Vehicle is ready and verified for safe operation.",
+  "homeReviewVerifyPreTrip": "Review & Verify Pre-Trip",
+  "homeDispatchBlockedTitle": "Dispatch Blocked",
+  "homeVehicleOutOfServiceDefault": "Vehicle is currently OUT_OF_SERVICE.",
+  "homeFailedToStartTrip": "Failed to start trip on server: {error}",
+  "@homeFailedToStartTrip": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  }
 }

@@ -24,7 +24,7 @@ class SplashViewModel extends StateNotifier<SplashState> {
   // app launch. Flag if you'd rather this be even shorter or removed
   // entirely once Step 4 adds a real "fetch routes" call here to replace
   // the artificial delay with actual loading time.
-  static const _splashDuration = Duration(milliseconds: 800);
+  static const _splashDuration = Duration(milliseconds: 3000);
 
   Future<void> _startTimer() async {
     await Future<void>.delayed(_splashDuration);

@@ -42,11 +42,13 @@ class PriorDvirModel {
   factory PriorDvirModel.fromJson(Map<String, dynamic> json) {
     var defectsList = json['defects'] as List? ?? [];
     return PriorDvirModel(
-      dvirId: json['dvirId'] as String? ?? '',
-      busRegistrationNumber: json['busRegistrationNumber'] as String? ?? '',
-      inspectionDate: DateTime.parse(json['inspectionDate'] as String),
-      tripType: json['tripType'] as String? ?? '',
-      overallStatus: json['overallStatus'] as String? ?? '',
+      dvirId: json['dvirId']?.toString() ?? '',
+      busRegistrationNumber: json['busRegistrationNumber']?.toString() ?? '',
+      inspectionDate: json['inspectionDate'] != null
+          ? DateTime.tryParse(json['inspectionDate'].toString()) ?? DateTime.now()
+          : DateTime.now(),
+      tripType: json['tripType']?.toString() ?? '',
+      overallStatus: json['overallStatus']?.toString() ?? '',
       defects: defectsList.map((e) => DefectModel.fromJson(e as Map<String, dynamic>)).toList(),
       workOrder: json['workOrder'] != null
           ? WorkOrderModel.fromJson(json['workOrder'] as Map<String, dynamic>)
@@ -72,10 +74,10 @@ class DefectModel {
 
   factory DefectModel.fromJson(Map<String, dynamic> json) {
     return DefectModel(
-      defectId: json['defectId'] as String? ?? '',
-      zoneCode: json['zoneCode'] as String? ?? '',
-      description: json['description'] as String? ?? '',
-      photoUrl: json['photoUrl'] as String?,
+      defectId: json['defectId']?.toString() ?? '',
+      zoneCode: json['zoneCode']?.toString() ?? '',
+      description: json['description']?.toString() ?? '',
+      photoUrl: json['photoUrl']?.toString(),
       isSafetyCritical: json['isSafetyCritical'] as bool? ?? false,
     );
   }
@@ -97,12 +99,15 @@ class WorkOrderModel {
   });
 
   factory WorkOrderModel.fromJson(Map<String, dynamic> json) {
+    final signedAtStr = json['subAdminSignedAt'] ?? json['mechanicSignedAt'];
     return WorkOrderModel(
-      workOrderId: json['workOrderId'] as String? ?? '',
-      resolutionType: json['resolutionType'] as String? ?? '',
-      subAdminNotes: (json['subAdminNotes'] ?? json['mechanicNotes']) as String? ?? '',
-      subAdminSignedBy: (json['subAdminSignedBy'] ?? json['mechanicSignedBy']) as String? ?? '',
-      subAdminSignedAt: DateTime.parse((json['subAdminSignedAt'] ?? json['mechanicSignedAt']) as String),
+      workOrderId: json['workOrderId']?.toString() ?? '',
+      resolutionType: json['resolutionType']?.toString() ?? '',
+      subAdminNotes: (json['subAdminNotes'] ?? json['mechanicNotes'])?.toString() ?? '',
+      subAdminSignedBy: (json['subAdminSignedBy'] ?? json['mechanicSignedBy'])?.toString() ?? '',
+      subAdminSignedAt: signedAtStr != null
+          ? DateTime.tryParse(signedAtStr.toString()) ?? DateTime.now()
+          : DateTime.now(),
     );
   }
 }

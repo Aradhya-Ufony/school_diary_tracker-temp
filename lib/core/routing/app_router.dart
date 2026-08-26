@@ -74,7 +74,17 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: Constants.LOGIN_ROUTE,
         name: Constants.LOGIN,
-        builder: (context, state) => const LoginScreen(),
+        pageBuilder: (context, state) => CustomTransitionPage<void>(
+          key: state.pageKey,
+          child: const LoginScreen(),
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            return FadeTransition(
+              opacity: animation,
+              child: child,
+            );
+          },
+          transitionDuration: const Duration(milliseconds: 600),
+        ),
       ),
       GoRoute(
         path: Constants.HOME_ROUTE,

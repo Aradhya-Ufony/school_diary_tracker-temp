@@ -13,10 +13,10 @@ class VehicleStateResponse {
 
   factory VehicleStateResponse.fromJson(Map<String, dynamic> json) {
     return VehicleStateResponse(
-      schoolBusId: json['schoolBusId'] as String? ?? '',
-      currentState: json['currentState'] as String? ?? 'ACTIVE',
+      schoolBusId: json['schoolBusId']?.toString() ?? '',
+      currentState: json['currentState']?.toString() ?? 'ACTIVE',
       isBlocked: json['isBlocked'] as bool? ?? false,
-      blockReason: json['blockReason'] as String?,
+      blockReason: json['blockReason']?.toString(),
     );
   }
 }

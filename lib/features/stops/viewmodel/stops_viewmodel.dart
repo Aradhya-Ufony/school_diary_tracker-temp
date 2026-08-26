@@ -68,12 +68,39 @@ class StopsViewModel extends StateNotifier<StopsState> {
   Future<void> _load() async {
     state = state.copyWith(isLoading: true, error: null);
     try {
+      // Capture UI states of current stops
+      final expandedStopIds = state.stops
+          .where((s) => s.expanded && s.id != null)
+          .map((s) => s.id!)
+          .toSet();
+      final expandedStopAddresses = state.stops
+          .where((s) => s.expanded && s.id == null && s.address != null)
+          .map((s) => s.address!)
+          .toSet();
+      final checkedChildIds = state.stops
+          .expand((s) => s.children)
+          .where((c) => c.checked)
+          .map((c) => c.id)
+          .toSet();
+
       // Single-route list — see StopsRepository's doc comment on why this
       // isn't the original's full-route-list batching.
       final result = await _stopsRepository.getStops([activeRouteId]);
       
-      // Recount stop headers based on visibility constraints
+      // Restore UI states and recount stop headers based on visibility constraints
       for (final stop in result.stops) {
+        if (stop.id != null && expandedStopIds.contains(stop.id)) {
+          stop.expanded = true;
+        } else if (stop.id == null && stop.address != null && expandedStopAddresses.contains(stop.address)) {
+          stop.expanded = true;
+        }
+
+        for (final child in stop.children) {
+          if (checkedChildIds.contains(child.id) && _isChildCheckable(child)) {
+            child.checked = true;
+          }
+        }
+
         _recount(stop);
       }
 
@@ -94,14 +121,33 @@ class StopsViewModel extends StateNotifier<StopsState> {
 
   Future<void> refresh() => _load();
 
-  bool _isChildActionEnabled(StopChild child) {
+  String _getChildActionType(StopChild child) {
     final nameUpper = routeName.trim().toUpperCase();
     if (nameUpper.endsWith('(IN)')) {
-      return child.type == 'pick';
+      return 'pick';
     } else if (nameUpper.endsWith('(OUT)')) {
-      return child.type == 'drop';
+      return 'drop';
+    }
+    return child.type;
+  }
+
+  bool _isChildActionEnabled(StopChild child) {
+    final actionType = _getChildActionType(child);
+    final nameUpper = routeName.trim().toUpperCase();
+    if (nameUpper.endsWith('(IN)')) {
+      return actionType == 'pick';
+    } else if (nameUpper.endsWith('(OUT)')) {
+      return actionType == 'drop';
     }
     return true; // default if neither
+  }
+
+  bool _isChildCheckable(StopChild child) {
+    if (isUndoMode) {
+      return child.pickedOrDropped;
+    } else {
+      return !child.pickedOrDropped && _isChildActionEnabled(child);
+    }
   }
 
   /// Toggles one child's checkbox — matches the original's checkbox-tap
@@ -116,9 +162,7 @@ class StopsViewModel extends StateNotifier<StopsState> {
   /// Matches the stop-level "select all" checkbox.
   void toggleSelectAll(RouteStop stop) {
     stop.allSelected = !stop.allSelected;
-    final targetChildren = isUndoMode
-        ? stop.children.where((c) => c.pickedOrDropped)
-        : stop.children.where((c) => !c.pickedOrDropped && _isChildActionEnabled(c));
+    final targetChildren = stop.children.where(_isChildCheckable);
     for (final child in targetChildren) {
       child.checked = stop.allSelected;
     }
@@ -135,9 +179,7 @@ class StopsViewModel extends StateNotifier<StopsState> {
   }
 
   void _recount(RouteStop stop) {
-    final targetChildren = isUndoMode
-        ? stop.children.where((c) => c.pickedOrDropped)
-        : stop.children.where((c) => !c.pickedOrDropped && _isChildActionEnabled(c));
+    final targetChildren = stop.children.where(_isChildCheckable);
     stop.selectedCount = targetChildren.where((c) => c.checked).length;
     stop.allSelected =
         targetChildren.isNotEmpty && stop.selectedCount == targetChildren.length;
@@ -156,7 +198,8 @@ class StopsViewModel extends StateNotifier<StopsState> {
       timeStamp: Validators.currentTimeStamp(),
     );
 
-    return _submit([request], isDropDirection: child.type != 'pick');
+    final actionType = _getChildActionType(child);
+    return _submit([request], isDropDirection: actionType != 'pick');
   }
 
   /// Matches the original's `children == null` branch: submit every
@@ -169,15 +212,14 @@ class StopsViewModel extends StateNotifier<StopsState> {
     bool isDropDirection = true;
 
     for (final stop in state.stops) {
-      final targetChildren = isUndoMode
-          ? stop.children.where((c) => c.pickedOrDropped)
-          : stop.children.where((c) => !c.pickedOrDropped && _isChildActionEnabled(c));
+      final targetChildren = stop.children.where(_isChildCheckable);
       for (final child in targetChildren) {
         if (!child.checked) continue;
         final routeId = _routeIdFor(child.id);
         if (routeId == null) continue;
         byRoute.putIfAbsent(routeId, () => []).add(child.id);
-        if (child.type == 'pick') isDropDirection = false;
+        final actionType = _getChildActionType(child);
+        if (actionType == 'pick') isDropDirection = false;
       }
     }
 

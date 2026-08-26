@@ -10,7 +10,8 @@ abstract final class Constants{
   static const String USER_ID_HEADER = 'user-id';
   static const String APPLICATION_ID_HEADER = 'application-id';
 
-  static const String LOGIN_BACKGROUND_IMAGE = 'assets/images/bg_signun_screen.png';
+  static const String LOGIN_BACKGROUND_IMAGE = 'assets/images/bg_splash_provided.png';
+  static const String LOGIN_BOTTOM_IMAGE = 'assets/images/login_bottom_placeholder.png';
   static const String CONTACT_AVATAR = 'assets/images/avatar_contact3x.png';
 
   static const String SCREEN_EXTRA_KEY = 'screen';

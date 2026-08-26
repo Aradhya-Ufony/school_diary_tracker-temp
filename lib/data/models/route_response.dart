@@ -8,6 +8,8 @@ class RouteResponse {
   final int? vehicleId; // Added to identify vehicle by integer ID
   final UserLocation? startLocation;
   final UserLocation? endLocation;
+  final String? startTime;
+  final String? endTime;
   int sequenceNumber;
 
   RouteResponse({
@@ -17,6 +19,8 @@ class RouteResponse {
     this.vehicleId,
     this.startLocation,
     this.endLocation,
+    this.startTime,
+    this.endTime,
     this.sequenceNumber = 0,
   });
 
@@ -78,6 +82,8 @@ class RouteResponse {
       endLocation: json['endLocation'] != null
           ? UserLocation.fromJson(json['endLocation'] as Map<String, dynamic>)
           : null,
+      startTime: (json['startTime'] ?? json['StartTime'] ?? json['start_time'])?.toString(),
+      endTime: (json['endTime'] ?? json['EndTime'] ?? json['end_time'])?.toString(),
     );
   }
 
@@ -89,5 +95,56 @@ class RouteResponse {
         'busId': vehicleId,
         'startLocation': startLocation?.toJson(),
         'endLocation': endLocation?.toJson(),
+        'startTime': startTime,
+        'endTime': endTime,
       };
+
+  int? _parseTimeToMinutes(String? timeStr) {
+    if (timeStr == null || timeStr.trim().isEmpty) return null;
+    timeStr = timeStr.trim().toUpperCase();
+
+    if (timeStr.contains('T')) {
+      final parsedDt = DateTime.tryParse(timeStr);
+      if (parsedDt != null) {
+        return parsedDt.hour * 60 + parsedDt.minute;
+      }
+    }
+
+    final matchAmPm = RegExp(r'^(\d+):(\d+)(?::\d+)?\s*(AM|PM)$').firstMatch(timeStr);
+    if (matchAmPm != null) {
+      int hour = int.parse(matchAmPm.group(1)!);
+      final int minute = int.parse(matchAmPm.group(2)!);
+      final String period = matchAmPm.group(3)!;
+      if (period == 'PM' && hour != 12) {
+        hour += 12;
+      } else if (period == 'AM' && hour == 12) {
+        hour = 0;
+      }
+      return hour * 60 + minute;
+    }
+
+    final match24h = RegExp(r'^(\d+):(\d+)(?::\d+)?$').firstMatch(timeStr);
+    if (match24h != null) {
+      final int hour = int.parse(match24h.group(1)!);
+      final int minute = int.parse(match24h.group(2)!);
+      return hour * 60 + minute;
+    }
+
+    return null;
+  }
+
+  bool isLiveAt(DateTime time) {
+    final startMin = _parseTimeToMinutes(startTime);
+    final endMin = _parseTimeToMinutes(endTime);
+    if (startMin == null || endMin == null) {
+      return true;
+    }
+
+    final currentMin = time.hour * 60 + time.minute;
+    if (startMin <= endMin) {
+      return currentMin >= startMin && currentMin <= endMin;
+    } else {
+      return currentMin >= startMin || currentMin <= endMin;
+    }
+  }
 }

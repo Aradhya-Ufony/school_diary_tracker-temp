@@ -59,6 +59,7 @@ class TripViewModel extends StateNotifier<TripState> {
   final LocalStorageService _storage;
   final Stream<UserLocation> _positionStream;
   final Future<void> Function() _stopLocationTracking;
+  final Future<UserLocation?> Function() _getCurrentLocation;
 
   StreamSubscription<UserLocation>? _positionSub;
   Timer? _watchdogTimer;
@@ -71,11 +72,13 @@ class TripViewModel extends StateNotifier<TripState> {
     required LocalStorageService storage,
     required Stream<UserLocation> positionStream,
     required Future<void> Function() stopLocationTracking,
+    required Future<UserLocation?> Function() getCurrentLocation,
   })  : _tripRepository = tripRepository,
         _stopsRepository = stopsRepository,
         _storage = storage,
         _positionStream = positionStream,
         _stopLocationTracking = stopLocationTracking,
+        _getCurrentLocation = getCurrentLocation,
         super(const TripState()) {
     _positionSub = _positionStream.listen(_onPosition);
     _watchdogTimer = Timer.periodic(const Duration(seconds: 1), (_) => _tick());
@@ -100,10 +103,8 @@ class TripViewModel extends StateNotifier<TripState> {
   }
 
   Future<void> _pollBusLocation() async {
-    final tripId = _tripRepository.activeTripId;
-    if (tripId == null) return;
     try {
-      final loc = await _tripRepository.getTripLocation(tripId);
+      final loc = await _getCurrentLocation();
       if (loc != null) {
         state = state.copyWith(
           currentPosition: loc,
@@ -115,9 +116,11 @@ class TripViewModel extends StateNotifier<TripState> {
   }
 
   void _onPosition(UserLocation location) {
-    // Local driver device updates are sent to the server in background.
-    // The bus location displayed on the map is polled from the server.
-    // So we do not update currentPosition here.
+    state = state.copyWith(
+      currentPosition: location,
+      secondsSinceLastUpdate: 0,
+      showReconnectWarning: false,
+    );
   }
 
   void _tick() {
@@ -183,5 +186,6 @@ final tripViewModelProvider = StateNotifierProvider.autoDispose
     storage: ref.watch(localStorageServiceProvider),
     positionStream: locationService.positionStream,
     stopLocationTracking: locationService.stop,
+    getCurrentLocation: locationService.getCurrentLocation,
   );
 });

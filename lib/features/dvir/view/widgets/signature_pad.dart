@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 import '../../../../core/utils/app_constants.dart';
+import '../../../../l10n/generated/app_localizations.dart';
 
 class SignaturePad extends StatefulWidget {
   final Function(String base64Png) onSigned;
@@ -83,12 +84,13 @@ class _SignaturePadState extends State<SignaturePad> {
       barrierDismissible: false,
       pageBuilder: (dialogContext, anim1, anim2) {
         final List<Offset?> dialogPoints = List.from(_points);
+        final l10n = AppLocalizations.of(context)!;
 
         return StatefulBuilder(
           builder: (context, setDialogState) {
             return Scaffold(
               appBar: AppBar(
-                title: const Text('Draw Signature'),
+                title: Text(l10n.dvirSigDrawTitle),
                 backgroundColor: AppColors.PRIMARY,
                 foregroundColor: Colors.white,
                 leading: IconButton(
@@ -142,7 +144,7 @@ class _SignaturePadState extends State<SignaturePad> {
                                           Icon(Icons.arrow_upward, color: Colors.grey.shade200, size: 28),
                                           const SizedBox(width: 8),
                                           Text(
-                                            'Sign Vertically (Bottom to Top)',
+                                            l10n.dvirSigWatermark,
                                             style: TextStyle(
                                               color: Colors.grey.shade200,
                                               fontSize: 20,
@@ -176,7 +178,7 @@ class _SignaturePadState extends State<SignaturePad> {
                                 padding: const EdgeInsets.symmetric(vertical: 16),
                               ),
                               onPressed: () => Navigator.pop(dialogContext),
-                              child: const Text('CANCEL'),
+                              child: Text(l10n.genericCancel.toUpperCase()),
                             ),
                           ),
                           const SizedBox(width: 16),
@@ -200,7 +202,7 @@ class _SignaturePadState extends State<SignaturePad> {
 
                                       if (dialogContext.mounted) Navigator.pop(dialogContext);
                                     },
-                              child: const Text('SAVE SIGNATURE'),
+                              child: Text(l10n.dvirSigSave),
                             ),
                           ),
                         ],
@@ -219,6 +221,7 @@ class _SignaturePadState extends State<SignaturePad> {
   @override
   Widget build(BuildContext context) {
     final hasSignature = _signatureBase64 != null;
+    final l10n = AppLocalizations.of(context)!;
 
     return Container(
       width: double.infinity,
@@ -231,9 +234,9 @@ class _SignaturePadState extends State<SignaturePad> {
       child: Column(
         children: [
           if (hasSignature) ...[
-            const Text(
-              'Captured Signature Preview:',
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13, color: Colors.blueGrey),
+            Text(
+              l10n.dvirSigPreviewLabel,
+              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 13, color: Colors.blueGrey),
             ),
             const SizedBox(height: 12),
             Container(
@@ -259,13 +262,13 @@ class _SignaturePadState extends State<SignaturePad> {
                 OutlinedButton.icon(
                   onPressed: _clear,
                   icon: const Icon(Icons.delete_outline),
-                  label: const Text('CLEAR'),
+                  label: Text(l10n.genericClear),
                   style: OutlinedButton.styleFrom(foregroundColor: Colors.red),
                 ),
                 ElevatedButton.icon(
                   onPressed: () => _openFullScreenSignature(context),
                   icon: const Icon(Icons.edit_outlined, color: Color(0xFFFFFFFF),),
-                  label: const Text('REDRAW'),
+                  label: Text(l10n.dvirSigRedraw),
                 ),
               ],
             )
@@ -280,9 +283,9 @@ class _SignaturePadState extends State<SignaturePad> {
                 ),
                 onPressed: () => _openFullScreenSignature(context),
                 icon: const Icon(Icons.gesture, color: AppColors.PRIMARY),
-                label: const Text(
-                  'TAP TO DRAW SIGNATURE (REQUIRED)',
-                  style: TextStyle(color: AppColors.PRIMARY, fontWeight: FontWeight.bold),
+                label: Text(
+                  l10n.dvirSigTapToDraw,
+                  style: const TextStyle(color: AppColors.PRIMARY, fontWeight: FontWeight.bold),
                 ),
               ),
             ),

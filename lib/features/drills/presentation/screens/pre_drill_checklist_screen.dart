@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../core/utils/app_constants.dart';
 import '../providers/drill_providers.dart';
+import '../../../../l10n/generated/app_localizations.dart';
 
 class PreDrillChecklistScreen extends ConsumerWidget {
   const PreDrillChecklistScreen({super.key});
@@ -11,6 +12,7 @@ class PreDrillChecklistScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(drillChecklistProvider);
     final notifier = ref.read(drillChecklistProvider.notifier);
+    final l10n = AppLocalizations.of(context)!;
 
     final onBusStudents = state.items.values.where((item) => item.wasOnBus).toList()
       ..sort((a, b) => a.childName.toLowerCase().compareTo(b.childName.toLowerCase()));
@@ -26,23 +28,23 @@ class PreDrillChecklistScreen extends ConsumerWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              'ON BUS (${onBusStudents.length})',
+              l10n.drillChecklistOnBusTitle(onBusStudents.length),
               style: const TextStyle(fontWeight: FontWeight.bold, color: AppColors.PRIMARY, fontSize: 14),
             ),
             Text(
-              'Evacuated: ${state.evacuatedCount}/${state.totalOnBus}',
+              l10n.drillChecklistEvacuatedProgress(state.evacuatedCount, state.totalOnBus),
               style: const TextStyle(fontWeight: FontWeight.bold, color: Color(0xFF16A34A), fontSize: 14),
             ),
           ],
         ),
       ),
       if (onBusStudents.isEmpty)
-        const Padding(
-          padding: EdgeInsets.symmetric(vertical: 24, horizontal: 16),
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 16),
           child: Center(
             child: Text(
-              'No students marked on bus.',
-              style: TextStyle(fontStyle: FontStyle.italic, color: Colors.grey),
+              l10n.drillChecklistNoStudentsOnBus,
+              style: const TextStyle(fontStyle: FontStyle.italic, color: Colors.grey),
             ),
           ),
         )
@@ -68,7 +70,7 @@ class PreDrillChecklistScreen extends ConsumerWidget {
                   ),
                 ),
                 subtitle: Text(
-                  item.isEvacuated ? 'Evacuated' : 'ON BUS — NOT EVACUATED',
+                  item.isEvacuated ? l10n.drillChecklistEvacuated : l10n.drillChecklistOnBusNotEvacuated,
                   style: TextStyle(
                     color: item.isUnaccounted ? const Color(0xFFDC2626) : Colors.grey,
                   ),
@@ -83,17 +85,17 @@ class PreDrillChecklistScreen extends ConsumerWidget {
       Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         child: Text(
-          'ABSENT / NOT ON BUS (${absentStudents.length})',
+          l10n.drillChecklistAbsentTitle(absentStudents.length),
           style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.grey, fontSize: 14),
         ),
       ),
       if (absentStudents.isEmpty)
-        const Padding(
-          padding: EdgeInsets.symmetric(vertical: 24, horizontal: 16),
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 16),
           child: Center(
             child: Text(
-              'No absent students.',
-              style: TextStyle(fontStyle: FontStyle.italic, color: Colors.grey),
+              l10n.drillChecklistNoAbsentStudents,
+              style: const TextStyle(fontStyle: FontStyle.italic, color: Colors.grey),
             ),
           ),
         )
@@ -118,9 +120,9 @@ class PreDrillChecklistScreen extends ConsumerWidget {
                     color: Colors.black54,
                   ),
                 ),
-                subtitle: const Text(
-                  'NOT ON BUS',
-                  style: TextStyle(
+                subtitle: Text(
+                  l10n.drillChecklistNotOnBus,
+                  style: const TextStyle(
                     fontStyle: FontStyle.italic,
                     color: Colors.grey,
                   ),
@@ -132,7 +134,7 @@ class PreDrillChecklistScreen extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Evacuation Drill Checklist'),
+        title: Text(l10n.drillChecklistTitle),
         actions: [
           IconButton(
             icon: const Icon(Icons.refresh),
@@ -156,7 +158,7 @@ class PreDrillChecklistScreen extends ConsumerWidget {
                             const SizedBox(width: 10),
                             Expanded(
                               child: Text(
-                                '${state.unaccountedCount} Unaccounted Student(s) Remaining!',
+                                l10n.drillChecklistUnaccountedWarning(state.unaccountedCount),
                                 style: const TextStyle(
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold,
@@ -175,18 +177,18 @@ class PreDrillChecklistScreen extends ConsumerWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                'Bus: ${state.busNumber ?? state.roster?.busNumber ?? ""}',
+                                l10n.drillChecklistBus(state.busNumber ?? state.roster?.busNumber ?? ""),
                                 style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
                               ),
                               Text(
-                                'Evacuated: ${state.evacuatedCount}/${state.totalOnBus}',
+                                l10n.drillChecklistEvacuatedProgress(state.evacuatedCount, state.totalOnBus),
                                 style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
                               ),
                             ],
                           ),
                           const SizedBox(height: 6),
                           Text(
-                            'Route (Live): ${state.roster?.routeName ?? "Live Route"}',
+                            l10n.drillChecklistRouteLive(state.roster?.routeName ?? "Live Route"),
                             style: TextStyle(
                               color: Colors.grey.shade700,
                               fontSize: 14,
@@ -210,7 +212,7 @@ class PreDrillChecklistScreen extends ConsumerWidget {
                           padding: const EdgeInsets.symmetric(vertical: 16),
                         ),
                         onPressed: () => context.push('/drills/evidence'),
-                        child: const Text('PROCEED TO EVIDENCE CAPTURE', style: TextStyle(color: Colors.white)),
+                        child: Text(l10n.drillChecklistProceed, style: const TextStyle(color: Colors.white)),
                       ),
                     ),
                   ],

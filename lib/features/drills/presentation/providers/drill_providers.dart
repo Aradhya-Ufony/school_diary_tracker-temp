@@ -395,9 +395,11 @@ class DrillListState {
 
 class DrillListNotifier extends StateNotifier<DrillListState> {
   final DrillRepository _repository;
+  final Ref _ref;
   final String? assignedBusNumber;
+  final int? assignedBusId;
 
-  DrillListNotifier(this._repository, {this.assignedBusNumber}) : super(DrillListState()) {
+  DrillListNotifier(this._repository, this._ref, {this.assignedBusNumber, this.assignedBusId}) : super(DrillListState()) {
     loadBuses();
   }
 
@@ -411,19 +413,20 @@ class DrillListNotifier extends StateNotifier<DrillListState> {
         final matchedBus = buses.firstWhere(
           (b) => b.busNumber == assignedBusNumber,
           orElse: () => DrillComplianceStatus(
-            busId: 0,
+            busId: assignedBusId ?? 0,
             busNumber: assignedBusNumber!,
             status: ComplianceLevel.green,
             daysRemainingOrOverdue: 0,
           ),
         );
-        selectBus(matchedBus.busNumber, matchedBus.busId);
+        final resolvedBusId = matchedBus.busId == 0 ? (assignedBusId ?? 0) : matchedBus.busId;
+        selectBus(matchedBus.busNumber, resolvedBusId);
       } else if (buses.isNotEmpty) {
         selectBus(buses.first.busNumber, buses.first.busId);
       }
     } catch (e) {
       if (assignedBusNumber != null) {
-        selectBus(assignedBusNumber!, 0);
+        selectBus(assignedBusNumber!, assignedBusId ?? 0);
       } else {
         state = state.copyWith(isLoading: false, error: 'Failed to load buses');
       }
@@ -431,9 +434,20 @@ class DrillListNotifier extends StateNotifier<DrillListState> {
   }
 
   Future<void> selectBus(String busNumber, int busId) async {
+    int resolvedBusId = busId;
+    if (resolvedBusId == 0) {
+      try {
+        final routesState = _ref.read(homeViewModelProvider);
+        final matched = routesState.allRoutes.firstWhere(
+          (r) => r.vehicleLicenseNumber == busNumber,
+        );
+        resolvedBusId = matched.vehicleId ?? 0;
+      } catch (_) {}
+    }
+
     state = state.copyWith(
       selectedBusNumber: busNumber,
-      selectedBusId: busId,
+      selectedBusId: resolvedBusId,
       isLoading: true,
       error: null,
       drills: [],
@@ -449,16 +463,15 @@ class DrillListNotifier extends StateNotifier<DrillListState> {
 
 final drillListProvider =
     StateNotifierProvider<DrillListNotifier, DrillListState>((ref) {
-  final assignedBusNumber = ref.watch(
-    homeViewModelProvider.select(
-      (state) => state.allRoutes.isNotEmpty
-          ? state.allRoutes.first.vehicleLicenseNumber
-          : null,
-    ),
-  );
+  final routesState = ref.watch(homeViewModelProvider);
+  final firstRoute = routesState.allRoutes.isNotEmpty ? routesState.allRoutes.first : null;
+  final assignedBusNumber = firstRoute?.vehicleLicenseNumber;
+  final assignedBusId = firstRoute?.vehicleId;
 
   return DrillListNotifier(
     ref.watch(drillRepositoryProvider),
+    ref,
     assignedBusNumber: assignedBusNumber,
+    assignedBusId: assignedBusId,
   );
 });

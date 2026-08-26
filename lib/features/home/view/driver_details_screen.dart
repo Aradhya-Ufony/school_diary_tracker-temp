@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../core/utils/app_constants.dart';
+import '../../../data/models/driver_details_mock.dart';
 import '../../auth/viewmodel/login_viewmodel.dart';
+import '../../../l10n/generated/app_localizations.dart';
 
 class DriverDetailsScreen extends ConsumerWidget {
   const DriverDetailsScreen({super.key});
@@ -9,23 +11,28 @@ class DriverDetailsScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final user = ref.watch(authRepositoryProvider).getCurrentUser();
+    final l10n = AppLocalizations.of(context)!;
 
-    final driverName = user?.fullName ?? '';
-    final driverId = user?.id.toString() ?? '';
-    const mobileNo = '';
-    const licenseNo = '';
-    const licenseType = '';
-    const issueDate = '';
-    const expiryDate = '';
-    const cdlClass = '';
-    const dob = '';
-    const endorsements = '';
+    final driverName = (user?.fullName != null && user!.fullName.trim().isNotEmpty)
+        ? user.fullName
+        : MockDriverDetails.demoDriver.name;
+    final driverId = (user?.id != null)
+        ? user!.id.toString()
+        : MockDriverDetails.demoDriver.id;
+    final mobileNo = MockDriverDetails.demoDriver.mobileNo;
+    final licenseNo = MockDriverDetails.demoDriver.licenseNo;
+    final licenseType = MockDriverDetails.demoDriver.licenseType;
+    final cdlClass = MockDriverDetails.demoDriver.cdlClass;
+    final issueDate = MockDriverDetails.demoDriver.issueDate;
+    final expiryDate = MockDriverDetails.demoDriver.expiryDate;
+    final dob = MockDriverDetails.demoDriver.dob;
+    final endorsements = MockDriverDetails.demoDriver.endorsements;
 
     const primaryColor = AppColors.PRIMARY;
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Driver Details'),
+        title: Text(l10n.driverDetailsTitle),
         elevation: 0,
         backgroundColor: primaryColor,
         foregroundColor: Colors.white,
@@ -84,7 +91,7 @@ class DriverDetailsScreen extends ConsumerWidget {
                         borderRadius: BorderRadius.circular(20),
                       ),
                       child: Text(
-                        'ID: $driverId',
+                        l10n.driverDetailsId(driverId),
                         style: const TextStyle(
                           color: Colors.white,
                           fontSize: 14,
@@ -119,13 +126,13 @@ class DriverDetailsScreen extends ConsumerWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   // License credentials header
-                  const Row(
+                  Row(
                     children: [
-                      Icon(Icons.badge, color: primaryColor, size: 22),
-                      SizedBox(width: 8),
+                      const Icon(Icons.badge, color: primaryColor, size: 22),
+                      const SizedBox(width: 8),
                       Text(
-                        'License Details',
-                        style: TextStyle(
+                        l10n.driverDetailsLicenseTitle,
+                        style: const TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 16,
                           color: primaryColor,
@@ -147,15 +154,15 @@ class DriverDetailsScreen extends ConsumerWidget {
                       padding: const EdgeInsets.all(16.0),
                       child: Column(
                         children: [
-                          _buildProfileRow('License No', licenseNo),
+                          _buildProfileRow(l10n.driverDetailsLicenseNoLabel, licenseNo),
                           const Divider(height: 20),
-                          _buildProfileRow('License Type', licenseType),
+                          _buildProfileRow(l10n.driverDetailsLicenseTypeLabel, licenseType),
                           const Divider(height: 20),
-                          _buildProfileRow('CDL Class', cdlClass),
+                          _buildProfileRow(l10n.driverDetailsCdlClassLabel, cdlClass),
                           const Divider(height: 20),
-                          _buildProfileRow('Issue Date', issueDate),
+                          _buildProfileRow(l10n.driverDetailsIssueDateLabel, issueDate),
                           const Divider(height: 20),
-                          _buildProfileRow('Expiry Date', expiryDate),
+                          _buildProfileRow(l10n.driverDetailsExpiryDateLabel, expiryDate),
                         ],
                       ),
                     ),
@@ -163,13 +170,13 @@ class DriverDetailsScreen extends ConsumerWidget {
                   const SizedBox(height: 24),
 
                   // Endorsements Section
-                  const Row(
+                  Row(
                     children: [
-                      Icon(Icons.verified, color: primaryColor, size: 22),
-                      SizedBox(width: 8),
+                      const Icon(Icons.verified, color: primaryColor, size: 22),
+                      const SizedBox(width: 8),
                       Text(
-                        'Endorsements Held',
-                        style: TextStyle(
+                        l10n.driverDetailsEndorsementsTitle,
+                        style: const TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 16,
                           color: primaryColor,
@@ -180,21 +187,21 @@ class DriverDetailsScreen extends ConsumerWidget {
                   const SizedBox(height: 10),
                   Row(
                     children: [
-                      _buildEndorsementChip(context, 'P', 'Passenger', Colors.teal),
+                      _buildEndorsementChip(context, 'P', l10n.driverDetailsEndorsementPassenger, Colors.teal),
                       const SizedBox(width: 12),
-                      _buildEndorsementChip(context, 'S', 'School Bus', Colors.red, isMust: true),
+                      _buildEndorsementChip(context, 'S', l10n.driverDetailsEndorsementSchoolBus, Colors.red, isMust: true),
                     ],
                   ),
                   const SizedBox(height: 24),
 
                   // Document view card
-                  const Row(
+                  Row(
                     children: [
-                      Icon(Icons.description, color: primaryColor, size: 22),
-                      SizedBox(width: 8),
+                      const Icon(Icons.description, color: primaryColor, size: 22),
+                      const SizedBox(width: 8),
                       Text(
-                        'License Document',
-                        style: TextStyle(
+                        l10n.driverDetailsLicenseDocTitle,
+                        style: const TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 16,
                           color: primaryColor,
@@ -245,9 +252,9 @@ class DriverDetailsScreen extends ConsumerWidget {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  const Text(
-                                    'DRIVING LICENSE',
-                                    style: TextStyle(
+                                  Text(
+                                    l10n.driverDetailsDrivingLicenseLabel,
+                                    style: const TextStyle(
                                       fontSize: 10,
                                       fontWeight: FontWeight.bold,
                                       color: Colors.blueGrey,
@@ -256,12 +263,12 @@ class DriverDetailsScreen extends ConsumerWidget {
                                   ),
                                   const SizedBox(height: 4),
                                   Text(
-                                    'NAME: $driverName',
+                                    l10n.driverDetailsDrivingLicenseName(driverName),
                                     style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold),
                                   ),
                                   const SizedBox(height: 2),
                                   Text(
-                                    'LIC: $licenseNo',
+                                    l10n.driverDetailsDrivingLicenseNo(licenseNo),
                                     style: const TextStyle(fontSize: 11, color: Colors.black87),
                                   ),
                                 ],
@@ -270,14 +277,14 @@ class DriverDetailsScreen extends ConsumerWidget {
                             Container(
                               color: Colors.black.withOpacity(0.25),
                             ),
-                            const Column(
+                            Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Icon(Icons.remove_red_eye, color: Colors.white, size: 32),
-                                SizedBox(height: 6),
+                                const Icon(Icons.remove_red_eye, color: Colors.white, size: 32),
+                                const SizedBox(height: 6),
                                 Text(
-                                  'Tap to View DL Document',
-                                  style: TextStyle(
+                                  l10n.driverDetailsTapToView,
+                                  style: const TextStyle(
                                     color: Colors.white,
                                     fontWeight: FontWeight.bold,
                                     fontSize: 13,
@@ -388,6 +395,7 @@ class DriverDetailsScreen extends ConsumerWidget {
     showDialog(
       context: context,
       builder: (context) {
+        final l10n = AppLocalizations.of(context)!;
         return Dialog(
           backgroundColor: Colors.transparent,
           insetPadding: const EdgeInsets.all(16),
@@ -411,13 +419,13 @@ class DriverDetailsScreen extends ConsumerWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Row(
+                    Row(
                       children: [
-                        Icon(Icons.security, color: AppColors.PRIMARY),
-                        SizedBox(width: 8),
+                        const Icon(Icons.security, color: AppColors.PRIMARY),
+                        const SizedBox(width: 8),
                         Text(
-                          'NATIONAL DRIVER LICENSE',
-                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14, color: AppColors.PRIMARY),
+                          l10n.driverDetailsDrivingLicenseLabel,
+                          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14, color: AppColors.PRIMARY),
                         ),
                       ],
                     ),
@@ -447,17 +455,17 @@ class DriverDetailsScreen extends ConsumerWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text('LN: $licenseNo', style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14, color: Colors.red)),
+                          Text(l10n.driverDetailsPreviewLicenseNo(licenseNo), style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14, color: Colors.red)),
                           const SizedBox(height: 6),
-                          Text('FN: $name', style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 13)),
+                          Text(l10n.driverDetailsPreviewName(name), style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 13)),
                           const SizedBox(height: 4),
-                          Text('DOB: $dob', style: const TextStyle(fontSize: 12)),
+                          Text(l10n.driverDetailsPreviewDob(dob), style: const TextStyle(fontSize: 12)),
                           const SizedBox(height: 4),
-                          Text('CLASS: $cdlClass', style: const TextStyle(fontSize: 12)),
+                          Text(l10n.driverDetailsPreviewClass(cdlClass), style: const TextStyle(fontSize: 12)),
                           const SizedBox(height: 4),
-                          Text('ENDORSE: $endorsements', style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold)),
+                          Text(l10n.driverDetailsPreviewEndorse(endorsements), style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold)),
                           const SizedBox(height: 4),
-                          Text('EXP: $expiryDate', style: const TextStyle(fontSize: 12, color: Colors.blueGrey)),
+                          Text(l10n.driverDetailsPreviewExp(expiryDate), style: const TextStyle(fontSize: 12, color: Colors.blueGrey)),
                         ],
                       ),
                     ),
@@ -481,7 +489,7 @@ class DriverDetailsScreen extends ConsumerWidget {
                           ),
                         ),
                         const SizedBox(height: 2),
-                        const Text('OFFICIAL SEAL', style: TextStyle(fontSize: 8, fontWeight: FontWeight.bold)),
+                        Text(l10n.driverDetailsOfficialSeal, style: const TextStyle(fontSize: 8, fontWeight: FontWeight.bold)),
                       ],
                     ),
                     Column(
@@ -492,7 +500,7 @@ class DriverDetailsScreen extends ConsumerWidget {
                           style: const TextStyle(fontFamily: 'Courier', fontStyle: FontStyle.italic, fontWeight: FontWeight.bold, fontSize: 18),
                         ),
                         const Divider(height: 6, thickness: 1),
-                        const Text('HOLDER SIGNATURE', style: TextStyle(fontSize: 8, fontWeight: FontWeight.bold)),
+                        Text(l10n.driverDetailsHolderSignature, style: const TextStyle(fontSize: 8, fontWeight: FontWeight.bold)),
                       ],
                     ),
                   ],

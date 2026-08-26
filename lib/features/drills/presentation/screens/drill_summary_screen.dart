@@ -8,6 +8,7 @@ import '../../../../data/models/drill_log.dart';
 import '../../../../data/models/drill_evidence.dart';
 import '../providers/drill_providers.dart';
 import 'full_screen_media_viewer.dart';
+import '../../../../l10n/generated/app_localizations.dart';
 
 class DrillSummaryScreen extends ConsumerStatefulWidget {
   final int drillLogId;
@@ -38,14 +39,24 @@ class _DrillSummaryScreenState extends ConsumerState<DrillSummaryScreen> {
     });
   }
 
+  void _goBack() {
+    if (context.canPop()) {
+      context.pop();
+    } else {
+      context.go(Constants.DRILL_LIST_ROUTE);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+
     return Scaffold(
       appBar: AppBar(
-        title: Text('Drill Summary (#${widget.drillLogId})'),
+        title: Text(l10n.drillSummaryTitle(widget.drillLogId)),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
-          onPressed: () => context.go(Constants.DRILL_LIST_ROUTE),
+          onPressed: _goBack,
         ),
         actions: [
           IconButton(
@@ -72,7 +83,7 @@ class _DrillSummaryScreenState extends ConsumerState<DrillSummaryScreen> {
                         color: Colors.red, size: 60),
                     const SizedBox(height: 16),
                     Text(
-                      'Failed to load drill summary for ID #${widget.drillLogId}.\n${snapshot.error}',
+                      l10n.drillSummaryLoadFailed(widget.drillLogId, snapshot.error ?? ""),
                       textAlign: TextAlign.center,
                       style: const TextStyle(
                           color: Colors.red,
@@ -81,8 +92,8 @@ class _DrillSummaryScreenState extends ConsumerState<DrillSummaryScreen> {
                     ),
                     const SizedBox(height: 24),
                     ElevatedButton(
-                      onPressed: () => context.go(Constants.DRILL_LIST_ROUTE),
-                      child: const Text('Back to Drills'),
+                      onPressed: _goBack,
+                      child: Text(l10n.drillSummaryBackToDrills),
                     ),
                   ],
                 ),
@@ -92,7 +103,7 @@ class _DrillSummaryScreenState extends ConsumerState<DrillSummaryScreen> {
 
           final drill = snapshot.data;
           if (drill == null) {
-            return const Center(child: Text('No drill data found.'));
+            return Center(child: Text(l10n.drillSummaryNoData));
           }
 
           final statusColor = drill.status.toLowerCase() == 'approved'
@@ -143,13 +154,13 @@ class _DrillSummaryScreenState extends ConsumerState<DrillSummaryScreen> {
                             ),
                             if (drill.approvedAt != null)
                               Text(
-                                'Approved At: ${DateFormat('yyyy-MM-dd HH:mm').format(drill.approvedAt!.toLocal())}',
+                                l10n.drillSummaryApprovedAt(DateFormat('yyyy-MM-dd HH:mm').format(drill.approvedAt!.toLocal())),
                                 style: const TextStyle(
                                     fontSize: 13, color: Colors.black87),
                               ),
                             if (drill.conductedByName != null)
                               Text(
-                                'Conducted By: ${drill.conductedByName}',
+                                l10n.drillSummaryConductedBy(drill.conductedByName!),
                                 style: const TextStyle(
                                     fontSize: 13, color: Colors.black87),
                               ),
@@ -162,9 +173,9 @@ class _DrillSummaryScreenState extends ConsumerState<DrillSummaryScreen> {
                 const SizedBox(height: 20),
 
                 // 2. Metadata / Information Table
-                const Text('Drill Metadata',
+                Text(l10n.drillSummaryDetailsTitle,
                     style:
-                        TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+                        const TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
                 const SizedBox(height: 8),
                 Card(
                   elevation: 1.5,
@@ -172,43 +183,43 @@ class _DrillSummaryScreenState extends ConsumerState<DrillSummaryScreen> {
                     padding: const EdgeInsets.all(12.0),
                     child: Column(
                       children: [
-                        _buildInfoRow('Drill Type', drill.drillType),
+                        _buildInfoRow(l10n.drillSummaryType, drill.drillType),
                         const Divider(),
-                        _buildInfoRow('Route ID', drill.routeId.toString()),
+                        _buildInfoRow(l10n.drillSummaryRouteId, drill.routeId.toString()),
                         const Divider(),
                         if (drill.busNumber != null) ...[
-                          _buildInfoRow('Bus Number', drill.busNumber!),
+                          _buildInfoRow(l10n.drillSummaryBusNumber, drill.busNumber!),
                           const Divider(),
                         ],
                         if (drill.startTime != null) ...[
                           _buildInfoRow(
-                              'Start Time',
+                              l10n.drillSummaryStartTime,
                               DateFormat('yyyy-MM-dd HH:mm:ss')
-                                  .format(drill.startTime!.toLocal())),
+                                  .format(drill.startTime!)),
                           const Divider(),
                         ],
                         if (drill.endTime != null) ...[
                           _buildInfoRow(
-                              'End Time',
+                              l10n.drillSummaryEndTime,
                               DateFormat('yyyy-MM-dd HH:mm:ss')
-                                  .format(drill.endTime!.toLocal())),
+                                  .format(drill.endTime!)),
                           const Divider(),
                         ],
                         if (duration != null) ...[
                           _buildInfoRow(
-                            'Duration',
-                            '${duration.inMinutes} min ${duration.inSeconds % 60} sec',
+                            l10n.drillSummaryDuration,
+                            l10n.drillSummaryDurationValue(duration.inMinutes, duration.inSeconds % 60),
                           ),
                           const Divider(),
                         ],
-                        _buildInfoRow('GPS Coordinates',
-                            'Lat: ${drill.latitude}, Lng: ${drill.longitude}'),
+                        _buildInfoRow(l10n.drillSummaryGps,
+                            l10n.drillSummaryGpsValue(drill.latitude, drill.longitude)),
                         const Divider(),
-                        _buildInfoRow('Status', drill.status.toUpperCase()),
+                        _buildInfoRow(l10n.drillSummaryStatus, drill.status.toUpperCase()),
                         if (drill.approvedAt != null) ...[
                           const Divider(),
                           _buildInfoRow(
-                            'Approved At',
+                            l10n.drillSummaryApprovedAtLabel,
                             DateFormat('yyyy-MM-dd HH:mm:ss')
                                 .format(drill.approvedAt!.toLocal()),
                           ),
@@ -221,9 +232,9 @@ class _DrillSummaryScreenState extends ConsumerState<DrillSummaryScreen> {
 
                 // 3. Driver Notes
                 if (drill.driverNotes != null || drill.notes != null) ...[
-                  const Text('Driver Notes',
+                  Text(l10n.drillSummaryDriverNotesTitle,
                       style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+                          const TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
                   const SizedBox(height: 8),
                   Card(
                     elevation: 1.5,
@@ -245,9 +256,9 @@ class _DrillSummaryScreenState extends ConsumerState<DrillSummaryScreen> {
 
                 // 3b. Admin Notes
                 if (drill.adminNotes != null) ...[
-                  const Text('Admin Notes',
+                  Text(l10n.drillSummaryAdminNotesTitle,
                       style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+                          const TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
                   const SizedBox(height: 8),
                   Card(
                     elevation: 1.5,
@@ -273,11 +284,14 @@ class _DrillSummaryScreenState extends ConsumerState<DrillSummaryScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Text('Student Evacuation Log',
-                        style: TextStyle(
+                    Text(l10n.drillSummaryStudentLogTitle,
+                        style: const TextStyle(
                             fontWeight: FontWeight.bold, fontSize: 16)),
                     Text(
-                      'Evacuated: ${drill.checklistItems.where((c) => c.wasOnBus && c.isEvacuated).length}/${drill.checklistItems.where((c) => c.wasOnBus).length}',
+                      l10n.drillSummaryEvacuatedCount(
+                        drill.checklistItems.where((c) => c.wasOnBus && c.isEvacuated).length,
+                        drill.checklistItems.where((c) => c.wasOnBus).length,
+                      ),
                       style: const TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 14,
@@ -327,9 +341,9 @@ class _DrillSummaryScreenState extends ConsumerState<DrillSummaryScreen> {
                         subtitle: Text(
                           item.wasOnBus
                               ? (item.isEvacuated
-                                  ? 'Evacuated ${item.evacuationTime != null ? DateFormat('HH:mm:ss').format(item.evacuationTime!.toLocal()) : ""}'
-                                  : 'ON BUS - NOT EVACUATED')
-                              : 'Not On Bus',
+                                  ? l10n.drillSummaryEvacuatedTime(item.evacuationTime != null ? DateFormat('HH:mm:ss').format(item.evacuationTime!.toLocal()) : "")
+                                  : l10n.drillSummaryOnBusNotEvacuated)
+                              : l10n.drillSummaryNotOnBus,
                           style: TextStyle(
                             color: item.wasOnBus
                                 ? (item.isEvacuated
@@ -339,7 +353,7 @@ class _DrillSummaryScreenState extends ConsumerState<DrillSummaryScreen> {
                           ),
                         ),
                         trailing: item.seatNumber != null
-                            ? Text('Seat: ${item.seatNumber}')
+                            ? Text(l10n.drillSummarySeat(item.seatNumber!))
                             : null,
                       );
                     },
@@ -349,9 +363,9 @@ class _DrillSummaryScreenState extends ConsumerState<DrillSummaryScreen> {
 
                 // 5. Evidence Attachments
                 if (drill.evidenceFiles.isNotEmpty) ...[
-                  const Text('Evidence Media Attachments',
+                  Text(l10n.drillSummaryEvidenceTitle,
                       style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+                          const TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
                   const SizedBox(height: 8),
                   GridView.builder(
                     shrinkWrap: true,
@@ -430,7 +444,7 @@ class _DrillSummaryScreenState extends ConsumerState<DrillSummaryScreen> {
                                 color: Colors.black54,
                                 padding: const EdgeInsets.all(4),
                                 child: Text(
-                                  isVideo ? 'Video Evidence' : 'Photo Evidence',
+                                  isVideo ? l10n.drillSummaryVideoEvidence : l10n.drillSummaryPhotoEvidence,
                                   style: const TextStyle(
                                       color: Colors.white, fontSize: 11),
                                   textAlign: TextAlign.center,
@@ -453,9 +467,9 @@ class _DrillSummaryScreenState extends ConsumerState<DrillSummaryScreen> {
                       backgroundColor: AppColors.PRIMARY,
                       padding: const EdgeInsets.symmetric(vertical: 16),
                     ),
-                    onPressed: () => context.go(Constants.DRILL_LIST_ROUTE),
-                    child: const Text('Close',
-                        style: TextStyle(color: Colors.white)),
+                    onPressed: _goBack,
+                    child: Text(l10n.genericClose,
+                        style: const TextStyle(color: Colors.white)),
                   ),
                 ),
               ],

@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../core/utils/app_constants.dart';
 import '../providers/drill_providers.dart';
+import '../../../../l10n/generated/app_localizations.dart';
 
 class DrillRosterMarkingScreen extends ConsumerStatefulWidget {
   const DrillRosterMarkingScreen({super.key});
@@ -19,6 +20,7 @@ class _DrillRosterMarkingScreenState extends ConsumerState<DrillRosterMarkingScr
   Widget build(BuildContext context) {
     final state = ref.watch(drillChecklistProvider);
     final notifier = ref.read(drillChecklistProvider.notifier);
+    final l10n = AppLocalizations.of(context)!;
 
     if (!_isInitialized && !state.isLoading) {
       _presentStudentIds.clear();
@@ -39,7 +41,7 @@ class _DrillRosterMarkingScreenState extends ConsumerState<DrillRosterMarkingScr
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Mark Attendance'),
+        title: Text(l10n.drillRosterMarkAttendance),
         actions: [
           IconButton(
             icon: const Icon(Icons.refresh),
@@ -76,7 +78,7 @@ class _DrillRosterMarkingScreenState extends ConsumerState<DrillRosterMarkingScr
                             });
                             notifier.initRoster();
                           },
-                          child: const Text('Retry'),
+                          child: Text(l10n.genericRetry),
                         ),
                       ],
                     ),
@@ -96,20 +98,20 @@ class _DrillRosterMarkingScreenState extends ConsumerState<DrillRosterMarkingScr
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  'Route: ${state.roster?.routeName ?? "Live Route"}',
+                                  l10n.drillRosterRoute(state.roster?.routeName ?? "Live Route"),
                                   style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15, color: Colors.black87),
                                   overflow: TextOverflow.ellipsis,
                                 ),
                                 const SizedBox(height: 4),
                                 Text(
-                                  'Bus: ${state.busNumber ?? state.roster?.busNumber ?? "N/A"}',
+                                  l10n.drillRosterBus(state.busNumber ?? state.roster?.busNumber ?? "N/A"),
                                   style: TextStyle(color: Colors.grey.shade700, fontSize: 13),
                                 ),
                               ],
                             ),
                           ),
                           Text(
-                            'Drill: ${state.drillType ?? ""}',
+                            l10n.drillRosterDrillType(state.drillType ?? ""),
                             style: const TextStyle(fontWeight: FontWeight.bold, color: AppColors.PRIMARY, fontSize: 14),
                           ),
                         ],
@@ -123,15 +125,15 @@ class _DrillRosterMarkingScreenState extends ConsumerState<DrillRosterMarkingScr
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            'Present: $presentCount / $totalCount',
+                            l10n.drillRosterPresentCount(presentCount, totalCount),
                             style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: AppColors.PRIMARY),
                           ),
                           if (totalCount > 0)
                             Row(
                               children: [
-                                const Text(
-                                  'Select All',
-                                  style: TextStyle(fontWeight: FontWeight.w600, fontSize: 14, color: Colors.black87),
+                                Text(
+                                  l10n.drillRosterSelectAll,
+                                  style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 14, color: Colors.black87),
                                 ),
                                 const SizedBox(width: 8),
                                 Checkbox(
@@ -159,7 +161,7 @@ class _DrillRosterMarkingScreenState extends ConsumerState<DrillRosterMarkingScr
                       child: totalCount == 0
                           ? Center(
                               child: Text(
-                                'No students registered on this route.',
+                                l10n.drillRosterNoStudents,
                                 style: TextStyle(color: Colors.grey.shade600, fontSize: 15),
                               ),
                             )
@@ -187,7 +189,7 @@ class _DrillRosterMarkingScreenState extends ConsumerState<DrillRosterMarkingScr
                                       ),
                                     ),
                                     subtitle: Text(
-                                      'Seat: ${student.seatNumber ?? "N/A"}',
+                                      l10n.drillRosterSeat(student.seatNumber ?? "N/A"),
                                       style: TextStyle(
                                         color: isPresent ? Colors.grey.shade700 : Colors.grey.shade500,
                                       ),
@@ -223,9 +225,9 @@ class _DrillRosterMarkingScreenState extends ConsumerState<DrillRosterMarkingScr
                             notifier.updateRosterWasOnBus(_presentStudentIds.toList());
                             context.push(Constants.DRILL_CHECKLIST_ROUTE);
                           },
-                          child: const Text(
-                            'PROCEED TO DRILL CHECKLIST',
-                            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 14),
+                          child: Text(
+                            l10n.drillRosterProceed,
+                            style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 14),
                           ),
                         ),
                       ),

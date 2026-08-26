@@ -108,9 +108,10 @@ class StopsRepository {
         endpoint,
         data: {
           'routeId': p.routeId,
-          'children': [p.childId.join(',')],
+          'children': p.childId,
           'timeStamp': p.timeStamp,
         },
+        // data: p.toJson(),
       );
     }
   }
@@ -126,9 +127,10 @@ class StopsRepository {
         ApiEndpoints.cancelPickDrop,
         data: {
           'routeId': p.routeId,
-          'children': [p.childId.join(',')],
+          'children': p.childId,
           'timeStamp': p.timeStamp,
         },
+        // data: p.toJson(),
       );
     }
   }

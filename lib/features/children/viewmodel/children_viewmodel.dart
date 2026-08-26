@@ -45,10 +45,12 @@ class ChildrenViewModel extends StateNotifier<ChildrenState> {
     try {
       final children = await _repository.getChildren(routeId);
       state = state.copyWith(isLoading: false, children: children);
-    } catch (_) {
+    } catch (e, stack) {
+      print('CHILDREN_VIEWMODEL_ERROR: $e');
+      print('CHILDREN_VIEWMODEL_STACK: $stack');
       state = state.copyWith(
         isLoading: false,
-        error: 'Unable to load children. Please try again.',
+        error: 'Unable to load children: $e',
       );
     }
   }

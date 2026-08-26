@@ -8,6 +8,7 @@ import '../../../../core/utils/image_utils.dart';
 import '../../../../data/models/drill_evidence.dart';
 import '../providers/drill_providers.dart';
 import 'full_screen_media_viewer.dart';
+import '../../../../l10n/generated/app_localizations.dart';
 
 class EvidenceCaptureScreen extends ConsumerStatefulWidget {
   const EvidenceCaptureScreen({super.key});
@@ -29,20 +30,21 @@ class _EvidenceCaptureScreenState extends ConsumerState<EvidenceCaptureScreen> {
 
 
   Future<void> _confirmAndSubmit(BuildContext context) async {
+    final l10n = AppLocalizations.of(context)!;
     final confirmed = await showDialog<bool>(
       context: context,
       builder: (dialogContext) => AlertDialog(
-        title: const Text('Confirm Drill Submission'),
-        content: const Text('Are you sure you want to submit this drill log? This action cannot be undone.'),
+        title: Text(l10n.drillEvidenceConfirmSubmission),
+        content: Text(l10n.drillEvidenceConfirmMessage),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(dialogContext).pop(false),
-            child: const Text('Edit'),
+            child: Text(l10n.genericEdit),
           ),
           ElevatedButton(
             style: ElevatedButton.styleFrom(backgroundColor: const Color(0xFF16A34A)),
             onPressed: () => Navigator.of(dialogContext).pop(true),
-            child: const Text('Confirm', style: TextStyle(color: Colors.white)),
+            child: Text(l10n.genericConfirm, style: const TextStyle(color: Colors.white)),
           ),
         ],
       ),
@@ -69,32 +71,33 @@ class _EvidenceCaptureScreenState extends ConsumerState<EvidenceCaptureScreen> {
   Widget build(BuildContext context) {
     final state = ref.watch(drillChecklistProvider);
     final notifier = ref.read(drillChecklistProvider.notifier);
+    final l10n = AppLocalizations.of(context)!;
 
     final isNotesValid = _notesController.text.trim().length >= 10;
     final isSubmitEnabled = state.canSubmit && isNotesValid;
 
     if (state.isLoading) {
-      return const Scaffold(
+      return Scaffold(
         body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              CircularProgressIndicator(
+              const CircularProgressIndicator(
                 valueColor: AlwaysStoppedAnimation<Color>(AppColors.PRIMARY),
               ),
-              SizedBox(height: 24),
+              const SizedBox(height: 24),
               Text(
-                'Submitting Drill Log...',
-                style: TextStyle(
+                l10n.drillEvidenceSubmitting,
+                style: const TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
                   color: AppColors.PRIMARY,
                 ),
               ),
-              SizedBox(height: 8),
+              const SizedBox(height: 8),
               Text(
-                'Uploading evidence and checklist data',
-                style: TextStyle(color: Colors.grey),
+                l10n.drillEvidenceUploading,
+                style: const TextStyle(color: Colors.grey),
               ),
             ],
           ),
@@ -125,7 +128,7 @@ class _EvidenceCaptureScreenState extends ConsumerState<EvidenceCaptureScreen> {
                 ),
                 const SizedBox(height: 32),
                 Text(
-                  isOk ? 'Submission Successful!' : 'Submission Failed',
+                  isOk ? l10n.drillEvidenceSuccess : l10n.drillEvidenceFailed,
                   style: const TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
@@ -136,7 +139,7 @@ class _EvidenceCaptureScreenState extends ConsumerState<EvidenceCaptureScreen> {
                 const SizedBox(height: 12),
                 Text(
                   isOk
-                      ? 'The evacuation drill log has been successfully uploaded and is pending approval.'
+                      ? l10n.drillEvidenceSuccessMessage
                       : (_errorMessage ?? 'An error occurred during submission. Please try again.'),
                   style: const TextStyle(
                     fontSize: 15,
@@ -158,9 +161,9 @@ class _EvidenceCaptureScreenState extends ConsumerState<EvidenceCaptureScreen> {
                         ),
                       ),
                       onPressed: () => context.go('/home'),
-                      child: const Text(
-                        'RETURN TO DASHBOARD',
-                        style: TextStyle(
+                      child: Text(
+                        l10n.drillEvidenceReturnToDashboard,
+                        style: const TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
                         ),
@@ -183,9 +186,9 @@ class _EvidenceCaptureScreenState extends ConsumerState<EvidenceCaptureScreen> {
                           _isSuccess = null;
                         });
                       },
-                      child: const Text(
-                        'RETRY SUBMISSION',
-                        style: TextStyle(
+                      child: Text(
+                        l10n.drillEvidenceRetrySubmission,
+                        style: const TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
                         ),
@@ -204,9 +207,9 @@ class _EvidenceCaptureScreenState extends ConsumerState<EvidenceCaptureScreen> {
                         ),
                       ),
                       onPressed: () => context.go('/home'),
-                      child: const Text(
-                        'CANCEL',
-                        style: TextStyle(
+                      child: Text(
+                        l10n.genericCancel.toUpperCase(),
+                        style: const TextStyle(
                           color: Colors.black87,
                           fontWeight: FontWeight.bold,
                         ),
@@ -222,7 +225,7 @@ class _EvidenceCaptureScreenState extends ConsumerState<EvidenceCaptureScreen> {
     }
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Mandatory Drill Evidence')),
+      appBar: AppBar(title: Text(l10n.drillEvidenceTitle)),
       body: Stack(
         children: [
           SingleChildScrollView(
@@ -234,14 +237,14 @@ class _EvidenceCaptureScreenState extends ConsumerState<EvidenceCaptureScreen> {
                     Container(
                       color: const Color(0xFFFEF3C7),
                       padding: const EdgeInsets.all(12),
-                      child: const Row(
+                      child: Row(
                         children: [
-                          Icon(Icons.warning_amber_rounded, color: Color(0xFFD97706)),
-                          SizedBox(width: 8),
+                          const Icon(Icons.warning_amber_rounded, color: Color(0xFFD97706)),
+                          const SizedBox(width: 8),
                           Expanded(
                             child: Text(
-                              'At least 1 photo or video evidence is mandatory to submit drill.',
-                              style: TextStyle(color: Color(0xFF92400E), fontWeight: FontWeight.w600),
+                              l10n.drillEvidenceMandatoryWarning,
+                              style: const TextStyle(color: Color(0xFF92400E), fontWeight: FontWeight.w600),
                             ),
                           ),
                         ],
@@ -261,7 +264,7 @@ class _EvidenceCaptureScreenState extends ConsumerState<EvidenceCaptureScreen> {
                           Icons.camera_alt,
                           color: Colors.white,
                         ),
-                        label: const Text('Take Photo'),
+                        label: Text(l10n.drillEvidenceTakePhoto),
                       ),
                       ElevatedButton.icon(
                         onPressed: () async {
@@ -273,7 +276,7 @@ class _EvidenceCaptureScreenState extends ConsumerState<EvidenceCaptureScreen> {
                           Icons.videocam,
                           color: Colors.white,
                         ),
-                        label: const Text('Record Video'),
+                        label: Text(l10n.drillEvidenceRecordVideo),
                       ),
                     ],
                   ),
@@ -356,9 +359,9 @@ class _EvidenceCaptureScreenState extends ConsumerState<EvidenceCaptureScreen> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Text(
-                            'Driver Notes (Minimum 10 characters):',
-                            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+                          Text(
+                            l10n.drillEvidenceDriverNotesLabel,
+                            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
                           ),
                           const SizedBox(height: 8),
                           TextField(
@@ -366,7 +369,7 @@ class _EvidenceCaptureScreenState extends ConsumerState<EvidenceCaptureScreen> {
                             maxLines: 4,
                             onChanged: (text) => setState(() {}),
                             decoration: InputDecoration(
-                              hintText: 'Describe drill execution, student behavior, exit paths used, and any exceptions observed...',
+                              hintText: l10n.drillEvidenceDriverNotesHint,
                               border: const OutlineInputBorder(),
                             ),
                           ),
@@ -383,7 +386,7 @@ class _EvidenceCaptureScreenState extends ConsumerState<EvidenceCaptureScreen> {
                         padding: const EdgeInsets.symmetric(vertical: 16),
                       ),
                       onPressed: isSubmitEnabled ? () => _confirmAndSubmit(context) : null,
-                      child: const Text('SUBMIT DRILL LOG', style: TextStyle(color: Colors.white)),
+                      child: Text(l10n.drillEvidenceSubmitButton, style: const TextStyle(color: Colors.white)),
                     ),
                   ),
                 ],

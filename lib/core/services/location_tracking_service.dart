@@ -22,6 +22,29 @@ class LocationTrackingService {
   bool get isRunning => _subscription != null;
   int? get currentTripId => _tripRepository.activeTripId;
 
+  Future<UserLocation?> getCurrentLocation() async {
+    try {
+      final position = await Geolocator.getCurrentPosition(
+        locationSettings: const LocationSettings(accuracy: LocationAccuracy.high),
+      );
+      return UserLocation(
+        latitude: position.latitude,
+        longitude: position.longitude,
+      );
+    } catch (_) {
+      try {
+        final lastKnown = await Geolocator.getLastKnownPosition();
+        if (lastKnown != null) {
+          return UserLocation(
+            latitude: lastKnown.latitude,
+            longitude: lastKnown.longitude,
+          );
+        }
+      } catch (_) {}
+      return null;
+    }
+  }
+
   Future<bool> requestPermissions() async {
     final serviceEnabled = await Geolocator.isLocationServiceEnabled();
     if (!serviceEnabled) {

@@ -17,13 +17,21 @@ class Guardian {
   });
 
   factory Guardian.fromJson(Map<String, dynamic> json) {
+    final rawId = json['id'];
+    int parsedId = 0;
+    if (rawId is num) {
+      parsedId = rawId.toInt();
+    } else if (rawId is String) {
+      parsedId = int.tryParse(rawId) ?? 0;
+    }
+
     return Guardian(
-      id: (json['id'] as num).toInt(),
-      firstName: json['firstName'] as String? ?? '',
-      lastName: json['lastName'] as String? ?? '',
-      fullName: json['fullName'] as String? ?? '',
-      relation: json['relation'] as String?,
-      imageUrl: json['imageUrl'] as String?,
+      id: parsedId,
+      firstName: json['firstName']?.toString() ?? '',
+      lastName: json['lastName']?.toString() ?? '',
+      fullName: json['fullName']?.toString() ?? '',
+      relation: json['relation']?.toString(),
+      imageUrl: json['imageUrl']?.toString(),
     );
   }
 }

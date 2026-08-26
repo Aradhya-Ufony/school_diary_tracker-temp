@@ -8,6 +8,7 @@ import '../routing/app_router.dart';
 import '../services/crash_reporting_service.dart';
 import '../services/location_tracking_service.dart';
 import '../storage/local_storage_service.dart';
+import '../../data/repositories/dvir_repository.dart';
 
 /// [LocalStorageService] placeholder.
 final localStorageServiceProvider = Provider<LocalStorageService>((ref) {
@@ -60,6 +61,14 @@ final stopsRepositoryProvider = Provider<StopsRepository>((ref) {
 /// Children & guardians
 final childrenRepositoryProvider = Provider<ChildrenRepository>((ref) {
   return ChildrenRepository(
+    apiClient: ref.watch(apiClientProvider),
+    storage: ref.watch(localStorageServiceProvider),
+  );
+});
+
+/// eDVIR repository
+final dvirRepositoryProvider = Provider<DvirRepository>((ref) {
+  return DvirRepository(
     apiClient: ref.watch(apiClientProvider),
     storage: ref.watch(localStorageServiceProvider),
   );

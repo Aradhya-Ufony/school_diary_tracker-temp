@@ -43,9 +43,16 @@ class ChildrenRepository {
       final response =
           await _apiClient.get('${ApiEndpoints.routeChildren}/$routeId');
 
-      list = response.data is String
-          ? jsonDecode(response.data as String) as List<dynamic>
-          : response.data as List<dynamic>;
+      final data = response.data;
+      if (data is String) {
+        list = jsonDecode(data);
+      } else {
+        list = data;
+      }
+
+      if (list is! List) {
+        throw FormatException('Expected a List of children from API, but got: ${list?.runtimeType}');
+      }
 
       // Cache the raw JSON data
       await _storage.setString(cacheKey, jsonEncode(list));
@@ -53,14 +60,18 @@ class ChildrenRepository {
       // Attempt to load from cache
       final cachedJson = _storage.getString(cacheKey);
       if (cachedJson != null) {
-        list = jsonDecode(cachedJson) as List<dynamic>;
+        list = jsonDecode(cachedJson);
       } else {
         rethrow;
       }
     }
 
+    if (list is! List) {
+      return [];
+    }
+
     return list
-        .map((e) => ChildWithGuardians.fromJson(e as Map<String, dynamic>))
+        .map((e) => ChildWithGuardians.fromJson(Map<String, dynamic>.from(e as Map)))
         .toList();
   }
 }

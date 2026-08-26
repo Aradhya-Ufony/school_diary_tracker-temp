@@ -40,8 +40,8 @@ class StopsScreen extends ConsumerWidget {
             IconButton(
               icon: const Icon(Icons.undo),
               tooltip: l10n.stopsUndoTooltip,
-              onPressed: () {
-                Navigator.of(context).push(
+              onPressed: () async {
+                await Navigator.of(context).push(
                   MaterialPageRoute(
                     builder: (_) => StopsScreen(
                       routeId: routeId,
@@ -50,6 +50,7 @@ class StopsScreen extends ConsumerWidget {
                     ),
                   ),
                 );
+                viewModel.refresh();
               },
             ),
         ],
@@ -151,12 +152,23 @@ class _StopCard extends StatelessWidget {
     required this.onSubmitSingle,
   });
 
-  bool _isChildActionEnabled(StopChild child, String routeName) {
+  String _getChildActionType(StopChild child, String routeName) {
     final nameUpper = routeName.trim().toUpperCase();
     if (nameUpper.endsWith('(IN)')) {
-      return child.type == 'pick';
+      return 'pick';
     } else if (nameUpper.endsWith('(OUT)')) {
-      return child.type == 'drop';
+      return 'drop';
+    }
+    return child.type;
+  }
+
+  bool _isChildActionEnabled(StopChild child, String routeName) {
+    final actionType = _getChildActionType(child, routeName);
+    final nameUpper = routeName.trim().toUpperCase();
+    if (nameUpper.endsWith('(IN)')) {
+      return actionType == 'pick';
+    } else if (nameUpper.endsWith('(OUT)')) {
+      return actionType == 'drop';
     }
     return true; // default if neither
   }
@@ -205,6 +217,7 @@ class _StopCard extends StatelessWidget {
               (child) {
                 final resolvedUrl = resolveImageUrl(child.photoUrl);
                 final actionEnabled = _isChildActionEnabled(child, routeName);
+                final childActionType = _getChildActionType(child, routeName);
 
                 // Hide checkbox if not in undo mode and either action is disabled or already completed
                 final hideCheckbox = !isUndoMode && (!actionEnabled || child.pickedOrDropped);
@@ -232,10 +245,10 @@ class _StopCard extends StatelessWidget {
                       onPressed: null, // Disabled
                       child: Text(
                         child.pickedOrDropped
-                            ? (child.type == 'pick'
+                            ? (childActionType == 'pick'
                                 ? l10n.childrenStatusPicked
                                 : l10n.childrenStatusDropped)
-                            : (child.type == 'pick'
+                            : (childActionType == 'pick'
                                 ? l10n.stopsTypePick
                                 : l10n.stopsTypeDrop),
                       ),
@@ -265,7 +278,7 @@ class _StopCard extends StatelessWidget {
                     child: Text(
                       isUndoMode
                           ? l10n.stopsActionUndo
-                          : (child.type == 'pick'
+                          : (childActionType == 'pick'
                               ? l10n.stopsTypePick
                               : l10n.stopsTypeDrop),
                     ),

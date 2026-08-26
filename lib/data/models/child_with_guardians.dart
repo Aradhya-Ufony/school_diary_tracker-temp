@@ -31,16 +31,24 @@ class ChildWithGuardians {
   });
 
   factory ChildWithGuardians.fromJson(Map<String, dynamic> json) {
+    final rawId = json['id'];
+    int parsedId = 0;
+    if (rawId is num) {
+      parsedId = rawId.toInt();
+    } else if (rawId is String) {
+      parsedId = int.tryParse(rawId) ?? 0;
+    }
+
     return ChildWithGuardians(
-      id: (json['id'] as num).toInt(),
-      firstName: json['firstName'] as String? ?? '',
-      lastName: json['lastName'] as String? ?? '',
-      fullName: json['fullName'] as String? ?? '',
-      imageUrl: json['imageUrl'] as String?,
+      id: parsedId,
+      firstName: json['firstName']?.toString() ?? '',
+      lastName: json['lastName']?.toString() ?? '',
+      fullName: json['fullName']?.toString() ?? '',
+      imageUrl: json['imageUrl']?.toString(),
       isDropped: json['isDropped'] as bool? ?? false,
       isPicked: json['isPicked'] as bool? ?? false,
       guardians: (json['guardians'] as List<dynamic>? ?? const [])
-          .map((e) => Guardian.fromJson(e as Map<String, dynamic>))
+          .map((e) => Guardian.fromJson(Map<String, dynamic>.from(e as Map)))
           .toList(),
     );
   }
