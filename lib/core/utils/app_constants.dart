@@ -54,6 +54,10 @@ abstract final class Constants{
   static const String DRIVER_DETAILS_ROUTE = '/driver/details';
   static const String DVIR_POST_TRIP_ROUTE = '/dvir/post-trip';
   static const String DVIR_PRE_TRIP_ROUTE = '/dvir/pre-trip';
+  static const String INCIDENT_INTAKE_ROUTE = '/incident/intake';
+  static const String INCIDENT_FORM_ROUTE = '/incident/intake/form';
+  static const String INCIDENT_DETAILS_ROUTE = '/incident/details/:id';
+  static const String INCIDENT_HISTORY_ROUTE = '/incident/history';
 
   //Screen Names
   static const String SPLASH = 'Splash';
@@ -74,6 +78,10 @@ abstract final class Constants{
   static const String DRIVER_DETAILS = 'Driver Details';
   static const String DVIR_POST_TRIP_SCREEN = 'DVIR Post-Trip';
   static const String DVIR_PRE_TRIP_SCREEN = 'DVIR Pre-Trip';
+  static const String INCIDENT_INTAKE = 'Incident Intake';
+  static const String INCIDENT_FORM = 'Incident Form';
+  static const String INCIDENT_DETAILS = 'Incident Details';
+  static const String INCIDENT_HISTORY = 'Incident History';
 
 
   //Crashlytics keys
@@ -93,6 +101,7 @@ abstract class StorageKeys {
   static const String ROUTE_ID = 'route_id';
   static const String TRIP_ID = 'trip_id';
   static const String LOCALE_CODE = 'locale_code';
+  static const String IS_LANGUAGE_SELECTED = 'is_language_selected';
 
 }
 

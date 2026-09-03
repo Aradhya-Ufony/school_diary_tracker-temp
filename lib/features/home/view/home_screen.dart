@@ -7,7 +7,6 @@ import '../../../data/models/route_response.dart';
 import '../../../data/models/user_location.dart';
 import '../../../l10n/generated/app_localizations.dart';
 import '../../auth/viewmodel/login_viewmodel.dart';
-import '../../dvir/view/post_trip_walkaround_screen.dart';
 import '../viewmodel/home_viewmodel.dart';
 
 /// Flutter equivalent of `HomeTabActivity` + `AllRouteFragment` +
@@ -118,6 +117,14 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                 context.push(Constants.APP_INFO_ROUTE);
               },
             ),
+            ListTile(
+              leading: const Icon(Icons.error_outline, color: AppColors.ERROR),
+              title: Text(l10n.homeMenuPostCrashReporting),
+              onTap: () {
+                Navigator.pop(context);
+                context.push(Constants.INCIDENT_INTAKE_ROUTE);
+              },
+            ),
             const Divider(),
             ListTile(
               leading: const Icon(Icons.logout),
@@ -149,116 +156,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                     ref.read(homeViewModelProvider.notifier).search(value),
               ),
             ),
-            if (state.vehicleState != null || state.isVehicleStateLoading)
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                child: Card(
-                  elevation: 3,
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-                  child: state.isVehicleStateLoading
-                      ? const Padding(
-                          padding: EdgeInsets.all(16.0),
-                          child: Center(child: CircularProgressIndicator()),
-                        )
-                      : Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(12),
-                            gradient: LinearGradient(
-                              colors: _getBusStatusGradient(state.vehicleState!.currentState),
-                              begin: Alignment.topLeft,
-                              end: Alignment.bottomRight,
-                            ),
-                          ),
-                          padding: const EdgeInsets.all(16.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Row(
-                                    children: [
-                                      const Icon(Icons.directions_bus, color: Colors.white, size: 24),
-                                      const SizedBox(width: 8),
-                                      Text(
-                                        l10n.homeBusLabel(state.vehicleState!.schoolBusId),
-                                        style: const TextStyle(
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 16,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  Container(
-                                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                                    decoration: BoxDecoration(
-                                      color: Colors.white24,
-                                      borderRadius: BorderRadius.circular(4),
-                                    ),
-                                    child: Text(
-                                      state.vehicleState!.currentState.replaceAll('_', ' '),
-                                      style: const TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 12,
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              const SizedBox(height: 12),
-                              if (state.vehicleState!.isBlocked) ...[
-                                Row(
-                                  children: [
-                                    const Icon(Icons.warning, color: Colors.white70, size: 16),
-                                    const SizedBox(width: 6),
-                                    Expanded(
-                                      child: Text(
-                                        state.vehicleState!.blockReason ?? l10n.homeDispatchBlocked,
-                                        style: const TextStyle(color: Colors.white70, fontSize: 13),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ] else ...[
-                                Text(
-                                  l10n.homeVehicleReady,
-                                  style: const TextStyle(color: Colors.white70, fontSize: 13),
-                                ),
-                              ],
-                              if (state.vehicleState!.currentState == 'CERTIFIED_PENDING_VERIFICATION') ...[
-                                const SizedBox(height: 12),
-                                ElevatedButton.icon(
-                                  style: ElevatedButton.styleFrom(
-                                    backgroundColor: Colors.white,
-                                    foregroundColor: AppColors.PRIMARY,
-                                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
-                                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-                                  ),
-                                  icon: const Icon(Icons.playlist_add_check, size: 16),
-                                  label: Text(
-                                    l10n.homeReviewVerifyPreTrip,
-                                    style: const TextStyle(fontSize: 13, fontWeight: FontWeight.bold),
-                                  ),
-                                  onPressed: () {
-                                    final firstRoute = state.allRoutes.isNotEmpty ? state.allRoutes.first : null;
-                                    if (firstRoute != null) {
-                                      context.push(Constants.DVIR_PRE_TRIP_ROUTE, extra: {
-                                        'schoolBusId': state.vehicleState!.schoolBusId,
-                                        'routeName': firstRoute.name,
-                                        'route': firstRoute,
-                                      });
-                                    }
-                                  },
-                                ),
-                              ],
-                            ],
-                          ),
-                        ),
-                ),
-              ),
-            if (state.isLoading && state.allRoutes.isEmpty)
+            if ((state.isLoading || state.isVehicleStateLoading) && state.allRoutes.isEmpty)
               const Expanded(
                 child: Center(child: CircularProgressIndicator()),
               )
@@ -277,14 +175,63 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                   separatorBuilder: (_, __) => const Divider(height: 1),
                   itemBuilder: (context, index) {
                     final route = state.filteredRoutes[index];
-                    return ListTile(
-                      title: Text(route.name),
-                      trailing: FilledButton(
+                    final isBusActive = state.vehicleState != null &&
+                        state.vehicleState!.currentState.toUpperCase() == 'ACTIVE' &&
+                        !state.vehicleState!.isBlocked;
+
+                    Widget trailingWidget;
+                    if (isBusActive) {
+                      trailingWidget = FilledButton(
                         onPressed: _isStarting
                             ? null
                             : () => _confirmAndStart(context, route),
                         child: Text(l10n.homeStart),
-                      ),
+                      );
+                    } else {
+                      final showInfoButton = state.vehicleState != null && !state.isVehicleStateLoading;
+                      trailingWidget = Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          FilledButton(
+                            onPressed: null,
+                            child: Text(l10n.homeStart),
+                          ),
+                          if (showInfoButton)
+                            IconButton(
+                              icon: const Icon(Icons.info_outline, color: Colors.orange),
+                              onPressed: () {
+                                showDialog(
+                                  context: context,
+                                  builder: (dialogContext) => AlertDialog(
+                                    title: Text(l10n.homeBusLabel(state.vehicleState?.schoolBusId ?? 'Unknown')),
+                                    content: Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Text(l10n.homeVehicleStatus(state.vehicleState?.currentState.replaceAll('_', ' ') ?? 'Unknown')),
+                                        if (state.vehicleState?.blockReason != null) ...[
+                                          const SizedBox(height: 8),
+                                          Text(l10n.homeVehicleReason(state.vehicleState!.blockReason!)),
+                                        ],
+                                      ],
+                                    ),
+                                    actions: [
+                                      TextButton(
+                                        onPressed: () => Navigator.pop(dialogContext),
+                                        child: Text(l10n.genericOk.toUpperCase()),
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              },
+                            ),
+                        ],
+                      );
+                    }
+
+                    return ListTile(
+                      title: Text(route.name),
+                      trailing: trailingWidget,
                     );
                   },
                 ),
@@ -403,19 +350,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     if (context.mounted) {
       setState(() => _isStarting = false);
       context.go(Constants.TRIP_MAP_ROUTE, extra: route);
-    }
-  }
-
-  List<Color> _getBusStatusGradient(String currentState) {
-    switch (currentState.toUpperCase()) {
-      case 'ACTIVE':
-        return [const Color(0xFF16A34A), const Color(0xFF4ADE80)]; // Green
-      case 'OUT_OF_SERVICE':
-        return [const Color(0xFFDC2626), const Color(0xFFF87171)]; // Red
-      case 'CERTIFIED_PENDING_VERIFICATION':
-        return [const Color(0xFFEA580C), const Color(0xFFFB923C)]; // Orange/Yellow
-      default:
-        return [AppColors.PRIMARY, const Color(0xFF3B82F6)]; // Default blue
     }
   }
 }

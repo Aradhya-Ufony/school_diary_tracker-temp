@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../../../core/utils/app_constants.dart';
 import '../../../core/utils/country_loader.dart';
 import '../../../data/models/country.dart';
+import '../../../l10n/generated/app_localizations.dart';
 
 class CountryPickerSheet extends StatefulWidget {
   const CountryPickerSheet({super.key});
@@ -83,6 +84,7 @@ class _CountryPickerSheetState extends State<CountryPickerSheet> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final theme = Theme.of(context);
     final mediaQuery = MediaQuery.of(context);
     final bottomInset = mediaQuery.viewInsets.bottom;
@@ -115,7 +117,7 @@ class _CountryPickerSheetState extends State<CountryPickerSheet> {
             child: Row(
               children: [
                 Text(
-                  'Select Country',
+                  l10n.countryPickerTitle,
                   style: theme.textTheme.titleLarge?.copyWith(
                     fontWeight: FontWeight.bold,
                     color: Colors.black87,
@@ -137,7 +139,7 @@ class _CountryPickerSheetState extends State<CountryPickerSheet> {
               autofocus: true,
               style: const TextStyle(color: Colors.black87),
               decoration: InputDecoration(
-                hintText: 'Search by country name, code, or dial code...',
+                hintText: l10n.countryPickerSearchHint,
                 hintStyle: TextStyle(color: Colors.grey[500]),
                 prefixIcon: const Icon(Icons.search, color: Colors.grey),
                 filled: true,
@@ -168,7 +170,7 @@ class _CountryPickerSheetState extends State<CountryPickerSheet> {
                 : _filteredCountries.isEmpty
                     ? Center(
                         child: Text(
-                          'No countries found',
+                          l10n.countryPickerNoCountries,
                           style: TextStyle(color: Colors.grey[600], fontSize: 16),
                         ),
                       )

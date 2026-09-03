@@ -37,4 +37,11 @@ abstract class ApiEndpoints {
   static const dvirSign = 'dvir/sign';
   // static const vehicleHistory = 'vehicle/history';
   // static const fleetStatus = 'fleet/status';
+
+  // Incident Crash endpoints
+  static const incidentCrashLog = 'incidentcrash/log';
+  static const incidentCrash = 'incidentcrash'; // GET /api/incidentcrash/{id}
+  static const incidentCrashUpdate = 'incidentcrash/update';
+  static const incidentCrashBus = 'incidentcrash/bus';
+  static const incidentCrashRoute = 'incidentcrash/route';
 }

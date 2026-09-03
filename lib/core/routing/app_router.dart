@@ -20,6 +20,10 @@ import '../../features/drills/presentation/screens/drill_type_selection_screen.d
 import '../../features/drills/presentation/screens/drill_roster_marking_screen.dart';
 import '../../features/drills/presentation/screens/evidence_capture_screen.dart';
 import '../../features/drills/presentation/screens/drill_summary_screen.dart';
+import '../../features/incident/view/incident_crash_intake_screen.dart';
+import '../../features/incident/view/incident_dashboard_screen.dart';
+import '../../features/incident/view/incident_crash_details_screen.dart';
+import '../../features/incident/view/incident_crash_history_screen.dart';
 import '../utils/app_constants.dart';
 
 /// Provider to track the current screen name for logging purposes.
@@ -122,7 +126,10 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: Constants.LANGUAGE_ROUTE,
         name: Constants.LANGUAGE,
-        builder: (context, state) => const LanguageScreen(),
+        builder: (context, state) {
+          final isInitialSetup = state.extra as bool? ?? false;
+          return LanguageScreen(isInitialSetup: isInitialSetup);
+        },
       ),
       GoRoute(
         path: Constants.APP_INFO_ROUTE,
@@ -186,6 +193,29 @@ final appRouterProvider = Provider<GoRouter>((ref) {
             routeResponse: args['route'],
           );
         },
+      ),
+      GoRoute(
+        path: Constants.INCIDENT_INTAKE_ROUTE,
+        name: Constants.INCIDENT_INTAKE,
+        builder: (context, state) => const IncidentDashboardScreen(),
+      ),
+      GoRoute(
+        path: Constants.INCIDENT_FORM_ROUTE,
+        name: Constants.INCIDENT_FORM,
+        builder: (context, state) => const IncidentCrashIntakeScreen(),
+      ),
+      GoRoute(
+        path: Constants.INCIDENT_DETAILS_ROUTE,
+        name: Constants.INCIDENT_DETAILS,
+        builder: (context, state) {
+          final id = int.parse(state.pathParameters['id']!);
+          return IncidentCrashDetailsScreen(incidentId: id);
+        },
+      ),
+      GoRoute(
+        path: Constants.INCIDENT_HISTORY_ROUTE,
+        name: Constants.INCIDENT_HISTORY,
+        builder: (context, state) => const IncidentCrashHistoryScreen(),
       ),
     ],
   );

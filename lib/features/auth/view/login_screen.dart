@@ -5,6 +5,7 @@ import '../../../core/di/providers.dart';
 import '../../../core/utils/app_constants.dart';
 import '../../../data/models/country.dart';
 import '../../../l10n/generated/app_localizations.dart';
+import '../../settings/viewmodel/locale_controller.dart';
 import '../../splash/viewmodel/splash_viewmodel.dart';
 import '../viewmodel/login_viewmodel.dart';
 import 'country_picker_sheet.dart';
@@ -135,7 +136,11 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
       _hasNavigatedOrTransitioned = true;
       WidgetsBinding.instance.addPostFrameCallback((_) {
         if (!context.mounted) return;
-        if (isLoggedIn) {
+        final hasSelectedLanguage =
+            ref.read(localeControllerProvider.notifier).hasSelectedLanguage;
+        if (!hasSelectedLanguage) {
+          context.go(Constants.LANGUAGE_ROUTE, extra: true);
+        } else if (isLoggedIn) {
           context.go(Constants.HOME_ROUTE);
         } else {
           setState(() {
@@ -574,21 +579,16 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                   text: "School Diary",
                   fontSize: 38,
                   textColor: Colors.white,
-                  fontWeight: FontWeight.w900,),
+                  fontWeight: FontWeight.w900
+              ),
               const SizedBox(height:2),
               _customText(
                   text: "Tracker",
                   fontSize: 24,
                   textColor: Colors.white,
                   fontWeight: FontWeight.bold,
-                  letterSpacing: 1.0,),
-              const SizedBox(height: 18),
-              _customText(
-                  text: "Safety in Every Mile",
-                  fontSize: 24,
-                  textColor: Colors.white,
-                  fontWeight: FontWeight.w900,
-                  letterSpacing: 1.8),
+                  letterSpacing: 1.0
+              ),
             ],
           ),
         ),

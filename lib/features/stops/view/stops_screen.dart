@@ -71,8 +71,8 @@ class StopsScreen extends ConsumerWidget {
                       return Center(
                         child: Text(
                           isUndoMode
-                              ? 'No changes available to undo.'
-                              : 'No stops available.',
+                              ? l10n.stopsNoChangesToUndo
+                              : l10n.stopsNoStopsAvailable,
                           style: const TextStyle(fontSize: 16),
                         ),
                       );

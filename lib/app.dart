@@ -53,16 +53,7 @@ class _SchoolBusTrackerAppState extends ConsumerState<SchoolBusTrackerApp> {
       // files intentionally repeat the English text rather than invent
       // unreviewed translations; have your localization team review
       // those before shipping.
-      supportedLocales: const [
-        Locale('en'),
-        Locale('gu'),
-        Locale('hi'),
-        Locale('kn'), // corrected from the original's invalid "ka" code
-        // — the values-ka folder's actual content is Kannada script, and
-        // "kn" is the correct ISO 639-1 code for it.
-        Locale('mr'),
-        Locale('te'),
-      ],
+      supportedLocales: AppLocalizations.supportedLocales,
       localizationsDelegates: const [
         AppLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,

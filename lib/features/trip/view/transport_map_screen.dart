@@ -82,7 +82,7 @@ class _TransportMapScreenState extends ConsumerState<TransportMapScreen> {
           position: LatLng(route.startLocation!.latitude, route.startLocation!.longitude),
           icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueOrange),
           infoWindow: InfoWindow(
-            title: 'Start Location',
+            title: l10n.mapStartLocation,
             snippet: route.name,
           ),
         ),
@@ -96,7 +96,7 @@ class _TransportMapScreenState extends ConsumerState<TransportMapScreen> {
           position: LatLng(route.endLocation!.latitude, route.endLocation!.longitude),
           icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueOrange),
           infoWindow: InfoWindow(
-            title: 'End Location',
+            title: l10n.mapEndLocation,
             snippet: route.name,
           ),
         ),
@@ -117,7 +117,7 @@ class _TransportMapScreenState extends ConsumerState<TransportMapScreen> {
             markerId: MarkerId('stop_${stop.id ?? stop.address}'),
             position: pos,
             infoWindow: InfoWindow(
-              title: stop.address ?? 'Stop',
+              title: stop.address ?? l10n.mapDefaultStop,
               snippet: l10n.stopsSummary(
                 stop.selectedCount,
                 stop.totalPickedDropped,
