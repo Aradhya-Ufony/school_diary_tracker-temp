@@ -1,3 +1,5 @@
+import 'dart:convert';
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -5,6 +7,7 @@ import 'package:flutter/services.dart';
 import '../../../core/utils/app_constants.dart';
 import '../../../data/models/incident_crash_models.dart';
 import '../../../l10n/generated/app_localizations.dart';
+import '../../drills/presentation/screens/full_screen_media_viewer.dart';
 import '../viewmodel/incident_crash_viewmodel.dart';
 
 class IncidentCrashDetailsScreen extends ConsumerStatefulWidget {
@@ -391,6 +394,45 @@ class _IncidentCrashDetailsScreenState extends ConsumerState<IncidentCrashDetail
   }
 
   Widget _buildAttachmentsCard(IncidentCrashLog log, AppLocalizations l10n) {
+    // Collect all displayable media items from evidences and attachments
+    final allMedia = <_CrashMediaItem>[];
+
+    for (final ev in log.evidences) {
+      if (ev.mediaUrl != null && ev.mediaUrl!.isNotEmpty) {
+        allMedia.add(_CrashMediaItem(
+          networkUrl: ev.mediaUrl,
+          fileName: ev.fileName,
+          mediaType: ev.mediaType,
+          description: ev.description,
+        ));
+      } else if (ev.stream != null && ev.stream!.isNotEmpty) {
+        allMedia.add(_CrashMediaItem(
+          base64Stream: ev.stream,
+          fileName: ev.fileName,
+          mediaType: ev.mediaType,
+          description: ev.description,
+        ));
+      } else if (ev.localFilePath != null && ev.localFilePath!.isNotEmpty) {
+        allMedia.add(_CrashMediaItem(
+          localFilePath: ev.localFilePath,
+          fileName: ev.fileName,
+          mediaType: ev.mediaType,
+          description: ev.description,
+        ));
+      }
+    }
+
+    for (final att in log.attachments) {
+      if (att.fileUrl.isNotEmpty) {
+        allMedia.add(_CrashMediaItem(
+          networkUrl: att.fileUrl,
+          fileName: 'Attachment #${att.id}',
+          mediaType: att.mediaType,
+          approvalStatus: att.approvalStatus,
+        ));
+      }
+    }
+
     return Card(
       child: Padding(
         padding: const EdgeInsets.all(16),
@@ -402,66 +444,198 @@ class _IncidentCrashDetailsScreenState extends ConsumerState<IncidentCrashDetail
               style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
             const Divider(),
-            if (log.attachments.isEmpty)
+            if (allMedia.isEmpty)
               Text(l10n.incidentDetailsNoMediaAttachments)
             else
               GridView.builder(
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
-                itemCount: log.attachments.length,
+                itemCount: allMedia.length,
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
+                  crossAxisCount: 3,
                   crossAxisSpacing: 8,
                   mainAxisSpacing: 8,
-                  childAspectRatio: 0.8,
+                  childAspectRatio: 1.0,
                 ),
                 itemBuilder: (context, index) {
-                  final att = log.attachments[index];
+                  final item = allMedia[index];
+                  final isVideo = item.mediaType.toLowerCase().contains('video');
                   return Card(
                     clipBehavior: Clip.antiAlias,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        Expanded(
-                          child: Image.network(
-                            att.fileUrl,
-                            fit: BoxFit.cover,
-                            errorBuilder: (context, error, stackTrace) => Container(
-                              color: Colors.grey.shade300,
-                              child: const Icon(Icons.broken_image, size: 40),
-                            ),
-                          ),
-                        ),
-                        Container(
-                          padding: const EdgeInsets.all(6),
-                          color: Colors.grey.shade50,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                att.mediaType,
-                                style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold),
+                    elevation: 1,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                      side: BorderSide(color: Colors.grey.shade200),
+                    ),
+                    child: InkWell(
+                      onTap: () => _openMediaViewer(item),
+                      child: Stack(
+                        fit: StackFit.expand,
+                        children: [
+                          _buildMediaThumbnail(item),
+                          if (isVideo)
+                            const Center(
+                              child: Icon(
+                                Icons.play_circle_fill,
+                                size: 32,
+                                color: Colors.white70,
                               ),
-                              const SizedBox(height: 2),
-                              Text(
-                                l10n.incidentDetailsMediaStatus(att.approvalStatus),
-                                style: TextStyle(
-                                  fontSize: 11,
-                                  color: att.approvalStatus == 'Approved' ? Colors.green : Colors.orange,
+                            ),
+                          if (item.approvalStatus != null)
+                            Positioned(
+                              bottom: 4,
+                              right: 4,
+                              child: Container(
+                                padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 2),
+                                decoration: BoxDecoration(
+                                  color: (item.approvalStatus == 'Approved'
+                                          ? Colors.green
+                                          : Colors.orange)
+                                      .withValues(alpha: 0.85),
+                                  borderRadius: BorderRadius.circular(4),
+                                ),
+                                child: Text(
+                                  l10n.incidentDetailsMediaStatus(item.approvalStatus!),
+                                  style: const TextStyle(
+                                    fontSize: 9,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white,
+                                  ),
                                 ),
                               ),
-                            ],
-                          ),
-                        ),
-                      ],
+                            ),
+                        ],
+                      ),
                     ),
                   );
                 },
-              )
+              ),
           ],
         ),
       ),
     );
+  }
+
+  Widget _buildMediaThumbnail(_CrashMediaItem item) {
+    if (item.networkUrl != null && item.networkUrl!.isNotEmpty) {
+      return Image.network(
+        item.networkUrl!,
+        fit: BoxFit.cover,
+        loadingBuilder: (context, child, loadingProgress) {
+          if (loadingProgress == null) return child;
+          return const Center(
+            child: SizedBox(
+              width: 24,
+              height: 24,
+              child: CircularProgressIndicator(strokeWidth: 2),
+            ),
+          );
+        },
+        errorBuilder: (context, error, stackTrace) => Container(
+          color: Colors.grey.shade200,
+          child: const Center(
+            child: Icon(Icons.broken_image, size: 36, color: Colors.grey),
+          ),
+        ),
+      );
+    } else if (item.base64Stream != null && item.base64Stream!.isNotEmpty) {
+      try {
+        final cleanBase64 = item.base64Stream!.contains(',')
+            ? item.base64Stream!.split(',').last
+            : item.base64Stream!;
+        final bytes = base64Decode(cleanBase64);
+        return Image.memory(
+          bytes,
+          fit: BoxFit.cover,
+          errorBuilder: (context, error, stackTrace) => Container(
+            color: Colors.grey.shade200,
+            child: const Center(
+              child: Icon(Icons.broken_image, size: 36, color: Colors.grey),
+            ),
+          ),
+        );
+      } catch (_) {
+        return Container(
+          color: Colors.grey.shade200,
+          child: const Center(
+            child: Icon(Icons.broken_image, size: 36, color: Colors.grey),
+          ),
+        );
+      }
+    } else if (item.localFilePath != null && File(item.localFilePath!).existsSync()) {
+      return Image.file(
+        File(item.localFilePath!),
+        fit: BoxFit.cover,
+        errorBuilder: (context, error, stackTrace) => Container(
+          color: Colors.grey.shade200,
+          child: const Center(
+            child: Icon(Icons.broken_image, size: 36, color: Colors.grey),
+          ),
+        ),
+      );
+    } else {
+      return Container(
+        color: Colors.grey.shade200,
+        child: const Center(
+          child: Icon(Icons.image, size: 36, color: Colors.grey),
+        ),
+      );
+    }
+  }
+
+  void _openMediaViewer(_CrashMediaItem item) {
+    if (item.networkUrl != null) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => FullScreenMediaViewer(
+            networkUrl: item.networkUrl,
+            isVideo: item.mediaType.toLowerCase().contains('video'),
+          ),
+        ),
+      );
+    } else if (item.localFilePath != null) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => FullScreenMediaViewer(
+            localPath: item.localFilePath,
+            isVideo: item.mediaType.toLowerCase().contains('video'),
+          ),
+        ),
+      );
+    } else if (item.base64Stream != null) {
+      try {
+        final cleanBase64 = item.base64Stream!.contains(',')
+            ? item.base64Stream!.split(',').last
+            : item.base64Stream!;
+        final bytes = base64Decode(cleanBase64);
+        showDialog(
+          context: context,
+          builder: (context) => Dialog(
+            backgroundColor: Colors.black,
+            insetPadding: EdgeInsets.zero,
+            child: Stack(
+              children: [
+                Center(
+                  child: InteractiveViewer(
+                    child: Image.memory(bytes, fit: BoxFit.contain),
+                  ),
+                ),
+                Positioned(
+                  top: 40,
+                  right: 20,
+                  child: IconButton(
+                    icon: const Icon(Icons.close, color: Colors.white, size: 30),
+                    onPressed: () => Navigator.pop(context),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      } catch (_) {}
+    }
   }
 
   Widget _buildNotificationWorkflowsCard(IncidentCrashLog log, AppLocalizations l10n) {
@@ -584,4 +758,24 @@ class _IncidentCrashDetailsScreenState extends ConsumerState<IncidentCrashDetail
       ),
     );
   }
+}
+
+class _CrashMediaItem {
+  final String? networkUrl;
+  final String? base64Stream;
+  final String? localFilePath;
+  final String fileName;
+  final String mediaType;
+  final String? description;
+  final String? approvalStatus;
+
+  _CrashMediaItem({
+    this.networkUrl,
+    this.base64Stream,
+    this.localFilePath,
+    required this.fileName,
+    required this.mediaType,
+    this.description,
+    this.approvalStatus,
+  });
 }

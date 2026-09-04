@@ -193,7 +193,7 @@ class IncidentCrashViewModel extends StateNotifier<IncidentCrashFormState> {
         final evidence = IncidentCrashEvidence(
           stream: 'data:image/jpeg;base64,$base64',
           fileName: pickedFile.name,
-          mediaType: 'Photo',
+          mediaType: 'image/jpeg',
           localFilePath: pickedFile.path,
         );
         state = state.copyWith(evidences: [...state.evidences, evidence]);

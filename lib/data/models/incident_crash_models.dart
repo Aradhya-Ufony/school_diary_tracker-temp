@@ -37,33 +37,52 @@ class IncidentCrashStudent {
 }
 
 class IncidentCrashEvidence {
+  final int? id;
+  final int? staticMediaId;
+  final String? mediaUrl;
   final String? stream; // base64 string
   final String fileName;
-  final String mediaType; // Photo, Video, etc.
+  final String mediaType; // image/jpeg, Video, etc.
   final String? description;
   final String? localFilePath;
+  final String? uploadedDate;
 
   IncidentCrashEvidence({
+    this.id,
+    this.staticMediaId,
+    this.mediaUrl,
     this.stream,
     required this.fileName,
-    required this.mediaType,
+    this.mediaType = 'image/jpeg',
     this.description,
     this.localFilePath,
+    this.uploadedDate,
   });
 
-  Map<String, dynamic> toJson() => {
-        'stream': stream,
-        'fileName': fileName,
-        'mediaType': mediaType,
-        'description': description,
-      };
+  Map<String, dynamic> toJson() {
+    final map = <String, dynamic>{
+      'fileName': fileName,
+      'mediaType': mediaType,
+    };
+    if (stream != null) map['stream'] = stream;
+    if (mediaUrl != null) map['mediaUrl'] = mediaUrl;
+    if (description != null) map['description'] = description;
+    return map;
+  }
 
   factory IncidentCrashEvidence.fromJson(Map<String, dynamic> json) {
     return IncidentCrashEvidence(
+      id: _parseIntNullable(json['id']),
+      staticMediaId: _parseIntNullable(json['staticMediaId']),
+      mediaUrl: json['mediaUrl']?.toString() ??
+          json['url']?.toString() ??
+          json['fileUrl']?.toString() ??
+          json['imageUrl']?.toString(),
       stream: json['stream'] as String?,
       fileName: json['fileName'] as String? ?? 'evidence.jpg',
-      mediaType: json['mediaType'] as String? ?? 'Photo',
+      mediaType: json['mediaType'] as String? ?? 'image/jpeg',
       description: json['description'] as String?,
+      uploadedDate: json['uploadedDate'] as String?,
     );
   }
 }

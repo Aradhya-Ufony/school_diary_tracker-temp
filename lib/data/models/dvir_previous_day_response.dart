@@ -73,11 +73,28 @@ class DefectModel {
   });
 
   factory DefectModel.fromJson(Map<String, dynamic> json) {
+    String? photo = json['photoUrl']?.toString() ??
+        json['mediaUrl']?.toString() ??
+        json['imageUrl']?.toString() ??
+        json['url']?.toString() ??
+        json['fileUrl']?.toString();
+
+    if ((photo == null || photo.isEmpty) && json['evidences'] is List && (json['evidences'] as List).isNotEmpty) {
+      final firstEv = (json['evidences'] as List).first;
+      if (firstEv is Map) {
+        photo = firstEv['mediaUrl']?.toString() ??
+            firstEv['url']?.toString() ??
+            firstEv['fileUrl']?.toString() ??
+            firstEv['imageUrl']?.toString() ??
+            firstEv['photoUrl']?.toString();
+      }
+    }
+
     return DefectModel(
       defectId: json['defectId']?.toString() ?? '',
       zoneCode: json['zoneCode']?.toString() ?? '',
       description: json['description']?.toString() ?? '',
-      photoUrl: json['photoUrl']?.toString(),
+      photoUrl: photo,
       isSafetyCritical: json['isSafetyCritical'] as bool? ?? false,
     );
   }
