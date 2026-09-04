@@ -44,15 +44,6 @@ class _IncidentCrashIntakeScreenState extends ConsumerState<IncidentCrashIntakeS
     return Scaffold(
       appBar: AppBar(
         title: Text(l10n.incidentIntakeTitle),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.history),
-            tooltip: l10n.incidentIntakeHistoryTooltip,
-            onPressed: () {
-              context.push(Constants.INCIDENT_HISTORY_ROUTE);
-            },
-          ),
-        ],
       ),
       body: state.isLoading
           ? const Center(child: CircularProgressIndicator())

@@ -3,10 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../../../core/di/providers.dart';
 import '../../../core/utils/app_constants.dart';
-import '../../../data/models/country.dart';
 import '../../../l10n/generated/app_localizations.dart';
-import '../../settings/viewmodel/locale_controller.dart';
-import '../../splash/viewmodel/splash_viewmodel.dart';
 import '../viewmodel/login_viewmodel.dart';
 import 'country_picker_sheet.dart';
 
@@ -70,8 +67,7 @@ class _MovingBackgroundState extends State<MovingBackground>
 }
 
 class LoginScreen extends ConsumerStatefulWidget {
-  final bool showSplash;
-  const LoginScreen({super.key, this.showSplash = false});
+  const LoginScreen({super.key});
 
   @override
   ConsumerState<LoginScreen> createState() => _LoginScreenState();
@@ -82,13 +78,9 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   final _passwordController = TextEditingController();
   bool _showPrefix = false;
 
-  late bool _isSplashActive;
-  bool _hasNavigatedOrTransitioned = false;
-
   @override
   void initState() {
     super.initState();
-    _isSplashActive = widget.showSplash;
     _usernameController.addListener(_onUsernameChanged);
   }
 
@@ -125,30 +117,6 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     final l10n = AppLocalizations.of(context)!;
     final loginState = ref.watch(loginViewModelProvider);
     final selectedCountry = ref.watch(selectedCountryProvider);
-
-    // Check splash readiness and perform in-situ transition or home navigation
-    final splashState = ref.watch(splashViewModelProvider);
-    final isLoggedIn = ref.read(authRepositoryProvider).isLoggedIn;
-
-    if (widget.showSplash &&
-        splashState.isReady &&
-        !_hasNavigatedOrTransitioned) {
-      _hasNavigatedOrTransitioned = true;
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        if (!context.mounted) return;
-        final hasSelectedLanguage =
-            ref.read(localeControllerProvider.notifier).hasSelectedLanguage;
-        if (!hasSelectedLanguage) {
-          context.go(Constants.LANGUAGE_ROUTE, extra: true);
-        } else if (isLoggedIn) {
-          context.go(Constants.HOME_ROUTE);
-        } else {
-          setState(() {
-            _isSplashActive = false;
-          });
-        }
-      });
-    }
 
     ref.listen<LoginState>(loginViewModelProvider, (previous, next) async {
       if (next is LoginSuccess) {
@@ -215,33 +183,15 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
             ),
           ),
 
-          if (_isSplashActive)
-            Center(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  _logo(size: 110),
-                  const SizedBox(height: 18), // Fixed tight gap
-                  _brandingText(),
-                ],
-              ),
-            ),
-
-          // 5. Login Form Card (Fades and slides in when splash is complete)
+          // Login Form Card
           Align(
             alignment: const Alignment(0, 0.15),
-            child: IgnorePointer(
-              ignoring: _isSplashActive,
-              child: AnimatedOpacity(
-                opacity: _isSplashActive ? 0.0 : 1.0,
-                duration: const Duration(milliseconds: 1000),
-                curve: Curves.easeInOutCubic,
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 24),
-                  child: Stack(
-                    clipBehavior: Clip.none,
-                    children: [
-                      // The Card Container
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 24),
+              child: Stack(
+                clipBehavior: Clip.none,
+                children: [
+                  // The Card Container
                       Container(
                         margin: const EdgeInsets.only(
                             top:
@@ -460,28 +410,23 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                         ),
                       ),
 
-                      // Pinned Logo overlapping top border (Only when splash is inactive)
-                      if (!_isSplashActive)
-                        Positioned(
-                          top: 0,
-                          left: 0,
-                          right: 0,
-                          child: Center(
-                            child: _logo(size: 80),
-                          ),
+                      // Pinned Logo overlapping top border
+                      Positioned(
+                        top: 0,
+                        left: 0,
+                        right: 0,
+                        child: Center(
+                          child: _logo(size: 80),
                         ),
+                      ),
                     ],
                   ),
                 ),
               ),
-            ),
+            ],
           ),
-
-          // 6. Splash Logo (Only rendered in root stack when splash is active)
-        ],
-      ),
-    );
-  }
+        );
+      }
 
   Widget _cardTextField({
     required TextEditingController controller,
@@ -546,53 +491,6 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
           ),
         ),
       ),
-    );
-  }
-
-  Widget _customText({
-    required String text,
-    required double fontSize,
-    required Color textColor,
-    required FontWeight? fontWeight,
-    double? letterSpacing,
-  }) {
-    return Text(
-      text,
-      style: TextStyle(
-        fontSize: fontSize,
-        color: textColor,
-        fontWeight: fontWeight,
-        letterSpacing: letterSpacing ?? 0.0,
-      ),
-    );
-  }
-
-  Widget _brandingText() {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        IntrinsicWidth(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              _customText(
-                  text: "School Diary",
-                  fontSize: 38,
-                  textColor: Colors.white,
-                  fontWeight: FontWeight.w900
-              ),
-              const SizedBox(height:2),
-              _customText(
-                  text: "Tracker",
-                  fontSize: 24,
-                  textColor: Colors.white,
-                  fontWeight: FontWeight.bold,
-                  letterSpacing: 1.0
-              ),
-            ],
-          ),
-        ),
-      ],
     );
   }
 

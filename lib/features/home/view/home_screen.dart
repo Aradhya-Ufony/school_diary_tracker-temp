@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../../../core/di/providers.dart';
+import '../../../core/routing/app_router.dart';
 import '../../../core/utils/app_constants.dart';
 import '../../../data/models/route_response.dart';
 import '../../../data/models/user_location.dart';
@@ -18,12 +19,37 @@ class HomeScreen extends ConsumerStatefulWidget {
   ConsumerState<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends ConsumerState<HomeScreen> {
+class _HomeScreenState extends ConsumerState<HomeScreen> with RouteAware {
   final _searchController = TextEditingController();
   bool _isStarting = false;
+  late final AppLifecycleListener _lifecycleListener;
+
+  @override
+  void initState() {
+    super.initState();
+    _lifecycleListener = AppLifecycleListener(
+      onResume: () => ref.read(homeViewModelProvider.notifier).refresh(),
+    );
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final route = ModalRoute.of(context);
+    if (route != null) {
+      rootRouteObserver.subscribe(this, route);
+    }
+  }
+
+  @override
+  void didPopNext() {
+    ref.read(homeViewModelProvider.notifier).refresh();
+  }
 
   @override
   void dispose() {
+    rootRouteObserver.unsubscribe(this);
+    _lifecycleListener.dispose();
     _searchController.dispose();
     super.dispose();
   }
@@ -33,6 +59,13 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     final l10n = AppLocalizations.of(context)!;
     final state = ref.watch(homeViewModelProvider);
     final user = ref.watch(authRepositoryProvider).getCurrentUser();
+
+    // Listen to current screen updates to ensure refresh on returning to Home
+    ref.listen<String>(currentScreenProvider, (previous, next) {
+      if (next == Constants.HOME && previous != Constants.HOME) {
+        ref.read(homeViewModelProvider.notifier).refresh();
+      }
+    });
 
     return Scaffold(
       appBar: AppBar(
@@ -69,31 +102,34 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
             ListTile(
               leading: const Icon(Icons.person),
               title: Text(l10n.homeMenuDriverDetails),
-              onTap: () {
+              onTap: () async {
                 Navigator.pop(context);
-                context.push(Constants.DRIVER_DETAILS_ROUTE);
+                await context.push(Constants.DRIVER_DETAILS_ROUTE);
+                if (mounted) ref.read(homeViewModelProvider.notifier).refresh();
               },
             ),
             ListTile(
               leading: const Icon(Icons.warning_amber_rounded),
               title: Text(l10n.homeMenuDrill),
-              onTap: () {
+              onTap: () async {
                 Navigator.pop(context);
-                context.push(Constants.DRILL_LIST_ROUTE);
+                await context.push(Constants.DRILL_LIST_ROUTE);
+                if (mounted) ref.read(homeViewModelProvider.notifier).refresh();
               },
             ),
             ListTile(
               leading: const Icon(Icons.playlist_add_check),
               title: Text(l10n.homeMenuPreTrip),
-              onTap: () {
+              onTap: () async {
                 Navigator.pop(context);
                 final firstRoute = state.allRoutes.isNotEmpty ? state.allRoutes.first : null;
                 if (firstRoute != null) {
-                  context.push(Constants.DVIR_PRE_TRIP_ROUTE, extra: {
+                  await context.push(Constants.DVIR_PRE_TRIP_ROUTE, extra: {
                     'schoolBusId': firstRoute.vehicleId?.toString() ?? '',
                     'routeName': firstRoute.name,
                     'route': firstRoute,
                   });
+                  if (mounted) ref.read(homeViewModelProvider.notifier).refresh();
                 } else {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(content: Text(l10n.homeErrorNoRoutesPreTrip)),
@@ -104,25 +140,28 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
             ListTile(
               leading: const Icon(Icons.language),
               title: Text(l10n.homeMenuLanguage),
-              onTap: () {
+              onTap: () async {
                 Navigator.pop(context);
-                context.push(Constants.LANGUAGE_ROUTE);
+                await context.push(Constants.LANGUAGE_ROUTE);
+                if (mounted) ref.read(homeViewModelProvider.notifier).refresh();
               },
             ),
             ListTile(
               leading: const Icon(Icons.info_outline),
               title: Text(l10n.homeMenuAppInfo),
-              onTap: () {
+              onTap: () async {
                 Navigator.pop(context);
-                context.push(Constants.APP_INFO_ROUTE);
+                await context.push(Constants.APP_INFO_ROUTE);
+                if (mounted) ref.read(homeViewModelProvider.notifier).refresh();
               },
             ),
             ListTile(
               leading: const Icon(Icons.error_outline, color: AppColors.ERROR),
               title: Text(l10n.homeMenuPostCrashReporting),
-              onTap: () {
+              onTap: () async {
                 Navigator.pop(context);
-                context.push(Constants.INCIDENT_INTAKE_ROUTE);
+                await context.push(Constants.INCIDENT_INTAKE_ROUTE);
+                if (mounted) ref.read(homeViewModelProvider.notifier).refresh();
               },
             ),
             const Divider(),
@@ -162,7 +201,36 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
               )
             else if (state.error != null && state.allRoutes.isEmpty)
               Expanded(
-                child: Center(child: Text(state.error!)),
+                child: Center(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 24),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(
+                          state.error!,
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(fontSize: 16),
+                        ),
+                        const SizedBox(height: 12),
+                        TextButton(
+                          onPressed: () =>
+                              ref.read(homeViewModelProvider.notifier).refresh(),
+                          style: TextButton.styleFrom(
+                            foregroundColor: AppColors.PRIMARY,
+                          ),
+                          child: const Text(
+                            'Refresh',
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
               )
             else if (state.filteredRoutes.isEmpty)
               Expanded(

@@ -109,7 +109,11 @@ class _PreTripVerificationScreenState
                   Text(l10n.dvirPreTripSignedSuccess)),
         );
         // Navigate back to the home screen
-        context.go(Constants.HOME_ROUTE);
+        if (Navigator.of(context).canPop()) {
+          context.pop();
+        } else {
+          context.go(Constants.HOME_ROUTE);
+        }
       }
     } catch (e) {
       setState(() => _isSigning = false);

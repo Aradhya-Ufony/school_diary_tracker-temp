@@ -40,6 +40,11 @@ class ScreenTrackerObserver extends NavigatorObserver {
   }
 
   @override
+  void didPop(Route<dynamic> route, Route<dynamic>? previousRoute) {
+    if (previousRoute != null) _updateScreen(previousRoute);
+  }
+
+  @override
   void didReplace({Route<dynamic>? newRoute, Route<dynamic>? oldRoute}) {
     if (newRoute != null) _updateScreen(newRoute);
   }
@@ -65,10 +70,16 @@ class StopsRouteArgs {
   });
 }
 
+/// RouteObserver to allow widgets to subscribe to route transitions (e.g. didPopNext).
+final rootRouteObserver = RouteObserver<ModalRoute<void>>();
+
 final appRouterProvider = Provider<GoRouter>((ref) {
   return GoRouter(
     initialLocation: Constants.SPLASH_ROUTE,
-    observers: [ScreenTrackerObserver(ref)],
+    observers: [
+      ScreenTrackerObserver(ref),
+      rootRouteObserver,
+    ],
     routes: [
       GoRoute(
         path: Constants.SPLASH_ROUTE,
