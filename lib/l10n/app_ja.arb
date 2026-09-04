@@ -1,284 +1,1723 @@
 {
   "@@locale": "ja",
-  "appInfoBuild": "Build Number",
-  "appInfoDevice": "Device Model",
-  "appInfoOS": "OS Version",
-  "appInfoPackage": "Package",
-  "appInfoTitle": "App Info",
-  "appInfoVersion": "App Version",
-  "appTitleSchoolDiary": "SD Tracker",
-  "childrenActionGuardians": "Guardians",
-  "childrenGuardiansFor": "Authorized guardians for {name}",
-  "childrenNoGuardians": "No authorized guardians on file for this child.",
-  "childrenStatusDropped": "Dropped",
-  "childrenStatusPending": "Pending",
-  "childrenStatusPicked": "Picked",
-  "childrenTitle": "Children — {routeName}",
-  "drillChecklistAbsentTitle": "ABSENT / NOT ON BUS ({count})",
-  "drillChecklistBus": "Bus: {busNumber}",
-  "drillChecklistEvacuated": "Evacuated",
-  "drillChecklistEvacuatedProgress": "Evacuated: {evacuatedCount}/{totalCount}",
-  "drillChecklistNoAbsentStudents": "No absent students.",
-  "drillChecklistNoStudentsOnBus": "No students marked on bus.",
-  "drillChecklistNotOnBus": "NOT ON BUS",
-  "drillChecklistOnBusNotEvacuated": "ON BUS — NOT EVACUATED",
-  "drillChecklistOnBusTitle": "ON BUS ({count})",
-  "drillChecklistProceed": "PROCEED TO EVIDENCE CAPTURE",
-  "drillChecklistRouteLive": "Route (Live): {routeName}",
-  "drillChecklistTitle": "Evacuation Drill Checklist",
-  "drillChecklistUnaccountedWarning": "{count} Unaccounted Student(s) Remaining!",
-  "drillEvidenceConfirmMessage": "Are you sure you want to submit this drill log? This action cannot be undone.",
-  "drillEvidenceConfirmSubmission": "Confirm Drill Submission",
-  "drillEvidenceDriverNotesHint": "Describe drill execution, student behavior, exit paths used, and any exceptions observed...",
-  "drillEvidenceDriverNotesLabel": "Driver Notes (Minimum 10 characters):",
-  "drillEvidenceFailed": "Submission Failed",
-  "drillEvidenceMandatoryWarning": "At least 1 photo or video evidence is mandatory to submit drill.",
-  "drillEvidenceRecordVideo": "Record Video",
-  "drillEvidenceRetrySubmission": "RETRY SUBMISSION",
-  "drillEvidenceReturnToDashboard": "RETURN TO DASHBOARD",
-  "drillEvidenceSubmitButton": "SUBMIT DRILL LOG",
-  "drillEvidenceSubmitting": "Submitting Drill Log...",
-  "drillEvidenceSuccess": "Submission Successful!",
-  "drillEvidenceSuccessMessage": "The evacuation drill log has been successfully uploaded and is pending approval.",
-  "drillEvidenceTakePhoto": "Take Photo",
-  "drillEvidenceTitle": "Mandatory Drill Evidence",
-  "drillEvidenceUploading": "Uploading evidence and checklist data",
-  "drillRosterBus": "Bus: {busNumber}",
-  "drillRosterDrillType": "Drill: {drillType}",
-  "drillRosterMarkAttendance": "Mark Attendance",
-  "drillRosterNoStudents": "No students registered on this route.",
-  "drillRosterPresentCount": "Present: {presentCount} / {totalCount}",
-  "drillRosterProceed": "PROCEED TO DRILL CHECKLIST",
-  "drillRosterRoute": "Route: {routeName}",
-  "drillRosterSeat": "Seat: {seatNumber}",
-  "drillRosterSelectAll": "Select All",
-  "drillSummaryAdminNotesTitle": "Admin Notes",
-  "drillSummaryApprovedAt": "Approved At: {date}",
-  "drillSummaryApprovedAtLabel": "Approved At",
-  "drillSummaryBackToDrills": "Back to Drills",
-  "drillSummaryBusNumber": "Bus Number",
-  "drillSummaryConductedBy": "Conducted By: {name}",
-  "drillSummaryDetailsTitle": "Drill Details",
-  "drillSummaryDriverNotesTitle": "Driver Notes",
-  "drillSummaryDuration": "Duration",
-  "drillSummaryDurationValue": "{minutes} min {seconds} sec",
-  "drillSummaryEndTime": "End Time",
-  "drillSummaryEvacuatedCount": "Evacuated: {evacuatedCount}/{totalCount}",
-  "drillSummaryEvacuatedTime": "Evacuated {time}",
-  "drillSummaryEvidenceTitle": "Evidence Media Attachments",
-  "drillSummaryGps": "GPS Coordinates",
-  "drillSummaryGpsValue": "Lat: {lat}, Lng: {lng}",
-  "drillSummaryLoadFailed": "Failed to load drill summary for ID #{id}.\n{error}",
-  "drillSummaryNoData": "No drill data found.",
-  "drillSummaryNotOnBus": "Not On Bus",
-  "drillSummaryOnBusNotEvacuated": "ON BUS - NOT EVACUATED",
-  "drillSummaryPhotoEvidence": "Photo Evidence",
-  "drillSummaryRouteId": "Route ID",
-  "drillSummarySeat": "Seat: {seatNumber}",
-  "drillSummaryStartTime": "Start Time",
-  "drillSummaryStatus": "Status",
-  "drillSummaryStudentLogTitle": "Student Evacuation Log",
-  "drillSummaryTitle": "Drill Summary (#{id})",
-  "drillSummaryType": "Drill Type",
-  "drillSummaryVideoEvidence": "Video Evidence",
-  "drillTypeBus": "Bus {busNumber}",
-  "drillTypeClassification": "Choose drill classification:",
-  "drillTypeCustomHint": "Enter custom evacuation drill type...",
-  "drillTypeInvalidState": "Invalid vehicle or route state.",
-  "drillTypeNameBusFire": "Bus Fire",
-  "drillTypeNameDangerZone": "Danger Zone",
-  "drillTypeNameDriverIncapacitation": "Driver Incapacitation",
-  "drillTypeNameEquipmentOrientation": "Equipment Orientation",
-  "drillTypeNameFrontDoor": "Front Door",
-  "drillTypeNameOthers": "Others",
-  "drillTypeNameRearDoor": "Rear Door",
-  "drillTypeNameSideOrRoof": "Side Or Roof",
-  "drillTypeNameSplit": "Split",
-  "drillTypeNoRouteSelected": "No Route Selected",
-  "drillTypePreparation": "DRILL PREPARATION",
-  "drillTypeProceed": "PROCEED TO STUDENT ROSTER",
-  "drillTypeRoute": "Route: {routeName}",
-  "drillTypeSelectRoute": "Select Route:",
-  "drillTypeSpecifyCustom": "Specify Drill Type Description:",
-  "drillTypeTitle": "Select Drill Type",
-  "drillTypeWarning": "Ensure vehicle is parked safely before beginning execution.",
-  "drillsAssignedVehicle": "Assigned Vehicle",
-  "drillsChecking": "Checking...",
-  "drillsHeader": "Drill #{id} - {type}",
-  "drillsNoBusAssigned": "No Bus Assigned",
-  "drillsNoDrillsRecorded": "No drills recorded for bus {busNumber}",
-  "drillsNoRoutesAvailable": "No routes available to start a drill.",
-  "drillsShowSummary": "Show Summary",
-  "drillsStartDrill": "Start Drill",
-  "drillsSubtitle": "Conducted: {date}\nStatus: {status}",
-  "drillsTitle": "Evacuation Drills",
-  "drillsVehicleOutOfService": "Vehicle Out of Service",
-  "drillsVehicleOutOfServiceMessage": "This vehicle is currently out of service and cannot be used for drills.",
-  "driverDetailsCdlClassLabel": "CDL Class",
-  "driverDetailsDrivingLicenseLabel": "DRIVING LICENSE",
-  "driverDetailsDrivingLicenseName": "NAME: {name}",
-  "driverDetailsDrivingLicenseNo": "LIC: {licenseNo}",
-  "driverDetailsEndorsementPassenger": "Passenger",
-  "driverDetailsEndorsementSchoolBus": "School Bus",
-  "driverDetailsEndorsementsTitle": "Endorsements Held",
-  "driverDetailsExpiryDateLabel": "Expiry Date",
-  "driverDetailsHolderSignature": "HOLDER SIGNATURE",
+  "appInfoBuild": "ビルド番号",
+  "@appInfoBuild": {
+    "description": "Label displaying the application build number on the App Info screen.[cite: 1]"
+  },
+  "appInfoDevice": "デバイスモデル",
+  "@appInfoDevice": {
+    "description": "Label displaying the device hardware model name on the App Info screen.[cite: 1]"
+  },
+  "appInfoOS": "OSバージョン",
+  "@appInfoOS": {
+    "description": "Label displaying the operating system name and version on the App Info screen.[cite: 1]"
+  },
+  "appInfoPackage": "パッケージ",
+  "@appInfoPackage": {
+    "description": "Label displaying the application package identifier on the App Info screen.[cite: 1]"
+  },
+  "appInfoTitle": "アプリ情報",
+  "@appInfoTitle": {
+    "description": "Title of the App Info screen and drawer menu navigation item.[cite: 1]"
+  },
+  "appInfoVersion": "アプリバージョン",
+  "@appInfoVersion": {
+    "description": "Label displaying the application release version on the App Info screen.[cite: 1]"
+  },
+  "appTitleSchoolDiary": "SDトラッカー",
+  "@appTitleSchoolDiary": {
+    "description": "The main application branding title displayed in the app header.[cite: 1]"
+  },
+  "childrenActionGuardians": "保護者",
+  "@childrenActionGuardians": {
+    "description": "Action button label to open the authorized guardians list for a child.[cite: 1]"
+  },
+  "childrenGuardiansFor": "{name} の認定保護者",
+  "@childrenGuardiansFor": {
+    "description": "Header text showing the student name whose authorized guardians are listed.[cite: 1]"
+  },
+  "childrenNoGuardians": "この児童の認定保護者は登録されていません。",
+  "@childrenNoGuardians": {
+    "description": "Empty state message displayed when no authorized guardians are registered for a student.[cite: 1]"
+  },
+  "childrenStatusDropped": "降車済み",
+  "@childrenStatusDropped": {
+    "description": "Status badge indicating that the student has been dropped off at their stop.[cite: 1]"
+  },
+  "childrenStatusPending": "保留中",
+  "@childrenStatusPending": {
+    "description": "Status badge indicating that the student pickup or drop-off is currently pending.[cite: 1]"
+  },
+  "childrenStatusPicked": "乗車済み",
+  "@childrenStatusPicked": {
+    "description": "Status badge indicating that the student has been picked up onto the bus.[cite: 1]"
+  },
+  "childrenTitle": "児童 - {routeName}",
+  "@childrenTitle": {
+    "description": "Screen title for the student roster list on the specified route.[cite: 1]"
+  },
+  "drillChecklistAbsentTitle": "欠席 / バスに乗っていない ({count})",
+  "@drillChecklistAbsentTitle": {
+    "description": "Section header in the evacuation drill checklist for students marked absent or not onboard.[cite: 1]"
+  },
+  "drillChecklistBus": "バス: {busNumber}",
+  "@drillChecklistBus": {
+    "description": "Bus identifier label displayed in the drill checklist header.[cite: 1]"
+  },
+  "drillChecklistEvacuated": "避難済み",
+  "@drillChecklistEvacuated": {
+    "description": "Action button or status label marking a student as safely evacuated during the drill.[cite: 1]"
+  },
+  "drillChecklistEvacuatedProgress": "避難済み: {evacuatedCount}/{totalCount}",
+  "@drillChecklistEvacuatedProgress": {
+    "description": "Progress counter showing the number of evacuated students out of total present students.[cite: 1]"
+  },
+  "drillChecklistNoAbsentStudents": "欠席している生徒はいません。",
+  "@drillChecklistNoAbsentStudents": {
+    "description": "Informational message shown when all route students are present on the bus for the drill.[cite: 1]"
+  },
+  "drillChecklistNoStudentsOnBus": "バスに乗っている生徒はマークされていません。",
+  "@drillChecklistNoStudentsOnBus": {
+    "description": "Empty state message displayed when no students were marked onboard the bus.[cite: 1]"
+  },
+  "drillChecklistNotOnBus": "バスに乗っていません",
+  "@drillChecklistNotOnBus": {
+    "description": "Status badge indicating that the student was not present onboard the bus during the drill.[cite: 1]"
+  },
+  "drillChecklistOnBusNotEvacuated": "バス内 - 未避難",
+  "@drillChecklistOnBusNotEvacuated": {
+    "description": "Status badge warning that a student is onboard the bus and has not yet evacuated.[cite: 1]"
+  },
+  "drillChecklistOnBusTitle": "バス内 ({count})",
+  "@drillChecklistOnBusTitle": {
+    "description": "Section header in the drill checklist showing students currently onboard the bus.[cite: 1]"
+  },
+  "drillChecklistProceed": "証拠の記録に進む",
+  "@drillChecklistProceed": {
+    "description": "Button label to proceed from the evacuation checklist to mandatory evidence capture.[cite: 1]"
+  },
+  "drillChecklistRouteLive": "ルート (ライブ): {routeName}",
+  "@drillChecklistRouteLive": {
+    "description": "Header subtitle showing the active live route name for the evacuation drill.[cite: 1]"
+  },
+  "drillChecklistTitle": "避難訓練チェックリスト",
+  "@drillChecklistTitle": {
+    "description": "Screen title for the evacuation drill execution checklist.[cite: 1]"
+  },
+  "drillChecklistUnaccountedWarning": "安否不明の生徒が {count} 人残っています！",
+  "@drillChecklistUnaccountedWarning": {
+    "description": "Warning banner alerting the driver to remaining students who have not yet evacuated.[cite: 1]"
+  },
+  "drillEvidenceConfirmMessage": "この訓練ログを送信してもよろしいですか？ この操作は元に戻せません。",
+  "@drillEvidenceConfirmMessage": {
+    "description": "Body message in the confirmation dialog asking the driver to confirm drill log submission.[cite: 1]"
+  },
+  "drillEvidenceConfirmSubmission": "訓練の送信を完了する",
+  "@drillEvidenceConfirmSubmission": {
+    "description": "Title of the confirmation dialog displayed before submitting the evacuation drill log.[cite: 1]"
+  },
+  "drillEvidenceDriverNotesHint": "訓練の実施状況、生徒の行動、使用した避難経路、観察された例外などを記述してください...",
+  "@drillEvidenceDriverNotesHint": {
+    "description": "Placeholder hint text for the driver notes field describing drill execution details.[cite: 1]"
+  },
+  "drillEvidenceDriverNotesLabel": "ドライバーのメモ (最低10文字):",
+  "@drillEvidenceDriverNotesLabel": {
+    "description": "Label for the mandatory driver notes field in the drill evidence capture screen.[cite: 1]"
+  },
+  "drillEvidenceFailed": "送信に失敗しました",
+  "@drillEvidenceFailed": {
+    "description": "Header title displayed on the failure screen when drill log submission fails.[cite: 1]"
+  },
+  "drillEvidenceMandatoryWarning": "訓練を送信するには、少なくとも1つの写真または動画の証拠が必須です。",
+  "@drillEvidenceMandatoryWarning": {
+    "description": "Validation warning message indicating that at least one photo or video attachment is required.[cite: 1]"
+  },
+  "drillEvidenceRecordVideo": "動画を録画",
+  "@drillEvidenceRecordVideo": {
+    "description": "Button label to open the camera and record a video as drill evidence.[cite: 1]"
+  },
+  "drillEvidenceRetrySubmission": "再送信する",
+  "@drillEvidenceRetrySubmission": {
+    "description": "Button label to re-attempt submitting the drill log after a network or upload failure.[cite: 1]"
+  },
+  "drillEvidenceReturnToDashboard": "ダッシュボードに戻る",
+  "@drillEvidenceReturnToDashboard": {
+    "description": "Button label to navigate back to the home or drills dashboard after completing a drill.[cite: 1]"
+  },
+  "drillEvidenceSubmitButton": "訓練ログを送信",
+  "@drillEvidenceSubmitButton": {
+    "description": "Primary button label to submit the evacuation drill log and attached evidence.[cite: 1]"
+  },
+  "drillEvidenceSubmitting": "訓練ログを送信しています...",
+  "@drillEvidenceSubmitting": {
+    "description": "Loading message displayed while the drill log and media are being uploaded.[cite: 1]"
+  },
+  "drillEvidenceSuccess": "送信が成功しました！",
+  "@drillEvidenceSuccess": {
+    "description": "Success header title displayed after the drill log is successfully uploaded.[cite: 1]"
+  },
+  "drillEvidenceSuccessMessage": "避難訓練ログは正常にアップロードされ、管理者の承認待ちです。",
+  "@drillEvidenceSuccessMessage": {
+    "description": "Informational message explaining that the drill log was submitted and is pending administrator approval.[cite: 1]"
+  },
+  "drillEvidenceTakePhoto": "写真を撮る",
+  "@drillEvidenceTakePhoto": {
+    "description": "Button label to launch the camera and capture a photo as drill evidence.[cite: 1]"
+  },
+  "drillEvidenceTitle": "必須の訓練の証拠",
+  "@drillEvidenceTitle": {
+    "description": "Screen title for the mandatory drill evidence capture and notes step.[cite: 1]"
+  },
+  "drillEvidenceUploading": "証拠とチェックリストのデータをアップロードしています",
+  "@drillEvidenceUploading": {
+    "description": "Progress description displayed during the upload of drill evidence media and checklist data.[cite: 1]"
+  },
+  "drillRosterBus": "バス: {busNumber}",
+  "@drillRosterBus": {
+    "description": "Bus identifier label displayed in the drill roster header.[cite: 1]"
+  },
+  "drillRosterDrillType": "訓練: {drillType}",
+  "@drillRosterDrillType": {
+    "description": "Label displaying the selected evacuation drill classification in the roster header.[cite: 1]"
+  },
+  "drillRosterMarkAttendance": "出欠を記録する",
+  "@drillRosterMarkAttendance": {
+    "description": "Section instruction prompting the driver to mark student attendance before starting the drill.[cite: 1]"
+  },
+  "drillRosterNoStudents": "このルートに登録されている生徒はいません。",
+  "@drillRosterNoStudents": {
+    "description": "Empty state message displayed when no students are registered for the selected route.[cite: 1]"
+  },
+  "drillRosterPresentCount": "出席: {presentCount} / {totalCount}",
+  "@drillRosterPresentCount": {
+    "description": "Attendance counter showing the number of present students out of total registered students.[cite: 1]"
+  },
+  "drillRosterProceed": "訓練チェックリストに進む",
+  "@drillRosterProceed": {
+    "description": "Button label to confirm student attendance and proceed to the drill checklist.[cite: 1]"
+  },
+  "drillRosterRoute": "ルート: {routeName}",
+  "@drillRosterRoute": {
+    "description": "Route name label displayed in the drill roster header.[cite: 1]"
+  },
+  "drillRosterSeat": "座席: {seatNumber}",
+  "@drillRosterSeat": {
+    "description": "Detail label showing the assigned seat number for a student in the roster list.[cite: 1]"
+  },
+  "drillRosterSelectAll": "すべて選択",
+  "@drillRosterSelectAll": {
+    "description": "Button or checkbox label to select all students as present in the roster.[cite: 1]"
+  },
+  "drillSummaryAdminNotesTitle": "管理者のメモ",
+  "@drillSummaryAdminNotesTitle": {
+    "description": "Section header in the drill summary displaying review notes from administrators.[cite: 1]"
+  },
+  "drillSummaryApprovedAt": "承認日時: {date}",
+  "@drillSummaryApprovedAt": {
+    "description": "Timestamp label showing when the evacuation drill log was approved by administration.[cite: 1]"
+  },
+  "drillSummaryApprovedAtLabel": "承認日時",
+  "@drillSummaryApprovedAtLabel": {
+    "description": "Field label for the approval timestamp in the drill summary details.[cite: 1]"
+  },
+  "drillSummaryBackToDrills": "訓練一覧に戻る",
+  "@drillSummaryBackToDrills": {
+    "description": "Button label to navigate back to the evacuation drills dashboard.[cite: 1]"
+  },
+  "drillSummaryBusNumber": "バス番号",
+  "@drillSummaryBusNumber": {
+    "description": "Field label for the bus number in the drill summary metadata card.[cite: 1]"
+  },
+  "drillSummaryConductedBy": "実施者: {name}",
+  "@drillSummaryConductedBy": {
+    "description": "Subtitle showing the name of the driver or staff member who conducted the drill.[cite: 1]"
+  },
+  "drillSummaryDetailsTitle": "訓練の詳細",
+  "@drillSummaryDetailsTitle": {
+    "description": "Card header for the general drill details and metadata section.[cite: 1]"
+  },
+  "drillSummaryDriverNotesTitle": "ドライバーのメモ",
+  "@drillSummaryDriverNotesTitle": {
+    "description": "Card header displaying the notes recorded by the driver during drill execution.[cite: 1]"
+  },
+  "drillSummaryDuration": "所要時間",
+  "@drillSummaryDuration": {
+    "description": "Field label for the total time elapsed during the evacuation drill.[cite: 1]"
+  },
+  "drillSummaryDurationValue": "{minutes} 分 {seconds} 秒",
+  "@drillSummaryDurationValue": {
+    "description": "Formatted duration string displaying elapsed minutes and seconds of the drill.[cite: 1]"
+  },
+  "drillSummaryEndTime": "終了時間",
+  "@drillSummaryEndTime": {
+    "description": "Field label for the timestamp when the drill concluded.[cite: 1]"
+  },
+  "drillSummaryEvacuatedCount": "避難済み: {evacuatedCount}/{totalCount}",
+  "@drillSummaryEvacuatedCount": {
+    "description": "Evacuation metric showing the number of safely evacuated students out of total present students.[cite: 1]"
+  },
+  "drillSummaryEvacuatedTime": "避難完了 {time}",
+  "@drillSummaryEvacuatedTime": {
+    "description": "Timestamp badge indicating the exact time a specific student evacuated.[cite: 1]"
+  },
+  "drillSummaryEvidenceTitle": "証拠メディアの添付",
+  "@drillSummaryEvidenceTitle": {
+    "description": "Section header for photo and video evidence attachments in the drill summary.[cite: 1]"
+  },
+  "drillSummaryGps": "GPS座標",
+  "@drillSummaryGps": {
+    "description": "Field label for the geographic GPS coordinates where the drill took place.[cite: 1]"
+  },
+  "drillSummaryGpsValue": "緯度: {lat}, 経度: {lng}",
+  "@drillSummaryGpsValue": {
+    "description": "Formatted latitude and longitude GPS coordinates displayed in the drill summary.[cite: 1]"
+  },
+  "drillSummaryLoadFailed": "ID #{id} の訓練の概要を読み込めませんでした。\n{error}",
+  "@drillSummaryLoadFailed": {
+    "description": "Error message displayed when loading drill summary details fails for a specific drill ID.[cite: 1]"
+  },
+  "drillSummaryNoData": "訓練データが見つかりません。",
+  "@drillSummaryNoData": {
+    "description": "Empty state message displayed when no drill summary data is found.[cite: 1]"
+  },
+  "drillSummaryNotOnBus": "バスに乗っていません",
+  "@drillSummaryNotOnBus": {
+    "description": "Status badge in student evacuation log for students who were absent or not on the bus.[cite: 1]"
+  },
+  "drillSummaryOnBusNotEvacuated": "バス内 - 未避難",
+  "@drillSummaryOnBusNotEvacuated": {
+    "description": "Status badge in student evacuation log for students who did not evacuate the bus.[cite: 1]"
+  },
+  "drillSummaryPhotoEvidence": "写真の証拠",
+  "@drillSummaryPhotoEvidence": {
+    "description": "Section header for photo evidence media attachments in the drill summary.[cite: 1]"
+  },
+  "drillSummaryRouteId": "ルートID",
+  "@drillSummaryRouteId": {
+    "description": "Field label for the route identifier in the drill summary metadata.[cite: 1]"
+  },
+  "drillSummarySeat": "座席: {seatNumber}",
+  "@drillSummarySeat": {
+    "description": "Detail label showing the student's assigned seat number in the evacuation log.[cite: 1]"
+  },
+  "drillSummaryStartTime": "開始時間",
+  "@drillSummaryStartTime": {
+    "description": "Field label for the timestamp when the evacuation drill began.[cite: 1]"
+  },
+  "drillSummaryStatus": "ステータス",
+  "@drillSummaryStatus": {
+    "description": "Field label for the current approval or completion status of the drill.[cite: 1]"
+  },
+  "drillSummaryStudentLogTitle": "生徒の避難ログ",
+  "@drillSummaryStudentLogTitle": {
+    "description": "Section header for the individual student evacuation outcome log.[cite: 1]"
+  },
+  "drillSummaryTitle": "訓練の概要 (#{id})",
+  "@drillSummaryTitle": {
+    "description": "Screen title for the evacuation drill summary displaying the drill ID.[cite: 1]"
+  },
+  "drillSummaryType": "訓練のタイプ",
+  "@drillSummaryType": {
+    "description": "Field label for the evacuation drill classification type.[cite: 1]"
+  },
+  "drillSummaryVideoEvidence": "動画の証拠",
+  "@drillSummaryVideoEvidence": {
+    "description": "Section header for video evidence media attachments in the drill summary.[cite: 1]"
+  },
+  "drillTypeBus": "バス {busNumber}",
+  "@drillTypeBus": {
+    "description": "Bus identifier label displayed in the drill type selection header.[cite: 1]"
+  },
+  "drillTypeClassification": "訓練の分類を選択してください:",
+  "@drillTypeClassification": {
+    "description": "Instruction header asking the driver to choose an evacuation drill classification.[cite: 1]"
+  },
+  "drillTypeCustomHint": "カスタム避難訓練のタイプを入力...",
+  "@drillTypeCustomHint": {
+    "description": "Input placeholder text for entering a custom evacuation drill classification.[cite: 1]"
+  },
+  "drillTypeInvalidState": "無効な車両またはルートの状態です。",
+  "@drillTypeInvalidState": {
+    "description": "Error message displayed when attempting to start a drill with an invalid vehicle or route state.[cite: 1]"
+  },
+  "drillTypeNameBusFire": "バス火災",
+  "@drillTypeNameBusFire": {
+    "description": "Evacuation drill classification option for a simulated bus fire scenario.[cite: 1]"
+  },
+  "drillTypeNameDangerZone": "危険区域",
+  "@drillTypeNameDangerZone": {
+    "description": "Evacuation drill classification option for bus loading and unloading danger zones.[cite: 1]"
+  },
+  "drillTypeNameDriverIncapacitation": "ドライバーの無力化",
+  "@drillTypeNameDriverIncapacitation": {
+    "description": "Evacuation drill classification option for driver incapacitation emergency response.[cite: 1]"
+  },
+  "drillTypeNameEquipmentOrientation": "機器のオリエンテーション",
+  "@drillTypeNameEquipmentOrientation": {
+    "description": "Evacuation drill classification option for emergency safety equipment familiarization.[cite: 1]"
+  },
+  "drillTypeNameFrontDoor": "前方ドア",
+  "@drillTypeNameFrontDoor": {
+    "description": "Evacuation drill classification option for front door emergency exit evacuation.[cite: 1]"
+  },
+  "drillTypeNameOthers": "その他",
+  "@drillTypeNameOthers": {
+    "description": "Evacuation drill classification option for custom or other emergency evacuation scenarios.[cite: 1]"
+  },
+  "drillTypeNameRearDoor": "後方ドア",
+  "@drillTypeNameRearDoor": {
+    "description": "Evacuation drill classification option for rear emergency door evacuation.[cite: 1]"
+  },
+  "drillTypeNameSideOrRoof": "側面または屋根",
+  "@drillTypeNameSideOrRoof": {
+    "description": "Evacuation drill classification option for side emergency door or roof hatch evacuation.[cite: 1]"
+  },
+  "drillTypeNameSplit": "分割",
+  "@drillTypeNameSplit": {
+    "description": "Evacuation drill classification option for split emergency exit evacuation.[cite: 1]"
+  },
+  "drillTypeNoRouteSelected": "ルートが選択されていません",
+  "@drillTypeNoRouteSelected": {
+    "description": "Validation warning shown when proceeding without selecting a route for the drill.[cite: 1]"
+  },
+  "drillTypePreparation": "訓練の準備",
+  "@drillTypePreparation": {
+    "description": "Header section title for evacuation drill preparation guidelines and safety checks.[cite: 1]"
+  },
+  "drillTypeProceed": "生徒名簿に進む",
+  "@drillTypeProceed": {
+    "description": "Button label to proceed from drill type selection to the student roster marking screen.[cite: 1]"
+  },
+  "drillTypeRoute": "ルート: {routeName}",
+  "@drillTypeRoute": {
+    "description": "Route name label displayed on the drill type selection screen.[cite: 1]"
+  },
+  "drillTypeSelectRoute": "ルートを選択:",
+  "@drillTypeSelectRoute": {
+    "description": "Section label prompting the driver to select a route for the drill.[cite: 1]"
+  },
+  "drillTypeSpecifyCustom": "訓練のタイプの説明を指定:",
+  "@drillTypeSpecifyCustom": {
+    "description": "Field label prompting the driver to enter a custom drill type description.[cite: 1]"
+  },
+  "drillTypeTitle": "訓練のタイプを選択",
+  "@drillTypeTitle": {
+    "description": "Screen title for selecting the evacuation drill type and route.[cite: 1]"
+  },
+  "drillTypeWarning": "実行を開始する前に、車両が安全に駐車されていることを確認してください。",
+  "@drillTypeWarning": {
+    "description": "Safety reminder instructing the driver to safely park the bus before beginning drill execution.[cite: 1]"
+  },
+  "drillsAssignedVehicle": "割り当てられた車両",
+  "@drillsAssignedVehicle": {
+    "description": "Card label displaying the vehicle currently assigned to the driver on the drills dashboard.[cite: 1]"
+  },
+  "drillsChecking": "確認中...",
+  "@drillsChecking": {
+    "description": "Status text shown while checking vehicle and route eligibility to start an evacuation drill.[cite: 1]"
+  },
+  "drillsHeader": "訓練 #{id} - {type}",
+  "@drillsHeader": {
+    "description": "List item header displaying the drill ID and classification type.[cite: 1]"
+  },
+  "drillsNoBusAssigned": "バスが割り当てられていません",
+  "@drillsNoBusAssigned": {
+    "description": "Warning banner indicating that no bus is assigned to the current driver.[cite: 1]"
+  },
+  "drillsNoDrillsRecorded": "バス {busNumber} に記録された訓練はありません",
+  "@drillsNoDrillsRecorded": {
+    "description": "Empty state message displayed when no evacuation drills have been logged for the bus.[cite: 1]"
+  },
+  "drillsNoRoutesAvailable": "訓練を開始できるルートがありません。",
+  "@drillsNoRoutesAvailable": {
+    "description": "Warning state message shown when no active routes are available to start a drill.[cite: 1]"
+  },
+  "drillsShowSummary": "概要を表示",
+  "@drillsShowSummary": {
+    "description": "Button label to view the full summary details of a completed evacuation drill.[cite: 1]"
+  },
+  "drillsStartDrill": "訓練を開始",
+  "@drillsStartDrill": {
+    "description": "Primary action button label to initiate a new evacuation drill.[cite: 1]"
+  },
+  "drillsSubtitle": "実施日: {date}\nステータス: {status}",
+  "@drillsSubtitle": {
+    "description": "List item subtitle displaying the date conducted and current status of a drill.[cite: 1]"
+  },
+  "drillsTitle": "避難訓練",
+  "@drillsTitle": {
+    "description": "Screen title for the Evacuation Drills dashboard and registry.[cite: 1]"
+  },
+  "drillsVehicleOutOfService": "車両は休車中です",
+  "@drillsVehicleOutOfService": {
+    "description": "Alert dialog title shown when the assigned vehicle is marked out of service.[cite: 1]"
+  },
+  "drillsVehicleOutOfServiceMessage": "この車両は現在休車中であり、訓練に使用することはできません。",
+  "@drillsVehicleOutOfServiceMessage": {
+    "description": "Alert message explaining that the vehicle is out of service and cannot conduct drills.[cite: 1]"
+  },
+  "driverDetailsCdlClassLabel": "CDLクラス",
+  "@driverDetailsCdlClassLabel": {
+    "description": "Field label for the Commercial Driver's License class.[cite: 1]"
+  },
+  "driverDetailsDrivingLicenseLabel": "運転免許証",
+  "@driverDetailsDrivingLicenseLabel": {
+    "description": "Section header for the digital driving license card.[cite: 1]"
+  },
+  "driverDetailsDrivingLicenseName": "氏名: {name}",
+  "@driverDetailsDrivingLicenseName": {
+    "description": "Formatted driver full name displayed on the digital license card.[cite: 1]"
+  },
+  "driverDetailsDrivingLicenseNo": "免許証番号: {licenseNo}",
+  "@driverDetailsDrivingLicenseNo": {
+    "description": "Formatted license number displayed on the digital license card.[cite: 1]"
+  },
+  "driverDetailsEndorsementPassenger": "旅客",
+  "@driverDetailsEndorsementPassenger": {
+    "description": "Badge label for Passenger (P) transport endorsement authorization.[cite: 1]"
+  },
+  "driverDetailsEndorsementSchoolBus": "スクールバス",
+  "@driverDetailsEndorsementSchoolBus": {
+    "description": "Badge label for School Bus (S) operation endorsement authorization.[cite: 1]"
+  },
+  "driverDetailsEndorsementsTitle": "保有する免許・資格",
+  "@driverDetailsEndorsementsTitle": {
+    "description": "Section title displaying the special endorsements held on the driver's license.[cite: 1]"
+  },
+  "driverDetailsExpiryDateLabel": "有効期限",
+  "@driverDetailsExpiryDateLabel": {
+    "description": "Field label for the driver's license expiration date.[cite: 1]"
+  },
+  "driverDetailsHolderSignature": "所持者の署名",
+  "@driverDetailsHolderSignature": {
+    "description": "Label above the digital signature box on the driving license card.[cite: 1]"
+  },
   "driverDetailsId": "ID: {driverId}",
-  "driverDetailsIssueDateLabel": "Issue Date",
-  "driverDetailsLicenseDocTitle": "License Document",
-  "driverDetailsLicenseNoLabel": "License No",
-  "driverDetailsLicenseTitle": "License Details",
-  "driverDetailsLicenseTypeLabel": "License Type",
-  "driverDetailsOfficialSeal": "OFFICIAL SEAL",
-  "driverDetailsPreviewClass": "CLASS: {cdlClass}",
-  "driverDetailsPreviewDob": "DOB: {dob}",
-  "driverDetailsPreviewEndorse": "ENDORSE: {endorsements}",
-  "driverDetailsPreviewExp": "EXP: {expiryDate}",
-  "driverDetailsPreviewLicenseNo": "LN: {licenseNo}",
-  "driverDetailsPreviewName": "FN: {name}",
-  "driverDetailsTapToView": "Tap to View DL Document",
-  "driverDetailsTitle": "Driver Details",
-  "dvirCategoryBusSafetySystems": "Bus-Specific Safety Systems",
-  "dvirCategoryCouplingDevices": "Coupling Devices",
-  "dvirCategoryEmergencyEquipment": "Emergency Equipment",
-  "dvirCategoryHorn": "Horn",
-  "dvirCategoryLightingReflectors": "Lighting Devices & Reflectors",
-  "dvirCategoryMirrors": "Rear-Vision Mirrors",
-  "dvirCategoryParkingBrake": "Parking Brake",
-  "dvirCategoryPassengerSeating": "Passenger Seating & Restraints",
-  "dvirCategoryServiceBrakes": "Service Brakes",
-  "dvirCategorySteeringMechanism": "Steering Mechanism",
-  "dvirCategoryTires": "Tires",
-  "dvirCategoryWheelsRims": "Wheels and Rims",
-  "dvirCategoryWipers": "Windshield Wipers",
-  "dvirPostTripCapturePhoto": "CAPTURE DEFECT PHOTO",
-  "dvirPostTripComplianceTitle": "COMPLIANCE CERTIFICATION",
-  "dvirPostTripDefectButton": "DEFECT",
-  "dvirPostTripDefectWithoutPhotoTitle": "Reporting Defect Without Photo",
-  "dvirPostTripDefectWithoutPhotoWarning": "Warning: You are reporting a defect on safety zones ({zones}) without attaching a photo. Are you sure you want to submit anyway?",
-  "dvirPostTripInspectionTitle": "Inspection: Bus {busNumber}",
-  "dvirPostTripNotesDefectHint": "Enter details of the safety concern...",
-  "dvirPostTripNotesLabel": "NOTES (MANDATORY ON DEFECT) & PHOTO",
-  "dvirPostTripNotesPassedHint": "Select DEFECT to enter safety concern details...",
-  "dvirPostTripOdometerHeader": "Current Odometer Reading",
-  "dvirPostTripOdometerInstructions": "Enter the mileage reading exactly as shown on the bus instrument panel:",
-  "dvirPostTripOdometerLabel": "Odometer (Miles)",
-  "dvirPostTripOdometerTitle": "VEHICLE RUN TIME METRIC",
-  "dvirPostTripOdometerWarning": "Please enter the odometer reading before proceeding.",
-  "dvirPostTripPassButton": "PASS",
-  "dvirPostTripPhotoAttached": "Photo attached successfully.",
-  "dvirPostTripProgressLabel": "Inspection Progress",
-  "dvirPostTripSignatureCaptured": "Signature captured.",
-  "dvirPostTripSignatureCert": "I certify that this vehicle walkaround checklist report has been completed in compliance with FMCSA 396.11 regulations.",
-  "dvirPostTripSignatureTitle": "Driver Signature Verification",
-  "dvirPostTripSubmitButton": "SUBMIT INSPECTION",
-  "dvirPostTripSubmitSuccess": "eDVIR submitted successfully.",
-  "dvirPostTripZoneHeader": "ZONE {current} OF {total}",
-  "dvirPostTripZonesProgress": "{current} / {total} Zones",
-  "dvirPreTripAcknowledgmentText": "I acknowledge that I have reviewed the last submitted defect report and verified the repairs(if any) and state that the bus is safe for operation.",
-  "dvirPreTripActiveMessage": "This vehicle is Active and has no open defects. It is verified and safe for operation.",
-  "dvirPreTripActiveRoute": "Active Route: {routeName}",
-  "dvirPreTripAttentionRequiredTitle": "ATTENTION REQUIRED: PRIOR DAY DEFECTS LOGGED",
-  "dvirPreTripBusNumber": "Bus Number: {busNumber}",
-  "dvirPreTripDispatchCheckTitle": "VEHICLE DISPATCH CHECK",
-  "dvirPreTripFailedToSign": "Failed to sign: {error}",
-  "dvirPreTripNoPriorDefects": "No Prior Defects Logged",
-  "dvirPreTripNoPriorDefectsMessage": "This vehicle was reported clean in the previous post-trip shift inspection.",
-  "dvirPreTripNoRepairsNeeded": "No repairs needed for safe operation.",
-  "dvirPreTripOutOfServiceMessage": "This vehicle is Out of Service for repairs/maintenance. Safety concerns must be resolved by shop staff before dispatch.",
-  "dvirPreTripOutofServiceButton": "VEHICLE OUT OF SERVICE",
-  "dvirPreTripReason": "Reason: {reason}",
-  "dvirPreTripRepairedDefect": "{description} (REPAIRED)",
-  "dvirPreTripReportNewDefectsButton": "REPORT NEW DEFECTS",
-  "dvirPreTripReportNewDefectsDisabled": "Reporting new defects is disabled during repairs.",
-  "dvirPreTripResolutionStatus": "Status: {status}",
-  "dvirPreTripResolutionTitle": "TRANSPORT SUB-ADMIN RESOLUTION",
-  "dvirPreTripReturnToHomeButton": "RETURN TO HOME",
-  "dvirPreTripSignOffTitle": "SIGN-OFF TO PROCEED TO WALKAROUND",
-  "dvirPreTripSignedSuccess": "Verification signed successfully. Pre-Trip unlocked.",
-  "dvirPreTripSubmitVerificationButton": "SUBMIT VERIFICATION",
-  "dvirPreTripTitle": "Pre-Trip Verification",
-  "dvirPreTripVehicleStatus": "Vehicle Status: {status}",
-  "dvirSigDrawTitle": "Draw Signature",
-  "dvirSigPreviewLabel": "Captured Signature Preview:",
-  "dvirSigRedraw": "REDRAW",
-  "dvirSigSave": "SAVE SIGNATURE",
-  "dvirSigTapToDraw": "TAP TO DRAW SIGNATURE (REQUIRED)",
-  "dvirSigWatermark": "Sign Vertically (Bottom to Top)",
-  "forgotPasswordCancel": "Cancel",
-  "forgotPasswordEmailLabel": "Email",
-  "forgotPasswordInvalidEmail": "Please enter a valid email",
-  "forgotPasswordSend": "Send",
-  "forgotPasswordSuccess": "If that email exists, a reset link has been sent.",
-  "genericBack": "BACK",
-  "genericCancel": "Cancel",
-  "genericClear": "CLEAR",
-  "genericClose": "Close",
-  "genericConfirm": "Confirm",
-  "genericEdit": "Edit",
-  "genericError": "Something went wrong",
-  "genericLoading": "Loading...",
-  "genericNext": "NEXT",
-  "genericOk": "Ok",
-  "genericRetry": "Retry",
-  "genericSuccess": "Success",
-  "homeBusLabel": "Bus: {busId}",
-  "homeDispatchBlocked": "Dispatch Blocked",
-  "homeDispatchBlockedTitle": "Dispatch Blocked",
-  "homeErrorNoRoutesPreTrip": "No routes available to perform Pre-Trip.",
-  "homeFailedToStartTrip": "Failed to start trip on server: {error}",
-  "homeHi": "Hi, {name}",
-  "homeLogout": "Logout",
-  "homeMenuAppInfo": "App Info",
-  "homeMenuDrill": "Drill",
-  "homeMenuDriverDetails": "Driver Details",
-  "homeMenuLanguage": "Language",
-  "homeMenuPreTrip": "Pre-Trip Inspection",
-  "homeNoRoutes": "No routes available",
-  "homeReviewVerifyPreTrip": "Review & Verify Pre-Trip",
-  "homeSearchHint": "Search routes",
-  "homeStart": "Start",
-  "homeTitle": "Home",
-  "homeVehicleOutOfServiceDefault": "Vehicle is currently OUT_OF_SERVICE.",
-  "homeVehicleReady": "Vehicle is ready and verified for safe operation.",
-  "languageTitle": "Language",
-  "loginButton": "Login",
-  "loginEmailOrPhoneLabel": "Email or phone number",
-  "loginErrorEnterPassword": "Please enter password",
-  "loginErrorEnterUsername": "Please enter username",
-  "loginErrorFailed": "Login failed. Please try again.",
-  "loginErrorInvalidEmailOrPhone": "Please enter a valid email or phone number",
-  "loginForgotPassword": "Forgot password?",
-  "loginPasswordLabel": "Password",
-  "mapChildrenTooltip": "Children & guardians",
-  "mapConfirmMessage": "Do you really want to close the trip?",
-  "mapConfirmTitle": "Confirm",
-  "mapCurrentPosition": "Current Position",
-  "mapNo": "No",
-  "mapReconnectMessage": "Location update failing frequently, Please check your internet.",
-  "mapReconnectTitle": "Tracker",
-  "mapStop": "Stop",
-  "mapStopping": "Stopping...",
-  "mapStopsTooltip": "Stops",
-  "mapUpdatedAgo": "Updated {seconds}s ago",
-  "mapWaitingGps": "Waiting for GPS...",
-  "mapYes": "Yes",
-  "splashDriverApp": "Driver App",
-  "stopsActionUndo": "Undo",
-  "stopsCancelledSuccess": "Cancelled successfully",
-  "stopsDefaultLabel": "Stop",
-  "stopsGenericError": "Something went wrong. Please try again.",
-  "stopsStatusComplete": "complete",
-  "stopsStatusDone": "done",
-  "stopsSubmitCount": "Submit ({count})",
-  "stopsSubmittedSuccess": "Submitted successfully",
-  "stopsSummary": "{selected} selected · {done}/{total} {status}",
-  "stopsTypeDrop": "Drop",
-  "stopsTypePick": "Pick",
-  "stopsUndoCount": "Undo ({count})",
-  "stopsUndoTooltip": "Undo pick/drop",
-  "tripConfirmCancel": "Cancel",
+  "@driverDetailsId": {
+    "description": "Detail label showing the unique driver identification number.[cite: 1]"
+  },
+  "driverDetailsIssueDateLabel": "発行日",
+  "@driverDetailsIssueDateLabel": {
+    "description": "Field label for the driver's license issue date.[cite: 1]"
+  },
+  "driverDetailsLicenseDocTitle": "免許証ドキュメント",
+  "@driverDetailsLicenseDocTitle": {
+    "description": "Section title for the uploaded driving license document image preview.[cite: 1]"
+  },
+  "driverDetailsLicenseNoLabel": "免許証番号",
+  "@driverDetailsLicenseNoLabel": {
+    "description": "Field label for the driver's license number.[cite: 1]"
+  },
+  "driverDetailsLicenseTitle": "免許証の詳細",
+  "@driverDetailsLicenseTitle": {
+    "description": "Card header for the driving license details section.[cite: 1]"
+  },
+  "driverDetailsLicenseTypeLabel": "免許の種類",
+  "@driverDetailsLicenseTypeLabel": {
+    "description": "Field label for the type or class of driving license.[cite: 1]"
+  },
+  "driverDetailsOfficialSeal": "公式印",
+  "@driverDetailsOfficialSeal": {
+    "description": "Label for the official issuing authority seal on the digital license card.[cite: 1]"
+  },
+  "driverDetailsPreviewClass": "クラス: {cdlClass}",
+  "@driverDetailsPreviewClass": {
+    "description": "Preview label showing the CDL class on the driving license card.[cite: 1]"
+  },
+  "driverDetailsPreviewDob": "生年月日: {dob}",
+  "@driverDetailsPreviewDob": {
+    "description": "Preview label showing the driver's date of birth on the driving license card.[cite: 1]"
+  },
+  "driverDetailsPreviewEndorse": "資格: {endorsements}",
+  "@driverDetailsPreviewEndorse": {
+    "description": "Preview label showing the endorsements string on the driving license card.[cite: 1]"
+  },
+  "driverDetailsPreviewExp": "有効期限: {expiryDate}",
+  "@driverDetailsPreviewExp": {
+    "description": "Preview label showing the expiration date on the driving license card.[cite: 1]"
+  },
+  "driverDetailsPreviewLicenseNo": "免許証番号: {licenseNo}",
+  "@driverDetailsPreviewLicenseNo": {
+    "description": "Preview label showing the license number on the driving license card.[cite: 1]"
+  },
+  "driverDetailsPreviewName": "氏名: {name}",
+  "@driverDetailsPreviewName": {
+    "description": "Preview label showing the driver's full name on the driving license card.[cite: 1]"
+  },
+  "driverDetailsTapToView": "タップして運転免許証を表示",
+  "@driverDetailsTapToView": {
+    "description": "Action hint prompting the user to tap and view the full driving license document image.[cite: 1]"
+  },
+  "driverDetailsTitle": "ドライバーの詳細",
+  "@driverDetailsTitle": {
+    "description": "Screen title displaying the driver's profile and license credentials.[cite: 1]"
+  },
+  "dvirCategoryBusSafetySystems": "バス特有の安全システム",
+  "@dvirCategoryBusSafetySystems": {
+    "description": "DVIR inspection category for school bus specific safety systems like stop arms and emergency exits.[cite: 1]"
+  },
+  "dvirCategoryCouplingDevices": "連結装置",
+  "@dvirCategoryCouplingDevices": {
+    "description": "DVIR inspection category for vehicle coupling devices and towing hitch connections.[cite: 1]"
+  },
+  "dvirCategoryEmergencyEquipment": "非常用設備",
+  "@dvirCategoryEmergencyEquipment": {
+    "description": "DVIR inspection category for onboard emergency equipment including fire extinguishers and first aid kits.[cite: 1]"
+  },
+  "dvirCategoryHorn": "クラクション",
+  "@dvirCategoryHorn": {
+    "description": "DVIR inspection category for testing vehicle warning horn operation.[cite: 1]"
+  },
+  "dvirCategoryLightingReflectors": "照明装置と反射器",
+  "@dvirCategoryLightingReflectors": {
+    "description": "DVIR inspection category for vehicle lighting devices, turn signals, and reflectors.[cite: 1]"
+  },
+  "dvirCategoryMirrors": "バックミラー",
+  "@dvirCategoryMirrors": {
+    "description": "DVIR inspection category for rearview and side safety mirrors condition and alignment.[cite: 1]"
+  },
+  "dvirCategoryParkingBrake": "パーキングブレーキ",
+  "@dvirCategoryParkingBrake": {
+    "description": "DVIR inspection category for the parking brake and emergency braking system.[cite: 1]"
+  },
+  "dvirCategoryPassengerSeating": "客席と拘束装置",
+  "@dvirCategoryPassengerSeating": {
+    "description": "DVIR inspection category for passenger seating, handrails, and seat restraints.[cite: 1]"
+  },
+  "dvirCategoryServiceBrakes": "サービスブレーキ",
+  "@dvirCategoryServiceBrakes": {
+    "description": "DVIR inspection category for the primary service brake performance and components.[cite: 1]"
+  },
+  "dvirCategorySteeringMechanism": "ステアリング機構",
+  "@dvirCategorySteeringMechanism": {
+    "description": "DVIR inspection category for steering wheel, column, and linkage mechanisms.[cite: 1]"
+  },
+  "dvirCategoryTires": "タイヤ",
+  "@dvirCategoryTires": {
+    "description": "DVIR inspection category for tire condition, tread depth, and air pressure.[cite: 1]"
+  },
+  "dvirCategoryWheelsRims": "ホイールとリム",
+  "@dvirCategoryWheelsRims": {
+    "description": "DVIR inspection category for wheels, lug nuts, and wheel rims condition.[cite: 1]"
+  },
+  "dvirCategoryWipers": "ワイパー",
+  "@dvirCategoryWipers": {
+    "description": "DVIR inspection category for windshield wipers and washer fluid system.[cite: 1]"
+  },
+  "dvirPostTripCapturePhoto": "欠陥の写真を撮る",
+  "@dvirPostTripCapturePhoto": {
+    "description": "Button label to capture a photo of an observed vehicle defect during post-trip inspection.[cite: 1]"
+  },
+  "dvirPostTripComplianceTitle": "コンプライアンス証明",
+  "@dvirPostTripComplianceTitle": {
+    "description": "Section title for the regulatory compliance certification in post-trip inspection.[cite: 1]"
+  },
+  "dvirPostTripDefectButton": "欠陥",
+  "@dvirPostTripDefectButton": {
+    "description": "Toggle button option to mark an inspection zone or component as having a defect.[cite: 1]"
+  },
+  "dvirPostTripDefectWithoutPhotoTitle": "写真なしでの欠陥報告",
+  "@dvirPostTripDefectWithoutPhotoTitle": {
+    "description": "Title of confirmation dialog when submitting a defect without photo evidence.[cite: 1]"
+  },
+  "dvirPostTripDefectWithoutPhotoWarning": "警告: 写真を添付せずに安全ゾーン ({zones}) の欠陥を報告しようとしています。それでも送信してよろしいですか？",
+  "@dvirPostTripDefectWithoutPhotoWarning": {
+    "description": "Warning message in confirmation dialog when submitting defect reports without attached photos.[cite: 1]"
+  },
+  "dvirPostTripInspectionTitle": "点検: バス {busNumber}",
+  "@dvirPostTripInspectionTitle": {
+    "description": "Screen header showing the bus number undergoing post-trip walkaround inspection.[cite: 1]"
+  },
+  "dvirPostTripNotesDefectHint": "安全上の懸念事項の詳細を入力してください...",
+  "@dvirPostTripNotesDefectHint": {
+    "description": "Input placeholder for describing the safety concern or defect details.[cite: 1]"
+  },
+  "dvirPostTripNotesLabel": "メモ (欠陥時は必須) と写真",
+  "@dvirPostTripNotesLabel": {
+    "description": "Section header for defect notes and photo attachment in post-trip inspection.[cite: 1]"
+  },
+  "dvirPostTripNotesPassedHint": "欠陥を選択して安全上の問題の詳細を入力してください...",
+  "@dvirPostTripNotesPassedHint": {
+    "description": "Placeholder text shown when an inspection zone is marked passed and notes are disabled.[cite: 1]"
+  },
+  "dvirPostTripOdometerHeader": "現在の走行距離計の読み",
+  "@dvirPostTripOdometerHeader": {
+    "description": "Step header for entering the current bus odometer reading in post-trip inspection.[cite: 1]"
+  },
+  "dvirPostTripOdometerInstructions": "バスの計器パネルに表示されている通りの走行距離を入力してください:",
+  "@dvirPostTripOdometerInstructions": {
+    "description": "Guidance instructing the driver to enter the mileage reading directly from the instrument cluster.[cite: 1]"
+  },
+  "dvirPostTripOdometerLabel": "走行距離計 (マイル)",
+  "@dvirPostTripOdometerLabel": {
+    "description": "Input field label for entering the bus odometer reading in miles.[cite: 1]"
+  },
+  "dvirPostTripOdometerTitle": "車両の稼働時間指標",
+  "@dvirPostTripOdometerTitle": {
+    "description": "Section title for the vehicle run time and mileage metric step.[cite: 1]"
+  },
+  "dvirPostTripOdometerWarning": "先に進む前に走行距離を入力してください。",
+  "@dvirPostTripOdometerWarning": {
+    "description": "Validation warning shown when the driver attempts to proceed without entering the odometer reading.[cite: 1]"
+  },
+  "dvirPostTripPassButton": "合格",
+  "@dvirPostTripPassButton": {
+    "description": "Toggle button option to mark an inspection zone or component as passed with no defects.[cite: 1]"
+  },
+  "dvirPostTripPhotoAttached": "写真が正常に添付されました。",
+  "@dvirPostTripPhotoAttached": {
+    "description": "Confirmation message indicating a photo has been attached to the defect report.[cite: 1]"
+  },
+  "dvirPostTripProgressLabel": "点検の進捗状況",
+  "@dvirPostTripProgressLabel": {
+    "description": "Label for the progress bar tracking completed post-trip walkaround zones.[cite: 1]"
+  },
+  "dvirPostTripSignatureCaptured": "署名が記録されました。",
+  "@dvirPostTripSignatureCaptured": {
+    "description": "Status message confirming that the driver's signature has been recorded.[cite: 1]"
+  },
+  "dvirPostTripSignatureCert": "私は、この車両巡回点検レポートがFMCSA 396.11規則に準拠して完了したことを証明します。",
+  "@dvirPostTripSignatureCert": {
+    "description": "Legal certification statement confirming the walkaround inspection complies with FMCSA 396.11 regulations.[cite: 1]"
+  },
+  "dvirPostTripSignatureTitle": "ドライバー署名の確認",
+  "@dvirPostTripSignatureTitle": {
+    "description": "Section title for the driver signature verification step in post-trip inspection.[cite: 1]"
+  },
+  "dvirPostTripSubmitButton": "点検を送信する",
+  "@dvirPostTripSubmitButton": {
+    "description": "Primary button label to submit the completed post-trip DVIR report.[cite: 1]"
+  },
+  "dvirPostTripSubmitSuccess": "eDVIRが正常に送信されました。",
+  "@dvirPostTripSubmitSuccess": {
+    "description": "Confirmation message displayed after successfully submitting the post-trip DVIR report.[cite: 1]"
+  },
+  "dvirPostTripZoneHeader": "ゾーン {current} / {total}",
+  "@dvirPostTripZoneHeader": {
+    "description": "Step header showing the active inspection zone index out of total zones.[cite: 1]"
+  },
+  "dvirPostTripZonesProgress": "{current} / {total} ゾーン",
+  "@dvirPostTripZonesProgress": {
+    "description": "Progress text showing the number of completed inspection zones out of the total.[cite: 1]"
+  },
+  "dvirPreTripAcknowledgmentText": "前回提出された欠陥報告を確認し、修理箇所（ある場合）を確認した上で、バスが安全に運行できる状態であることを証明します。",
+  "@dvirPreTripAcknowledgmentText": {
+    "description": "Checkbox acknowledgment text for the driver to certify review of prior defects and vehicle safety.[cite: 1]"
+  },
+  "dvirPreTripActiveMessage": "この車両は稼働中であり、未対応の欠陥はありません。検証済みで、安全に運行できます。",
+  "@dvirPreTripActiveMessage": {
+    "description": "Status message confirming the bus is active, has no open defects, and is safe for operation.[cite: 1]"
+  },
+  "dvirPreTripActiveRoute": "現在のアクティブルート: {routeName}",
+  "@dvirPreTripActiveRoute": {
+    "description": "Header label displaying the active route assigned for pre-trip verification.[cite: 1]"
+  },
+  "dvirPreTripAttentionRequiredTitle": "要注意: 前日の欠陥が記録されています",
+  "@dvirPreTripAttentionRequiredTitle": {
+    "description": "Alert header displayed when unresolved defects from previous post-trip inspections exist.[cite: 1]"
+  },
+  "dvirPreTripBusNumber": "バス番号: {busNumber}",
+  "@dvirPreTripBusNumber": {
+    "description": "Bus number label displayed in the pre-trip verification header card.[cite: 1]"
+  },
+  "dvirPreTripDispatchCheckTitle": "車両配車チェック",
+  "@dvirPreTripDispatchCheckTitle": {
+    "description": "Card header for the vehicle dispatch readiness verification section.[cite: 1]"
+  },
+  "dvirPreTripFailedToSign": "署名に失敗しました: {error}",
+  "@dvirPreTripFailedToSign": {
+    "description": "Error message displayed when driver signature verification fails during pre-trip check.[cite: 1]"
+  },
+  "dvirPreTripNoPriorDefects": "以前の欠陥は記録されていません",
+  "@dvirPreTripNoPriorDefects": {
+    "description": "Status title indicating that no prior defects were logged on the vehicle.[cite: 1]"
+  },
+  "dvirPreTripNoPriorDefectsMessage": "この車両は、前回の乗務後点検で問題なしと報告されています。",
+  "@dvirPreTripNoPriorDefectsMessage": {
+    "description": "Informational message confirming the vehicle had zero defects logged in the previous post-trip inspection.[cite: 1]"
+  },
+  "dvirPreTripNoRepairsNeeded": "安全運行のために修理は必要ありません。",
+  "@dvirPreTripNoRepairsNeeded": {
+    "description": "Status message confirming that no maintenance repairs are required for safe operation.[cite: 1]"
+  },
+  "dvirPreTripOutOfServiceMessage": "この車両は修理/メンテナンスのため休車中です。配車前に工場スタッフが安全上の問題を解決する必要があります。",
+  "@dvirPreTripOutOfServiceMessage": {
+    "description": "Alert message explaining that the vehicle is out of service for repairs and cannot be dispatched.[cite: 1]"
+  },
+  "dvirPreTripOutofServiceButton": "車両休車中",
+  "@dvirPreTripOutofServiceButton": {
+    "description": "Button or badge label indicating that the vehicle is currently out of service.[cite: 1]"
+  },
+  "dvirPreTripReason": "理由: {reason}",
+  "@dvirPreTripReason": {
+    "description": "Label displaying the recorded reason why a vehicle is marked out of service.[cite: 1]"
+  },
+  "dvirPreTripRepairedDefect": "{description} (修理済み)",
+  "@dvirPreTripRepairedDefect": {
+    "description": "List item label displaying a defect description that has been marked as repaired.[cite: 1]"
+  },
+  "dvirPreTripReportNewDefectsButton": "新しい欠陥を報告",
+  "@dvirPreTripReportNewDefectsButton": {
+    "description": "Button label allowing the driver to report newly observed defects during pre-trip inspection.[cite: 1]"
+  },
+  "dvirPreTripReportNewDefectsDisabled": "修理中のため、新しい欠陥の報告は無効になっています。",
+  "@dvirPreTripReportNewDefectsDisabled": {
+    "description": "Informational notice indicating new defect reporting is disabled while repairs are in progress.[cite: 1]"
+  },
+  "dvirPreTripResolutionStatus": "ステータス: {status}",
+  "@dvirPreTripResolutionStatus": {
+    "description": "Label displaying the maintenance sub-administrator's resolution status for prior defects.[cite: 1]"
+  },
+  "dvirPreTripResolutionTitle": "運輸サブ管理者の解決",
+  "@dvirPreTripResolutionTitle": {
+    "description": "Section header for the maintenance sub-administrator's repair resolution report.[cite: 1]"
+  },
+  "dvirPreTripReturnToHomeButton": "ホームに戻る",
+  "@dvirPreTripReturnToHomeButton": {
+    "description": "Navigation button label to return to the home screen when vehicle is out of service.[cite: 1]"
+  },
+  "dvirPreTripSignOffTitle": "サインオフして巡回点検へ進む",
+  "@dvirPreTripSignOffTitle": {
+    "description": "Section title for the pre-trip driver sign-off step.[cite: 1]"
+  },
+  "dvirPreTripSignedSuccess": "検証への署名が成功しました。乗務前点検のロックが解除されました。",
+  "@dvirPreTripSignedSuccess": {
+    "description": "Success notification indicating pre-trip verification is signed and pre-trip walkaround is unlocked.[cite: 1]"
+  },
+  "dvirPreTripSubmitVerificationButton": "検証を送信",
+  "@dvirPreTripSubmitVerificationButton": {
+    "description": "Button label to submit the completed pre-trip verification sign-off.[cite: 1]"
+  },
+  "dvirPreTripTitle": "乗務前検証",
+  "@dvirPreTripTitle": {
+    "description": "Screen title for the Pre-Trip Vehicle Verification module.[cite: 1]"
+  },
+  "dvirPreTripVehicleStatus": "車両ステータス: {status}",
+  "@dvirPreTripVehicleStatus": {
+    "description": "Label displaying the current operational status of the vehicle in pre-trip inspection.[cite: 1]"
+  },
+  "dvirSigDrawTitle": "署名を描く",
+  "@dvirSigDrawTitle": {
+    "description": "Screen or dialog title for the digital signature drawing pad.[cite: 1]"
+  },
+  "dvirSigPreviewLabel": "記録された署名のプレビュー:",
+  "@dvirSigPreviewLabel": {
+    "description": "Label displayed above the image preview of the captured driver signature.[cite: 1]"
+  },
+  "dvirSigRedraw": "書き直す",
+  "@dvirSigRedraw": {
+    "description": "Button label to clear the current drawing and re-sign on the signature pad.[cite: 1]"
+  },
+  "dvirSigSave": "署名を保存",
+  "@dvirSigSave": {
+    "description": "Button label to confirm and save the drawn digital signature.[cite: 1]"
+  },
+  "dvirSigTapToDraw": "タップして署名を描く (必須)",
+  "@dvirSigTapToDraw": {
+    "description": "Action placeholder prompt inviting the driver to tap and open the signature drawing pad.[cite: 1]"
+  },
+  "dvirSigWatermark": "垂直に署名してください (下から上へ)",
+  "@dvirSigWatermark": {
+    "description": "Watermark orientation guide on the signature pad instructing vertical bottom-to-top signing.[cite: 1]"
+  },
+  "forgotPasswordCancel": "キャンセル",
+  "@forgotPasswordCancel": {
+    "description": "Button label to cancel and close the forgot password dialog.[cite: 1]"
+  },
+  "forgotPasswordEmailLabel": "メールアドレス",
+  "@forgotPasswordEmailLabel": {
+    "description": "Input field label for entering the account email address in password recovery.[cite: 1]"
+  },
+  "forgotPasswordInvalidEmail": "有効なメールアドレスを入力してください",
+  "@forgotPasswordInvalidEmail": {
+    "description": "Form validation error displayed when an invalid email format is entered in password recovery.[cite: 1]"
+  },
+  "forgotPasswordSend": "送信",
+  "@forgotPasswordSend": {
+    "description": "Button label to send the password reset email request.[cite: 1]"
+  },
+  "forgotPasswordSuccess": "そのメールアドレスが存在する場合、リセットリンクが送信されます。",
+  "@forgotPasswordSuccess": {
+    "description": "Success confirmation message displayed after sending a password reset request.[cite: 1]"
+  },
+  "genericBack": "戻る",
+  "@genericBack": {
+    "description": "Generic button label to navigate back to the previous screen or step.[cite: 1]"
+  },
+  "genericCancel": "キャンセル",
+  "@genericCancel": {
+    "description": "Generic button label to cancel the active operation or dismiss a dialog.[cite: 1]"
+  },
+  "genericClear": "クリア",
+  "@genericClear": {
+    "description": "Generic button label to clear form fields or drawing inputs.[cite: 1]"
+  },
+  "genericClose": "閉じる",
+  "@genericClose": {
+    "description": "Generic button label to close a dialog, bottom sheet, or view.[cite: 1]"
+  },
+  "genericConfirm": "確認",
+  "@genericConfirm": {
+    "description": "Generic button label to confirm an action in a modal or dialog.[cite: 1]"
+  },
+  "genericEdit": "編集",
+  "@genericEdit": {
+    "description": "Generic button label to edit a field or record.[cite: 1]"
+  },
+  "genericError": "エラーが発生しました",
+  "@genericError": {
+    "description": "Generic error title or message displayed when an unexpected error occurs.[cite: 1]"
+  },
+  "genericLoading": "読み込み中...",
+  "@genericLoading": {
+    "description": "Generic loading indicator text displayed during asynchronous tasks.[cite: 1]"
+  },
+  "genericNext": "次へ",
+  "@genericNext": {
+    "description": "Generic button label to advance to the next step in a multi-step workflow.[cite: 1]"
+  },
+  "genericOk": "OK",
+  "@genericOk": {
+    "description": "Generic button label to acknowledge an alert dialog.[cite: 1]"
+  },
+  "genericRetry": "再試行",
+  "@genericRetry": {
+    "description": "Generic button label to re-attempt a failed network operation.[cite: 1]"
+  },
+  "genericSuccess": "成功",
+  "@genericSuccess": {
+    "description": "Generic success title or status message.[cite: 1]"
+  },
+  "homeBusLabel": "バス: {busId}",
+  "@homeBusLabel": {
+    "description": "Card label displaying the assigned bus identifier on the home screen.[cite: 1]"
+  },
+  "homeDispatchBlocked": "配車ブロック",
+  "@homeDispatchBlocked": {
+    "description": "Status badge indicating that vehicle dispatch is blocked due to unresolved maintenance.[cite: 1]"
+  },
+  "homeDispatchBlockedTitle": "配車ブロック",
+  "@homeDispatchBlockedTitle": {
+    "description": "Dialog title shown when vehicle dispatch is blocked from starting a trip.[cite: 1]"
+  },
+  "homeErrorNoRoutesPreTrip": "乗務前点検を実行できるルートがありません。",
+  "@homeErrorNoRoutesPreTrip": {
+    "description": "Error alert shown when pre-trip inspection cannot be opened because no routes are assigned.[cite: 1]"
+  },
+  "homeFailedToStartTrip": "サーバーで運行を開始できませんでした: {error}",
+  "@homeFailedToStartTrip": {
+    "description": "Error message displayed when starting a route trip fails on the server.[cite: 1]"
+  },
+  "homeHi": "こんにちは、{name}さん",
+  "@homeHi": {
+    "description": "Personalized greeting header welcoming the logged-in driver on the home screen.[cite: 1]"
+  },
+  "homeLogout": "ログアウト",
+  "@homeLogout": {
+    "description": "Drawer menu item label to log out of the application.[cite: 1]"
+  },
+  "homeMenuAppInfo": "アプリ情報",
+  "@homeMenuAppInfo": {
+    "description": "Drawer menu item label navigating to the application information screen.[cite: 1]"
+  },
+  "homeMenuDrill": "訓練",
+  "@homeMenuDrill": {
+    "description": "Drawer menu item label navigating to the evacuation drills management screen.[cite: 1]"
+  },
+  "homeMenuDriverDetails": "ドライバーの詳細",
+  "@homeMenuDriverDetails": {
+    "description": "Drawer menu item label navigating to the driver details and license screen.[cite: 1]"
+  },
+  "homeMenuLanguage": "言語",
+  "@homeMenuLanguage": {
+    "description": "Drawer menu item label navigating to the language preferences screen.[cite: 1]"
+  },
+  "homeMenuPreTrip": "乗務前点検",
+  "@homeMenuPreTrip": {
+    "description": "Drawer menu item label navigating to the pre-trip DVIR inspection screen.[cite: 1]"
+  },
+  "homeNoRoutes": "利用可能なルートはありません",
+  "@homeNoRoutes": {
+    "description": "Empty state message displayed on the home screen when no routes are assigned to the driver.[cite: 1]"
+  },
+  "homeReviewVerifyPreTrip": "乗務前確認と検証",
+  "@homeReviewVerifyPreTrip": {
+    "description": "Action button label on the home screen prompting the driver to complete pre-trip verification.[cite: 1]"
+  },
+  "homeSearchHint": "ルートを検索",
+  "@homeSearchHint": {
+    "description": "Placeholder text in the search input for filtering routes on the home dashboard.[cite: 1]"
+  },
+  "homeStart": "開始",
+  "@homeStart": {
+    "description": "Button label to start tracking and executing an assigned route trip.[cite: 1]"
+  },
+  "homeTitle": "ホーム",
+  "@homeTitle": {
+    "description": "Screen title and app bar header for the Home dashboard.[cite: 1]"
+  },
+  "homeVehicleOutOfServiceDefault": "現在、車両は休車中です。",
+  "@homeVehicleOutOfServiceDefault": {
+    "description": "Warning banner on the home screen indicating the vehicle is out of service.[cite: 1]"
+  },
+  "homeVehicleReady": "車両の準備ができ、安全運行の確認が完了しました。",
+  "@homeVehicleReady": {
+    "description": "Status banner on the home screen confirming the bus is inspected and ready for service.[cite: 1]"
+  },
+  "languageTitle": "言語",
+  "@languageTitle": {
+    "description": "Screen title and header for the language selection preferences screen.[cite: 1]"
+  },
+  "loginButton": "ログイン",
+  "@loginButton": {
+    "description": "Primary button label to submit login credentials and sign in.[cite: 1]"
+  },
+  "loginEmailOrPhoneLabel": "メールアドレスまたは電話番号",
+  "@loginEmailOrPhoneLabel": {
+    "description": "Input field label for entering the username, email, or phone number.[cite: 1]"
+  },
+  "loginErrorEnterPassword": "パスワードを入力してください",
+  "@loginErrorEnterPassword": {
+    "description": "Form validation error displayed when the password field is left empty.[cite: 1]"
+  },
+  "loginErrorEnterUsername": "ユーザー名を入力してください",
+  "@loginErrorEnterUsername": {
+    "description": "Form validation error displayed when the username field is left empty.[cite: 1]"
+  },
+  "loginErrorFailed": "ログインに失敗しました。もう一度お試しください。",
+  "@loginErrorFailed": {
+    "description": "Error banner message displayed when authentication fails.[cite: 1]"
+  },
+  "loginErrorInvalidEmailOrPhone": "有効なメールアドレスまたは電話番号を入力してください",
+  "@loginErrorInvalidEmailOrPhone": {
+    "description": "Form validation error displayed when an invalid email or phone format is entered.[cite: 1]"
+  },
+  "loginForgotPassword": "パスワードをお忘れですか？",
+  "@loginForgotPassword": {
+    "description": "Link button label to open the forgot password recovery dialog.[cite: 1]"
+  },
+  "loginPasswordLabel": "パスワード",
+  "@loginPasswordLabel": {
+    "description": "Input field label for entering the user account password.[cite: 1]"
+  },
+  "mapChildrenTooltip": "子供と保護者",
+  "@mapChildrenTooltip": {
+    "description": "Map action button tooltip for opening the onboard children and guardians list.[cite: 1]"
+  },
+  "mapConfirmMessage": "本当に運行を終了しますか？",
+  "@mapConfirmMessage": {
+    "description": "Body message in confirmation dialog asking the driver to confirm ending the active trip.[cite: 1]"
+  },
+  "mapConfirmTitle": "確認",
+  "@mapConfirmTitle": {
+    "description": "Title of confirmation dialog displayed when ending an active route trip.[cite: 1]"
+  },
+  "mapCurrentPosition": "現在位置",
+  "@mapCurrentPosition": {
+    "description": "Tooltip or marker label indicating the current GPS location of the vehicle on the map.[cite: 1]"
+  },
+  "mapNo": "いいえ",
+  "@mapNo": {
+    "description": "Negative action button in map confirmation dialogs.[cite: 1]"
+  },
+  "mapReconnectMessage": "位置情報の更新が頻繁に失敗しています。インターネット接続を確認してください。",
+  "@mapReconnectMessage": {
+    "description": "Warning banner message displayed when live location updates fail due to network loss.[cite: 1]"
+  },
+  "mapReconnectTitle": "トラッカー",
+  "@mapReconnectTitle": {
+    "description": "Dialog title for live tracking network reconnection alerts.[cite: 1]"
+  },
+  "mapStop": "停止",
+  "@mapStop": {
+    "description": "Action button label to stop tracking and end the current route trip.[cite: 1]"
+  },
+  "mapStopping": "停止中...",
+  "@mapStopping": {
+    "description": "Button state label shown while the trip termination request is processing.[cite: 1]"
+  },
+  "mapStopsTooltip": "停留所",
+  "@mapStopsTooltip": {
+    "description": "Map action button tooltip for opening the route stops list.[cite: 1]"
+  },
+  "mapUpdatedAgo": "{seconds}秒前に更新",
+  "@mapUpdatedAgo": {
+    "description": "Status subtitle indicating elapsed seconds since the last successful vehicle GPS update.[cite: 1]"
+  },
+  "mapWaitingGps": "GPSを待機中...",
+  "@mapWaitingGps": {
+    "description": "Status message displayed while acquiring initial GPS satellite signal.[cite: 1]"
+  },
+  "mapYes": "はい",
+  "@mapYes": {
+    "description": "Affirmative action button in map confirmation dialogs.[cite: 1]"
+  },
+  "splashDriverApp": "ドライバーアプリ",
+  "@splashDriverApp": {
+    "description": "Application subtitle and role branding displayed on the splash launch screen.[cite: 1]"
+  },
+  "stopsActionUndo": "元に戻す",
+  "@stopsActionUndo": {
+    "description": "Action button label to undo the most recent student pickup or drop-off action.[cite: 1]"
+  },
+  "stopsCancelledSuccess": "正常にキャンセルされました",
+  "@stopsCancelledSuccess": {
+    "description": "Snackbar message confirming the cancellation of a student stop action.[cite: 1]"
+  },
+  "stopsDefaultLabel": "停留所",
+  "@stopsDefaultLabel": {
+    "description": "Default fallback label for an unnamed stop in the route stops roster.[cite: 1]"
+  },
+  "stopsGenericError": "エラーが発生しました。もう一度お試しください。",
+  "@stopsGenericError": {
+    "description": "Error message displayed when an error occurs during student pickup or drop-off operations.[cite: 1]"
+  },
+  "stopsStatusComplete": "完了",
+  "@stopsStatusComplete": {
+    "description": "Status descriptor indicating all student pickup or drop-off tasks at a stop are complete.[cite: 1]"
+  },
+  "stopsStatusDone": "完了済み",
+  "@stopsStatusDone": {
+    "description": "Status descriptor indicating student pickup or drop-off operations are finished.[cite: 1]"
+  },
+  "stopsSubmitCount": "送信 ({count})",
+  "@stopsSubmitCount": {
+    "description": "Primary button label to submit student pickup or drop-off counts for the current stop.[cite: 1]"
+  },
+  "stopsSubmittedSuccess": "正常に送信されました",
+  "@stopsSubmittedSuccess": {
+    "description": "Snackbar notification confirming student pickup or drop-off actions were successfully submitted.[cite: 1]"
+  },
+  "stopsSummary": "{selected}人選択中 · {done}/{total} {status}",
+  "@stopsSummary": {
+    "description": "Summary text displaying selected student counts and completed operations at a stop.[cite: 1]"
+  },
+  "stopsTypeDrop": "降車",
+  "@stopsTypeDrop": {
+    "description": "Badge label indicating a student drop-off stop type or action.[cite: 1]"
+  },
+  "stopsTypePick": "乗車",
+  "@stopsTypePick": {
+    "description": "Badge label indicating a student pickup stop type or action.[cite: 1]"
+  },
+  "stopsUndoCount": "元に戻す ({count})",
+  "@stopsUndoCount": {
+    "description": "Button label to undo a specified number of student pickup or drop-off actions.[cite: 1]"
+  },
+  "stopsUndoTooltip": "乗車/降車を元に戻す",
+  "@stopsUndoTooltip": {
+    "description": "Tooltip explaining the action to undo student pickup or drop-off operations.[cite: 1]"
+  },
+  "tripConfirmCancel": "キャンセル",
+  "@tripConfirmCancel": {
+    "description": "Button label to cancel and dismiss the trip action confirmation dialog.[cite: 1]"
+  },
   "tripConfirmOk": "OK",
-  "tripConfirmTitle": "Tracker",
-  "tripErrorLocationRequired": "Location permission is required to start a trip."
+  "@tripConfirmOk": {
+    "description": "Button label to confirm and proceed with the trip action.[cite: 1]"
+  },
+  "tripConfirmTitle": "トラッカー",
+  "@tripConfirmTitle": {
+    "description": "Title of the trip confirmation dialog in the tracking module.[cite: 1]"
+  },
+  "tripErrorLocationRequired": "運行を開始するには位置情報の権限が必要です。",
+  "@tripErrorLocationRequired": {
+    "description": "Error alert explaining that location permission is mandatory to start route tracking.[cite: 1]"
+  },
+  "homeMenuPostCrashReporting": "事故後レポート",
+  "@homeMenuPostCrashReporting": {
+    "description": "Drawer menu item label navigating to the post-crash incident reporting module.[cite: 1]"
+  },
+  "homeVehicleReason": "理由: {reason}",
+  "@homeVehicleReason": {
+    "description": "Detail label displaying why the vehicle is out of service on the home dashboard.[cite: 1]"
+  },
+  "homeVehicleStatus": "ステータス: {status}",
+  "@homeVehicleStatus": {
+    "description": "Detail label displaying the vehicle operational status on the home dashboard.[cite: 1]"
+  },
+  "crashLocationPickerCoords": "緯度: {lat}, 経度: {lng}",
+  "@crashLocationPickerCoords": {
+    "description": "Coordinate display showing latitude and longitude on the crash location picker map.[cite: 1]"
+  },
+  "crashLocationPickerSearchHint": "場所を検索 (例: マーケットストリート)",
+  "@crashLocationPickerSearchHint": {
+    "description": "Placeholder text in the search input on the crash location picker map.[cite: 1]"
+  },
+  "crashLocationPickerTitle": "地図上で場所を選択",
+  "@crashLocationPickerTitle": {
+    "description": "Screen title for selecting the crash location on an interactive map.[cite: 1]"
+  },
+  "crashLocationPickerTooltip": "場所を確定",
+  "@crashLocationPickerTooltip": {
+    "description": "Floating action button tooltip to confirm the selected crash location coordinates.[cite: 1]"
+  },
+  "incidentDashboardDescription": "アクションを選択して事故管理に進むか、過去のレポートを表示してください。",
+  "@incidentDashboardDescription": {
+    "description": "Descriptive subtitle on the post-crash incident management dashboard.[cite: 1]"
+  },
+  "incidentDashboardHeadline": "事故後インシデント報告",
+  "@incidentDashboardHeadline": {
+    "description": "Main header headline on the post-crash incident management dashboard.[cite: 1]"
+  },
+  "incidentDashboardLogNew": "新しい事故を記録",
+  "@incidentDashboardLogNew": {
+    "description": "Card title button to start logging a new post-crash incident report.[cite: 1]"
+  },
+  "incidentDashboardLogNewSubtitle": "ステップごとの事故レポートを開始",
+  "@incidentDashboardLogNewSubtitle": {
+    "description": "Subtitle describing the action to start a step-by-step post-crash intake report.[cite: 1]"
+  },
+  "incidentDashboardTitle": "事故後インシデント",
+  "@incidentDashboardTitle": {
+    "description": "Screen title for the post-crash incident management dashboard.[cite: 1]"
+  },
+  "incidentDashboardViewHistory": "履歴を表示",
+  "@incidentDashboardViewHistory": {
+    "description": "Card title button to view past post-crash incident reports and statuses.[cite: 1]"
+  },
+  "incidentDashboardViewHistorySubtitle": "過去の事故レポートとステータスを表示",
+  "@incidentDashboardViewHistorySubtitle": {
+    "description": "Subtitle describing the incident history and registry view option.[cite: 1]"
+  },
+  "incidentDetailsAdminLetter": "管理者宛の文書",
+  "@incidentDetailsAdminLetter": {
+    "description": "Card or tab title for the generated administrative transmittal letter.[cite: 1]"
+  },
+  "incidentDetailsAlcoholCountdown": "DOTアルコールテスト カウントダウン (2時間制限)",
+  "@incidentDetailsAlcoholCountdown": {
+    "description": "Section title for the 2-hour federal DOT post-crash alcohol testing countdown timer.[cite: 1]"
+  },
+  "incidentDetailsBranchId": "支部ID",
+  "@incidentDetailsBranchId": {
+    "description": "Field label displaying the school district or branch identifier in incident details.[cite: 1]"
+  },
+  "incidentDetailsBusPlate": "バスのナンバープレート",
+  "@incidentDetailsBusPlate": {
+    "description": "Field label displaying the license plate number of the involved school bus.[cite: 1]"
+  },
+  "incidentDetailsCitationImpact": "違反切符の影響: {explanation}",
+  "@incidentDetailsCitationImpact": {
+    "description": "Field text explaining how traffic citations impact DOT post-crash testing requirements.[cite: 1]"
+  },
+  "incidentDetailsCitationIssued": "ドライバーへの違反切符の交付",
+  "@incidentDetailsCitationIssued": {
+    "description": "Detail row indicating whether a traffic citation was issued to the driver.[cite: 1]"
+  },
+  "incidentDetailsCoordinates": "座標: 緯度 {lat}, 経度 {lng}",
+  "@incidentDetailsCoordinates": {
+    "description": "Detail label displaying the GPS latitude and longitude of the crash location.[cite: 1]"
+  },
+  "incidentDetailsCopiedToClipboard": "{title} をクリップボードにコピーしました！",
+  "@incidentDetailsCopiedToClipboard": {
+    "description": "Toast message confirming that report details or transmittal letter were copied to clipboard.[cite: 1]"
+  },
+  "incidentDetailsCopyToClipboard": "クリップボードにコピー",
+  "@incidentDetailsCopyToClipboard": {
+    "description": "Button label to copy transmittal letter or report text to the clipboard.[cite: 1]"
+  },
+  "incidentDetailsCrashCitationInfo": "事故と違反切符情報",
+  "@incidentDetailsCrashCitationInfo": {
+    "description": "Card section header grouping crash circumstances and driver citation details.[cite: 1]"
+  },
+  "incidentDetailsDateTime": "日時: {dateTime}",
+  "@incidentDetailsDateTime": {
+    "description": "Detail label displaying the date and time when the crash occurred.[cite: 1]"
+  },
+  "incidentDetailsDoeReport": "DOEレポート",
+  "@incidentDetailsDoeReport": {
+    "description": "Button or tab label for the State Department of Education incident report.[cite: 1]"
+  },
+  "incidentDetailsDoeReportTitle": "州DOEレポート (任意)",
+  "@incidentDetailsDoeReportTitle": {
+    "description": "Section header for the optional State Department of Education notification report.[cite: 1]"
+  },
+  "incidentDetailsDriverNotes": "ドライバーのメモ:",
+  "@incidentDetailsDriverNotes": {
+    "description": "Header for the section displaying driver notes submitted in the crash report.[cite: 1]"
+  },
+  "incidentDetailsDriverUserId": "ドライバーユーザーID",
+  "@incidentDetailsDriverUserId": {
+    "description": "Field label displaying the driver's unique system user ID in incident details.[cite: 1]"
+  },
+  "incidentDetailsDrugCountdown": "DOT薬物テスト カウントダウン (8時間制限)",
+  "@incidentDetailsDrugCountdown": {
+    "description": "Section title for the 8-hour federal DOT post-crash drug testing countdown timer.[cite: 1]"
+  },
+  "incidentDetailsFatalityOccurred": "死亡者の発生",
+  "@incidentDetailsFatalityOccurred": {
+    "description": "Detail row indicating whether a fatality occurred as a result of the crash.[cite: 1]"
+  },
+  "incidentDetailsHeaderTitle": "インシデント #{id}",
+  "@incidentDetailsHeaderTitle": {
+    "description": "App bar title displaying the incident report identification number.[cite: 1]"
+  },
+  "incidentDetailsInjuriesMedTreatment": "医療処置を必要とする怪我",
+  "@incidentDetailsInjuriesMedTreatment": {
+    "description": "Detail row indicating whether injuries requiring off-scene medical treatment occurred.[cite: 1]"
+  },
+  "incidentDetailsLawEnforcement": "法執行機関",
+  "@incidentDetailsLawEnforcement": {
+    "description": "Field label displaying the responding police or highway patrol agency name.[cite: 1]"
+  },
+  "incidentDetailsLoadFailed": "詳細の読み込みに失敗しました。",
+  "@incidentDetailsLoadFailed": {
+    "description": "Error message displayed when loading incident report details fails.[cite: 1]"
+  },
+  "incidentDetailsLocation": "場所: {location}",
+  "@incidentDetailsLocation": {
+    "description": "Detail label displaying the physical street address or intersection of the crash.[cite: 1]"
+  },
+  "incidentDetailsMediaAttachments": "メディア添付",
+  "@incidentDetailsMediaAttachments": {
+    "description": "Section header for photos and media attached to the incident report.[cite: 1]"
+  },
+  "incidentDetailsMediaStatus": "ステータス: {status}",
+  "@incidentDetailsMediaStatus": {
+    "description": "Label displaying the upload or review status of incident media attachments.[cite: 1]"
+  },
+  "incidentDetailsNo": "いいえ",
+  "@incidentDetailsNo": {
+    "description": "Negative response badge for binary incident attributes in details view.[cite: 1]"
+  },
+  "incidentDetailsNoMediaAttachments": "写真や動画は添付されていません。",
+  "@incidentDetailsNoMediaAttachments": {
+    "description": "Empty state message displayed when no photos or videos are attached to the report.[cite: 1]"
+  },
+  "incidentDetailsNoStudentsOnboard": "事故当時、バスには生徒が乗車していませんでした。",
+  "@incidentDetailsNoStudentsOnboard": {
+    "description": "Informational message indicating no students were onboard the bus during the crash.[cite: 1]"
+  },
+  "incidentDetailsNotificationsDesc": "通知レポートを作成し、テンプレート化された文書を地区の監督者や管理者に送信します。",
+  "@incidentDetailsNotificationsDesc": {
+    "description": "Description explaining transmittal letters and notifications sent to district supervisors.[cite: 1]"
+  },
+  "incidentDetailsNotificationsTitle": "送信通知",
+  "@incidentDetailsNotificationsTitle": {
+    "description": "Section header for administrative transmittal notifications and letters.[cite: 1]"
+  },
+  "incidentDetailsOfficer": "警察官の詳細",
+  "@incidentDetailsOfficer": {
+    "description": "Card section header displaying the responding police officer's details.[cite: 1]"
+  },
+  "incidentDetailsPoliceReport": "警察の事故証明書番号",
+  "@incidentDetailsPoliceReport": {
+    "description": "Field label displaying the official police report case number.[cite: 1]"
+  },
+  "incidentDetailsPrePopulatedLetter": "自動入力された送信文書:",
+  "@incidentDetailsPrePopulatedLetter": {
+    "description": "Header label above the pre-populated transmittal letter for school administrators.[cite: 1]"
+  },
+  "incidentDetailsRegulatoryBasis": "規制の根拠:",
+  "@incidentDetailsRegulatoryBasis": {
+    "description": "Header label for the federal regulatory basis governing DOT testing requirements.[cite: 1]"
+  },
+  "incidentDetailsRouteId": "ルートID",
+  "@incidentDetailsRouteId": {
+    "description": "Field label displaying the route identifier associated with the incident.[cite: 1]"
+  },
+  "incidentDetailsSchoolAdminTitle": "学校管理者への通知",
+  "@incidentDetailsSchoolAdminTitle": {
+    "description": "Section title for notifications dispatched to school administration.[cite: 1]"
+  },
+  "incidentDetailsStatusPending": "保留中",
+  "@incidentDetailsStatusPending": {
+    "description": "Status badge indicating that an incident report or testing action is pending.[cite: 1]"
+  },
+  "incidentDetailsStudentDetails": "詳細: {notes}",
+  "@incidentDetailsStudentDetails": {
+    "description": "Detail label showing injury notes and notes recorded for an involved student.[cite: 1]"
+  },
+  "incidentDetailsStudentInjured": "負傷",
+  "@incidentDetailsStudentInjured": {
+    "description": "Status badge indicating that the student sustained injuries during the crash.[cite: 1]"
+  },
+  "incidentDetailsStudentNoInjury": "怪我なし",
+  "@incidentDetailsStudentNoInjury": {
+    "description": "Status badge indicating that the student was uninjured during the crash.[cite: 1]"
+  },
+  "incidentDetailsStudentSeverity": "重症度: {severity}",
+  "@incidentDetailsStudentSeverity": {
+    "description": "Detail label displaying the injury severity level for an involved student.[cite: 1]"
+  },
+  "incidentDetailsStudentTransportedTo": "搬送先: {facility}",
+  "@incidentDetailsStudentTransportedTo": {
+    "description": "Detail label showing the hospital or medical facility where the student was transported.[cite: 1]"
+  },
+  "incidentDetailsStudentsOnboard": "乗車中の生徒 ({count})",
+  "@incidentDetailsStudentsOnboard": {
+    "description": "Section header listing students who were onboard the bus during the incident.[cite: 1]"
+  },
+  "incidentDetailsTestingRequiredTitle": "DOTの事故後テストが必要です",
+  "@incidentDetailsTestingRequiredTitle": {
+    "description": "Prominent warning title indicating federal DOT post-crash drug/alcohol testing is mandatory.[cite: 1]"
+  },
+  "incidentDetailsTimerStatus": "ステータス: {status}",
+  "@incidentDetailsTimerStatus": {
+    "description": "Label displaying the current operational status of the DOT testing countdown timer.[cite: 1]"
+  },
+  "incidentDetailsTitle": "インシデントの詳細",
+  "@incidentDetailsTitle": {
+    "description": "Screen title for the Post-Crash Incident Details screen.[cite: 1]"
+  },
+  "incidentDetailsVehicleTowed": "車両のレッカー移動",
+  "@incidentDetailsVehicleTowed": {
+    "description": "Detail row indicating whether a vehicle required towing due to disabling damage.[cite: 1]"
+  },
+  "incidentDetailsYes": "はい",
+  "@incidentDetailsYes": {
+    "description": "Affirmative response badge for binary incident attributes in details view.[cite: 1]"
+  },
+  "incidentHistoryEmpty": "この車両にはインシデントログが登録されていません。",
+  "@incidentHistoryEmpty": {
+    "description": "Empty state message displayed when no crash incident logs exist for the vehicle.[cite: 1]"
+  },
+  "incidentHistoryFailed": "ログの取得に失敗しました: {error}",
+  "@incidentHistoryFailed": {
+    "description": "Error message displayed when loading the post-crash incident history fails.[cite: 1]"
+  },
+  "incidentHistoryItemSubtitle": "時間: {time} バス: {busNumber} テスト: {testingStatus}",
+  "@incidentHistoryItemSubtitle": {
+    "description": "Subtitle format string for incident history list items displaying time, bus, and testing status.[cite: 1]"
+  },
+  "incidentHistoryItemTitle": "インシデント #{id}",
+  "@incidentHistoryItemTitle": {
+    "description": "Title format string for incident history list items displaying the report ID.[cite: 1]"
+  },
+  "incidentHistoryTestingNotRequired": "不要",
+  "@incidentHistoryTestingNotRequired": {
+    "description": "Status tag indicating DOT post-crash testing was not required for the incident.[cite: 1]"
+  },
+  "incidentHistoryTestingRequired": "必須",
+  "@incidentHistoryTestingRequired": {
+    "description": "Status tag indicating DOT post-crash testing was mandatory for the incident.[cite: 1]"
+  },
+  "incidentHistoryTitle": "事故後インシデントレジストリ",
+  "@incidentHistoryTitle": {
+    "description": "Screen title for the Post-Crash Incident Registry and history list.[cite: 1]"
+  },
+  "incidentIntakeAddAnotherPhoto": "別の写真を追加",
+  "@incidentIntakeAddAnotherPhoto": {
+    "description": "Button label to attach an additional photo to the crash intake report.[cite: 1]"
+  },
+  "incidentIntakeBadgeNumberError": "必須",
+  "@incidentIntakeBadgeNumberError": {
+    "description": "Form validation error displayed when the police officer badge number is missing.[cite: 1]"
+  },
+  "incidentIntakeBadgeNumberLabel": "バッジ番号*",
+  "@incidentIntakeBadgeNumberLabel": {
+    "description": "Form field label for the investigating police officer's badge number.[cite: 1]"
+  },
+  "incidentIntakeBus": "バス番号: {busNumber}",
+  "@incidentIntakeBus": {
+    "description": "Bus number label in the incident intake vehicle and driver summary header.[cite: 1]"
+  },
+  "incidentIntakeCaptureScenePhoto": "現場の写真を撮る",
+  "@incidentIntakeCaptureScenePhoto": {
+    "description": "Button label to open camera and capture a photo of the crash scene.[cite: 1]"
+  },
+  "incidentIntakeCitationSubtitle": "スクールバスのドライバーに移動交通違反の切符が切られましたか？",
+  "@incidentIntakeCitationSubtitle": {
+    "description": "Explanatory question asking if a moving traffic violation citation was issued to the driver.[cite: 1]"
+  },
+  "incidentIntakeCitationTitle": "違反切符の交付はありましたか？",
+  "@incidentIntakeCitationTitle": {
+    "description": "Section title question asking whether a traffic citation was issued to the driver.[cite: 1]"
+  },
+  "incidentIntakeDateTimeLabel": "事故の日時*",
+  "@incidentIntakeDateTimeLabel": {
+    "description": "Form field label for selecting the date and time when the crash occurred.[cite: 1]"
+  },
+  "incidentIntakeDotTestingNotRequired": "DOTテストは不要です",
+  "@incidentIntakeDotTestingNotRequired": {
+    "description": "Determination banner indicating DOT drug and alcohol testing is not required.[cite: 1]"
+  },
+  "incidentIntakeDotTestingRequired": "DOTテストが必要です",
+  "@incidentIntakeDotTestingRequired": {
+    "description": "Determination banner indicating mandatory DOT drug and alcohol testing is required.[cite: 1]"
+  },
+  "incidentIntakeDriver": "ドライバー: {driverName}",
+  "@incidentIntakeDriver": {
+    "description": "Driver name label in the incident intake summary header.[cite: 1]"
+  },
+  "incidentIntakeDriverNotesHint": "衝突に関する追加のメモを入力してください...",
+  "@incidentIntakeDriverNotesHint": {
+    "description": "Placeholder hint text for optional driver notes regarding the collision.[cite: 1]"
+  },
+  "incidentIntakeDriverNotesTitle": "ドライバーの事故メモ",
+  "@incidentIntakeDriverNotesTitle": {
+    "description": "Section header for the driver's narrative account of the crash.[cite: 1]"
+  },
+  "incidentIntakeErrorRoutePassengers": "ルート乗客の読み込みに失敗しました: {error}",
+  "@incidentIntakeErrorRoutePassengers": {
+    "description": "Error message displayed when loading route passengers fails during incident intake.[cite: 1]"
+  },
+  "incidentIntakeEvidenceTitle": "証拠を添付 (写真) *",
+  "@incidentIntakeEvidenceTitle": {
+    "description": "Section header for mandatory photo evidence attachments in crash intake.[cite: 1]"
+  },
+  "incidentIntakeFatalitySubtitle": "この事故の結果、死者は出ましたか？",
+  "@incidentIntakeFatalitySubtitle": {
+    "description": "Explanatory question asking if any fatalities resulted from the crash.[cite: 1]"
+  },
+  "incidentIntakeFatalityTitle": "死亡者は出ましたか？",
+  "@incidentIntakeFatalityTitle": {
+    "description": "Section title question asking whether any fatalities occurred in the crash.[cite: 1]"
+  },
+  "incidentIntakeGpsLabel": "GPS座標*",
+  "@incidentIntakeGpsLabel": {
+    "description": "Form field label displaying the GPS coordinates of the crash location.[cite: 1]"
+  },
+  "incidentIntakeHistoryTooltip": "履歴を表示",
+  "@incidentIntakeHistoryTooltip": {
+    "description": "App bar action tooltip to open the incident history registry.[cite: 1]"
+  },
+  "incidentIntakeInjuriesSubtitle": "現場から離れて直ちに医療処置が必要な身体的傷害を負った人はいますか？",
+  "@incidentIntakeInjuriesSubtitle": {
+    "description": "Explanatory question asking if anyone suffered injuries requiring off-scene medical treatment.[cite: 1]"
+  },
+  "incidentIntakeInjuriesTitle": "医療処置が必要な怪我はありますか？",
+  "@incidentIntakeInjuriesTitle": {
+    "description": "Section title question asking whether injuries requiring medical treatment occurred.[cite: 1]"
+  },
+  "incidentIntakeInjuryNotesError": "負傷した生徒には怪我のメモが必須です",
+  "@incidentIntakeInjuryNotesError": {
+    "description": "Form validation error displayed when injury notes are missing for an injured student.[cite: 1]"
+  },
+  "incidentIntakeInjuryNotesLabel": "怪我のメモ / 詳細 (必須) *",
+  "@incidentIntakeInjuryNotesLabel": {
+    "description": "Form field label for entering notes detailing a student's injuries.[cite: 1]"
+  },
+  "incidentIntakeInjurySeverityLabel": "怪我の重症度 *",
+  "@incidentIntakeInjurySeverityLabel": {
+    "description": "Dropdown label for selecting the injury severity level of an injured student.[cite: 1]"
+  },
+  "incidentIntakeLawEnforcementAgencyError": "法執行機関名を入力してください",
+  "@incidentIntakeLawEnforcementAgencyError": {
+    "description": "Form validation error displayed when the law enforcement agency is omitted.[cite: 1]"
+  },
+  "incidentIntakeLawEnforcementAgencyLabel": "法執行機関 (例: 州高速道路パトロール)*",
+  "@incidentIntakeLawEnforcementAgencyLabel": {
+    "description": "Form field label for the investigating law enforcement agency name.[cite: 1]"
+  },
+  "incidentIntakeLawEnforcementTitle": "法執行機関と警察の報告",
+  "@incidentIntakeLawEnforcementTitle": {
+    "description": "Wizard step section header for law enforcement and police report information.[cite: 1]"
+  },
+  "incidentIntakeLocationDescError": "場所の説明を入力してください",
+  "@incidentIntakeLocationDescError": {
+    "description": "Form validation error displayed when the crash location description is omitted.[cite: 1]"
+  },
+  "incidentIntakeLocationDescLabel": "場所の説明 (例: マーケット通りと5番街) *",
+  "@incidentIntakeLocationDescLabel": {
+    "description": "Form field label for entering the street intersection or crash location description.[cite: 1]"
+  },
+  "incidentIntakeMedicalFacilityLabel": "搬送先の医療施設",
+  "@incidentIntakeMedicalFacilityLabel": {
+    "description": "Form field label for the medical facility or hospital where a student was transported.[cite: 1]"
+  },
+  "incidentIntakeNoMatchingStudents": "一致する生徒がいません。",
+  "@incidentIntakeNoMatchingStudents": {
+    "description": "Search filter message displayed when no students match the search query.[cite: 1]"
+  },
+  "incidentIntakeNoStudentsFound": "生徒が見つかりません。",
+  "@incidentIntakeNoStudentsFound": {
+    "description": "Message displayed when no student records are found for the active route.[cite: 1]"
+  },
+  "incidentIntakeNoStudentsOnboard": "乗車している生徒はいません。次へを押して進んでください。",
+  "@incidentIntakeNoStudentsOnboard": {
+    "description": "Informational banner indicating no students were onboard during the crash.[cite: 1]"
+  },
+  "incidentIntakeNoStudentsRoute": "このルートに登録されている生徒はいません。",
+  "@incidentIntakeNoStudentsRoute": {
+    "description": "Message displayed when no students are registered on the selected route.[cite: 1]"
+  },
+  "incidentIntakeOfficerNameError": "警察官の名前を入力してください。",
+  "@incidentIntakeOfficerNameError": {
+    "description": "Form validation error displayed when the investigating officer name is omitted.[cite: 1]"
+  },
+  "incidentIntakeOfficerNameLabel": "警察官の名前*",
+  "@incidentIntakeOfficerNameLabel": {
+    "description": "Form field label for the investigating police officer's name.[cite: 1]"
+  },
+  "incidentIntakePoliceReportNumberError": "警察の事故証明書番号を入力してください",
+  "@incidentIntakePoliceReportNumberError": {
+    "description": "Form validation error displayed when the police report case number is omitted.[cite: 1]"
+  },
+  "incidentIntakePoliceReportNumberLabel": "警察の事故証明書番号 *",
+  "@incidentIntakePoliceReportNumberLabel": {
+    "description": "Form field label for the official police report case number.[cite: 1]"
+  },
+  "incidentIntakeRoute": "ルート: {routeName}",
+  "@incidentIntakeRoute": {
+    "description": "Route name label in the incident intake vehicle and driver summary header.[cite: 1]"
+  },
+  "incidentIntakeRouteDriverInfo": "ルートとドライバー情報",
+  "@incidentIntakeRouteDriverInfo": {
+    "description": "Wizard step title for route, vehicle, and driver information.[cite: 1]"
+  },
+  "incidentIntakeSearchInjuredHint": "負傷した子供を検索...",
+  "@incidentIntakeSearchInjuredHint": {
+    "description": "Placeholder text for searching and filtering the injured student list.[cite: 1]"
+  },
+  "incidentIntakeSearchStudentHint": "生徒を検索...",
+  "@incidentIntakeSearchStudentHint": {
+    "description": "Placeholder text for searching students onboard the bus during intake.[cite: 1]"
+  },
+  "incidentIntakeSelectAll": "すべての生徒を選択",
+  "@incidentIntakeSelectAll": {
+    "description": "Checkbox label to select all registered route students as onboard during the crash.[cite: 1]"
+  },
+  "incidentIntakeSelectOnMap": "地図上で選択",
+  "@incidentIntakeSelectOnMap": {
+    "description": "Button label to open the interactive map and pinpoint the crash location coordinates.[cite: 1]"
+  },
+  "incidentIntakeSeverityFatal": "致命的",
+  "@incidentIntakeSeverityFatal": {
+    "description": "Dropdown option for fatal student injury severity.[cite: 1]"
+  },
+  "incidentIntakeSeverityMinor": "軽傷",
+  "@incidentIntakeSeverityMinor": {
+    "description": "Dropdown option for minor student injury severity.[cite: 1]"
+  },
+  "incidentIntakeSeverityModerate": "中等度",
+  "@incidentIntakeSeverityModerate": {
+    "description": "Dropdown option for moderate student injury severity.[cite: 1]"
+  },
+  "incidentIntakeSeveritySevere": "重傷",
+  "@incidentIntakeSeveritySevere": {
+    "description": "Dropdown option for severe student injury severity.[cite: 1]"
+  },
+  "incidentIntakeSeverityTitle": "事故の重症度変数",
+  "@incidentIntakeSeverityTitle": {
+    "description": "Wizard step section header for federal DOT crash threshold criteria variables.[cite: 1]"
+  },
+  "incidentIntakeStudentId": "ID: {id}",
+  "@incidentIntakeStudentId": {
+    "description": "Detail label displaying the student ID in the incident passenger checklist.[cite: 1]"
+  },
+  "incidentIntakeSubmitButton": "レポートを送信",
+  "@incidentIntakeSubmitButton": {
+    "description": "Primary button label to submit the completed post-crash intake report.[cite: 1]"
+  },
+  "incidentIntakeTitle": "事故後インシデントの入力",
+  "@incidentIntakeTitle": {
+    "description": "Screen title for the step-by-step Post-Crash Incident Intake wizard.[cite: 1]"
+  },
+  "incidentIntakeTowedSubtitle": "走行不能な損傷を受け、現場からレッカー移動が必要な車両はありましたか？",
+  "@incidentIntakeTowedSubtitle": {
+    "description": "Explanatory question asking if any vehicle required towing due to disabling damage.[cite: 1]"
+  },
+  "incidentIntakeTowedTitle": "車両はレッカー移動されましたか？",
+  "@incidentIntakeTowedTitle": {
+    "description": "Section title question asking whether any involved vehicle was towed from the scene.[cite: 1]"
+  },
+  "incidentIntakeWasInjured": "負傷しましたか？",
+  "@incidentIntakeWasInjured": {
+    "description": "Checkbox or toggle asking if a specific student sustained injuries in the crash.[cite: 1]"
+  },
+  "dvirPreTripBusLabel": "バス: {busNumber}",
+  "@dvirPreTripBusLabel": {
+    "description": "Bus identifier label displayed in the pre-trip verification header.[cite: 1]"
+  },
+  "dvirPreTripClose": "閉じる",
+  "@dvirPreTripClose": {
+    "description": "Button label to close the defect photo preview modal.[cite: 1]"
+  },
+  "dvirPreTripDriverCommentsLabel": "ドライバーのコメント / メモ (任意)",
+  "@dvirPreTripDriverCommentsLabel": {
+    "description": "Form field label for optional driver comments in the pre-trip verification form.[cite: 1]"
+  },
+  "dvirPreTripNoComments": "コメントは追加されていません。",
+  "@dvirPreTripNoComments": {
+    "description": "Fallback text displayed in the review step when no driver comments were added.[cite: 1]"
+  },
+  "dvirPreTripReasonLabel": "理由: {reason}",
+  "@dvirPreTripReasonLabel": {
+    "description": "Detail label displaying the reason why the bus is out of service.[cite: 1]"
+  },
+  "dvirPreTripRouteLabel": "ルート: {routeName}",
+  "@dvirPreTripRouteLabel": {
+    "description": "Route name label displayed on the pre-trip verification screen.[cite: 1]"
+  },
+  "dvirPreTripSigCaptured": "署名が正常にキャプチャされました。",
+  "@dvirPreTripSigCaptured": {
+    "description": "Confirmation message indicating the driver's signature was successfully captured for pre-trip.[cite: 1]"
+  },
+  "dvirPreTripSigMissing": "署名がありません。",
+  "@dvirPreTripSigMissing": {
+    "description": "Validation error message indicating that a signature is required before proceeding.[cite: 1]"
+  },
+  "dvirPreTripSignDefectWarning": "以前の欠陥の修理を検証するために署名してください。",
+  "@dvirPreTripSignDefectWarning": {
+    "description": "Validation warning urging the driver to sign and verify repair completion of prior defects.[cite: 1]"
+  },
+  "dvirPreTripStepSignOff": "サインオフ",
+  "@dvirPreTripStepSignOff": {
+    "description": "Stepper label for the driver sign-off step in pre-trip verification.[cite: 1]"
+  },
+  "dvirPreTripStepSubmit": "送信",
+  "@dvirPreTripStepSubmit": {
+    "description": "Stepper label for the final submission step in pre-trip verification.[cite: 1]"
+  },
+  "dvirPreTripStepVerify": "検証",
+  "@dvirPreTripStepVerify": {
+    "description": "Stepper label for the prior defect verification step in pre-trip verification.[cite: 1]"
+  },
+  "dvirPreTripTapNext": "次へをタップして進んでください。",
+  "@dvirPreTripTapNext": {
+    "description": "Instruction prompt guiding the driver to tap next to proceed through the pre-trip steps.[cite: 1]"
+  },
+  "dvirPreTripVehicleOutOfService": "車両は休車中です",
+  "@dvirPreTripVehicleOutOfService": {
+    "description": "Status banner title indicating that the vehicle is out of service.[cite: 1]"
+  },
+  "dvirPreTripVehicleReady": "車両はサービスの準備ができています",
+  "@dvirPreTripVehicleReady": {
+    "description": "Status banner title indicating that the vehicle is verified and ready for service.[cite: 1]"
+  },
+  "dvirPreTripVerifiedRepairStatus": "検証済みの修理ステータス:",
+  "@dvirPreTripVerifiedRepairStatus": {
+    "description": "Section header for the verified repair checklist in pre-trip inspection.[cite: 1]"
+  },
+  "dvirPreTripVerifyCheckWarning": "各欠陥の横のボックスにチェックを入れ、報告されたすべての欠陥が修理されていることを確認してください。",
+  "@dvirPreTripVerifyCheckWarning": {
+    "description": "Validation warning requesting the driver to check off each repaired defect item to proceed.[cite: 1]"
+  },
+  "dvirPreTripYourComments": "あなたのコメント:",
+  "@dvirPreTripYourComments": {
+    "description": "Field label displaying the driver's added comments on the pre-trip summary card.[cite: 1]"
+  },
+  "countryPickerNoCountries": "国が見つかりません",
+  "@countryPickerNoCountries": {
+    "description": "Empty state message displayed in the country picker when no countries match the search.[cite: 1]"
+  },
+  "countryPickerSearchHint": "国名、コード、または国番号で検索...",
+  "@countryPickerSearchHint": {
+    "description": "Placeholder text in the country picker search field for filtering countries.[cite: 1]"
+  },
+  "countryPickerTitle": "国を選択",
+  "@countryPickerTitle": {
+    "description": "Title of the bottom sheet for selecting a country phone code.[cite: 1]"
+  },
+  "mapDefaultStop": "停留所",
+  "@mapDefaultStop": {
+    "description": "Default fallback label for an unnamed route stop on the live tracking map.[cite: 1]"
+  },
+  "mapEndLocation": "終了地点",
+  "@mapEndLocation": {
+    "description": "Marker label or indicator marking the route's final destination on the tracking map.[cite: 1]"
+  },
+  "mapStartLocation": "開始地点",
+  "@mapStartLocation": {
+    "description": "Marker label or indicator marking the route's initial starting location on the tracking map.[cite: 1]"
+  },
+  "stopsNoChangesToUndo": "元に戻す変更はありません。",
+  "@stopsNoChangesToUndo": {
+    "description": "Snackbar message indicating that there are no student actions available to undo.[cite: 1]"
+  },
+  "stopsNoStopsAvailable": "利用可能な停留所がありません。",
+  "@stopsNoStopsAvailable": {
+    "description": "Empty state message displayed when no stops are configured for the route.[cite: 1]"
+  }
 }

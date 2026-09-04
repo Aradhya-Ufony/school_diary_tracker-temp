@@ -1,284 +1,1723 @@
 {
   "@@locale": "en",
   "appInfoBuild": "Build Number",
+  "@appInfoBuild": {
+    "description": "Label displaying the application build number on the App Info screen."
+  },
   "appInfoDevice": "Device Model",
+  "@appInfoDevice": {
+    "description": "Label displaying the device hardware model name on the App Info screen."
+  },
   "appInfoOS": "OS Version",
+  "@appInfoOS": {
+    "description": "Label displaying the operating system name and version on the App Info screen."
+  },
   "appInfoPackage": "Package",
+  "@appInfoPackage": {
+    "description": "Label displaying the application package identifier on the App Info screen."
+  },
   "appInfoTitle": "App Info",
+  "@appInfoTitle": {
+    "description": "Title of the App Info screen and drawer menu navigation item."
+  },
   "appInfoVersion": "App Version",
+  "@appInfoVersion": {
+    "description": "Label displaying the application release version on the App Info screen."
+  },
   "appTitleSchoolDiary": "SD Tracker",
+  "@appTitleSchoolDiary": {
+    "description": "The main application branding title displayed in the app header."
+  },
   "childrenActionGuardians": "Guardians",
+  "@childrenActionGuardians": {
+    "description": "Action button label to open the authorized guardians list for a child."
+  },
   "childrenGuardiansFor": "Authorized guardians for {name}",
+  "@childrenGuardiansFor": {
+    "description": "Header text showing the student name whose authorized guardians are listed."
+  },
   "childrenNoGuardians": "No authorized guardians on file for this child.",
+  "@childrenNoGuardians": {
+    "description": "Empty state message displayed when no authorized guardians are registered for a student."
+  },
   "childrenStatusDropped": "Dropped",
+  "@childrenStatusDropped": {
+    "description": "Status badge indicating that the student has been dropped off at their stop."
+  },
   "childrenStatusPending": "Pending",
+  "@childrenStatusPending": {
+    "description": "Status badge indicating that the student pickup or drop-off is currently pending."
+  },
   "childrenStatusPicked": "Picked",
-  "childrenTitle": "Children — {routeName}",
+  "@childrenStatusPicked": {
+    "description": "Status badge indicating that the student has been picked up onto the bus."
+  },
+  "childrenTitle": "Children - {routeName}",
+  "@childrenTitle": {
+    "description": "Screen title for the student roster list on the specified route."
+  },
   "drillChecklistAbsentTitle": "ABSENT / NOT ON BUS ({count})",
+  "@drillChecklistAbsentTitle": {
+    "description": "Section header in the evacuation drill checklist for students marked absent or not onboard."
+  },
   "drillChecklistBus": "Bus: {busNumber}",
+  "@drillChecklistBus": {
+    "description": "Bus identifier label displayed in the drill checklist header."
+  },
   "drillChecklistEvacuated": "Evacuated",
+  "@drillChecklistEvacuated": {
+    "description": "Action button or status label marking a student as safely evacuated during the drill."
+  },
   "drillChecklistEvacuatedProgress": "Evacuated: {evacuatedCount}/{totalCount}",
+  "@drillChecklistEvacuatedProgress": {
+    "description": "Progress counter showing the number of evacuated students out of total present students."
+  },
   "drillChecklistNoAbsentStudents": "No absent students.",
+  "@drillChecklistNoAbsentStudents": {
+    "description": "Informational message shown when all route students are present on the bus for the drill."
+  },
   "drillChecklistNoStudentsOnBus": "No students marked on bus.",
+  "@drillChecklistNoStudentsOnBus": {
+    "description": "Empty state message displayed when no students were marked onboard the bus."
+  },
   "drillChecklistNotOnBus": "NOT ON BUS",
-  "drillChecklistOnBusNotEvacuated": "ON BUS — NOT EVACUATED",
+  "@drillChecklistNotOnBus": {
+    "description": "Status badge indicating that the student was not present onboard the bus during the drill."
+  },
+  "drillChecklistOnBusNotEvacuated": "ON BUS - NOT EVACUATED",
+  "@drillChecklistOnBusNotEvacuated": {
+    "description": "Status badge warning that a student is onboard the bus and has not yet evacuated."
+  },
   "drillChecklistOnBusTitle": "ON BUS ({count})",
+  "@drillChecklistOnBusTitle": {
+    "description": "Section header in the drill checklist showing students currently onboard the bus."
+  },
   "drillChecklistProceed": "PROCEED TO EVIDENCE CAPTURE",
+  "@drillChecklistProceed": {
+    "description": "Button label to proceed from the evacuation checklist to mandatory evidence capture."
+  },
   "drillChecklistRouteLive": "Route (Live): {routeName}",
+  "@drillChecklistRouteLive": {
+    "description": "Header subtitle showing the active live route name for the evacuation drill."
+  },
   "drillChecklistTitle": "Evacuation Drill Checklist",
+  "@drillChecklistTitle": {
+    "description": "Screen title for the evacuation drill execution checklist."
+  },
   "drillChecklistUnaccountedWarning": "{count} Unaccounted Student(s) Remaining!",
+  "@drillChecklistUnaccountedWarning": {
+    "description": "Warning banner alerting the driver to remaining students who have not yet evacuated."
+  },
   "drillEvidenceConfirmMessage": "Are you sure you want to submit this drill log? This action cannot be undone.",
+  "@drillEvidenceConfirmMessage": {
+    "description": "Body message in the confirmation dialog asking the driver to confirm drill log submission."
+  },
   "drillEvidenceConfirmSubmission": "Confirm Drill Submission",
+  "@drillEvidenceConfirmSubmission": {
+    "description": "Title of the confirmation dialog displayed before submitting the evacuation drill log."
+  },
   "drillEvidenceDriverNotesHint": "Describe drill execution, student behavior, exit paths used, and any exceptions observed...",
+  "@drillEvidenceDriverNotesHint": {
+    "description": "Placeholder hint text for the driver notes field describing drill execution details."
+  },
   "drillEvidenceDriverNotesLabel": "Driver Notes (Minimum 10 characters):",
+  "@drillEvidenceDriverNotesLabel": {
+    "description": "Label for the mandatory driver notes field in the drill evidence capture screen."
+  },
   "drillEvidenceFailed": "Submission Failed",
+  "@drillEvidenceFailed": {
+    "description": "Header title displayed on the failure screen when drill log submission fails."
+  },
   "drillEvidenceMandatoryWarning": "At least 1 photo or video evidence is mandatory to submit drill.",
+  "@drillEvidenceMandatoryWarning": {
+    "description": "Validation warning message indicating that at least one photo or video attachment is required."
+  },
   "drillEvidenceRecordVideo": "Record Video",
+  "@drillEvidenceRecordVideo": {
+    "description": "Button label to open the camera and record a video as drill evidence."
+  },
   "drillEvidenceRetrySubmission": "RETRY SUBMISSION",
+  "@drillEvidenceRetrySubmission": {
+    "description": "Button label to re-attempt submitting the drill log after a network or upload failure."
+  },
   "drillEvidenceReturnToDashboard": "RETURN TO DASHBOARD",
+  "@drillEvidenceReturnToDashboard": {
+    "description": "Button label to navigate back to the home or drills dashboard after completing a drill."
+  },
   "drillEvidenceSubmitButton": "SUBMIT DRILL LOG",
+  "@drillEvidenceSubmitButton": {
+    "description": "Primary button label to submit the evacuation drill log and attached evidence."
+  },
   "drillEvidenceSubmitting": "Submitting Drill Log...",
+  "@drillEvidenceSubmitting": {
+    "description": "Loading message displayed while the drill log and media are being uploaded."
+  },
   "drillEvidenceSuccess": "Submission Successful!",
+  "@drillEvidenceSuccess": {
+    "description": "Success header title displayed after the drill log is successfully uploaded."
+  },
   "drillEvidenceSuccessMessage": "The evacuation drill log has been successfully uploaded and is pending approval.",
+  "@drillEvidenceSuccessMessage": {
+    "description": "Informational message explaining that the drill log was submitted and is pending administrator approval."
+  },
   "drillEvidenceTakePhoto": "Take Photo",
+  "@drillEvidenceTakePhoto": {
+    "description": "Button label to launch the camera and capture a photo as drill evidence."
+  },
   "drillEvidenceTitle": "Mandatory Drill Evidence",
+  "@drillEvidenceTitle": {
+    "description": "Screen title for the mandatory drill evidence capture and notes step."
+  },
   "drillEvidenceUploading": "Uploading evidence and checklist data",
+  "@drillEvidenceUploading": {
+    "description": "Progress description displayed during the upload of drill evidence media and checklist data."
+  },
   "drillRosterBus": "Bus: {busNumber}",
+  "@drillRosterBus": {
+    "description": "Bus identifier label displayed in the drill roster header."
+  },
   "drillRosterDrillType": "Drill: {drillType}",
+  "@drillRosterDrillType": {
+    "description": "Label displaying the selected evacuation drill classification in the roster header."
+  },
   "drillRosterMarkAttendance": "Mark Attendance",
+  "@drillRosterMarkAttendance": {
+    "description": "Section instruction prompting the driver to mark student attendance before starting the drill."
+  },
   "drillRosterNoStudents": "No students registered on this route.",
+  "@drillRosterNoStudents": {
+    "description": "Empty state message displayed when no students are registered for the selected route."
+  },
   "drillRosterPresentCount": "Present: {presentCount} / {totalCount}",
+  "@drillRosterPresentCount": {
+    "description": "Attendance counter showing the number of present students out of total registered students."
+  },
   "drillRosterProceed": "PROCEED TO DRILL CHECKLIST",
+  "@drillRosterProceed": {
+    "description": "Button label to confirm student attendance and proceed to the drill checklist."
+  },
   "drillRosterRoute": "Route: {routeName}",
+  "@drillRosterRoute": {
+    "description": "Route name label displayed in the drill roster header."
+  },
   "drillRosterSeat": "Seat: {seatNumber}",
+  "@drillRosterSeat": {
+    "description": "Detail label showing the assigned seat number for a student in the roster list."
+  },
   "drillRosterSelectAll": "Select All",
+  "@drillRosterSelectAll": {
+    "description": "Button or checkbox label to select all students as present in the roster."
+  },
   "drillSummaryAdminNotesTitle": "Admin Notes",
+  "@drillSummaryAdminNotesTitle": {
+    "description": "Section header in the drill summary displaying review notes from administrators."
+  },
   "drillSummaryApprovedAt": "Approved At: {date}",
+  "@drillSummaryApprovedAt": {
+    "description": "Timestamp label showing when the evacuation drill log was approved by administration."
+  },
   "drillSummaryApprovedAtLabel": "Approved At",
+  "@drillSummaryApprovedAtLabel": {
+    "description": "Field label for the approval timestamp in the drill summary details."
+  },
   "drillSummaryBackToDrills": "Back to Drills",
+  "@drillSummaryBackToDrills": {
+    "description": "Button label to navigate back to the evacuation drills dashboard."
+  },
   "drillSummaryBusNumber": "Bus Number",
+  "@drillSummaryBusNumber": {
+    "description": "Field label for the bus number in the drill summary metadata card."
+  },
   "drillSummaryConductedBy": "Conducted By: {name}",
+  "@drillSummaryConductedBy": {
+    "description": "Subtitle showing the name of the driver or staff member who conducted the drill."
+  },
   "drillSummaryDetailsTitle": "Drill Details",
+  "@drillSummaryDetailsTitle": {
+    "description": "Card header for the general drill details and metadata section."
+  },
   "drillSummaryDriverNotesTitle": "Driver Notes",
+  "@drillSummaryDriverNotesTitle": {
+    "description": "Card header displaying the notes recorded by the driver during drill execution."
+  },
   "drillSummaryDuration": "Duration",
+  "@drillSummaryDuration": {
+    "description": "Field label for the total time elapsed during the evacuation drill."
+  },
   "drillSummaryDurationValue": "{minutes} min {seconds} sec",
+  "@drillSummaryDurationValue": {
+    "description": "Formatted duration string displaying elapsed minutes and seconds of the drill."
+  },
   "drillSummaryEndTime": "End Time",
+  "@drillSummaryEndTime": {
+    "description": "Field label for the timestamp when the drill concluded."
+  },
   "drillSummaryEvacuatedCount": "Evacuated: {evacuatedCount}/{totalCount}",
+  "@drillSummaryEvacuatedCount": {
+    "description": "Evacuation metric showing the number of safely evacuated students out of total present students."
+  },
   "drillSummaryEvacuatedTime": "Evacuated {time}",
+  "@drillSummaryEvacuatedTime": {
+    "description": "Timestamp badge indicating the exact time a specific student evacuated."
+  },
   "drillSummaryEvidenceTitle": "Evidence Media Attachments",
+  "@drillSummaryEvidenceTitle": {
+    "description": "Section header for photo and video evidence attachments in the drill summary."
+  },
   "drillSummaryGps": "GPS Coordinates",
+  "@drillSummaryGps": {
+    "description": "Field label for the geographic GPS coordinates where the drill took place."
+  },
   "drillSummaryGpsValue": "Lat: {lat}, Lng: {lng}",
+  "@drillSummaryGpsValue": {
+    "description": "Formatted latitude and longitude GPS coordinates displayed in the drill summary."
+  },
   "drillSummaryLoadFailed": "Failed to load drill summary for ID #{id}.\n{error}",
+  "@drillSummaryLoadFailed": {
+    "description": "Error message displayed when loading drill summary details fails for a specific drill ID."
+  },
   "drillSummaryNoData": "No drill data found.",
+  "@drillSummaryNoData": {
+    "description": "Empty state message displayed when no drill summary data is found."
+  },
   "drillSummaryNotOnBus": "Not On Bus",
+  "@drillSummaryNotOnBus": {
+    "description": "Status badge in student evacuation log for students who were absent or not on the bus."
+  },
   "drillSummaryOnBusNotEvacuated": "ON BUS - NOT EVACUATED",
+  "@drillSummaryOnBusNotEvacuated": {
+    "description": "Status badge in student evacuation log for students who did not evacuate the bus."
+  },
   "drillSummaryPhotoEvidence": "Photo Evidence",
+  "@drillSummaryPhotoEvidence": {
+    "description": "Section header for photo evidence media attachments in the drill summary."
+  },
   "drillSummaryRouteId": "Route ID",
+  "@drillSummaryRouteId": {
+    "description": "Field label for the route identifier in the drill summary metadata."
+  },
   "drillSummarySeat": "Seat: {seatNumber}",
+  "@drillSummarySeat": {
+    "description": "Detail label showing the student's assigned seat number in the evacuation log."
+  },
   "drillSummaryStartTime": "Start Time",
+  "@drillSummaryStartTime": {
+    "description": "Field label for the timestamp when the evacuation drill began."
+  },
   "drillSummaryStatus": "Status",
+  "@drillSummaryStatus": {
+    "description": "Field label for the current approval or completion status of the drill."
+  },
   "drillSummaryStudentLogTitle": "Student Evacuation Log",
+  "@drillSummaryStudentLogTitle": {
+    "description": "Section header for the individual student evacuation outcome log."
+  },
   "drillSummaryTitle": "Drill Summary (#{id})",
+  "@drillSummaryTitle": {
+    "description": "Screen title for the evacuation drill summary displaying the drill ID."
+  },
   "drillSummaryType": "Drill Type",
+  "@drillSummaryType": {
+    "description": "Field label for the evacuation drill classification type."
+  },
   "drillSummaryVideoEvidence": "Video Evidence",
+  "@drillSummaryVideoEvidence": {
+    "description": "Section header for video evidence media attachments in the drill summary."
+  },
   "drillTypeBus": "Bus {busNumber}",
+  "@drillTypeBus": {
+    "description": "Bus identifier label displayed in the drill type selection header."
+  },
   "drillTypeClassification": "Choose drill classification:",
+  "@drillTypeClassification": {
+    "description": "Instruction header asking the driver to choose an evacuation drill classification."
+  },
   "drillTypeCustomHint": "Enter custom evacuation drill type...",
+  "@drillTypeCustomHint": {
+    "description": "Input placeholder text for entering a custom evacuation drill classification."
+  },
   "drillTypeInvalidState": "Invalid vehicle or route state.",
+  "@drillTypeInvalidState": {
+    "description": "Error message displayed when attempting to start a drill with an invalid vehicle or route state."
+  },
   "drillTypeNameBusFire": "Bus Fire",
+  "@drillTypeNameBusFire": {
+    "description": "Evacuation drill classification option for a simulated bus fire scenario."
+  },
   "drillTypeNameDangerZone": "Danger Zone",
+  "@drillTypeNameDangerZone": {
+    "description": "Evacuation drill classification option for bus loading and unloading danger zones."
+  },
   "drillTypeNameDriverIncapacitation": "Driver Incapacitation",
+  "@drillTypeNameDriverIncapacitation": {
+    "description": "Evacuation drill classification option for driver incapacitation emergency response."
+  },
   "drillTypeNameEquipmentOrientation": "Equipment Orientation",
+  "@drillTypeNameEquipmentOrientation": {
+    "description": "Evacuation drill classification option for emergency safety equipment familiarization."
+  },
   "drillTypeNameFrontDoor": "Front Door",
+  "@drillTypeNameFrontDoor": {
+    "description": "Evacuation drill classification option for front door emergency exit evacuation."
+  },
   "drillTypeNameOthers": "Others",
+  "@drillTypeNameOthers": {
+    "description": "Evacuation drill classification option for custom or other emergency evacuation scenarios."
+  },
   "drillTypeNameRearDoor": "Rear Door",
+  "@drillTypeNameRearDoor": {
+    "description": "Evacuation drill classification option for rear emergency door evacuation."
+  },
   "drillTypeNameSideOrRoof": "Side Or Roof",
+  "@drillTypeNameSideOrRoof": {
+    "description": "Evacuation drill classification option for side emergency door or roof hatch evacuation."
+  },
   "drillTypeNameSplit": "Split",
+  "@drillTypeNameSplit": {
+    "description": "Evacuation drill classification option for split emergency exit evacuation."
+  },
   "drillTypeNoRouteSelected": "No Route Selected",
+  "@drillTypeNoRouteSelected": {
+    "description": "Validation warning shown when proceeding without selecting a route for the drill."
+  },
   "drillTypePreparation": "DRILL PREPARATION",
+  "@drillTypePreparation": {
+    "description": "Header section title for evacuation drill preparation guidelines and safety checks."
+  },
   "drillTypeProceed": "PROCEED TO STUDENT ROSTER",
+  "@drillTypeProceed": {
+    "description": "Button label to proceed from drill type selection to the student roster marking screen."
+  },
   "drillTypeRoute": "Route: {routeName}",
+  "@drillTypeRoute": {
+    "description": "Route name label displayed on the drill type selection screen."
+  },
   "drillTypeSelectRoute": "Select Route:",
+  "@drillTypeSelectRoute": {
+    "description": "Section label prompting the driver to select a route for the drill."
+  },
   "drillTypeSpecifyCustom": "Specify Drill Type Description:",
+  "@drillTypeSpecifyCustom": {
+    "description": "Field label prompting the driver to enter a custom drill type description."
+  },
   "drillTypeTitle": "Select Drill Type",
+  "@drillTypeTitle": {
+    "description": "Screen title for selecting the evacuation drill type and route."
+  },
   "drillTypeWarning": "Ensure vehicle is parked safely before beginning execution.",
+  "@drillTypeWarning": {
+    "description": "Safety reminder instructing the driver to safely park the bus before beginning drill execution."
+  },
   "drillsAssignedVehicle": "Assigned Vehicle",
+  "@drillsAssignedVehicle": {
+    "description": "Card label displaying the vehicle currently assigned to the driver on the drills dashboard."
+  },
   "drillsChecking": "Checking...",
+  "@drillsChecking": {
+    "description": "Status text shown while checking vehicle and route eligibility to start an evacuation drill."
+  },
   "drillsHeader": "Drill #{id} - {type}",
+  "@drillsHeader": {
+    "description": "List item header displaying the drill ID and classification type."
+  },
   "drillsNoBusAssigned": "No Bus Assigned",
+  "@drillsNoBusAssigned": {
+    "description": "Warning banner indicating that no bus is assigned to the current driver."
+  },
   "drillsNoDrillsRecorded": "No drills recorded for bus {busNumber}",
+  "@drillsNoDrillsRecorded": {
+    "description": "Empty state message displayed when no evacuation drills have been logged for the bus."
+  },
   "drillsNoRoutesAvailable": "No routes available to start a drill.",
+  "@drillsNoRoutesAvailable": {
+    "description": "Warning state message shown when no active routes are available to start a drill."
+  },
   "drillsShowSummary": "Show Summary",
+  "@drillsShowSummary": {
+    "description": "Button label to view the full summary details of a completed evacuation drill."
+  },
   "drillsStartDrill": "Start Drill",
+  "@drillsStartDrill": {
+    "description": "Primary action button label to initiate a new evacuation drill."
+  },
   "drillsSubtitle": "Conducted: {date}\nStatus: {status}",
+  "@drillsSubtitle": {
+    "description": "List item subtitle displaying the date conducted and current status of a drill."
+  },
   "drillsTitle": "Evacuation Drills",
+  "@drillsTitle": {
+    "description": "Screen title for the Evacuation Drills dashboard and registry."
+  },
   "drillsVehicleOutOfService": "Vehicle Out of Service",
+  "@drillsVehicleOutOfService": {
+    "description": "Alert dialog title shown when the assigned vehicle is marked out of service."
+  },
   "drillsVehicleOutOfServiceMessage": "This vehicle is currently out of service and cannot be used for drills.",
+  "@drillsVehicleOutOfServiceMessage": {
+    "description": "Alert message explaining that the vehicle is out of service and cannot conduct drills."
+  },
   "driverDetailsCdlClassLabel": "CDL Class",
+  "@driverDetailsCdlClassLabel": {
+    "description": "Field label for the Commercial Driver's License class."
+  },
   "driverDetailsDrivingLicenseLabel": "DRIVING LICENSE",
+  "@driverDetailsDrivingLicenseLabel": {
+    "description": "Section header for the digital driving license card."
+  },
   "driverDetailsDrivingLicenseName": "NAME: {name}",
+  "@driverDetailsDrivingLicenseName": {
+    "description": "Formatted driver full name displayed on the digital license card."
+  },
   "driverDetailsDrivingLicenseNo": "LIC: {licenseNo}",
+  "@driverDetailsDrivingLicenseNo": {
+    "description": "Formatted license number displayed on the digital license card."
+  },
   "driverDetailsEndorsementPassenger": "Passenger",
+  "@driverDetailsEndorsementPassenger": {
+    "description": "Badge label for Passenger (P) transport endorsement authorization."
+  },
   "driverDetailsEndorsementSchoolBus": "School Bus",
+  "@driverDetailsEndorsementSchoolBus": {
+    "description": "Badge label for School Bus (S) operation endorsement authorization."
+  },
   "driverDetailsEndorsementsTitle": "Endorsements Held",
+  "@driverDetailsEndorsementsTitle": {
+    "description": "Section title displaying the special endorsements held on the driver's license."
+  },
   "driverDetailsExpiryDateLabel": "Expiry Date",
+  "@driverDetailsExpiryDateLabel": {
+    "description": "Field label for the driver's license expiration date."
+  },
   "driverDetailsHolderSignature": "HOLDER SIGNATURE",
+  "@driverDetailsHolderSignature": {
+    "description": "Label above the digital signature box on the driving license card."
+  },
   "driverDetailsId": "ID: {driverId}",
+  "@driverDetailsId": {
+    "description": "Detail label showing the unique driver identification number."
+  },
   "driverDetailsIssueDateLabel": "Issue Date",
+  "@driverDetailsIssueDateLabel": {
+    "description": "Field label for the driver's license issue date."
+  },
   "driverDetailsLicenseDocTitle": "License Document",
+  "@driverDetailsLicenseDocTitle": {
+    "description": "Section title for the uploaded driving license document image preview."
+  },
   "driverDetailsLicenseNoLabel": "License No",
+  "@driverDetailsLicenseNoLabel": {
+    "description": "Field label for the driver's license number."
+  },
   "driverDetailsLicenseTitle": "License Details",
+  "@driverDetailsLicenseTitle": {
+    "description": "Card header for the driving license details section."
+  },
   "driverDetailsLicenseTypeLabel": "License Type",
+  "@driverDetailsLicenseTypeLabel": {
+    "description": "Field label for the type or class of driving license."
+  },
   "driverDetailsOfficialSeal": "OFFICIAL SEAL",
+  "@driverDetailsOfficialSeal": {
+    "description": "Label for the official issuing authority seal on the digital license card."
+  },
   "driverDetailsPreviewClass": "CLASS: {cdlClass}",
+  "@driverDetailsPreviewClass": {
+    "description": "Preview label showing the CDL class on the driving license card."
+  },
   "driverDetailsPreviewDob": "DOB: {dob}",
+  "@driverDetailsPreviewDob": {
+    "description": "Preview label showing the driver's date of birth on the driving license card."
+  },
   "driverDetailsPreviewEndorse": "ENDORSE: {endorsements}",
+  "@driverDetailsPreviewEndorse": {
+    "description": "Preview label showing the endorsements string on the driving license card."
+  },
   "driverDetailsPreviewExp": "EXP: {expiryDate}",
+  "@driverDetailsPreviewExp": {
+    "description": "Preview label showing the expiration date on the driving license card."
+  },
   "driverDetailsPreviewLicenseNo": "LN: {licenseNo}",
+  "@driverDetailsPreviewLicenseNo": {
+    "description": "Preview label showing the license number on the driving license card."
+  },
   "driverDetailsPreviewName": "FN: {name}",
+  "@driverDetailsPreviewName": {
+    "description": "Preview label showing the driver's full name on the driving license card."
+  },
   "driverDetailsTapToView": "Tap to View DL Document",
+  "@driverDetailsTapToView": {
+    "description": "Action hint prompting the user to tap and view the full driving license document image."
+  },
   "driverDetailsTitle": "Driver Details",
+  "@driverDetailsTitle": {
+    "description": "Screen title displaying the driver's profile and license credentials."
+  },
   "dvirCategoryBusSafetySystems": "Bus-Specific Safety Systems",
+  "@dvirCategoryBusSafetySystems": {
+    "description": "DVIR inspection category for school bus specific safety systems like stop arms and emergency exits."
+  },
   "dvirCategoryCouplingDevices": "Coupling Devices",
+  "@dvirCategoryCouplingDevices": {
+    "description": "DVIR inspection category for vehicle coupling devices and towing hitch connections."
+  },
   "dvirCategoryEmergencyEquipment": "Emergency Equipment",
+  "@dvirCategoryEmergencyEquipment": {
+    "description": "DVIR inspection category for onboard emergency equipment including fire extinguishers and first aid kits."
+  },
   "dvirCategoryHorn": "Horn",
+  "@dvirCategoryHorn": {
+    "description": "DVIR inspection category for testing vehicle warning horn operation."
+  },
   "dvirCategoryLightingReflectors": "Lighting Devices & Reflectors",
+  "@dvirCategoryLightingReflectors": {
+    "description": "DVIR inspection category for vehicle lighting devices, turn signals, and reflectors."
+  },
   "dvirCategoryMirrors": "Rear-Vision Mirrors",
+  "@dvirCategoryMirrors": {
+    "description": "DVIR inspection category for rearview and side safety mirrors condition and alignment."
+  },
   "dvirCategoryParkingBrake": "Parking Brake",
+  "@dvirCategoryParkingBrake": {
+    "description": "DVIR inspection category for the parking brake and emergency braking system."
+  },
   "dvirCategoryPassengerSeating": "Passenger Seating & Restraints",
+  "@dvirCategoryPassengerSeating": {
+    "description": "DVIR inspection category for passenger seating, handrails, and seat restraints."
+  },
   "dvirCategoryServiceBrakes": "Service Brakes",
+  "@dvirCategoryServiceBrakes": {
+    "description": "DVIR inspection category for the primary service brake performance and components."
+  },
   "dvirCategorySteeringMechanism": "Steering Mechanism",
+  "@dvirCategorySteeringMechanism": {
+    "description": "DVIR inspection category for steering wheel, column, and linkage mechanisms."
+  },
   "dvirCategoryTires": "Tires",
+  "@dvirCategoryTires": {
+    "description": "DVIR inspection category for tire condition, tread depth, and air pressure."
+  },
   "dvirCategoryWheelsRims": "Wheels and Rims",
+  "@dvirCategoryWheelsRims": {
+    "description": "DVIR inspection category for wheels, lug nuts, and wheel rims condition."
+  },
   "dvirCategoryWipers": "Windshield Wipers",
+  "@dvirCategoryWipers": {
+    "description": "DVIR inspection category for windshield wipers and washer fluid system."
+  },
   "dvirPostTripCapturePhoto": "CAPTURE DEFECT PHOTO",
+  "@dvirPostTripCapturePhoto": {
+    "description": "Button label to capture a photo of an observed vehicle defect during post-trip inspection."
+  },
   "dvirPostTripComplianceTitle": "COMPLIANCE CERTIFICATION",
+  "@dvirPostTripComplianceTitle": {
+    "description": "Section title for the regulatory compliance certification in post-trip inspection."
+  },
   "dvirPostTripDefectButton": "DEFECT",
+  "@dvirPostTripDefectButton": {
+    "description": "Toggle button option to mark an inspection zone or component as having a defect."
+  },
   "dvirPostTripDefectWithoutPhotoTitle": "Reporting Defect Without Photo",
+  "@dvirPostTripDefectWithoutPhotoTitle": {
+    "description": "Title of confirmation dialog when submitting a defect without photo evidence."
+  },
   "dvirPostTripDefectWithoutPhotoWarning": "Warning: You are reporting a defect on safety zones ({zones}) without attaching a photo. Are you sure you want to submit anyway?",
+  "@dvirPostTripDefectWithoutPhotoWarning": {
+    "description": "Warning message in confirmation dialog when submitting defect reports without attached photos."
+  },
   "dvirPostTripInspectionTitle": "Inspection: Bus {busNumber}",
+  "@dvirPostTripInspectionTitle": {
+    "description": "Screen header showing the bus number undergoing post-trip walkaround inspection."
+  },
   "dvirPostTripNotesDefectHint": "Enter details of the safety concern...",
+  "@dvirPostTripNotesDefectHint": {
+    "description": "Input placeholder for describing the safety concern or defect details."
+  },
   "dvirPostTripNotesLabel": "NOTES (MANDATORY ON DEFECT) & PHOTO",
+  "@dvirPostTripNotesLabel": {
+    "description": "Section header for defect notes and photo attachment in post-trip inspection."
+  },
   "dvirPostTripNotesPassedHint": "Select DEFECT to enter safety concern details...",
+  "@dvirPostTripNotesPassedHint": {
+    "description": "Placeholder text shown when an inspection zone is marked passed and notes are disabled."
+  },
   "dvirPostTripOdometerHeader": "Current Odometer Reading",
+  "@dvirPostTripOdometerHeader": {
+    "description": "Step header for entering the current bus odometer reading in post-trip inspection."
+  },
   "dvirPostTripOdometerInstructions": "Enter the mileage reading exactly as shown on the bus instrument panel:",
+  "@dvirPostTripOdometerInstructions": {
+    "description": "Guidance instructing the driver to enter the mileage reading directly from the instrument cluster."
+  },
   "dvirPostTripOdometerLabel": "Odometer (Miles)",
+  "@dvirPostTripOdometerLabel": {
+    "description": "Input field label for entering the bus odometer reading in miles."
+  },
   "dvirPostTripOdometerTitle": "VEHICLE RUN TIME METRIC",
+  "@dvirPostTripOdometerTitle": {
+    "description": "Section title for the vehicle run time and mileage metric step."
+  },
   "dvirPostTripOdometerWarning": "Please enter the odometer reading before proceeding.",
+  "@dvirPostTripOdometerWarning": {
+    "description": "Validation warning shown when the driver attempts to proceed without entering the odometer reading."
+  },
   "dvirPostTripPassButton": "PASS",
+  "@dvirPostTripPassButton": {
+    "description": "Toggle button option to mark an inspection zone or component as passed with no defects."
+  },
   "dvirPostTripPhotoAttached": "Photo attached successfully.",
+  "@dvirPostTripPhotoAttached": {
+    "description": "Confirmation message indicating a photo has been attached to the defect report."
+  },
   "dvirPostTripProgressLabel": "Inspection Progress",
+  "@dvirPostTripProgressLabel": {
+    "description": "Label for the progress bar tracking completed post-trip walkaround zones."
+  },
   "dvirPostTripSignatureCaptured": "Signature captured.",
+  "@dvirPostTripSignatureCaptured": {
+    "description": "Status message confirming that the driver's signature has been recorded."
+  },
   "dvirPostTripSignatureCert": "I certify that this vehicle walkaround checklist report has been completed in compliance with FMCSA 396.11 regulations.",
+  "@dvirPostTripSignatureCert": {
+    "description": "Legal certification statement confirming the walkaround inspection complies with FMCSA 396.11 regulations."
+  },
   "dvirPostTripSignatureTitle": "Driver Signature Verification",
+  "@dvirPostTripSignatureTitle": {
+    "description": "Section title for the driver signature verification step in post-trip inspection."
+  },
   "dvirPostTripSubmitButton": "SUBMIT INSPECTION",
+  "@dvirPostTripSubmitButton": {
+    "description": "Primary button label to submit the completed post-trip DVIR report."
+  },
   "dvirPostTripSubmitSuccess": "eDVIR submitted successfully.",
+  "@dvirPostTripSubmitSuccess": {
+    "description": "Confirmation message displayed after successfully submitting the post-trip DVIR report."
+  },
   "dvirPostTripZoneHeader": "ZONE {current} OF {total}",
+  "@dvirPostTripZoneHeader": {
+    "description": "Step header showing the active inspection zone index out of total zones."
+  },
   "dvirPostTripZonesProgress": "{current} / {total} Zones",
+  "@dvirPostTripZonesProgress": {
+    "description": "Progress text showing the number of completed inspection zones out of the total."
+  },
   "dvirPreTripAcknowledgmentText": "I acknowledge that I have reviewed the last submitted defect report and verified the repairs(if any) and state that the bus is safe for operation.",
+  "@dvirPreTripAcknowledgmentText": {
+    "description": "Checkbox acknowledgment text for the driver to certify review of prior defects and vehicle safety."
+  },
   "dvirPreTripActiveMessage": "This vehicle is Active and has no open defects. It is verified and safe for operation.",
+  "@dvirPreTripActiveMessage": {
+    "description": "Status message confirming the bus is active, has no open defects, and is safe for operation."
+  },
   "dvirPreTripActiveRoute": "Active Route: {routeName}",
+  "@dvirPreTripActiveRoute": {
+    "description": "Header label displaying the active route assigned for pre-trip verification."
+  },
   "dvirPreTripAttentionRequiredTitle": "ATTENTION REQUIRED: PRIOR DAY DEFECTS LOGGED",
+  "@dvirPreTripAttentionRequiredTitle": {
+    "description": "Alert header displayed when unresolved defects from previous post-trip inspections exist."
+  },
   "dvirPreTripBusNumber": "Bus Number: {busNumber}",
+  "@dvirPreTripBusNumber": {
+    "description": "Bus number label displayed in the pre-trip verification header card."
+  },
   "dvirPreTripDispatchCheckTitle": "VEHICLE DISPATCH CHECK",
+  "@dvirPreTripDispatchCheckTitle": {
+    "description": "Card header for the vehicle dispatch readiness verification section."
+  },
   "dvirPreTripFailedToSign": "Failed to sign: {error}",
+  "@dvirPreTripFailedToSign": {
+    "description": "Error message displayed when driver signature verification fails during pre-trip check."
+  },
   "dvirPreTripNoPriorDefects": "No Prior Defects Logged",
+  "@dvirPreTripNoPriorDefects": {
+    "description": "Status title indicating that no prior defects were logged on the vehicle."
+  },
   "dvirPreTripNoPriorDefectsMessage": "This vehicle was reported clean in the previous post-trip shift inspection.",
+  "@dvirPreTripNoPriorDefectsMessage": {
+    "description": "Informational message confirming the vehicle had zero defects logged in the previous post-trip inspection."
+  },
   "dvirPreTripNoRepairsNeeded": "No repairs needed for safe operation.",
+  "@dvirPreTripNoRepairsNeeded": {
+    "description": "Status message confirming that no maintenance repairs are required for safe operation."
+  },
   "dvirPreTripOutOfServiceMessage": "This vehicle is Out of Service for repairs/maintenance. Safety concerns must be resolved by shop staff before dispatch.",
+  "@dvirPreTripOutOfServiceMessage": {
+    "description": "Alert message explaining that the vehicle is out of service for repairs and cannot be dispatched."
+  },
   "dvirPreTripOutofServiceButton": "VEHICLE OUT OF SERVICE",
+  "@dvirPreTripOutofServiceButton": {
+    "description": "Button or badge label indicating that the vehicle is currently out of service."
+  },
   "dvirPreTripReason": "Reason: {reason}",
+  "@dvirPreTripReason": {
+    "description": "Label displaying the recorded reason why a vehicle is marked out of service."
+  },
   "dvirPreTripRepairedDefect": "{description} (REPAIRED)",
+  "@dvirPreTripRepairedDefect": {
+    "description": "List item label displaying a defect description that has been marked as repaired."
+  },
   "dvirPreTripReportNewDefectsButton": "REPORT NEW DEFECTS",
+  "@dvirPreTripReportNewDefectsButton": {
+    "description": "Button label allowing the driver to report newly observed defects during pre-trip inspection."
+  },
   "dvirPreTripReportNewDefectsDisabled": "Reporting new defects is disabled during repairs.",
+  "@dvirPreTripReportNewDefectsDisabled": {
+    "description": "Informational notice indicating new defect reporting is disabled while repairs are in progress."
+  },
   "dvirPreTripResolutionStatus": "Status: {status}",
+  "@dvirPreTripResolutionStatus": {
+    "description": "Label displaying the maintenance sub-administrator's resolution status for prior defects."
+  },
   "dvirPreTripResolutionTitle": "TRANSPORT SUB-ADMIN RESOLUTION",
+  "@dvirPreTripResolutionTitle": {
+    "description": "Section header for the maintenance sub-administrator's repair resolution report."
+  },
   "dvirPreTripReturnToHomeButton": "RETURN TO HOME",
+  "@dvirPreTripReturnToHomeButton": {
+    "description": "Navigation button label to return to the home screen when vehicle is out of service."
+  },
   "dvirPreTripSignOffTitle": "SIGN-OFF TO PROCEED TO WALKAROUND",
+  "@dvirPreTripSignOffTitle": {
+    "description": "Section title for the pre-trip driver sign-off step."
+  },
   "dvirPreTripSignedSuccess": "Verification signed successfully. Pre-Trip unlocked.",
+  "@dvirPreTripSignedSuccess": {
+    "description": "Success notification indicating pre-trip verification is signed and pre-trip walkaround is unlocked."
+  },
   "dvirPreTripSubmitVerificationButton": "SUBMIT VERIFICATION",
+  "@dvirPreTripSubmitVerificationButton": {
+    "description": "Button label to submit the completed pre-trip verification sign-off."
+  },
   "dvirPreTripTitle": "Pre-Trip Verification",
+  "@dvirPreTripTitle": {
+    "description": "Screen title for the Pre-Trip Vehicle Verification module."
+  },
   "dvirPreTripVehicleStatus": "Vehicle Status: {status}",
+  "@dvirPreTripVehicleStatus": {
+    "description": "Label displaying the current operational status of the vehicle in pre-trip inspection."
+  },
   "dvirSigDrawTitle": "Draw Signature",
+  "@dvirSigDrawTitle": {
+    "description": "Screen or dialog title for the digital signature drawing pad."
+  },
   "dvirSigPreviewLabel": "Captured Signature Preview:",
+  "@dvirSigPreviewLabel": {
+    "description": "Label displayed above the image preview of the captured driver signature."
+  },
   "dvirSigRedraw": "REDRAW",
+  "@dvirSigRedraw": {
+    "description": "Button label to clear the current drawing and re-sign on the signature pad."
+  },
   "dvirSigSave": "SAVE SIGNATURE",
+  "@dvirSigSave": {
+    "description": "Button label to confirm and save the drawn digital signature."
+  },
   "dvirSigTapToDraw": "TAP TO DRAW SIGNATURE (REQUIRED)",
+  "@dvirSigTapToDraw": {
+    "description": "Action placeholder prompt inviting the driver to tap and open the signature drawing pad."
+  },
   "dvirSigWatermark": "Sign Vertically (Bottom to Top)",
+  "@dvirSigWatermark": {
+    "description": "Watermark orientation guide on the signature pad instructing vertical bottom-to-top signing."
+  },
   "forgotPasswordCancel": "Cancel",
+  "@forgotPasswordCancel": {
+    "description": "Button label to cancel and close the forgot password dialog."
+  },
   "forgotPasswordEmailLabel": "Email",
+  "@forgotPasswordEmailLabel": {
+    "description": "Input field label for entering the account email address in password recovery."
+  },
   "forgotPasswordInvalidEmail": "Please enter a valid email",
+  "@forgotPasswordInvalidEmail": {
+    "description": "Form validation error displayed when an invalid email format is entered in password recovery."
+  },
   "forgotPasswordSend": "Send",
+  "@forgotPasswordSend": {
+    "description": "Button label to send the password reset email request."
+  },
   "forgotPasswordSuccess": "If that email exists, a reset link has been sent.",
+  "@forgotPasswordSuccess": {
+    "description": "Success confirmation message displayed after sending a password reset request."
+  },
   "genericBack": "BACK",
+  "@genericBack": {
+    "description": "Generic button label to navigate back to the previous screen or step."
+  },
   "genericCancel": "Cancel",
+  "@genericCancel": {
+    "description": "Generic button label to cancel the active operation or dismiss a dialog."
+  },
   "genericClear": "CLEAR",
+  "@genericClear": {
+    "description": "Generic button label to clear form fields or drawing inputs."
+  },
   "genericClose": "Close",
+  "@genericClose": {
+    "description": "Generic button label to close a dialog, bottom sheet, or view."
+  },
   "genericConfirm": "Confirm",
+  "@genericConfirm": {
+    "description": "Generic button label to confirm an action in a modal or dialog."
+  },
   "genericEdit": "Edit",
+  "@genericEdit": {
+    "description": "Generic button label to edit a field or record."
+  },
   "genericError": "Something went wrong",
+  "@genericError": {
+    "description": "Generic error title or message displayed when an unexpected error occurs."
+  },
   "genericLoading": "Loading...",
+  "@genericLoading": {
+    "description": "Generic loading indicator text displayed during asynchronous tasks."
+  },
   "genericNext": "NEXT",
+  "@genericNext": {
+    "description": "Generic button label to advance to the next step in a multi-step workflow."
+  },
   "genericOk": "Ok",
+  "@genericOk": {
+    "description": "Generic button label to acknowledge an alert dialog."
+  },
   "genericRetry": "Retry",
+  "@genericRetry": {
+    "description": "Generic button label to re-attempt a failed network operation."
+  },
   "genericSuccess": "Success",
+  "@genericSuccess": {
+    "description": "Generic success title or status message."
+  },
   "homeBusLabel": "Bus: {busId}",
+  "@homeBusLabel": {
+    "description": "Card label displaying the assigned bus identifier on the home screen."
+  },
   "homeDispatchBlocked": "Dispatch Blocked",
+  "@homeDispatchBlocked": {
+    "description": "Status badge indicating that vehicle dispatch is blocked due to unresolved maintenance."
+  },
   "homeDispatchBlockedTitle": "Dispatch Blocked",
+  "@homeDispatchBlockedTitle": {
+    "description": "Dialog title shown when vehicle dispatch is blocked from starting a trip."
+  },
   "homeErrorNoRoutesPreTrip": "No routes available to perform Pre-Trip.",
+  "@homeErrorNoRoutesPreTrip": {
+    "description": "Error alert shown when pre-trip inspection cannot be opened because no routes are assigned."
+  },
   "homeFailedToStartTrip": "Failed to start trip on server: {error}",
+  "@homeFailedToStartTrip": {
+    "description": "Error message displayed when starting a route trip fails on the server."
+  },
   "homeHi": "Hi, {name}",
+  "@homeHi": {
+    "description": "Personalized greeting header welcoming the logged-in driver on the home screen."
+  },
   "homeLogout": "Logout",
+  "@homeLogout": {
+    "description": "Drawer menu item label to log out of the application."
+  },
   "homeMenuAppInfo": "App Info",
+  "@homeMenuAppInfo": {
+    "description": "Drawer menu item label navigating to the application information screen."
+  },
   "homeMenuDrill": "Drill",
+  "@homeMenuDrill": {
+    "description": "Drawer menu item label navigating to the evacuation drills management screen."
+  },
   "homeMenuDriverDetails": "Driver Details",
+  "@homeMenuDriverDetails": {
+    "description": "Drawer menu item label navigating to the driver details and license screen."
+  },
   "homeMenuLanguage": "Language",
+  "@homeMenuLanguage": {
+    "description": "Drawer menu item label navigating to the language preferences screen."
+  },
   "homeMenuPreTrip": "Pre-Trip Inspection",
+  "@homeMenuPreTrip": {
+    "description": "Drawer menu item label navigating to the pre-trip DVIR inspection screen."
+  },
   "homeNoRoutes": "No routes available",
+  "@homeNoRoutes": {
+    "description": "Empty state message displayed on the home screen when no routes are assigned to the driver."
+  },
   "homeReviewVerifyPreTrip": "Review & Verify Pre-Trip",
+  "@homeReviewVerifyPreTrip": {
+    "description": "Action button label on the home screen prompting the driver to complete pre-trip verification."
+  },
   "homeSearchHint": "Search routes",
+  "@homeSearchHint": {
+    "description": "Placeholder text in the search input for filtering routes on the home dashboard."
+  },
   "homeStart": "Start",
+  "@homeStart": {
+    "description": "Button label to start tracking and executing an assigned route trip."
+  },
   "homeTitle": "Home",
-  "homeVehicleOutOfServiceDefault": "Vehicle is currently OUT_OF_SERVICE.",
+  "@homeTitle": {
+    "description": "Screen title and app bar header for the Home dashboard."
+  },
+  "homeVehicleOutOfServiceDefault": "Vehicle is currently OUT OF SERVICE.",
+  "@homeVehicleOutOfServiceDefault": {
+    "description": "Warning banner on the home screen indicating the vehicle is out of service."
+  },
   "homeVehicleReady": "Vehicle is ready and verified for safe operation.",
+  "@homeVehicleReady": {
+    "description": "Status banner on the home screen confirming the bus is inspected and ready for service."
+  },
   "languageTitle": "Language",
+  "@languageTitle": {
+    "description": "Screen title and header for the language selection preferences screen."
+  },
   "loginButton": "Login",
+  "@loginButton": {
+    "description": "Primary button label to submit login credentials and sign in."
+  },
   "loginEmailOrPhoneLabel": "Email or phone number",
+  "@loginEmailOrPhoneLabel": {
+    "description": "Input field label for entering the username, email, or phone number."
+  },
   "loginErrorEnterPassword": "Please enter password",
+  "@loginErrorEnterPassword": {
+    "description": "Form validation error displayed when the password field is left empty."
+  },
   "loginErrorEnterUsername": "Please enter username",
+  "@loginErrorEnterUsername": {
+    "description": "Form validation error displayed when the username field is left empty."
+  },
   "loginErrorFailed": "Login failed. Please try again.",
+  "@loginErrorFailed": {
+    "description": "Error banner message displayed when authentication fails."
+  },
   "loginErrorInvalidEmailOrPhone": "Please enter a valid email or phone number",
+  "@loginErrorInvalidEmailOrPhone": {
+    "description": "Form validation error displayed when an invalid email or phone format is entered."
+  },
   "loginForgotPassword": "Forgot password?",
+  "@loginForgotPassword": {
+    "description": "Link button label to open the forgot password recovery dialog."
+  },
   "loginPasswordLabel": "Password",
+  "@loginPasswordLabel": {
+    "description": "Input field label for entering the user account password."
+  },
   "mapChildrenTooltip": "Children & guardians",
+  "@mapChildrenTooltip": {
+    "description": "Map action button tooltip for opening the onboard children and guardians list."
+  },
   "mapConfirmMessage": "Do you really want to close the trip?",
+  "@mapConfirmMessage": {
+    "description": "Body message in confirmation dialog asking the driver to confirm ending the active trip."
+  },
   "mapConfirmTitle": "Confirm",
+  "@mapConfirmTitle": {
+    "description": "Title of confirmation dialog displayed when ending an active route trip."
+  },
   "mapCurrentPosition": "Current Position",
+  "@mapCurrentPosition": {
+    "description": "Tooltip or marker label indicating the current GPS location of the vehicle on the map."
+  },
   "mapNo": "No",
+  "@mapNo": {
+    "description": "Negative action button in map confirmation dialogs."
+  },
   "mapReconnectMessage": "Location update failing frequently, Please check your internet.",
+  "@mapReconnectMessage": {
+    "description": "Warning banner message displayed when live location updates fail due to network loss."
+  },
   "mapReconnectTitle": "Tracker",
+  "@mapReconnectTitle": {
+    "description": "Dialog title for live tracking network reconnection alerts."
+  },
   "mapStop": "Stop",
+  "@mapStop": {
+    "description": "Action button label to stop tracking and end the current route trip."
+  },
   "mapStopping": "Stopping...",
+  "@mapStopping": {
+    "description": "Button state label shown while the trip termination request is processing."
+  },
   "mapStopsTooltip": "Stops",
+  "@mapStopsTooltip": {
+    "description": "Map action button tooltip for opening the route stops list."
+  },
   "mapUpdatedAgo": "Updated {seconds}s ago",
+  "@mapUpdatedAgo": {
+    "description": "Status subtitle indicating elapsed seconds since the last successful vehicle GPS update."
+  },
   "mapWaitingGps": "Waiting for GPS...",
+  "@mapWaitingGps": {
+    "description": "Status message displayed while acquiring initial GPS satellite signal."
+  },
   "mapYes": "Yes",
+  "@mapYes": {
+    "description": "Affirmative action button in map confirmation dialogs."
+  },
   "splashDriverApp": "Driver App",
+  "@splashDriverApp": {
+    "description": "Application subtitle and role branding displayed on the splash launch screen."
+  },
   "stopsActionUndo": "Undo",
+  "@stopsActionUndo": {
+    "description": "Action button label to undo the most recent student pickup or drop-off action."
+  },
   "stopsCancelledSuccess": "Cancelled successfully",
+  "@stopsCancelledSuccess": {
+    "description": "Snackbar message confirming the cancellation of a student stop action."
+  },
   "stopsDefaultLabel": "Stop",
+  "@stopsDefaultLabel": {
+    "description": "Default fallback label for an unnamed stop in the route stops roster."
+  },
   "stopsGenericError": "Something went wrong. Please try again.",
+  "@stopsGenericError": {
+    "description": "Error message displayed when an error occurs during student pickup or drop-off operations."
+  },
   "stopsStatusComplete": "complete",
+  "@stopsStatusComplete": {
+    "description": "Status descriptor indicating all student pickup or drop-off tasks at a stop are complete."
+  },
   "stopsStatusDone": "done",
+  "@stopsStatusDone": {
+    "description": "Status descriptor indicating student pickup or drop-off operations are finished."
+  },
   "stopsSubmitCount": "Submit ({count})",
+  "@stopsSubmitCount": {
+    "description": "Primary button label to submit student pickup or drop-off counts for the current stop."
+  },
   "stopsSubmittedSuccess": "Submitted successfully",
+  "@stopsSubmittedSuccess": {
+    "description": "Snackbar notification confirming student pickup or drop-off actions were successfully submitted."
+  },
   "stopsSummary": "{selected} selected · {done}/{total} {status}",
+  "@stopsSummary": {
+    "description": "Summary text displaying selected student counts and completed operations at a stop."
+  },
   "stopsTypeDrop": "Drop",
+  "@stopsTypeDrop": {
+    "description": "Badge label indicating a student drop-off stop type or action."
+  },
   "stopsTypePick": "Pick",
+  "@stopsTypePick": {
+    "description": "Badge label indicating a student pickup stop type or action."
+  },
   "stopsUndoCount": "Undo ({count})",
+  "@stopsUndoCount": {
+    "description": "Button label to undo a specified number of student pickup or drop-off actions."
+  },
   "stopsUndoTooltip": "Undo pick/drop",
+  "@stopsUndoTooltip": {
+    "description": "Tooltip explaining the action to undo student pickup or drop-off operations."
+  },
   "tripConfirmCancel": "Cancel",
+  "@tripConfirmCancel": {
+    "description": "Button label to cancel and dismiss the trip action confirmation dialog."
+  },
   "tripConfirmOk": "OK",
+  "@tripConfirmOk": {
+    "description": "Button label to confirm and proceed with the trip action."
+  },
   "tripConfirmTitle": "Tracker",
-  "tripErrorLocationRequired": "Location permission is required to start a trip."
+  "@tripConfirmTitle": {
+    "description": "Title of the trip confirmation dialog in the tracking module."
+  },
+  "tripErrorLocationRequired": "Location permission is required to start a trip.",
+  "@tripErrorLocationRequired": {
+    "description": "Error alert explaining that location permission is mandatory to start route tracking."
+  },
+  "homeMenuPostCrashReporting": "Post-Crash Report",
+  "@homeMenuPostCrashReporting": {
+    "description": "Drawer menu item label navigating to the post-crash incident reporting module."
+  },
+  "homeVehicleReason": "Reason: {reason}",
+  "@homeVehicleReason": {
+    "description": "Detail label displaying why the vehicle is out of service on the home dashboard."
+  },
+  "homeVehicleStatus": "Status: {status}",
+  "@homeVehicleStatus": {
+    "description": "Detail label displaying the vehicle operational status on the home dashboard."
+  },
+  "crashLocationPickerCoords": "Lat: {lat}, Lang: {lng}",
+  "@crashLocationPickerCoords": {
+    "description": "Coordinate display showing latitude and longitude on the crash location picker map."
+  },
+  "crashLocationPickerSearchHint": "Search Location (e.g. Market St.)",
+  "@crashLocationPickerSearchHint": {
+    "description": "Placeholder text in the search input on the crash location picker map."
+  },
+  "crashLocationPickerTitle": "Select Location on Map",
+  "@crashLocationPickerTitle": {
+    "description": "Screen title for selecting the crash location on an interactive map."
+  },
+  "crashLocationPickerTooltip": "Confirm location",
+  "@crashLocationPickerTooltip": {
+    "description": "Floating action button tooltip to confirm the selected crash location coordinates."
+  },
+  "incidentDashboardDescription": "Select an action to proceed with incident management or view past reports.",
+  "@incidentDashboardDescription": {
+    "description": "Descriptive subtitle on the post-crash incident management dashboard."
+  },
+  "incidentDashboardHeadline": "Post-Crash Incident Reporting",
+  "@incidentDashboardHeadline": {
+    "description": "Main header headline on the post-crash incident management dashboard."
+  },
+  "incidentDashboardLogNew": "Log new crash",
+  "@incidentDashboardLogNew": {
+    "description": "Card title button to start logging a new post-crash incident report."
+  },
+  "incidentDashboardLogNewSubtitle": "Initiate a new step by step crash report",
+  "@incidentDashboardLogNewSubtitle": {
+    "description": "Subtitle describing the action to start a step-by-step post-crash intake report."
+  },
+  "incidentDashboardTitle": "Post-Crash Incident",
+  "@incidentDashboardTitle": {
+    "description": "Screen title for the post-crash incident management dashboard."
+  },
+  "incidentDashboardViewHistory": "View History",
+  "@incidentDashboardViewHistory": {
+    "description": "Card title button to view past post-crash incident reports and statuses."
+  },
+  "incidentDashboardViewHistorySubtitle": "View previous crash reports and status",
+  "@incidentDashboardViewHistorySubtitle": {
+    "description": "Subtitle describing the incident history and registry view option."
+  },
+  "incidentDetailsAdminLetter": "Admin Letter",
+  "@incidentDetailsAdminLetter": {
+    "description": "Card or tab title for the generated administrative transmittal letter."
+  },
+  "incidentDetailsAlcoholCountdown": "DOT Alcohol Test Countdown (2-hour limit)",
+  "@incidentDetailsAlcoholCountdown": {
+    "description": "Section title for the 2-hour federal DOT post-crash alcohol testing countdown timer."
+  },
+  "incidentDetailsBranchId": "Branch ID",
+  "@incidentDetailsBranchId": {
+    "description": "Field label displaying the school district or branch identifier in incident details."
+  },
+  "incidentDetailsBusPlate": "Bus License Number",
+  "@incidentDetailsBusPlate": {
+    "description": "Field label displaying the license plate number of the involved school bus."
+  },
+  "incidentDetailsCitationImpact": "Citation Impact: {explanation}",
+  "@incidentDetailsCitationImpact": {
+    "description": "Field text explaining how traffic citations impact DOT post-crash testing requirements."
+  },
+  "incidentDetailsCitationIssued": "Citation issued to driver",
+  "@incidentDetailsCitationIssued": {
+    "description": "Detail row indicating whether a traffic citation was issued to the driver."
+  },
+  "incidentDetailsCoordinates": "Coordinates: Lat {lat}, Lng {lng}",
+  "@incidentDetailsCoordinates": {
+    "description": "Detail label displaying the GPS latitude and longitude of the crash location."
+  },
+  "incidentDetailsCopiedToClipboard": "{title} copied to clipboard!",
+  "@incidentDetailsCopiedToClipboard": {
+    "description": "Toast message confirming that report details or transmittal letter were copied to clipboard."
+  },
+  "incidentDetailsCopyToClipboard": "Copy to the clipboard",
+  "@incidentDetailsCopyToClipboard": {
+    "description": "Button label to copy transmittal letter or report text to the clipboard."
+  },
+  "incidentDetailsCrashCitationInfo": "Crash & Citation Info",
+  "@incidentDetailsCrashCitationInfo": {
+    "description": "Card section header grouping crash circumstances and driver citation details."
+  },
+  "incidentDetailsDateTime": "Date & Time: {dateTime}",
+  "@incidentDetailsDateTime": {
+    "description": "Detail label displaying the date and time when the crash occurred."
+  },
+  "incidentDetailsDoeReport": "DOE Report",
+  "@incidentDetailsDoeReport": {
+    "description": "Button or tab label for the State Department of Education incident report."
+  },
+  "incidentDetailsDoeReportTitle": "State DOE report (optional)",
+  "@incidentDetailsDoeReportTitle": {
+    "description": "Section header for the optional State Department of Education notification report."
+  },
+  "incidentDetailsDriverNotes": "Driver's Notes:",
+  "@incidentDetailsDriverNotes": {
+    "description": "Header for the section displaying driver notes submitted in the crash report."
+  },
+  "incidentDetailsDriverUserId": "Driver user ID",
+  "@incidentDetailsDriverUserId": {
+    "description": "Field label displaying the driver's unique system user ID in incident details."
+  },
+  "incidentDetailsDrugCountdown": "DOT Drug Test Countdown (8-hour limit)",
+  "@incidentDetailsDrugCountdown": {
+    "description": "Section title for the 8-hour federal DOT post-crash drug testing countdown timer."
+  },
+  "incidentDetailsFatalityOccurred": "Fatality Occurred",
+  "@incidentDetailsFatalityOccurred": {
+    "description": "Detail row indicating whether a fatality occurred as a result of the crash."
+  },
+  "incidentDetailsHeaderTitle": "Incident #{id}",
+  "@incidentDetailsHeaderTitle": {
+    "description": "App bar title displaying the incident report identification number."
+  },
+  "incidentDetailsInjuriesMedTreatment": "Injuries Requiring Medical Treatment",
+  "@incidentDetailsInjuriesMedTreatment": {
+    "description": "Detail row indicating whether injuries requiring off-scene medical treatment occurred."
+  },
+  "incidentDetailsLawEnforcement": "Law enforcement agency",
+  "@incidentDetailsLawEnforcement": {
+    "description": "Field label displaying the responding police or highway patrol agency name."
+  },
+  "incidentDetailsLoadFailed": "Failed to load details.",
+  "@incidentDetailsLoadFailed": {
+    "description": "Error message displayed when loading incident report details fails."
+  },
+  "incidentDetailsLocation": "Location: {location}",
+  "@incidentDetailsLocation": {
+    "description": "Detail label displaying the physical street address or intersection of the crash."
+  },
+  "incidentDetailsMediaAttachments": "Media attachments",
+  "@incidentDetailsMediaAttachments": {
+    "description": "Section header for photos and media attached to the incident report."
+  },
+  "incidentDetailsMediaStatus": "Status: {status}",
+  "@incidentDetailsMediaStatus": {
+    "description": "Label displaying the upload or review status of incident media attachments."
+  },
+  "incidentDetailsNo": "No",
+  "@incidentDetailsNo": {
+    "description": "Negative response badge for binary incident attributes in details view."
+  },
+  "incidentDetailsNoMediaAttachments": "No photos or videos attached.",
+  "@incidentDetailsNoMediaAttachments": {
+    "description": "Empty state message displayed when no photos or videos are attached to the report."
+  },
+  "incidentDetailsNoStudentsOnboard": "No students were marked onboard during the incident.",
+  "@incidentDetailsNoStudentsOnboard": {
+    "description": "Informational message indicating no students were onboard the bus during the crash."
+  },
+  "incidentDetailsNotificationsDesc": "Generate notification reports and send templated letters to district supervisors or administration.",
+  "@incidentDetailsNotificationsDesc": {
+    "description": "Description explaining transmittal letters and notifications sent to district supervisors."
+  },
+  "incidentDetailsNotificationsTitle": "Transmittal Notifications",
+  "@incidentDetailsNotificationsTitle": {
+    "description": "Section header for administrative transmittal notifications and letters."
+  },
+  "incidentDetailsOfficer": "Officer's Details",
+  "@incidentDetailsOfficer": {
+    "description": "Card section header displaying the responding police officer's details."
+  },
+  "incidentDetailsPoliceReport": "Police Report Number",
+  "@incidentDetailsPoliceReport": {
+    "description": "Field label displaying the official police report case number."
+  },
+  "incidentDetailsPrePopulatedLetter": "Pre-populated transmission letter:",
+  "@incidentDetailsPrePopulatedLetter": {
+    "description": "Header label above the pre-populated transmittal letter for school administrators."
+  },
+  "incidentDetailsRegulatoryBasis": "Regulatory Basis:",
+  "@incidentDetailsRegulatoryBasis": {
+    "description": "Header label for the federal regulatory basis governing DOT testing requirements."
+  },
+  "incidentDetailsRouteId": "Route ID",
+  "@incidentDetailsRouteId": {
+    "description": "Field label displaying the route identifier associated with the incident."
+  },
+  "incidentDetailsSchoolAdminTitle": "School Admin Notification",
+  "@incidentDetailsSchoolAdminTitle": {
+    "description": "Section title for notifications dispatched to school administration."
+  },
+  "incidentDetailsStatusPending": "Pending",
+  "@incidentDetailsStatusPending": {
+    "description": "Status badge indicating that an incident report or testing action is pending."
+  },
+  "incidentDetailsStudentDetails": "Details: {notes}",
+  "@incidentDetailsStudentDetails": {
+    "description": "Detail label showing injury notes and notes recorded for an involved student."
+  },
+  "incidentDetailsStudentInjured": "Injured",
+  "@incidentDetailsStudentInjured": {
+    "description": "Status badge indicating that the student sustained injuries during the crash."
+  },
+  "incidentDetailsStudentNoInjury": "No Injury",
+  "@incidentDetailsStudentNoInjury": {
+    "description": "Status badge indicating that the student was uninjured during the crash."
+  },
+  "incidentDetailsStudentSeverity": "Severity: {severity}",
+  "@incidentDetailsStudentSeverity": {
+    "description": "Detail label displaying the injury severity level for an involved student."
+  },
+  "incidentDetailsStudentTransportedTo": "Transported to: {facility}",
+  "@incidentDetailsStudentTransportedTo": {
+    "description": "Detail label showing the hospital or medical facility where the student was transported."
+  },
+  "incidentDetailsStudentsOnboard": "Students Onboard ({count})",
+  "@incidentDetailsStudentsOnboard": {
+    "description": "Section header listing students who were onboard the bus during the incident."
+  },
+  "incidentDetailsTestingRequiredTitle": "DOT post-crash testing required",
+  "@incidentDetailsTestingRequiredTitle": {
+    "description": "Prominent warning title indicating federal DOT post-crash drug/alcohol testing is mandatory."
+  },
+  "incidentDetailsTimerStatus": "Status: {status}",
+  "@incidentDetailsTimerStatus": {
+    "description": "Label displaying the current operational status of the DOT testing countdown timer."
+  },
+  "incidentDetailsTitle": "Incident Details",
+  "@incidentDetailsTitle": {
+    "description": "Screen title for the Post-Crash Incident Details screen."
+  },
+  "incidentDetailsVehicleTowed": "Vehicle towed",
+  "@incidentDetailsVehicleTowed": {
+    "description": "Detail row indicating whether a vehicle required towing due to disabling damage."
+  },
+  "incidentDetailsYes": "Yes",
+  "@incidentDetailsYes": {
+    "description": "Affirmative response badge for binary incident attributes in details view."
+  },
+  "incidentHistoryEmpty": "No incident logs registered for this vehicle.",
+  "@incidentHistoryEmpty": {
+    "description": "Empty state message displayed when no crash incident logs exist for the vehicle."
+  },
+  "incidentHistoryFailed": "Failed to retrieve logs: {error}",
+  "@incidentHistoryFailed": {
+    "description": "Error message displayed when loading the post-crash incident history fails."
+  },
+  "incidentHistoryItemSubtitle": "Time: {time} Bus: {busNumber} Testing: {testingStatus}",
+  "@incidentHistoryItemSubtitle": {
+    "description": "Subtitle format string for incident history list items displaying time, bus, and testing status."
+  },
+  "incidentHistoryItemTitle": "Incident #{id}",
+  "@incidentHistoryItemTitle": {
+    "description": "Title format string for incident history list items displaying the report ID."
+  },
+  "incidentHistoryTestingNotRequired": "Not required",
+  "@incidentHistoryTestingNotRequired": {
+    "description": "Status tag indicating DOT post-crash testing was not required for the incident."
+  },
+  "incidentHistoryTestingRequired": "Required",
+  "@incidentHistoryTestingRequired": {
+    "description": "Status tag indicating DOT post-crash testing was mandatory for the incident."
+  },
+  "incidentHistoryTitle": "Post-Crash Incident Registry",
+  "@incidentHistoryTitle": {
+    "description": "Screen title for the Post-Crash Incident Registry and history list."
+  },
+  "incidentIntakeAddAnotherPhoto": "Add Another Photo",
+  "@incidentIntakeAddAnotherPhoto": {
+    "description": "Button label to attach an additional photo to the crash intake report."
+  },
+  "incidentIntakeBadgeNumberError": "Required",
+  "@incidentIntakeBadgeNumberError": {
+    "description": "Form validation error displayed when the police officer badge number is missing."
+  },
+  "incidentIntakeBadgeNumberLabel": "Badge number*",
+  "@incidentIntakeBadgeNumberLabel": {
+    "description": "Form field label for the investigating police officer's badge number."
+  },
+  "incidentIntakeBus": "Bus number: {busNumber}",
+  "@incidentIntakeBus": {
+    "description": "Bus number label in the incident intake vehicle and driver summary header."
+  },
+  "incidentIntakeCaptureScenePhoto": "Capture Incident Scene Photo",
+  "@incidentIntakeCaptureScenePhoto": {
+    "description": "Button label to open camera and capture a photo of the crash scene."
+  },
+  "incidentIntakeCitationSubtitle": "Was a moving traffic violation citation issued to the school bus driver?",
+  "@incidentIntakeCitationSubtitle": {
+    "description": "Explanatory question asking if a moving traffic violation citation was issued to the driver."
+  },
+  "incidentIntakeCitationTitle": "Citation Issued?",
+  "@incidentIntakeCitationTitle": {
+    "description": "Section title question asking whether a traffic citation was issued to the driver."
+  },
+  "incidentIntakeDateTimeLabel": "Crash Date & Time*",
+  "@incidentIntakeDateTimeLabel": {
+    "description": "Form field label for selecting the date and time when the crash occurred."
+  },
+  "incidentIntakeDotTestingNotRequired": "DOT Testing NOT required",
+  "@incidentIntakeDotTestingNotRequired": {
+    "description": "Determination banner indicating DOT drug and alcohol testing is not required."
+  },
+  "incidentIntakeDotTestingRequired": "DOT Testing required",
+  "@incidentIntakeDotTestingRequired": {
+    "description": "Determination banner indicating mandatory DOT drug and alcohol testing is required."
+  },
+  "incidentIntakeDriver": "Driver: {driverName}",
+  "@incidentIntakeDriver": {
+    "description": "Driver name label in the incident intake summary header."
+  },
+  "incidentIntakeDriverNotesHint": "Enter any additional notes regarding the collision...",
+  "@incidentIntakeDriverNotesHint": {
+    "description": "Placeholder hint text for optional driver notes regarding the collision."
+  },
+  "incidentIntakeDriverNotesTitle": "Driver Incident Notes",
+  "@incidentIntakeDriverNotesTitle": {
+    "description": "Section header for the driver's narrative account of the crash."
+  },
+  "incidentIntakeErrorRoutePassengers": "Failed to load route passengers: {error}",
+  "@incidentIntakeErrorRoutePassengers": {
+    "description": "Error message displayed when loading route passengers fails during incident intake."
+  },
+  "incidentIntakeEvidenceTitle": "Attach Evidence (Photos) *",
+  "@incidentIntakeEvidenceTitle": {
+    "description": "Section header for mandatory photo evidence attachments in crash intake."
+  },
+  "incidentIntakeFatalitySubtitle": "Did any fatalities occur as a result of this crash?",
+  "@incidentIntakeFatalitySubtitle": {
+    "description": "Explanatory question asking if any fatalities resulted from the crash."
+  },
+  "incidentIntakeFatalityTitle": "Fatality Occurred?",
+  "@incidentIntakeFatalityTitle": {
+    "description": "Section title question asking whether any fatalities occurred in the crash."
+  },
+  "incidentIntakeGpsLabel": "GPS Coordinates*",
+  "@incidentIntakeGpsLabel": {
+    "description": "Form field label displaying the GPS coordinates of the crash location."
+  },
+  "incidentIntakeHistoryTooltip": "View history",
+  "@incidentIntakeHistoryTooltip": {
+    "description": "App bar action tooltip to open the incident history registry."
+  },
+  "incidentIntakeInjuriesSubtitle": "Did any person get a physical injury requiring immediate medical treatment away from the scene?",
+  "@incidentIntakeInjuriesSubtitle": {
+    "description": "Explanatory question asking if anyone suffered injuries requiring off-scene medical treatment."
+  },
+  "incidentIntakeInjuriesTitle": "Injuries Requiring Medical Treatment?",
+  "@incidentIntakeInjuriesTitle": {
+    "description": "Section title question asking whether injuries requiring medical treatment occurred."
+  },
+  "incidentIntakeInjuryNotesError": "Injury notes are mandatory for injured students",
+  "@incidentIntakeInjuryNotesError": {
+    "description": "Form validation error displayed when injury notes are missing for an injured student."
+  },
+  "incidentIntakeInjuryNotesLabel": "Injury notes / details (mandatory) *",
+  "@incidentIntakeInjuryNotesLabel": {
+    "description": "Form field label for entering notes detailing a student's injuries."
+  },
+  "incidentIntakeInjurySeverityLabel": "Injury Severity *",
+  "@incidentIntakeInjurySeverityLabel": {
+    "description": "Dropdown label for selecting the injury severity level of an injured student."
+  },
+  "incidentIntakeLawEnforcementAgencyError": "Please enter law enforcement agency",
+  "@incidentIntakeLawEnforcementAgencyError": {
+    "description": "Form validation error displayed when the law enforcement agency is omitted."
+  },
+  "incidentIntakeLawEnforcementAgencyLabel": "Law enforcement agency (e.g. State Highway Patrol)*",
+  "@incidentIntakeLawEnforcementAgencyLabel": {
+    "description": "Form field label for the investigating law enforcement agency name."
+  },
+  "incidentIntakeLawEnforcementTitle": "Law enforcement and police report",
+  "@incidentIntakeLawEnforcementTitle": {
+    "description": "Wizard step section header for law enforcement and police report information."
+  },
+  "incidentIntakeLocationDescError": "Please enter location description",
+  "@incidentIntakeLocationDescError": {
+    "description": "Form validation error displayed when the crash location description is omitted."
+  },
+  "incidentIntakeLocationDescLabel": "Location Description (e.g. Market St & 5th Ave) *",
+  "@incidentIntakeLocationDescLabel": {
+    "description": "Form field label for entering the street intersection or crash location description."
+  },
+  "incidentIntakeMedicalFacilityLabel": "Medical facility transported to",
+  "@incidentIntakeMedicalFacilityLabel": {
+    "description": "Form field label for the medical facility or hospital where a student was transported."
+  },
+  "incidentIntakeNoMatchingStudents": "No matching students.",
+  "@incidentIntakeNoMatchingStudents": {
+    "description": "Search filter message displayed when no students match the search query."
+  },
+  "incidentIntakeNoStudentsFound": "No students found.",
+  "@incidentIntakeNoStudentsFound": {
+    "description": "Message displayed when no student records are found for the active route."
+  },
+  "incidentIntakeNoStudentsOnboard": "No students on board, please press NEXT to continue.",
+  "@incidentIntakeNoStudentsOnboard": {
+    "description": "Informational banner indicating no students were onboard during the crash."
+  },
+  "incidentIntakeNoStudentsRoute": "No students registered for this route.",
+  "@incidentIntakeNoStudentsRoute": {
+    "description": "Message displayed when no students are registered on the selected route."
+  },
+  "incidentIntakeOfficerNameError": "Please enter the officer's name.",
+  "@incidentIntakeOfficerNameError": {
+    "description": "Form validation error displayed when the investigating officer name is omitted."
+  },
+  "incidentIntakeOfficerNameLabel": "Officer name*",
+  "@incidentIntakeOfficerNameLabel": {
+    "description": "Form field label for the investigating police officer's name."
+  },
+  "incidentIntakePoliceReportNumberError": "Please enter the police report number",
+  "@incidentIntakePoliceReportNumberError": {
+    "description": "Form validation error displayed when the police report case number is omitted."
+  },
+  "incidentIntakePoliceReportNumberLabel": "Police report number *",
+  "@incidentIntakePoliceReportNumberLabel": {
+    "description": "Form field label for the official police report case number."
+  },
+  "incidentIntakeRoute": "Route: {routeName}",
+  "@incidentIntakeRoute": {
+    "description": "Route name label in the incident intake vehicle and driver summary header."
+  },
+  "incidentIntakeRouteDriverInfo": "Route and driver information",
+  "@incidentIntakeRouteDriverInfo": {
+    "description": "Wizard step title for route, vehicle, and driver information."
+  },
+  "incidentIntakeSearchInjuredHint": "Search injured child...",
+  "@incidentIntakeSearchInjuredHint": {
+    "description": "Placeholder text for searching and filtering the injured student list."
+  },
+  "incidentIntakeSearchStudentHint": "Search student...",
+  "@incidentIntakeSearchStudentHint": {
+    "description": "Placeholder text for searching students onboard the bus during intake."
+  },
+  "incidentIntakeSelectAll": "Select all students",
+  "@incidentIntakeSelectAll": {
+    "description": "Checkbox label to select all registered route students as onboard during the crash."
+  },
+  "incidentIntakeSelectOnMap": "Select on Map",
+  "@incidentIntakeSelectOnMap": {
+    "description": "Button label to open the interactive map and pinpoint the crash location coordinates."
+  },
+  "incidentIntakeSeverityFatal": "Fatal",
+  "@incidentIntakeSeverityFatal": {
+    "description": "Dropdown option for fatal student injury severity."
+  },
+  "incidentIntakeSeverityMinor": "Minor",
+  "@incidentIntakeSeverityMinor": {
+    "description": "Dropdown option for minor student injury severity."
+  },
+  "incidentIntakeSeverityModerate": "Moderate",
+  "@incidentIntakeSeverityModerate": {
+    "description": "Dropdown option for moderate student injury severity."
+  },
+  "incidentIntakeSeveritySevere": "Severe",
+  "@incidentIntakeSeveritySevere": {
+    "description": "Dropdown option for severe student injury severity."
+  },
+  "incidentIntakeSeverityTitle": "Crash Severity Variables",
+  "@incidentIntakeSeverityTitle": {
+    "description": "Wizard step section header for federal DOT crash threshold criteria variables."
+  },
+  "incidentIntakeStudentId": "ID: {id}",
+  "@incidentIntakeStudentId": {
+    "description": "Detail label displaying the student ID in the incident passenger checklist."
+  },
+  "incidentIntakeSubmitButton": "Submit Report",
+  "@incidentIntakeSubmitButton": {
+    "description": "Primary button label to submit the completed post-crash intake report."
+  },
+  "incidentIntakeTitle": "Post-Crash Incident Intake",
+  "@incidentIntakeTitle": {
+    "description": "Screen title for the step-by-step Post-Crash Incident Intake wizard."
+  },
+  "incidentIntakeTowedSubtitle": "Did any vehicle receive disabling damage requiring it to be towed from the scene?",
+  "@incidentIntakeTowedSubtitle": {
+    "description": "Explanatory question asking if any vehicle required towing due to disabling damage."
+  },
+  "incidentIntakeTowedTitle": "Vehicle towed?",
+  "@incidentIntakeTowedTitle": {
+    "description": "Section title question asking whether any involved vehicle was towed from the scene."
+  },
+  "incidentIntakeWasInjured": "Was Injured?",
+  "@incidentIntakeWasInjured": {
+    "description": "Checkbox or toggle asking if a specific student sustained injuries in the crash."
+  },
+  "dvirPreTripBusLabel": "Bus: {busNumber}",
+  "@dvirPreTripBusLabel": {
+    "description": "Bus identifier label displayed in the pre-trip verification header."
+  },
+  "dvirPreTripClose": "Close up",
+  "@dvirPreTripClose": {
+    "description": "Button label to close the defect photo preview modal."
+  },
+  "dvirPreTripDriverCommentsLabel": "Driver comments / notes (optional)",
+  "@dvirPreTripDriverCommentsLabel": {
+    "description": "Form field label for optional driver comments in the pre-trip verification form."
+  },
+  "dvirPreTripNoComments": "No comments added.",
+  "@dvirPreTripNoComments": {
+    "description": "Fallback text displayed in the review step when no driver comments were added."
+  },
+  "dvirPreTripReasonLabel": "Reason: {reason}",
+  "@dvirPreTripReasonLabel": {
+    "description": "Detail label displaying the reason why the bus is out of service."
+  },
+  "dvirPreTripRouteLabel": "Route: {routeName}",
+  "@dvirPreTripRouteLabel": {
+    "description": "Route name label displayed on the pre-trip verification screen."
+  },
+  "dvirPreTripSigCaptured": "Signature successfully captured.",
+  "@dvirPreTripSigCaptured": {
+    "description": "Confirmation message indicating the driver's signature was successfully captured for pre-trip."
+  },
+  "dvirPreTripSigMissing": "Signature is missing.",
+  "@dvirPreTripSigMissing": {
+    "description": "Validation error message indicating that a signature is required before proceeding."
+  },
+  "dvirPreTripSignDefectWarning": "Please sign to verify repair of previous defects.",
+  "@dvirPreTripSignDefectWarning": {
+    "description": "Validation warning urging the driver to sign and verify repair completion of prior defects."
+  },
+  "dvirPreTripStepSignOff": "Sign off",
+  "@dvirPreTripStepSignOff": {
+    "description": "Stepper label for the driver sign-off step in pre-trip verification."
+  },
+  "dvirPreTripStepSubmit": "Submit",
+  "@dvirPreTripStepSubmit": {
+    "description": "Stepper label for the final submission step in pre-trip verification."
+  },
+  "dvirPreTripStepVerify": "Verify",
+  "@dvirPreTripStepVerify": {
+    "description": "Stepper label for the prior defect verification step in pre-trip verification."
+  },
+  "dvirPreTripTapNext": "Please tap NEXT to proceed.",
+  "@dvirPreTripTapNext": {
+    "description": "Instruction prompt guiding the driver to tap next to proceed through the pre-trip steps."
+  },
+  "dvirPreTripVehicleOutOfService": "Vehicle is out of service",
+  "@dvirPreTripVehicleOutOfService": {
+    "description": "Status banner title indicating that the vehicle is out of service."
+  },
+  "dvirPreTripVehicleReady": "Vehicle is ready for service",
+  "@dvirPreTripVehicleReady": {
+    "description": "Status banner title indicating that the vehicle is verified and ready for service."
+  },
+  "dvirPreTripVerifiedRepairStatus": "Verified Repair Status:",
+  "@dvirPreTripVerifiedRepairStatus": {
+    "description": "Section header for the verified repair checklist in pre-trip inspection."
+  },
+  "dvirPreTripVerifyCheckWarning": "Please verify that all reported defects have been repaired by checking the box next to each defect.",
+  "@dvirPreTripVerifyCheckWarning": {
+    "description": "Validation warning requesting the driver to check off each repaired defect item to proceed."
+  },
+  "dvirPreTripYourComments": "Your comments:",
+  "@dvirPreTripYourComments": {
+    "description": "Field label displaying the driver's added comments on the pre-trip summary card."
+  },
+  "countryPickerNoCountries": "No countries found",
+  "@countryPickerNoCountries": {
+    "description": "Empty state message displayed in the country picker when no countries match the search."
+  },
+  "countryPickerSearchHint": "Search by country name, code, or dial code...",
+  "@countryPickerSearchHint": {
+    "description": "Placeholder text in the country picker search field for filtering countries."
+  },
+  "countryPickerTitle": "Select country",
+  "@countryPickerTitle": {
+    "description": "Title of the bottom sheet for selecting a country phone code."
+  },
+  "mapDefaultStop": "Stop",
+  "@mapDefaultStop": {
+    "description": "Default fallback label for an unnamed route stop on the live tracking map."
+  },
+  "mapEndLocation": "End location",
+  "@mapEndLocation": {
+    "description": "Marker label or indicator marking the route's final destination on the tracking map."
+  },
+  "mapStartLocation": "Start location",
+  "@mapStartLocation": {
+    "description": "Marker label or indicator marking the route's initial starting location on the tracking map."
+  },
+  "stopsNoChangesToUndo": "No changes available to undo.",
+  "@stopsNoChangesToUndo": {
+    "description": "Snackbar message indicating that there are no student actions available to undo."
+  },
+  "stopsNoStopsAvailable": "No stops available.",
+  "@stopsNoStopsAvailable": {
+    "description": "Empty state message displayed when no stops are configured for the route."
+  }
 }

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 abstract final class Constants{
 
   static const String APP_NAME = 'SD Tracker';
-  static const String BASE_URL = 'https://staging.schooldiary.me/Drill/api/';
+  static const String BASE_URL = 'https://staging.schooldiary.me/DrillTemp/api/';
   static const String APPLICATION_ID = 'com.ufony.SDTracker';
 
   static const String AUTHORIZATION_HEADER = 'Authorization';

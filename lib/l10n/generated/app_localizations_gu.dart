@@ -7,953 +7,1452 @@ class AppLocalizationsGu extends AppLocalizations {
   AppLocalizationsGu([String locale = 'gu']) : super(locale);
 
   @override
-  String get appTitleSchoolDiary => 'SD Tracker';
+  String get appInfoBuild => 'બિલ્ડ નંબર';
 
   @override
-  String get genericLoading => 'લોડ થઈ રહ્યું છે, કૃપા કરી રાહ જુઓ';
+  String get appInfoDevice => 'ઉપકરણ મોડેલ';
 
   @override
-  String get genericError => 'માફ કરશો, અમારા સર્વર પર એક ભૂલ આવી. કૃપા કરીને ફરી પ્રયાસ કરો.';
+  String get appInfoOS => 'OS સંસ્કરણ';
+
+  @override
+  String get appInfoPackage => 'પેકેજ';
+
+  @override
+  String get appInfoTitle => 'એપ્લિકેશન માહિતી';
+
+  @override
+  String get appInfoVersion => 'એપ સંસ્કરણ';
+
+  @override
+  String get appTitleSchoolDiary => 'SD ટ્રેકર';
+
+  @override
+  String get childrenActionGuardians => 'વાલીઓ';
+
+  @override
+  String childrenGuardiansFor(Object name) {
+    return '$name માટે અધિકૃત વાલીઓ';
+  }
+
+  @override
+  String get childrenNoGuardians => 'આ બાળક માટે ફાઇલ પર કોઈ અધિકૃત વાલીઓ નથી.';
+
+  @override
+  String get childrenStatusDropped => 'ડ્રોપ કર્યા';
+
+  @override
+  String get childrenStatusPending => 'બાકી';
+
+  @override
+  String get childrenStatusPicked => 'પિકઅપ કર્યા';
+
+  @override
+  String childrenTitle(Object routeName) {
+    return 'બાળકો - $routeName';
+  }
+
+  @override
+  String drillChecklistAbsentTitle(Object count) {
+    return 'ગેરહાજર / બસમાં નથી ($count)';
+  }
+
+  @override
+  String drillChecklistBus(Object busNumber) {
+    return 'બસ: $busNumber';
+  }
+
+  @override
+  String get drillChecklistEvacuated => 'બહાર કાઢ્યા';
+
+  @override
+  String drillChecklistEvacuatedProgress(Object evacuatedCount, Object totalCount) {
+    return 'બહાર કાઢ્યા: $evacuatedCount/$totalCount';
+  }
+
+  @override
+  String get drillChecklistNoAbsentStudents => 'કોઈ વિદ્યાર્થી ગેરહાજર નથી.';
+
+  @override
+  String get drillChecklistNoStudentsOnBus => 'બસમાં કોઈ વિદ્યાર્થી નોંધાયેલ નથી.';
+
+  @override
+  String get drillChecklistNotOnBus => 'બસમાં નથી';
+
+  @override
+  String get drillChecklistOnBusNotEvacuated => 'બસમાં છે - બહાર કાઢ્યા નથી';
+
+  @override
+  String drillChecklistOnBusTitle(Object count) {
+    return 'બસમાં ($count)';
+  }
+
+  @override
+  String get drillChecklistProceed => 'પુરાવા કેપ્ચર કરવા આગળ વધો';
+
+  @override
+  String drillChecklistRouteLive(Object routeName) {
+    return 'રૂટ (લાઇવ): $routeName';
+  }
+
+  @override
+  String get drillChecklistTitle => 'ખાલી કરાવવાની કવાયત ચેકલિસ્ટ';
+
+  @override
+  String drillChecklistUnaccountedWarning(Object count) {
+    return '$count અજાણ્યા વિદ્યાર્થી(ઓ) બાકી છે!';
+  }
+
+  @override
+  String get drillEvidenceConfirmMessage => 'શું તમે ખરેખર આ ડ્રિલ લોગ સબમિટ કરવા માંગો છો? આ ક્રિયાને પૂર્વવત્ કરી શકાતી નથી.';
+
+  @override
+  String get drillEvidenceConfirmSubmission => 'ડ્રિલ સબમિશનની પુષ્ટિ કરો';
+
+  @override
+  String get drillEvidenceDriverNotesHint => 'ડ્રિલનું અમલીકરણ, વિદ્યાર્થીનું વર્તન, બહાર નીકળવાના રસ્તાઓ અને જોવા મળેલા કોઈપણ અપવાદોનું વર્ણન કરો...';
+
+  @override
+  String get drillEvidenceDriverNotesLabel => 'ડ્રાઈવર નોંધો (ઓછામાં ઓછા 10 અક્ષરો):';
+
+  @override
+  String get drillEvidenceFailed => 'સબમિશન નિષ્ફળ ગયું';
+
+  @override
+  String get drillEvidenceMandatoryWarning => 'ડ્રિલ સબમિટ કરવા માટે ઓછામાં ઓછો 1 ફોટો અથવા વીડિયો પુરાવો ફરજિયાત છે.';
+
+  @override
+  String get drillEvidenceRecordVideo => 'વીડિયો રેકોર્ડ કરો';
+
+  @override
+  String get drillEvidenceRetrySubmission => 'ફરીથી સબમિટ કરો';
+
+  @override
+  String get drillEvidenceReturnToDashboard => 'ડેશબોર્ડ પર પાછા ફરો';
+
+  @override
+  String get drillEvidenceSubmitButton => 'ડ્રિલ લોગ સબમિટ કરો';
+
+  @override
+  String get drillEvidenceSubmitting => 'ડ્રિલ લોગ સબમિટ થઈ રહ્યો છે...';
+
+  @override
+  String get drillEvidenceSuccess => 'સબમિશન સફળ!';
+
+  @override
+  String get drillEvidenceSuccessMessage => 'ખાલી કરાવવાની કવાયત લોગ સફળતાપૂર્વક અપલોડ કરવામાં આવ્યો છે અને મંજૂરી માટે બાકી છે.';
+
+  @override
+  String get drillEvidenceTakePhoto => 'ફોટો લો';
+
+  @override
+  String get drillEvidenceTitle => 'ફરજિયાત ડ્રિલ પુરાવા';
+
+  @override
+  String get drillEvidenceUploading => 'પુરાવા અને ચેકલિસ્ટ ડેટા અપલોડ થઈ રહ્યો છે';
+
+  @override
+  String drillRosterBus(Object busNumber) {
+    return 'બસ: $busNumber';
+  }
+
+  @override
+  String drillRosterDrillType(Object drillType) {
+    return 'ડ્રિલ: $drillType';
+  }
+
+  @override
+  String get drillRosterMarkAttendance => 'હાજરી પૂરો';
+
+  @override
+  String get drillRosterNoStudents => 'આ રૂટ પર કોઈ વિદ્યાર્થી નોંધાયેલ નથી.';
+
+  @override
+  String drillRosterPresentCount(Object presentCount, Object totalCount) {
+    return 'હાજર: $presentCount / $totalCount';
+  }
+
+  @override
+  String get drillRosterProceed => 'ડ્રિલ ચેકલિસ્ટ પર આગળ વધો';
+
+  @override
+  String drillRosterRoute(Object routeName) {
+    return 'રૂટ: $routeName';
+  }
+
+  @override
+  String drillRosterSeat(Object seatNumber) {
+    return 'સીટ: $seatNumber';
+  }
+
+  @override
+  String get drillRosterSelectAll => 'બધા પસંદ કરો';
+
+  @override
+  String get drillSummaryAdminNotesTitle => 'એડમિન નોંધો';
+
+  @override
+  String drillSummaryApprovedAt(Object date) {
+    return 'મંજૂર કરેલ સમય: $date';
+  }
+
+  @override
+  String get drillSummaryApprovedAtLabel => 'મંજૂર કરેલ સમય';
+
+  @override
+  String get drillSummaryBackToDrills => 'ડ્રિલ્સ પર પાછા જાઓ';
+
+  @override
+  String get drillSummaryBusNumber => 'બસ નંબર';
+
+  @override
+  String drillSummaryConductedBy(Object name) {
+    return 'દ્વારા આયોજિત: $name';
+  }
+
+  @override
+  String get drillSummaryDetailsTitle => 'ડ્રિલ વિગતો';
+
+  @override
+  String get drillSummaryDriverNotesTitle => 'ડ્રાઈવર નોંધો';
+
+  @override
+  String get drillSummaryDuration => 'સમયગાળો';
+
+  @override
+  String drillSummaryDurationValue(Object minutes, Object seconds) {
+    return '$minutes મિનિટ $seconds સેકન્ડ';
+  }
+
+  @override
+  String get drillSummaryEndTime => 'સમાપ્તિ સમય';
+
+  @override
+  String drillSummaryEvacuatedCount(Object evacuatedCount, Object totalCount) {
+    return 'બહાર કાઢ્યા: $evacuatedCount/$totalCount';
+  }
+
+  @override
+  String drillSummaryEvacuatedTime(Object time) {
+    return 'બહાર કાઢ્યા $time';
+  }
+
+  @override
+  String get drillSummaryEvidenceTitle => 'પુરાવા મીડિયા જોડાણો';
+
+  @override
+  String get drillSummaryGps => 'GPS કોઓર્ડિનેટ્સ';
+
+  @override
+  String drillSummaryGpsValue(Object lat, Object lng) {
+    return 'અક્ષાંશ: $lat, રેખાંશ: $lng';
+  }
+
+  @override
+  String drillSummaryLoadFailed(Object error, Object id) {
+    return 'ID #$id માટે ડ્રિલ સારાંશ લોડ કરવામાં નિષ્ફળ.\n$error';
+  }
+
+  @override
+  String get drillSummaryNoData => 'કોઈ ડ્રિલ ડેટા મળ્યો નથી.';
+
+  @override
+  String get drillSummaryNotOnBus => 'બસમાં નથી';
+
+  @override
+  String get drillSummaryOnBusNotEvacuated => 'બસમાં છે - બહાર કાઢ્યા નથી';
+
+  @override
+  String get drillSummaryPhotoEvidence => 'ફોટો પુરાવા';
+
+  @override
+  String get drillSummaryRouteId => 'રૂટ ID';
+
+  @override
+  String drillSummarySeat(Object seatNumber) {
+    return 'સીટ: $seatNumber';
+  }
+
+  @override
+  String get drillSummaryStartTime => 'શરૂઆતનો સમય';
+
+  @override
+  String get drillSummaryStatus => 'સ્થિતિ';
+
+  @override
+  String get drillSummaryStudentLogTitle => 'વિદ્યાર્થી ખાલી કરાવવાનો લોગ';
+
+  @override
+  String drillSummaryTitle(Object id) {
+    return 'ડ્રિલ સારાંશ (#$id)';
+  }
+
+  @override
+  String get drillSummaryType => 'ડ્રિલનો પ્રકાર';
+
+  @override
+  String get drillSummaryVideoEvidence => 'વીડિયો પુરાવા';
+
+  @override
+  String drillTypeBus(Object busNumber) {
+    return 'બસ $busNumber';
+  }
+
+  @override
+  String get drillTypeClassification => 'ડ્રિલ વર્ગીકરણ પસંદ કરો:';
+
+  @override
+  String get drillTypeCustomHint => 'કસ્ટમ ખાલી કરાવવાની કવાયત પ્રકાર દાખલ કરો...';
+
+  @override
+  String get drillTypeInvalidState => 'અમાન્ય વાહન અથવા રૂટની સ્થિતિ.';
+
+  @override
+  String get drillTypeNameBusFire => 'બસમાં આગ';
+
+  @override
+  String get drillTypeNameDangerZone => 'ડેન્જર ઝોન';
+
+  @override
+  String get drillTypeNameDriverIncapacitation => 'ડ્રાઈવરની અસમર્થતા';
+
+  @override
+  String get drillTypeNameEquipmentOrientation => 'સાધનોની ઓળખ';
+
+  @override
+  String get drillTypeNameFrontDoor => 'આગળનો દરવાજો';
+
+  @override
+  String get drillTypeNameOthers => 'અન્ય';
+
+  @override
+  String get drillTypeNameRearDoor => 'પાછળનો દરવાજો';
+
+  @override
+  String get drillTypeNameSideOrRoof => 'બાજુ અથવા છત';
+
+  @override
+  String get drillTypeNameSplit => 'વિભાજીત';
+
+  @override
+  String get drillTypeNoRouteSelected => 'કોઈ રૂટ પસંદ કર્યો નથી';
+
+  @override
+  String get drillTypePreparation => 'ડ્રિલની તૈયારી';
+
+  @override
+  String get drillTypeProceed => 'વિદ્યાર્થી રોસ્ટર પર આગળ વધો';
+
+  @override
+  String drillTypeRoute(Object routeName) {
+    return 'રૂટ: $routeName';
+  }
+
+  @override
+  String get drillTypeSelectRoute => 'રૂટ પસંદ કરો:';
+
+  @override
+  String get drillTypeSpecifyCustom => 'ડ્રિલ પ્રકારનું વર્ણન સ્પષ્ટ કરો:';
+
+  @override
+  String get drillTypeTitle => 'ડ્રિલ પ્રકાર પસંદ કરો';
+
+  @override
+  String get drillTypeWarning => 'અમલીકરણ શરૂ કરતા પહેલા વાહન સુરક્ષિત રીતે પાર્ક કરેલું છે તેની ખાતરી કરો.';
+
+  @override
+  String get drillsAssignedVehicle => 'સોંપેલ વાહન';
+
+  @override
+  String get drillsChecking => 'તપાસી રહ્યું છે...';
+
+  @override
+  String drillsHeader(Object id, Object type) {
+    return 'ડ્રિલ #$id - $type';
+  }
+
+  @override
+  String get drillsNoBusAssigned => 'કોઈ બસ સોંપેલ નથી';
+
+  @override
+  String drillsNoDrillsRecorded(Object busNumber) {
+    return 'બસ $busNumber માટે કોઈ ડ્રિલ નોંધવામાં આવી નથી';
+  }
+
+  @override
+  String get drillsNoRoutesAvailable => 'ડ્રિલ શરૂ કરવા માટે કોઈ રૂટ ઉપલબ્ધ નથી.';
+
+  @override
+  String get drillsShowSummary => 'સારાંશ બતાવો';
+
+  @override
+  String get drillsStartDrill => 'ડ્રિલ શરૂ કરો';
+
+  @override
+  String drillsSubtitle(Object date, Object status) {
+    return 'આયોજિત: $date\nસ્થિતિ: $status';
+  }
+
+  @override
+  String get drillsTitle => 'ખાલી કરાવવાની કવાયતો';
+
+  @override
+  String get drillsVehicleOutOfService => 'વાહન સેવા બહાર છે';
+
+  @override
+  String get drillsVehicleOutOfServiceMessage => 'આ વાહન હાલમાં સેવા બહાર છે અને ડ્રિલ માટે તેનો ઉપયોગ કરી શકાતો નથી.';
+
+  @override
+  String get driverDetailsCdlClassLabel => 'CDL ક્લાસ';
+
+  @override
+  String get driverDetailsDrivingLicenseLabel => 'ડ્રાઇવિંગ લાઇસન્સ';
+
+  @override
+  String driverDetailsDrivingLicenseName(Object name) {
+    return 'નામ: $name';
+  }
+
+  @override
+  String driverDetailsDrivingLicenseNo(Object licenseNo) {
+    return 'લાઇસન્સ: $licenseNo';
+  }
+
+  @override
+  String get driverDetailsEndorsementPassenger => 'મુસાફર';
+
+  @override
+  String get driverDetailsEndorsementSchoolBus => 'સ્કૂલ બસ';
+
+  @override
+  String get driverDetailsEndorsementsTitle => 'પ્રાપ્ત સમર્થન';
+
+  @override
+  String get driverDetailsExpiryDateLabel => 'સમાપ્તિ તારીખ';
+
+  @override
+  String get driverDetailsHolderSignature => 'ધારકની સહી';
+
+  @override
+  String driverDetailsId(Object driverId) {
+    return 'ID: $driverId';
+  }
+
+  @override
+  String get driverDetailsIssueDateLabel => 'ઇશ્યૂ તારીખ';
+
+  @override
+  String get driverDetailsLicenseDocTitle => 'લાયસન્સ દસ્તાવેજ';
+
+  @override
+  String get driverDetailsLicenseNoLabel => 'લાયસન્સ નં';
+
+  @override
+  String get driverDetailsLicenseTitle => 'લાયસન્સ વિગતો';
+
+  @override
+  String get driverDetailsLicenseTypeLabel => 'લાયસન્સ પ્રકાર';
+
+  @override
+  String get driverDetailsOfficialSeal => 'સત્તાવાર મહોર';
+
+  @override
+  String driverDetailsPreviewClass(Object cdlClass) {
+    return 'ક્લાસ: $cdlClass';
+  }
+
+  @override
+  String driverDetailsPreviewDob(Object dob) {
+    return 'જન્મતારીખ: $dob';
+  }
+
+  @override
+  String driverDetailsPreviewEndorse(Object endorsements) {
+    return 'સમર્થન: $endorsements';
+  }
+
+  @override
+  String driverDetailsPreviewExp(Object expiryDate) {
+    return 'સમાપ્તિ: $expiryDate';
+  }
+
+  @override
+  String driverDetailsPreviewLicenseNo(Object licenseNo) {
+    return 'લાયસન્સ નં: $licenseNo';
+  }
+
+  @override
+  String driverDetailsPreviewName(Object name) {
+    return 'નામ: $name';
+  }
+
+  @override
+  String get driverDetailsTapToView => 'DL દસ્તાવેજ જોવા માટે ટેપ કરો';
+
+  @override
+  String get driverDetailsTitle => 'ડ્રાઈવરની વિગતો';
+
+  @override
+  String get dvirCategoryBusSafetySystems => 'બસ-વિશિષ્ટ સુરક્ષા સિસ્ટમ્સ';
+
+  @override
+  String get dvirCategoryCouplingDevices => 'કપ્લિંગ સાધનો';
+
+  @override
+  String get dvirCategoryEmergencyEquipment => 'ઇમરજન્સી સાધનો';
+
+  @override
+  String get dvirCategoryHorn => 'હોર્ન';
+
+  @override
+  String get dvirCategoryLightingReflectors => 'લાઇટિંગ સાધનો અને રિફ્લેક્ટર';
+
+  @override
+  String get dvirCategoryMirrors => 'રીઅર-વિઝન અરીસાઓ';
+
+  @override
+  String get dvirCategoryParkingBrake => 'પાર્કિંગ બ્રેક';
+
+  @override
+  String get dvirCategoryPassengerSeating => 'પેસેન્જર બેઠક અને નિયંત્રણો';
+
+  @override
+  String get dvirCategoryServiceBrakes => 'સર્વિસ બ્રેક્સ';
+
+  @override
+  String get dvirCategorySteeringMechanism => 'સ્ટીયરિંગ મિકેનિઝમ';
+
+  @override
+  String get dvirCategoryTires => 'ટાયર';
+
+  @override
+  String get dvirCategoryWheelsRims => 'વ્હીલ્સ અને રિમ્સ્';
+
+  @override
+  String get dvirCategoryWipers => 'વિન્ડશિલ્ડ વાઇપર્સ';
+
+  @override
+  String get dvirPostTripCapturePhoto => 'ખામીનો ફોટો કેપ્ચર કરો';
+
+  @override
+  String get dvirPostTripComplianceTitle => 'પાલન પ્રમાણપત્ર';
+
+  @override
+  String get dvirPostTripDefectButton => 'ખામી';
+
+  @override
+  String get dvirPostTripDefectWithoutPhotoTitle => 'ફોટો વિના ખામીની જાણ કરવી';
+
+  @override
+  String dvirPostTripDefectWithoutPhotoWarning(Object zones) {
+    return 'ચેતવણી: તમે ફોટો જોડ્યા વિના સેફ્ટી ઝોન ($zones) પર ખામીની જાણ કરી રહ્યાં છો. શું તમને ખાતરી છે કે તમે કોઈપણ રીતે સબમિટ કરવા માંગો છો?';
+  }
+
+  @override
+  String dvirPostTripInspectionTitle(Object busNumber) {
+    return 'નિરીક્ષણ: બસ $busNumber';
+  }
+
+  @override
+  String get dvirPostTripNotesDefectHint => 'સુરક્ષા સમસ્યાની વિગતો દાખલ કરો...';
+
+  @override
+  String get dvirPostTripNotesLabel => 'નોંધો (ખામી પર ફરજિયાત) અને ફોટો';
+
+  @override
+  String get dvirPostTripNotesPassedHint => 'સુરક્ષા સમસ્યાની વિગતો દાખલ કરવા માટે ખામી પસંદ કરો...';
+
+  @override
+  String get dvirPostTripOdometerHeader => 'વર્તમાન ઓડોમીટર રીડિંગ';
+
+  @override
+  String get dvirPostTripOdometerInstructions => 'બસ ઇન્સ્ટ્રુમેન્ટ પેનલ પર બતાવ્યા પ્રમાણે બરાબર માઇલેજ રીડિંગ દાખલ કરો:';
+
+  @override
+  String get dvirPostTripOdometerLabel => 'ઓડોમીટર (માઇલ)';
+
+  @override
+  String get dvirPostTripOdometerTitle => 'વાહન રન ટાઈમ મેટ્રિક';
+
+  @override
+  String get dvirPostTripOdometerWarning => 'આગળ વધતા પહેલા કૃપા કરીને ઓડોમીટર રીડિંગ દાખલ કરો.';
+
+  @override
+  String get dvirPostTripPassButton => 'પાસ';
+
+  @override
+  String get dvirPostTripPhotoAttached => 'ફોટો સફળતાપૂર્વક જોડાયેલ છે.';
+
+  @override
+  String get dvirPostTripProgressLabel => 'નિરીક્ષણ પ્રગતિ';
+
+  @override
+  String get dvirPostTripSignatureCaptured => 'સહી કેપ્ચર કરી.';
+
+  @override
+  String get dvirPostTripSignatureCert => 'હું પ્રમાણિત કરું છું કે આ વાહનનું વોકઅરાઉન્ડ નિરીક્ષણ રિપોર્ટ FMCSA 396.11 નિયમોના પાલનમાં પૂર્ણ કરવામાં આવ્યો છે.';
+
+  @override
+  String get dvirPostTripSignatureTitle => 'ડ્રાઈવરની સહી ચકાસણી';
+
+  @override
+  String get dvirPostTripSubmitButton => 'નિરીક્ષણ સબમિટ કરો';
+
+  @override
+  String get dvirPostTripSubmitSuccess => 'eDVIR સફળતાપૂર્વક સબમિટ થયો.';
+
+  @override
+  String dvirPostTripZoneHeader(Object current, Object total) {
+    return 'ઝોન $current / $total';
+  }
+
+  @override
+  String dvirPostTripZonesProgress(Object current, Object total) {
+    return '$current / $total ઝોન';
+  }
+
+  @override
+  String get dvirPreTripAcknowledgmentText => 'હું સ્વીકારું છું કે મેં છેલ્લો સબમિટ કરેલ ખામી રિપોર્ટ તપાસ્યો છે અને સમારકામ (જો કોઈ હોય તો) ચકાસ્યું છે અને જણાવું છું કે બસ સંચાલન માટે સુરક્ષિત છે.';
+
+  @override
+  String get dvirPreTripActiveMessage => 'આ વાહન સક્રિય છે અને તેમાં કોઈ ખામી નથી. તે ચકાસાયેલ છે અને સંચાલન માટે સુરક્ષિત છે.';
+
+  @override
+  String dvirPreTripActiveRoute(Object routeName) {
+    return 'સક્રિય રૂટ: $routeName';
+  }
+
+  @override
+  String get dvirPreTripAttentionRequiredTitle => 'ધ્યાન જરૂરી: અગાઉના દિવસની ખામીઓ નોંધવામાં આવી';
+
+  @override
+  String dvirPreTripBusNumber(Object busNumber) {
+    return 'બસ નંબર: $busNumber';
+  }
+
+  @override
+  String get dvirPreTripDispatchCheckTitle => 'વાહન ડિસ્પેચ ચેક';
+
+  @override
+  String dvirPreTripFailedToSign(Object error) {
+    return 'સહી કરવામાં નિષ્ફળ: $error';
+  }
+
+  @override
+  String get dvirPreTripNoPriorDefects => 'અગાઉની કોઈ ખામીઓ નોંધવામાં આવી નથી';
+
+  @override
+  String get dvirPreTripNoPriorDefectsMessage => 'અગાઉની પોસ્ટ-ટ્રિપ શિફ્ટ નિરીક્ષણમાં આ વાહન સ્વચ્છ હોવાનું નોંધવામાં આવ્યું હતું.';
+
+  @override
+  String get dvirPreTripNoRepairsNeeded => 'સલામત કામગીરી માટે કોઈ સમારકામની જરૂર નથી.';
+
+  @override
+  String get dvirPreTripOutOfServiceMessage => 'આ વાહન સમારકામ/જાળવણી માટે સેવા બહાર છે. મોકલતા પહેલા દુકાનના કર્મચારીઓ દ્વારા સુરક્ષા સમસ્યાઓનું નિરાકરણ લાવવું આવશ્યક છે.';
+
+  @override
+  String get dvirPreTripOutofServiceButton => 'વાહન સેવા બહાર છે';
+
+  @override
+  String dvirPreTripReason(Object reason) {
+    return 'કારણ: $reason';
+  }
+
+  @override
+  String dvirPreTripRepairedDefect(Object description) {
+    return '$description (રિપેર કરેલ)';
+  }
+
+  @override
+  String get dvirPreTripReportNewDefectsButton => 'નવી ખામીઓની જાણ કરો';
+
+  @override
+  String get dvirPreTripReportNewDefectsDisabled => 'સમારકામ દરમિયાન નવી ખામીઓની જાણ કરવાનું અક્ષમ છે.';
+
+  @override
+  String dvirPreTripResolutionStatus(Object status) {
+    return 'સ્થિતિ: $status';
+  }
+
+  @override
+  String get dvirPreTripResolutionTitle => 'ટ્રાન્સપોર્ટ સબ-એડમિન રિઝોલ્યુશન';
+
+  @override
+  String get dvirPreTripReturnToHomeButton => 'હોમ પર પાછા ફરો';
+
+  @override
+  String get dvirPreTripSignOffTitle => 'વોકઅરાઉન્ડમાં આગળ વધવા માટે સાઇન-ઓફ';
+
+  @override
+  String get dvirPreTripSignedSuccess => 'ચકાસણી પર સફળતાપૂર્વક સહી કરવામાં આવી. પ્રી-ટ્રિપ અનલોક થઈ.';
+
+  @override
+  String get dvirPreTripSubmitVerificationButton => 'ચકાસણી સબમિટ કરો';
+
+  @override
+  String get dvirPreTripTitle => 'પ્રી-ટ્રિપ ચકાસણી';
+
+  @override
+  String dvirPreTripVehicleStatus(Object status) {
+    return 'વાહનની સ્થિતિ: $status';
+  }
+
+  @override
+  String get dvirSigDrawTitle => 'સહી કરો';
+
+  @override
+  String get dvirSigPreviewLabel => 'કેપ્ચર કરેલ સહીનું પૂર્વાવલોકન:';
+
+  @override
+  String get dvirSigRedraw => 'ફરીથી દોરો';
+
+  @override
+  String get dvirSigSave => 'સહી સાચવો';
+
+  @override
+  String get dvirSigTapToDraw => 'સહી કરવા માટે ટેપ કરો (ફરજિયાત)';
+
+  @override
+  String get dvirSigWatermark => 'ઊભી સહી કરો (નીચેથી ઉપર)';
+
+  @override
+  String get forgotPasswordCancel => 'રદ કરો';
+
+  @override
+  String get forgotPasswordEmailLabel => 'ઇમેઇલ';
+
+  @override
+  String get forgotPasswordInvalidEmail => 'કૃપા કરીને માન્ય ઇમેઇલ દાખલ કરો';
+
+  @override
+  String get forgotPasswordSend => 'મોકલો';
+
+  @override
+  String get forgotPasswordSuccess => 'જો તે ઇમેઇલ અસ્તિત્વમાં છે, તો રીસેટ લિંક મોકલવામાં આવી છે.';
+
+  @override
+  String get genericBack => 'પાછળ';
+
+  @override
+  String get genericCancel => 'રદ કરો';
+
+  @override
+  String get genericClear => 'સાફ કરો';
+
+  @override
+  String get genericClose => 'બંધ કરો';
+
+  @override
+  String get genericConfirm => 'પુષ્ટિ કરો';
+
+  @override
+  String get genericEdit => 'સંપાદિત કરો';
+
+  @override
+  String get genericError => 'કંઈક ખોટું થયું છે';
+
+  @override
+  String get genericLoading => 'લોડ થઈ રહ્યું છે...';
+
+  @override
+  String get genericNext => 'આગળ';
+
+  @override
+  String get genericOk => 'બરાબર';
 
   @override
   String get genericRetry => 'ફરી પ્રયાસ કરો';
 
   @override
-  String get genericSuccess => 'Success';
+  String get genericSuccess => 'સફળ';
 
   @override
-  String get genericOk => 'Ok';
-
-  @override
-  String get loginEmailOrPhoneLabel => 'Email or phone number';
-
-  @override
-  String get loginPasswordLabel => 'Password';
-
-  @override
-  String get loginButton => 'Login';
-
-  @override
-  String get loginForgotPassword => 'Forgot password?';
-
-  @override
-  String get loginErrorEnterUsername => 'Please enter username';
-
-  @override
-  String get loginErrorEnterPassword => 'Please enter password';
-
-  @override
-  String get loginErrorInvalidEmailOrPhone => 'Please enter a valid email or phone number';
-
-  @override
-  String get loginErrorFailed => 'Login failed. Please try again.';
-
-  @override
-  String get forgotPasswordEmailLabel => 'Email';
-
-  @override
-  String get forgotPasswordSend => 'Send';
-
-  @override
-  String get forgotPasswordCancel => 'Cancel';
-
-  @override
-  String get forgotPasswordSuccess => 'If that email exists, a reset link has been sent.';
-
-  @override
-  String get forgotPasswordInvalidEmail => 'Please enter a valid email';
-
-  @override
-  String get homeTitle => 'Home';
-
-  @override
-  String homeHi(String name) {
-    return 'Hi, $name';
+  String homeBusLabel(Object busId) {
+    return 'બસ: $busId';
   }
 
   @override
-  String get homeSearchHint => 'Search routes';
+  String get homeDispatchBlocked => 'ડિસ્પેચ અવરોધિત';
 
   @override
-  String get homeNoRoutes => 'No routes available';
+  String get homeDispatchBlockedTitle => 'ડિસ્પેચ અવરોધિત';
 
   @override
-  String get homeStart => 'Start';
+  String get homeErrorNoRoutesPreTrip => 'પ્રી-ટ્રિપ કરવા માટે કોઈ રૂટ ઉપલબ્ધ નથી.';
 
   @override
-  String get homeLogout => 'Logout';
-
-  @override
-  String get homeMenuLanguage => 'Language';
-
-  @override
-  String get homeMenuAppInfo => 'App Info';
-
-  @override
-  String get languageTitle => 'Language';
-
-  @override
-  String get appInfoTitle => 'App Info';
-
-  @override
-  String get appInfoVersion => 'App Version';
-
-  @override
-  String get appInfoBuild => 'Build Number';
-
-  @override
-  String get appInfoPackage => 'Package';
-
-  @override
-  String get appInfoDevice => 'Device Model';
-
-  @override
-  String get appInfoOS => 'OS Version';
-
-  @override
-  String get tripConfirmTitle => 'Tracker';
-
-  @override
-  String get tripConfirmCancel => 'Cancel';
-
-  @override
-  String get tripConfirmOk => 'OK';
-
-  @override
-  String get tripErrorLocationRequired => 'Location permission is required to start a trip.';
-
-  @override
-  String get stopsUndoTooltip => 'Undo pick/drop';
-
-  @override
-  String stopsSubmitCount(int count) {
-    return 'Submit ($count)';
+  String homeFailedToStartTrip(Object error) {
+    return 'સર્વર પર ટ્રિપ શરૂ કરવામાં નિષ્ફળ: $error';
   }
 
   @override
-  String stopsUndoCount(int count) {
-    return 'Undo ($count)';
+  String homeHi(Object name) {
+    return 'નમસ્તે, $name';
   }
 
   @override
-  String get stopsCancelledSuccess => 'Cancelled successfully';
+  String get homeLogout => 'લૉગ આઉટ';
 
   @override
-  String get stopsSubmittedSuccess => 'Submitted successfully';
+  String get homeMenuAppInfo => 'એપ માહિતી';
 
   @override
-  String get stopsGenericError => 'Something went wrong. Please try again.';
+  String get homeMenuDrill => 'ડ્રિલ';
 
   @override
-  String get stopsDefaultLabel => 'Stop';
+  String get homeMenuDriverDetails => 'ડ્રાઈવર વિગતો';
 
   @override
-  String stopsSummary(int selected, int done, int total, String status) {
-    return '$selected selected · $done/$total $status';
+  String get homeMenuLanguage => 'ભાષા';
+
+  @override
+  String get homeMenuPreTrip => 'પ્રી-ટ્રિપ નિરીક્ષણ';
+
+  @override
+  String get homeNoRoutes => 'કોઈ રૂટ ઉપલબ્ધ નથી';
+
+  @override
+  String get homeReviewVerifyPreTrip => 'પ્રી-ટ્રિપની સમીક્ષા અને ચકાસણી કરો';
+
+  @override
+  String get homeSearchHint => 'રૂટ્સ શોધો';
+
+  @override
+  String get homeStart => 'શરૂ કરો';
+
+  @override
+  String get homeTitle => 'હોમ';
+
+  @override
+  String get homeVehicleOutOfServiceDefault => 'વાહન હાલમાં સેવા બહાર છે.';
+
+  @override
+  String get homeVehicleReady => 'વાહન તૈયાર છે અને સલામત સંચાલન માટે ચકાસાયેલ છે.';
+
+  @override
+  String get languageTitle => 'ભાષા';
+
+  @override
+  String get loginButton => 'લૉગિન';
+
+  @override
+  String get loginEmailOrPhoneLabel => 'ઇમેઇલ અથવા ફોન નંબર';
+
+  @override
+  String get loginErrorEnterPassword => 'કૃપા કરીને પાસવર્ડ દાખલ કરો';
+
+  @override
+  String get loginErrorEnterUsername => 'કૃપા કરીને વપરાશકર્તા નામ દાખલ કરો';
+
+  @override
+  String get loginErrorFailed => 'લૉગિન નિષ્ફળ ગયું. કૃપા કરીને ફરી પ્રયાસ કરો.';
+
+  @override
+  String get loginErrorInvalidEmailOrPhone => 'કૃપા કરીને માન્ય ઇમેઇલ અથવા ફોન નંબર દાખલ કરો';
+
+  @override
+  String get loginForgotPassword => 'પાસવર્ડ ભૂલી ગયા છો?';
+
+  @override
+  String get loginPasswordLabel => 'પાસવર્ડ';
+
+  @override
+  String get mapChildrenTooltip => 'બાળકો અને વાલીઓ';
+
+  @override
+  String get mapConfirmMessage => 'શું તમે ખરેખર ટ્રિપ બંધ કરવા માંગો છો?';
+
+  @override
+  String get mapConfirmTitle => 'પુષ્ટિ કરો';
+
+  @override
+  String get mapCurrentPosition => 'વર્તમાન સ્થાન';
+
+  @override
+  String get mapNo => 'ના';
+
+  @override
+  String get mapReconnectMessage => 'સ્થાન અપડેટ વારંવાર નિષ્ફળ જાય છે, કૃપા કરીને તમારું ઇન્ટરનેટ તપાસો.';
+
+  @override
+  String get mapReconnectTitle => 'ટ્રેકર';
+
+  @override
+  String get mapStop => 'થોભો';
+
+  @override
+  String get mapStopping => 'થોભી રહ્યું છે...';
+
+  @override
+  String get mapStopsTooltip => 'સ્ટોપ્સ';
+
+  @override
+  String mapUpdatedAgo(Object seconds) {
+    return '$seconds સેકન્ડ પહેલાં અપડેટ કરેલ';
   }
 
   @override
-  String get stopsStatusDone => 'done';
+  String get mapWaitingGps => 'GPS ની રાહ જોઈ રહ્યું છે...';
 
   @override
-  String get stopsStatusComplete => 'complete';
+  String get mapYes => 'હા';
 
   @override
-  String get stopsTypePick => 'Pick';
+  String get splashDriverApp => 'ડ્રાઈવર એપ';
 
   @override
-  String get stopsTypeDrop => 'Drop';
+  String get stopsActionUndo => 'પૂર્વવત્ કરો';
 
   @override
-  String get stopsActionUndo => 'Undo';
+  String get stopsCancelledSuccess => 'સફળતાપૂર્વક રદ કર્યું';
 
   @override
-  String childrenTitle(String routeName) {
-    return 'Children — $routeName';
+  String get stopsDefaultLabel => 'સ્ટોપ';
+
+  @override
+  String get stopsGenericError => 'કંઈક ખોટું થયું છે. કૃપા કરીને ફરી પ્રયાસ કરો.';
+
+  @override
+  String get stopsStatusComplete => 'પૂર્ણ';
+
+  @override
+  String get stopsStatusDone => 'થઈ ગયું';
+
+  @override
+  String stopsSubmitCount(Object count) {
+    return 'સબમિટ કરો ($count)';
   }
 
   @override
-  String get childrenStatusPicked => 'Picked';
+  String get stopsSubmittedSuccess => 'સફળતાપૂર્વક સબમિટ કર્યું';
 
   @override
-  String get childrenStatusDropped => 'Dropped';
-
-  @override
-  String get childrenStatusPending => 'Pending';
-
-  @override
-  String get childrenActionGuardians => 'Guardians';
-
-  @override
-  String get childrenNoGuardians => 'No authorized guardians on file for this child.';
-
-  @override
-  String childrenGuardiansFor(String name) {
-    return 'Authorized guardians for $name';
+  String stopsSummary(Object done, Object selected, Object status, Object total) {
+    return '$selected પસંદ કરેલ · $done/$total $status';
   }
 
   @override
-  String get mapStopsTooltip => 'Stops';
+  String get stopsTypeDrop => 'ડ્રોપ';
 
   @override
-  String get mapChildrenTooltip => 'Children & guardians';
+  String get stopsTypePick => 'પિકઅપ';
 
   @override
-  String get mapWaitingGps => 'Waiting for GPS...';
-
-  @override
-  String mapUpdatedAgo(int seconds) {
-    return 'Updated ${seconds}s ago';
+  String stopsUndoCount(Object count) {
+    return 'પૂર્વવત્ કરો ($count)';
   }
 
   @override
-  String get mapConfirmTitle => 'Confirm';
+  String get stopsUndoTooltip => 'પિકઅપ/ડ્રોપ પૂર્વવત્ કરો';
 
   @override
-  String get mapConfirmMessage => 'Do you really want to close the trip?';
+  String get tripConfirmCancel => 'રદ કરો';
 
   @override
-  String get mapNo => 'No';
+  String get tripConfirmOk => 'બરાબર';
 
   @override
-  String get mapYes => 'Yes';
+  String get tripConfirmTitle => 'ટ્રેકર';
 
   @override
-  String get mapStopping => 'Stopping...';
+  String get tripErrorLocationRequired => 'ટ્રિપ શરૂ કરવા માટે સ્થાન પરવાનગી જરૂરી છે.';
 
   @override
-  String get mapStop => 'Stop';
+  String get homeMenuPostCrashReporting => 'અકસ્માત પછીનો રિપોર્ટ';
 
   @override
-  String get mapReconnectTitle => 'Tracker';
-
-  @override
-  String get mapReconnectMessage => 'Location update failing frequently, Please check your internet.';
-
-  @override
-  String get mapCurrentPosition => 'Current Position';
-
-  @override
-  String get splashDriverApp => 'Driver App';
-
-  @override
-  String get genericCancel => 'Cancel';
-
-  @override
-  String get genericConfirm => 'Confirm';
-
-  @override
-  String get genericEdit => 'Edit';
-
-  @override
-  String get genericClose => 'Close';
-
-  @override
-  String get genericBack => 'BACK';
-
-  @override
-  String get genericNext => 'NEXT';
-
-  @override
-  String get genericClear => 'CLEAR';
-
-  @override
-  String get drillsTitle => 'Evacuation Drills';
-
-  @override
-  String get drillsAssignedVehicle => 'Assigned Vehicle';
-
-  @override
-  String get drillsNoBusAssigned => 'No Bus Assigned';
-
-  @override
-  String get drillsChecking => 'Checking...';
-
-  @override
-  String get drillsStartDrill => 'Start Drill';
-
-  @override
-  String get drillsNoRoutesAvailable => 'No routes available to start a drill.';
-
-  @override
-  String get drillsVehicleOutOfService => 'Vehicle Out of Service';
-
-  @override
-  String get drillsVehicleOutOfServiceMessage => 'This vehicle is currently out of service and cannot be used for drills.';
-
-  @override
-  String drillsNoDrillsRecorded(String busNumber) {
-    return 'No drills recorded for bus $busNumber';
+  String homeVehicleReason(Object reason) {
+    return 'કારણ: $reason';
   }
 
   @override
-  String drillsHeader(String id, String type) {
-    return 'Drill #$id - $type';
+  String homeVehicleStatus(Object status) {
+    return 'સ્થિતિ: $status';
   }
 
   @override
-  String drillsSubtitle(String date, String status) {
-    return 'Conducted: $date\nStatus: $status';
+  String crashLocationPickerCoords(Object lat, Object lng) {
+    return 'અક્ષાંશ: $lat, રેખાંશ: $lng';
   }
 
   @override
-  String get drillsShowSummary => 'Show Summary';
+  String get crashLocationPickerSearchHint => 'સ્થાન શોધો (દા.ત. માર્કેટ સ્ટ્રીટ)';
 
   @override
-  String get drillRosterMarkAttendance => 'Mark Attendance';
+  String get crashLocationPickerTitle => 'નકશા પર સ્થાન પસંદ કરો';
 
   @override
-  String drillRosterRoute(String routeName) {
-    return 'Route: $routeName';
+  String get crashLocationPickerTooltip => 'સ્થાનની પુષ્ટિ કરો';
+
+  @override
+  String get incidentDashboardDescription => 'ઘટના વ્યવસ્થાપન સાથે આગળ વધવા માટે અથવા અગાઉના અહેવાલો જોવા માટે ક્રિયા પસંદ કરો.';
+
+  @override
+  String get incidentDashboardHeadline => 'અકસ્માત પછીની ઘટનાનો અહેવાલ';
+
+  @override
+  String get incidentDashboardLogNew => 'નવો અકસ્માત લોગ કરો';
+
+  @override
+  String get incidentDashboardLogNewSubtitle => 'નવો સ્ટેપ-બાય-સ્ટેપ ક્રેશ રિપોર્ટ શરૂ કરો';
+
+  @override
+  String get incidentDashboardTitle => 'અકસ્માત પછીની ઘટના';
+
+  @override
+  String get incidentDashboardViewHistory => 'ઇતિહાસ જુઓ';
+
+  @override
+  String get incidentDashboardViewHistorySubtitle => 'અગાઉના ક્રેશ અહેવાલો અને સ્થિતિ જુઓ';
+
+  @override
+  String get incidentDetailsAdminLetter => 'એડમિન લેટર';
+
+  @override
+  String get incidentDetailsAlcoholCountdown => 'DOT આલ્કોહોલ ટેસ્ટ કાઉન્ટડાઉન (2-કલાક મર્યાદા)';
+
+  @override
+  String get incidentDetailsBranchId => 'બ્રાન્ચ ID';
+
+  @override
+  String get incidentDetailsBusPlate => 'બસ લાઇસન્સ નંબર';
+
+  @override
+  String incidentDetailsCitationImpact(Object explanation) {
+    return 'ચલણની અસર: $explanation';
   }
 
   @override
-  String drillRosterBus(String busNumber) {
-    return 'Bus: $busNumber';
+  String get incidentDetailsCitationIssued => 'ડ્રાઈવરને ચલણ જારી કરાયું';
+
+  @override
+  String incidentDetailsCoordinates(Object lat, Object lng) {
+    return 'કોઓર્ડિનેટ્સ: અક્ષાંશ $lat, રેખાંશ $lng';
   }
 
   @override
-  String drillRosterDrillType(String drillType) {
-    return 'Drill: $drillType';
+  String incidentDetailsCopiedToClipboard(Object title) {
+    return '$title ક્લિપબોર્ડ પર કૉપિ કર્યું!';
   }
 
   @override
-  String drillRosterPresentCount(int presentCount, int totalCount) {
-    return 'Present: $presentCount / $totalCount';
+  String get incidentDetailsCopyToClipboard => 'ક્લિપબોર્ડ પર કૉપિ કરો';
+
+  @override
+  String get incidentDetailsCrashCitationInfo => 'અકસ્માત અને ચલણ માહિતી';
+
+  @override
+  String incidentDetailsDateTime(Object dateTime) {
+    return 'તારીખ અને સમય: $dateTime';
   }
 
   @override
-  String get drillRosterSelectAll => 'Select All';
+  String get incidentDetailsDoeReport => 'DOE રિપોર્ટ';
 
   @override
-  String get drillRosterNoStudents => 'No students registered on this route.';
+  String get incidentDetailsDoeReportTitle => 'રાજ્ય DOE રિપોર્ટ (વૈકલ્પિક)';
 
   @override
-  String drillRosterSeat(String seatNumber) {
-    return 'Seat: $seatNumber';
+  String get incidentDetailsDriverNotes => 'ડ્રાઈવરની નોંધો:';
+
+  @override
+  String get incidentDetailsDriverUserId => 'ડ્રાઈવર વપરાશકર્તા ID';
+
+  @override
+  String get incidentDetailsDrugCountdown => 'DOT ડ્રગ ટેસ્ટ કાઉન્ટડાઉન (8-કલાક મર્યાદા)';
+
+  @override
+  String get incidentDetailsFatalityOccurred => 'જાનહાનિ થઈ';
+
+  @override
+  String incidentDetailsHeaderTitle(Object id) {
+    return 'ઘટના #$id';
   }
 
   @override
-  String get drillRosterProceed => 'PROCEED TO DRILL CHECKLIST';
+  String get incidentDetailsInjuriesMedTreatment => 'તબીબી સારવારની જરૂર હોય તેવી ઇજાઓ';
 
   @override
-  String drillSummaryTitle(int id) {
-    return 'Drill Summary (#$id)';
+  String get incidentDetailsLawEnforcement => 'કાયદા અમલીકરણ એજન્સી';
+
+  @override
+  String get incidentDetailsLoadFailed => 'વિગતો લોડ કરવામાં નિષ્ફળ.';
+
+  @override
+  String incidentDetailsLocation(Object location) {
+    return 'સ્થાન: $location';
   }
 
   @override
-  String drillSummaryLoadFailed(int id, Object error) {
-    return 'Failed to load drill summary for ID #$id.\n$error';
+  String get incidentDetailsMediaAttachments => 'મીડિયા જોડાણો';
+
+  @override
+  String incidentDetailsMediaStatus(Object status) {
+    return 'સ્થિતિ: $status';
   }
 
   @override
-  String get drillSummaryBackToDrills => 'Back to Drills';
+  String get incidentDetailsNo => 'ના';
 
   @override
-  String get drillSummaryNoData => 'No drill data found.';
+  String get incidentDetailsNoMediaAttachments => 'કોઈ ફોટા અથવા વીડિયો જોડાયેલ નથી.';
 
   @override
-  String drillSummaryApprovedAt(String date) {
-    return 'Approved At: $date';
+  String get incidentDetailsNoStudentsOnboard => 'ઘટના દરમિયાન બસમાં કોઈ વિદ્યાર્થીઓને નોંધવામાં આવ્યા ન હતા.';
+
+  @override
+  String get incidentDetailsNotificationsDesc => 'સૂચના અહેવાલો બનાવો અને જિલ્લા નિરીક્ષકો અથવા વહીવટને ટેમ્પલેટ કરેલા પત્રો મોકલો.';
+
+  @override
+  String get incidentDetailsNotificationsTitle => 'ટ્રાન્સમિટલ સૂચનાઓ';
+
+  @override
+  String get incidentDetailsOfficer => 'અધિકારીની વિગતો';
+
+  @override
+  String get incidentDetailsPoliceReport => 'પોલીસ રિપોર્ટ નંબર';
+
+  @override
+  String get incidentDetailsPrePopulatedLetter => 'પહેલાથી ભરેલો ટ્રાન્સમિશન પત્ર:';
+
+  @override
+  String get incidentDetailsRegulatoryBasis => 'નિયમનકારી આધાર:';
+
+  @override
+  String get incidentDetailsRouteId => 'રૂટ ID';
+
+  @override
+  String get incidentDetailsSchoolAdminTitle => 'શાળા એડમિન સૂચના';
+
+  @override
+  String get incidentDetailsStatusPending => 'બાકી છે';
+
+  @override
+  String incidentDetailsStudentDetails(Object notes) {
+    return 'વિગતો: $notes';
   }
 
   @override
-  String drillSummaryConductedBy(String name) {
-    return 'Conducted By: $name';
+  String get incidentDetailsStudentInjured => 'ઇજાગ્રસ્ત';
+
+  @override
+  String get incidentDetailsStudentNoInjury => 'કોઈ ઈજા નથી';
+
+  @override
+  String incidentDetailsStudentSeverity(Object severity) {
+    return 'ગંભીરતા: $severity';
   }
 
   @override
-  String get drillSummaryDetailsTitle => 'Drill Details';
-
-  @override
-  String get drillSummaryType => 'Drill Type';
-
-  @override
-  String get drillSummaryRouteId => 'Route ID';
-
-  @override
-  String get drillSummaryBusNumber => 'Bus Number';
-
-  @override
-  String get drillSummaryStartTime => 'Start Time';
-
-  @override
-  String get drillSummaryEndTime => 'End Time';
-
-  @override
-  String get drillSummaryDuration => 'Duration';
-
-  @override
-  String drillSummaryDurationValue(int minutes, int seconds) {
-    return '$minutes min $seconds sec';
+  String incidentDetailsStudentTransportedTo(Object facility) {
+    return 'અહીં લઈ જવામાં આવ્યા: $facility';
   }
 
   @override
-  String get drillSummaryGps => 'GPS Coordinates';
-
-  @override
-  String drillSummaryGpsValue(double lat, double lng) {
-    return 'Lat: $lat, Lng: $lng';
+  String incidentDetailsStudentsOnboard(Object count) {
+    return 'બસમાં સવાર વિદ્યાર્થીઓ ($count)';
   }
 
   @override
-  String get drillSummaryStatus => 'Status';
+  String get incidentDetailsTestingRequiredTitle => 'DOT અકસ્માત પછીની ટેસ્ટિંગ જરૂરી';
 
   @override
-  String get drillSummaryApprovedAtLabel => 'Approved At';
-
-  @override
-  String get drillSummaryDriverNotesTitle => 'Driver Notes';
-
-  @override
-  String get drillSummaryAdminNotesTitle => 'Admin Notes';
-
-  @override
-  String get drillSummaryStudentLogTitle => 'Student Evacuation Log';
-
-  @override
-  String drillSummaryEvacuatedCount(int evacuatedCount, int totalCount) {
-    return 'Evacuated: $evacuatedCount/$totalCount';
+  String incidentDetailsTimerStatus(Object status) {
+    return 'સ્થિતિ: $status';
   }
 
   @override
-  String drillSummaryEvacuatedTime(String time) {
-    return 'Evacuated $time';
+  String get incidentDetailsTitle => 'ઘટનાની વિગતો';
+
+  @override
+  String get incidentDetailsVehicleTowed => 'વાહન ટો કરવામાં આવ્યું';
+
+  @override
+  String get incidentDetailsYes => 'હા';
+
+  @override
+  String get incidentHistoryEmpty => 'આ વાહન માટે કોઈ ઘટના લોગ નોંધાયેલા નથી.';
+
+  @override
+  String incidentHistoryFailed(Object error) {
+    return 'લોગ મેળવવામાં નિષ્ફળ: $error';
   }
 
   @override
-  String get drillSummaryOnBusNotEvacuated => 'ON BUS - NOT EVACUATED';
-
-  @override
-  String get drillSummaryNotOnBus => 'Not On Bus';
-
-  @override
-  String drillSummarySeat(String seatNumber) {
-    return 'Seat: $seatNumber';
+  String incidentHistoryItemSubtitle(Object busNumber, Object testingStatus, Object time) {
+    return 'સમય: $time બસ: $busNumber ટેસ્ટિંગ: $testingStatus';
   }
 
   @override
-  String get drillSummaryEvidenceTitle => 'Evidence Media Attachments';
-
-  @override
-  String get drillSummaryVideoEvidence => 'Video Evidence';
-
-  @override
-  String get drillSummaryPhotoEvidence => 'Photo Evidence';
-
-  @override
-  String get drillTypeTitle => 'Select Drill Type';
-
-  @override
-  String get drillTypePreparation => 'DRILL PREPARATION';
-
-  @override
-  String drillTypeBus(String busNumber) {
-    return 'Bus $busNumber';
+  String incidentHistoryItemTitle(Object id) {
+    return 'ઘટના #$id';
   }
 
   @override
-  String drillTypeRoute(String routeName) {
-    return 'Route: $routeName';
+  String get incidentHistoryTestingNotRequired => 'જરૂરી નથી';
+
+  @override
+  String get incidentHistoryTestingRequired => 'જરૂરી છે';
+
+  @override
+  String get incidentHistoryTitle => 'અકસ્માત પછીની ઘટના રજિસ્ટ્રી';
+
+  @override
+  String get incidentIntakeAddAnotherPhoto => 'બીજો ફોટો ઉમેરો';
+
+  @override
+  String get incidentIntakeBadgeNumberError => 'જરૂરી છે';
+
+  @override
+  String get incidentIntakeBadgeNumberLabel => 'બેજ નંબર*';
+
+  @override
+  String incidentIntakeBus(Object busNumber) {
+    return 'બસ નંબર: $busNumber';
   }
 
   @override
-  String get drillTypeNoRouteSelected => 'No Route Selected';
+  String get incidentIntakeCaptureScenePhoto => 'ઘટના સ્થળનો ફોટો કેપ્ચર કરો';
 
   @override
-  String get drillTypeWarning => 'Ensure vehicle is parked safely before beginning execution.';
+  String get incidentIntakeCitationSubtitle => 'શું સ્કૂલ બસ ડ્રાઇવરને ચલતી ટ્રાફિકનું ઉલ્લંઘન ચલણ જારી કરવામાં આવ્યું હતું?';
 
   @override
-  String get drillTypeSelectRoute => 'Select Route:';
+  String get incidentIntakeCitationTitle => 'ચલણ જારી કરાયું?';
 
   @override
-  String get drillTypeClassification => 'Choose drill classification:';
+  String get incidentIntakeDateTimeLabel => 'અકસ્માતની તારીખ અને સમય*';
 
   @override
-  String get drillTypeNameFrontDoor => 'Front Door';
+  String get incidentIntakeDotTestingNotRequired => 'DOT ટેસ્ટિંગ જરૂરી નથી';
 
   @override
-  String get drillTypeNameRearDoor => 'Rear Door';
+  String get incidentIntakeDotTestingRequired => 'DOT ટેસ્ટિંગ જરૂરી છે';
 
   @override
-  String get drillTypeNameSplit => 'Split';
-
-  @override
-  String get drillTypeNameSideOrRoof => 'Side Or Roof';
-
-  @override
-  String get drillTypeNameBusFire => 'Bus Fire';
-
-  @override
-  String get drillTypeNameDriverIncapacitation => 'Driver Incapacitation';
-
-  @override
-  String get drillTypeNameDangerZone => 'Danger Zone';
-
-  @override
-  String get drillTypeNameEquipmentOrientation => 'Equipment Orientation';
-
-  @override
-  String get drillTypeNameOthers => 'Others';
-
-  @override
-  String get drillTypeSpecifyCustom => 'Specify Drill Type Description:';
-
-  @override
-  String get drillTypeCustomHint => 'Enter custom evacuation drill type...';
-
-  @override
-  String get drillTypeInvalidState => 'Invalid vehicle or route state.';
-
-  @override
-  String get drillTypeProceed => 'PROCEED TO STUDENT ROSTER';
-
-  @override
-  String get drillEvidenceConfirmSubmission => 'Confirm Drill Submission';
-
-  @override
-  String get drillEvidenceConfirmMessage => 'Are you sure you want to submit this drill log? This action cannot be undone.';
-
-  @override
-  String get drillEvidenceSubmitting => 'Submitting Drill Log...';
-
-  @override
-  String get drillEvidenceUploading => 'Uploading evidence and checklist data';
-
-  @override
-  String get drillEvidenceSuccess => 'Submission Successful!';
-
-  @override
-  String get drillEvidenceFailed => 'Submission Failed';
-
-  @override
-  String get drillEvidenceSuccessMessage => 'The evacuation drill log has been successfully uploaded and is pending approval.';
-
-  @override
-  String get drillEvidenceReturnToDashboard => 'RETURN TO DASHBOARD';
-
-  @override
-  String get drillEvidenceRetrySubmission => 'RETRY SUBMISSION';
-
-  @override
-  String get drillEvidenceTitle => 'Mandatory Drill Evidence';
-
-  @override
-  String get drillEvidenceMandatoryWarning => 'At least 1 photo or video evidence is mandatory to submit drill.';
-
-  @override
-  String get drillEvidenceTakePhoto => 'Take Photo';
-
-  @override
-  String get drillEvidenceRecordVideo => 'Record Video';
-
-  @override
-  String get drillEvidenceDriverNotesLabel => 'Driver Notes (Minimum 10 characters):';
-
-  @override
-  String get drillEvidenceDriverNotesHint => 'Describe drill execution, student behavior, exit paths used, and any exceptions observed...';
-
-  @override
-  String get drillEvidenceSubmitButton => 'SUBMIT DRILL LOG';
-
-  @override
-  String drillChecklistOnBusTitle(int count) {
-    return 'ON BUS ($count)';
+  String incidentIntakeDriver(Object driverName) {
+    return 'ડ્રાઈવર: $driverName';
   }
 
   @override
-  String drillChecklistEvacuatedProgress(int evacuatedCount, int totalCount) {
-    return 'Evacuated: $evacuatedCount/$totalCount';
+  String get incidentIntakeDriverNotesHint => 'અકસ્માત અંગે કોઈ વધારાની નોંધો દાખલ કરો...';
+
+  @override
+  String get incidentIntakeDriverNotesTitle => 'ડ્રાઈવરની ઘટના નોંધો';
+
+  @override
+  String incidentIntakeErrorRoutePassengers(Object error) {
+    return 'રૂટ મુસાફરો લોડ કરવામાં નિષ્ફળ: $error';
   }
 
   @override
-  String get drillChecklistNoStudentsOnBus => 'No students marked on bus.';
+  String get incidentIntakeEvidenceTitle => 'પુરાવા જોડો (ફોટા) *';
 
   @override
-  String get drillChecklistEvacuated => 'Evacuated';
+  String get incidentIntakeFatalitySubtitle => 'શું આ અકસ્માતના પરિણામે કોઈ જાનહાનિ થઈ છે?';
 
   @override
-  String get drillChecklistOnBusNotEvacuated => 'ON BUS — NOT EVACUATED';
+  String get incidentIntakeFatalityTitle => 'જાનહાનિ થઈ?';
 
   @override
-  String drillChecklistAbsentTitle(int count) {
-    return 'ABSENT / NOT ON BUS ($count)';
+  String get incidentIntakeGpsLabel => 'GPS કોઓર્ડિનેટ્સ*';
+
+  @override
+  String get incidentIntakeHistoryTooltip => 'ઇતિહાસ જુઓ';
+
+  @override
+  String get incidentIntakeInjuriesSubtitle => 'શું કોઈ વ્યક્તિને સ્થળથી દૂર તાત્કાલિક તબીબી સારવારની જરૂર પડે તેવી શારીરિક ઈજા થઈ હતી?';
+
+  @override
+  String get incidentIntakeInjuriesTitle => 'તબીબી સારવારની જરૂર હોય તેવી ઇજાઓ?';
+
+  @override
+  String get incidentIntakeInjuryNotesError => 'ઇજાગ્રસ્ત વિદ્યાર્થીઓ માટે ઇજાની નોંધો ફરજિયાત છે';
+
+  @override
+  String get incidentIntakeInjuryNotesLabel => 'ઇજાની નોંધો / વિગતો (ફરજિયાત) *';
+
+  @override
+  String get incidentIntakeInjurySeverityLabel => 'ઇજાની ગંભીરતા *';
+
+  @override
+  String get incidentIntakeLawEnforcementAgencyError => 'કૃપા કરીને કાયદા અમલીકરણ એજન્સી દાખલ કરો';
+
+  @override
+  String get incidentIntakeLawEnforcementAgencyLabel => 'કાયદા અમલીકરણ એજન્સી (દા.ત. રાજ્ય હાઇવે પેટ્રોલ)*';
+
+  @override
+  String get incidentIntakeLawEnforcementTitle => 'કાયદા અમલીકરણ અને પોલીસ રિપોર્ટ';
+
+  @override
+  String get incidentIntakeLocationDescError => 'કૃપા કરીને સ્થાનનું વર્ણન દાખલ કરો';
+
+  @override
+  String get incidentIntakeLocationDescLabel => 'સ્થાનનું વર્ણન (દા.ત. માર્કેટ સ્ટ્રીટ અને 5મી એવન્યુ) *';
+
+  @override
+  String get incidentIntakeMedicalFacilityLabel => 'તબીબી સુવિધામાં લઈ જવામાં આવ્યા';
+
+  @override
+  String get incidentIntakeNoMatchingStudents => 'કોઈ મેળ ખાતા વિદ્યાર્થીઓ નથી.';
+
+  @override
+  String get incidentIntakeNoStudentsFound => 'કોઈ વિદ્યાર્થીઓ મળ્યા નથી.';
+
+  @override
+  String get incidentIntakeNoStudentsOnboard => 'બસમાં કોઈ વિદ્યાર્થીઓ નથી, કૃપા કરીને આગળ વધવા માટે આગળ દબાવો.';
+
+  @override
+  String get incidentIntakeNoStudentsRoute => 'આ રૂટ માટે કોઈ વિદ્યાર્થી નોંધાયેલ નથી.';
+
+  @override
+  String get incidentIntakeOfficerNameError => 'કૃપા કરીને અધિકારીનું નામ દાખલ કરો.';
+
+  @override
+  String get incidentIntakeOfficerNameLabel => 'અધિકારીનું નામ*';
+
+  @override
+  String get incidentIntakePoliceReportNumberError => 'કૃપા કરીને પોલીસ રિપોર્ટ નંબર દાખલ કરો';
+
+  @override
+  String get incidentIntakePoliceReportNumberLabel => 'પોલીસ રિપોર્ટ નંબર *';
+
+  @override
+  String incidentIntakeRoute(Object routeName) {
+    return 'રૂટ: $routeName';
   }
 
   @override
-  String get drillChecklistNoAbsentStudents => 'No absent students.';
+  String get incidentIntakeRouteDriverInfo => 'રૂટ અને ડ્રાઈવર માહિતી';
 
   @override
-  String get drillChecklistNotOnBus => 'NOT ON BUS';
+  String get incidentIntakeSearchInjuredHint => 'ઈજાગ્રસ્ત બાળકને શોધો...';
 
   @override
-  String get drillChecklistTitle => 'Evacuation Drill Checklist';
+  String get incidentIntakeSearchStudentHint => 'વિદ્યાર્થી શોધો...';
 
   @override
-  String drillChecklistUnaccountedWarning(int count) {
-    return '$count Unaccounted Student(s) Remaining!';
+  String get incidentIntakeSelectAll => 'બધા વિદ્યાર્થીઓ પસંદ કરો';
+
+  @override
+  String get incidentIntakeSelectOnMap => 'નકશા પર પસંદ કરો';
+
+  @override
+  String get incidentIntakeSeverityFatal => 'ઘાતક';
+
+  @override
+  String get incidentIntakeSeverityMinor => 'સામાન્ય';
+
+  @override
+  String get incidentIntakeSeverityModerate => 'મધ્યમ';
+
+  @override
+  String get incidentIntakeSeveritySevere => 'ગંભીર';
+
+  @override
+  String get incidentIntakeSeverityTitle => 'અકસ્માતની ગંભીરતાના ચલો';
+
+  @override
+  String incidentIntakeStudentId(Object id) {
+    return 'ID: $id';
   }
 
   @override
-  String drillChecklistBus(String busNumber) {
-    return 'Bus: $busNumber';
+  String get incidentIntakeSubmitButton => 'રિપોર્ટ સબમિટ કરો';
+
+  @override
+  String get incidentIntakeTitle => 'અકસ્માત પછીની ઘટનાની નોંધણી';
+
+  @override
+  String get incidentIntakeTowedSubtitle => 'શું કોઈ વાહનને નુકસાન થયું છે જેથી તેને સ્થળ પરથી ટો કરવાની જરૂર પડે?';
+
+  @override
+  String get incidentIntakeTowedTitle => 'વાહન ટો કરવામાં આવ્યું?';
+
+  @override
+  String get incidentIntakeWasInjured => 'ઇજાગ્રસ્ત થયા?';
+
+  @override
+  String dvirPreTripBusLabel(Object busNumber) {
+    return 'બસ: $busNumber';
   }
 
   @override
-  String drillChecklistRouteLive(String routeName) {
-    return 'Route (Live): $routeName';
+  String get dvirPreTripClose => 'બંધ કરો';
+
+  @override
+  String get dvirPreTripDriverCommentsLabel => 'ડ્રાઈવર ટિપ્પણીઓ / નોંધો (વૈકલ્પિક)';
+
+  @override
+  String get dvirPreTripNoComments => 'કોઈ ટિપ્પણીઓ ઉમેરવામાં આવી નથી.';
+
+  @override
+  String dvirPreTripReasonLabel(Object reason) {
+    return 'કારણ: $reason';
   }
 
   @override
-  String get drillChecklistProceed => 'PROCEED TO EVIDENCE CAPTURE';
-
-  @override
-  String get dvirPreTripSignedSuccess => 'Verification signed successfully. Pre-Trip unlocked.';
-
-  @override
-  String dvirPreTripFailedToSign(Object error) {
-    return 'Failed to sign: $error';
+  String dvirPreTripRouteLabel(Object routeName) {
+    return 'રૂટ: $routeName';
   }
 
   @override
-  String get dvirPreTripTitle => 'Pre-Trip Verification';
+  String get dvirPreTripSigCaptured => 'સહી સફળતાપૂર્વક કેપ્ચર કરી.';
 
   @override
-  String dvirPreTripVehicleStatus(String status) {
-    return 'Vehicle Status: $status';
-  }
+  String get dvirPreTripSigMissing => 'સહી ગુમ છે.';
 
   @override
-  String get dvirPreTripActiveMessage => 'This vehicle is Active and has no open defects. It is verified and safe for operation.';
+  String get dvirPreTripSignDefectWarning => 'અગાઉની ખામીઓના સમારકામની ચકાસણી કરવા માટે કૃપા કરીને સહી કરો.';
 
   @override
-  String get dvirPreTripOutOfServiceMessage => 'This vehicle is Out of Service for repairs/maintenance. Safety concerns must be resolved by shop staff before dispatch.';
+  String get dvirPreTripStepSignOff => 'સાઇન ઑફ';
 
   @override
-  String dvirPreTripReason(String reason) {
-    return 'Reason: $reason';
-  }
+  String get dvirPreTripStepSubmit => 'સબમિટ કરો';
 
   @override
-  String get dvirPreTripDispatchCheckTitle => 'VEHICLE DISPATCH CHECK';
+  String get dvirPreTripStepVerify => 'ચકાસણી કરો';
 
   @override
-  String dvirPreTripBusNumber(String busNumber) {
-    return 'Bus Number: $busNumber';
-  }
+  String get dvirPreTripTapNext => 'કૃપા કરીને આગળ વધવા માટે \'આગળ\' ટેપ કરો.';
 
   @override
-  String dvirPreTripActiveRoute(String routeName) {
-    return 'Active Route: $routeName';
-  }
+  String get dvirPreTripVehicleOutOfService => 'વાહન સેવા બહાર છે';
 
   @override
-  String get dvirPreTripAttentionRequiredTitle => 'ATTENTION REQUIRED: PRIOR DAY DEFECTS LOGGED';
+  String get dvirPreTripVehicleReady => 'વાહન સેવા માટે તૈયાર છે';
 
   @override
-  String dvirPreTripRepairedDefect(String description) {
-    return '$description (REPAIRED)';
-  }
+  String get dvirPreTripVerifiedRepairStatus => 'ચકાસાયેલ રિપેર સ્થિતિ:';
 
   @override
-  String get dvirPreTripResolutionTitle => 'TRANSPORT SUB-ADMIN RESOLUTION';
+  String get dvirPreTripVerifyCheckWarning => 'દરેક ખામીની બાજુના બોક્સને ચેક કરીને કૃપા કરીને ચકાસો કે બધી નોંધાયેલી ખામીઓ રિપેર કરવામાં આવી છે.';
 
   @override
-  String dvirPreTripResolutionStatus(String status) {
-    return 'Status: $status';
-  }
+  String get dvirPreTripYourComments => 'તમારી ટિપ્પણીઓ:';
 
   @override
-  String get dvirPreTripNoRepairsNeeded => 'No repairs needed for safe operation.';
+  String get countryPickerNoCountries => 'કોઈ દેશ મળ્યા નથી';
 
   @override
-  String get dvirPreTripAcknowledgmentText => 'I acknowledge that I have reviewed the last submitted defect report and verified the repairs(if any) and state that the bus is safe for operation.';
+  String get countryPickerSearchHint => 'દેશના નામ, કોડ અથવા ડાયલ કોડ દ્વારા શોધો...';
 
   @override
-  String get dvirPreTripNoPriorDefects => 'No Prior Defects Logged';
+  String get countryPickerTitle => 'દેશ પસંદ કરો';
 
   @override
-  String get dvirPreTripNoPriorDefectsMessage => 'This vehicle was reported clean in the previous post-trip shift inspection.';
+  String get mapDefaultStop => 'સ્ટોપ';
 
   @override
-  String get dvirPreTripSignOffTitle => 'SIGN-OFF TO PROCEED TO WALKAROUND';
+  String get mapEndLocation => 'અંતિમ સ્થાન';
 
   @override
-  String get dvirPreTripOutofServiceButton => 'VEHICLE OUT OF SERVICE';
+  String get mapStartLocation => 'શરૂઆતનું સ્થાન';
 
   @override
-  String get dvirPreTripReturnToHomeButton => 'RETURN TO HOME';
+  String get stopsNoChangesToUndo => 'પૂર્વવત્ કરવા માટે કોઈ ફેરફારો ઉપલબ્ધ નથી.';
 
   @override
-  String get dvirPreTripSubmitVerificationButton => 'SUBMIT VERIFICATION';
-
-  @override
-  String get dvirPreTripReportNewDefectsButton => 'REPORT NEW DEFECTS';
-
-  @override
-  String get dvirPreTripReportNewDefectsDisabled => 'Reporting new defects is disabled during repairs.';
-
-  @override
-  String get dvirPostTripPhotoAttached => 'Photo attached successfully.';
-
-  @override
-  String get dvirPostTripDefectWithoutPhotoTitle => 'Reporting Defect Without Photo';
-
-  @override
-  String dvirPostTripDefectWithoutPhotoWarning(String zones) {
-    return 'Warning: You are reporting a defect on safety zones ($zones) without attaching a photo. Are you sure you want to submit anyway?';
-  }
-
-  @override
-  String get dvirPostTripSubmitSuccess => 'eDVIR submitted successfully.';
-
-  @override
-  String dvirPostTripInspectionTitle(String busNumber) {
-    return 'Inspection: Bus $busNumber';
-  }
-
-  @override
-  String get dvirPostTripProgressLabel => 'Inspection Progress';
-
-  @override
-  String dvirPostTripZonesProgress(int current, int total) {
-    return '$current / $total Zones';
-  }
-
-  @override
-  String dvirPostTripZoneHeader(int current, int total) {
-    return 'ZONE $current OF $total';
-  }
-
-  @override
-  String get dvirPostTripPassButton => 'PASS';
-
-  @override
-  String get dvirPostTripDefectButton => 'DEFECT';
-
-  @override
-  String get dvirPostTripNotesLabel => 'NOTES (MANDATORY ON DEFECT) & PHOTO';
-
-  @override
-  String get dvirPostTripNotesPassedHint => 'Select DEFECT to enter safety concern details...';
-
-  @override
-  String get dvirPostTripNotesDefectHint => 'Enter details of the safety concern...';
-
-  @override
-  String get dvirPostTripCapturePhoto => 'CAPTURE DEFECT PHOTO';
-
-  @override
-  String get dvirPostTripOdometerTitle => 'VEHICLE RUN TIME METRIC';
-
-  @override
-  String get dvirPostTripOdometerHeader => 'Current Odometer Reading';
-
-  @override
-  String get dvirPostTripOdometerInstructions => 'Enter the mileage reading exactly as shown on the bus instrument panel:';
-
-  @override
-  String get dvirPostTripOdometerLabel => 'Odometer (Miles)';
-
-  @override
-  String get dvirPostTripOdometerWarning => 'Please enter the odometer reading before proceeding.';
-
-  @override
-  String get dvirPostTripComplianceTitle => 'COMPLIANCE CERTIFICATION';
-
-  @override
-  String get dvirPostTripSignatureTitle => 'Driver Signature Verification';
-
-  @override
-  String get dvirPostTripSignatureCert => 'I certify that this vehicle walkaround checklist report has been completed in compliance with FMCSA 396.11 regulations.';
-
-  @override
-  String get dvirPostTripSignatureCaptured => 'Signature captured.';
-
-  @override
-  String get dvirPostTripSubmitButton => 'SUBMIT INSPECTION';
-
-  @override
-  String get dvirCategoryServiceBrakes => 'Service Brakes';
-
-  @override
-  String get dvirCategoryParkingBrake => 'Parking Brake';
-
-  @override
-  String get dvirCategorySteeringMechanism => 'Steering Mechanism';
-
-  @override
-  String get dvirCategoryLightingReflectors => 'Lighting Devices & Reflectors';
-
-  @override
-  String get dvirCategoryTires => 'Tires';
-
-  @override
-  String get dvirCategoryHorn => 'Horn';
-
-  @override
-  String get dvirCategoryWipers => 'Windshield Wipers';
-
-  @override
-  String get dvirCategoryMirrors => 'Rear-Vision Mirrors';
-
-  @override
-  String get dvirCategoryWheelsRims => 'Wheels and Rims';
-
-  @override
-  String get dvirCategoryEmergencyEquipment => 'Emergency Equipment';
-
-  @override
-  String get dvirCategoryCouplingDevices => 'Coupling Devices';
-
-  @override
-  String get dvirCategoryBusSafetySystems => 'Bus-Specific Safety Systems';
-
-  @override
-  String get dvirCategoryPassengerSeating => 'Passenger Seating & Restraints';
-
-  @override
-  String get dvirSigDrawTitle => 'Draw Signature';
-
-  @override
-  String get dvirSigWatermark => 'Sign Vertically (Bottom to Top)';
-
-  @override
-  String get dvirSigSave => 'SAVE SIGNATURE';
-
-  @override
-  String get dvirSigPreviewLabel => 'Captured Signature Preview:';
-
-  @override
-  String get dvirSigRedraw => 'REDRAW';
-
-  @override
-  String get dvirSigTapToDraw => 'TAP TO DRAW SIGNATURE (REQUIRED)';
-
-  @override
-  String get driverDetailsTitle => 'Driver Details';
-
-  @override
-  String driverDetailsId(String driverId) {
-    return 'ID: $driverId';
-  }
-
-  @override
-  String get driverDetailsLicenseTitle => 'License Details';
-
-  @override
-  String get driverDetailsLicenseNoLabel => 'License No';
-
-  @override
-  String get driverDetailsLicenseTypeLabel => 'License Type';
-
-  @override
-  String get driverDetailsCdlClassLabel => 'CDL Class';
-
-  @override
-  String get driverDetailsIssueDateLabel => 'Issue Date';
-
-  @override
-  String get driverDetailsExpiryDateLabel => 'Expiry Date';
-
-  @override
-  String get driverDetailsEndorsementsTitle => 'Endorsements Held';
-
-  @override
-  String get driverDetailsEndorsementPassenger => 'Passenger';
-
-  @override
-  String get driverDetailsEndorsementSchoolBus => 'School Bus';
-
-  @override
-  String get driverDetailsLicenseDocTitle => 'License Document';
-
-  @override
-  String get driverDetailsDrivingLicenseLabel => 'DRIVING LICENSE';
-
-  @override
-  String driverDetailsDrivingLicenseName(String name) {
-    return 'NAME: $name';
-  }
-
-  @override
-  String driverDetailsDrivingLicenseNo(String licenseNo) {
-    return 'LIC: $licenseNo';
-  }
-
-  @override
-  String get driverDetailsTapToView => 'Tap to View DL Document';
-
-  @override
-  String driverDetailsPreviewLicenseNo(String licenseNo) {
-    return 'LN: $licenseNo';
-  }
-
-  @override
-  String driverDetailsPreviewName(String name) {
-    return 'FN: $name';
-  }
-
-  @override
-  String driverDetailsPreviewDob(String dob) {
-    return 'DOB: $dob';
-  }
-
-  @override
-  String driverDetailsPreviewClass(String cdlClass) {
-    return 'CLASS: $cdlClass';
-  }
-
-  @override
-  String driverDetailsPreviewEndorse(String endorsements) {
-    return 'ENDORSE: $endorsements';
-  }
-
-  @override
-  String driverDetailsPreviewExp(String expiryDate) {
-    return 'EXP: $expiryDate';
-  }
-
-  @override
-  String get driverDetailsOfficialSeal => 'OFFICIAL SEAL';
-
-  @override
-  String get driverDetailsHolderSignature => 'HOLDER SIGNATURE';
-
-  @override
-  String get homeMenuDriverDetails => 'Driver Details';
-
-  @override
-  String get homeMenuDrill => 'Drill';
-
-  @override
-  String get homeMenuPreTrip => 'Pre-Trip Inspection';
-
-  @override
-  String get homeErrorNoRoutesPreTrip => 'No routes available to perform Pre-Trip.';
-
-  @override
-  String homeBusLabel(String busId) {
-    return 'Bus: $busId';
-  }
-
-  @override
-  String get homeDispatchBlocked => 'Dispatch Blocked';
-
-  @override
-  String get homeVehicleReady => 'Vehicle is ready and verified for safe operation.';
-
-  @override
-  String get homeReviewVerifyPreTrip => 'Review & Verify Pre-Trip';
-
-  @override
-  String get homeDispatchBlockedTitle => 'Dispatch Blocked';
-
-  @override
-  String get homeVehicleOutOfServiceDefault => 'Vehicle is currently OUT_OF_SERVICE.';
-
-  @override
-  String homeFailedToStartTrip(String error) {
-    return 'Failed to start trip on server: $error';
-  }
+  String get stopsNoStopsAvailable => 'કોઈ સ્ટોપ્સ ઉપલબ્ધ નથી.';
 }

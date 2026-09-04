@@ -14,8 +14,6 @@ class AppInfoScreen extends StatefulWidget {
 
 class _AppInfoScreenState extends State<AppInfoScreen> {
   String? _appVersion;
-  String? _buildNumber;
-  String? _packageName;
   String? _deviceModel;
   String? _osVersion;
 
@@ -49,8 +47,6 @@ class _AppInfoScreenState extends State<AppInfoScreen> {
     if (!mounted) return;
     setState(() {
       _appVersion = packageInfo.version;
-      _buildNumber = packageInfo.buildNumber;
-      _packageName = packageInfo.packageName;
       _deviceModel = model;
       _osVersion = osVersion;
     });
@@ -66,8 +62,6 @@ class _AppInfoScreenState extends State<AppInfoScreen> {
           : ListView(
               children: [
                 _InfoTile(label: l10n.appInfoVersion, value: _appVersion!),
-                _InfoTile(label: l10n.appInfoBuild, value: _buildNumber!),
-                _InfoTile(label: l10n.appInfoPackage, value: _packageName!),
                 _InfoTile(label: l10n.appInfoDevice, value: _deviceModel!),
                 _InfoTile(label: l10n.appInfoOS, value: _osVersion!),
               ],

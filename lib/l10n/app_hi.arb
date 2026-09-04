@@ -1,284 +1,1723 @@
 {
   "@@locale": "hi",
   "appInfoBuild": "बिल्ड नंबर",
+  "@appInfoBuild": {
+    "description": "Label displaying the application build number on the App Info screen.[cite: 1]"
+  },
   "appInfoDevice": "डिवाइस मॉडल",
-  "appInfoOS": "ओएस संस्करण",
+  "@appInfoDevice": {
+    "description": "Label displaying the device hardware model name on the App Info screen.[cite: 1]"
+  },
+  "appInfoOS": "OS वर्ज़न",
+  "@appInfoOS": {
+    "description": "Label displaying the operating system name and version on the App Info screen.[cite: 1]"
+  },
   "appInfoPackage": "पैकेज",
-  "appInfoTitle": "ऐप जानकारी",
-  "appInfoVersion": "ऐप संस्करण",
-  "appTitleSchoolDiary": "एसडी ट्रैकर",
+  "@appInfoPackage": {
+    "description": "Label displaying the application package identifier on the App Info screen.[cite: 1]"
+  },
+  "appInfoTitle": "ऐप की जानकारी",
+  "@appInfoTitle": {
+    "description": "Title of the App Info screen and drawer menu navigation item.[cite: 1]"
+  },
+  "appInfoVersion": "ऐप वर्ज़न",
+  "@appInfoVersion": {
+    "description": "Label displaying the application release version on the App Info screen.[cite: 1]"
+  },
+  "appTitleSchoolDiary": "SD ट्रैकर",
+  "@appTitleSchoolDiary": {
+    "description": "The main application branding title displayed in the app header.[cite: 1]"
+  },
   "childrenActionGuardians": "अभिभावक",
+  "@childrenActionGuardians": {
+    "description": "Action button label to open the authorized guardians list for a child.[cite: 1]"
+  },
   "childrenGuardiansFor": "{name} के लिए अधिकृत अभिभावक",
-  "childrenNoGuardians": "इस बच्चे के लिए कोई अधिकृत अभिभावक दर्ज नहीं है।",
-  "childrenStatusDropped": "छोड़ा गया",
+  "@childrenGuardiansFor": {
+    "description": "Header text showing the student name whose authorized guardians are listed.[cite: 1]"
+  },
+  "childrenNoGuardians": "इस बच्चे के लिए फ़ाइल में कोई अधिकृत अभिभावक नहीं है।",
+  "@childrenNoGuardians": {
+    "description": "Empty state message displayed when no authorized guardians are registered for a student.[cite: 1]"
+  },
+  "childrenStatusDropped": "ड्रॉप किया गया",
+  "@childrenStatusDropped": {
+    "description": "Status badge indicating that the student has been dropped off at their stop.[cite: 1]"
+  },
   "childrenStatusPending": "लंबित",
-  "childrenStatusPicked": "उठाया गया",
-  "childrenTitle": "बच्चे — {routeName}",
+  "@childrenStatusPending": {
+    "description": "Status badge indicating that the student pickup or drop-off is currently pending.[cite: 1]"
+  },
+  "childrenStatusPicked": "पिक किया गया",
+  "@childrenStatusPicked": {
+    "description": "Status badge indicating that the student has been picked up onto the bus.[cite: 1]"
+  },
+  "childrenTitle": "बच्चे - {routeName}",
+  "@childrenTitle": {
+    "description": "Screen title for the student roster list on the specified route.[cite: 1]"
+  },
   "drillChecklistAbsentTitle": "अनुपस्थित / बस में नहीं ({count})",
+  "@drillChecklistAbsentTitle": {
+    "description": "Section header in the evacuation drill checklist for students marked absent or not onboard.[cite: 1]"
+  },
   "drillChecklistBus": "बस: {busNumber}",
+  "@drillChecklistBus": {
+    "description": "Bus identifier label displayed in the drill checklist header.[cite: 1]"
+  },
   "drillChecklistEvacuated": "निकाला गया",
+  "@drillChecklistEvacuated": {
+    "description": "Action button or status label marking a student as safely evacuated during the drill.[cite: 1]"
+  },
   "drillChecklistEvacuatedProgress": "निकाला गया: {evacuatedCount}/{totalCount}",
-  "drillChecklistNoAbsentStudents": "कोई अनुपस्थित छात्र नहीं।",
+  "@drillChecklistEvacuatedProgress": {
+    "description": "Progress counter showing the number of evacuated students out of total present students.[cite: 1]"
+  },
+  "drillChecklistNoAbsentStudents": "कोई छात्र अनुपस्थित नहीं है।",
+  "@drillChecklistNoAbsentStudents": {
+    "description": "Informational message shown when all route students are present on the bus for the drill.[cite: 1]"
+  },
   "drillChecklistNoStudentsOnBus": "बस में कोई छात्र चिह्नित नहीं है।",
+  "@drillChecklistNoStudentsOnBus": {
+    "description": "Empty state message displayed when no students were marked onboard the bus.[cite: 1]"
+  },
   "drillChecklistNotOnBus": "बस में नहीं",
-  "drillChecklistOnBusNotEvacuated": "बस में — निकाला नहीं गया",
-  "drillChecklistOnBusTitle": "बस में ({count})",
-  "drillChecklistProceed": "साक्ष्य कैप्चर करने के लिए आगे बढ़ें",
-  "drillChecklistRouteLive": "मार्ग (लाइव): {routeName}",
-  "drillChecklistTitle": "निकासी अभ्यास चेकलिस्ट",
-  "drillChecklistUnaccountedWarning": "{count} अज्ञात छात्र शेष!",
-  "drillEvidenceConfirmMessage": "क्या आप इस ड्रिल लॉग को सबमिट करना चाहते हैं? यह कार्रवाई पूर्ववत नहीं की जा सकती।",
+  "@drillChecklistNotOnBus": {
+    "description": "Status badge indicating that the student was not present onboard the bus during the drill.[cite: 1]"
+  },
+  "drillChecklistOnBusNotEvacuated": "बस में हैं - निकाला नहीं गया",
+  "@drillChecklistOnBusNotEvacuated": {
+    "description": "Status badge warning that a student is onboard the bus and has not yet evacuated.[cite: 1]"
+  },
+  "drillChecklistOnBusTitle": "बस में हैं ({count})",
+  "@drillChecklistOnBusTitle": {
+    "description": "Section header in the drill checklist showing students currently onboard the bus.[cite: 1]"
+  },
+  "drillChecklistProceed": "प्रमाण कैप्चर के लिए आगे बढ़ें",
+  "@drillChecklistProceed": {
+    "description": "Button label to proceed from the evacuation checklist to mandatory evidence capture.[cite: 1]"
+  },
+  "drillChecklistRouteLive": "रूट (लाइव): {routeName}",
+  "@drillChecklistRouteLive": {
+    "description": "Header subtitle showing the active live route name for the evacuation drill.[cite: 1]"
+  },
+  "drillChecklistTitle": "निकासी ड्रिल चेकलिस्ट",
+  "@drillChecklistTitle": {
+    "description": "Screen title for the evacuation drill execution checklist.[cite: 1]"
+  },
+  "drillChecklistUnaccountedWarning": "{count} बेहिसाब छात्र शेष!",
+  "@drillChecklistUnaccountedWarning": {
+    "description": "Warning banner alerting the driver to remaining students who have not yet evacuated.[cite: 1]"
+  },
+  "drillEvidenceConfirmMessage": "क्या आप वाकई यह ड्रिल लॉग सबमिट करना चाहते हैं? इस कार्रवाई को पूर्ववत नहीं किया जा सकता है।",
+  "@drillEvidenceConfirmMessage": {
+    "description": "Body message in the confirmation dialog asking the driver to confirm drill log submission.[cite: 1]"
+  },
   "drillEvidenceConfirmSubmission": "ड्रिल सबमिशन की पुष्टि करें",
-  "drillEvidenceDriverNotesHint": "ड्रिल निष्पादन, छात्र व्यवहार, उपयोग किए गए निकास मार्ग और किसी भी देखी गई असाधारण स्थिति का वर्णन करें...",
-  "drillEvidenceDriverNotesLabel": "ड्राइवर नोट्स (न्यूनतम 10 वर्ण):",
+  "@drillEvidenceConfirmSubmission": {
+    "description": "Title of the confirmation dialog displayed before submitting the evacuation drill log.[cite: 1]"
+  },
+  "drillEvidenceDriverNotesHint": "ड्रिल निष्पादन, छात्र के व्यवहार, उपयोग किए गए निकास पथ और देखे गए किसी भी अपवाद का वर्णन करें...",
+  "@drillEvidenceDriverNotesHint": {
+    "description": "Placeholder hint text for the driver notes field describing drill execution details.[cite: 1]"
+  },
+  "drillEvidenceDriverNotesLabel": "ड्राइवर के नोट्स (न्यूनतम 10 वर्ण):",
+  "@drillEvidenceDriverNotesLabel": {
+    "description": "Label for the mandatory driver notes field in the drill evidence capture screen.[cite: 1]"
+  },
   "drillEvidenceFailed": "सबमिशन विफल",
-  "drillEvidenceMandatoryWarning": "ड्रिल सबमिट करने के लिए कम से कम 1 फोटो या वीडियो साक्ष्य अनिवार्य है।",
+  "@drillEvidenceFailed": {
+    "description": "Header title displayed on the failure screen when drill log submission fails.[cite: 1]"
+  },
+  "drillEvidenceMandatoryWarning": "ड्रिल सबमिट करने के लिए कम से कम 1 फ़ोटो या वीडियो प्रमाण अनिवार्य है।",
+  "@drillEvidenceMandatoryWarning": {
+    "description": "Validation warning message indicating that at least one photo or video attachment is required.[cite: 1]"
+  },
   "drillEvidenceRecordVideo": "वीडियो रिकॉर्ड करें",
+  "@drillEvidenceRecordVideo": {
+    "description": "Button label to open the camera and record a video as drill evidence.[cite: 1]"
+  },
   "drillEvidenceRetrySubmission": "पुनः सबमिट करने का प्रयास करें",
-  "drillEvidenceReturnToDashboard": "डैशबोर्ड पर लौटें",
+  "@drillEvidenceRetrySubmission": {
+    "description": "Button label to re-attempt submitting the drill log after a network or upload failure.[cite: 1]"
+  },
+  "drillEvidenceReturnToDashboard": "डैशबोर्ड पर वापस लौटें",
+  "@drillEvidenceReturnToDashboard": {
+    "description": "Button label to navigate back to the home or drills dashboard after completing a drill.[cite: 1]"
+  },
   "drillEvidenceSubmitButton": "ड्रिल लॉग सबमिट करें",
+  "@drillEvidenceSubmitButton": {
+    "description": "Primary button label to submit the evacuation drill log and attached evidence.[cite: 1]"
+  },
   "drillEvidenceSubmitting": "ड्रिल लॉग सबमिट किया जा रहा है...",
+  "@drillEvidenceSubmitting": {
+    "description": "Loading message displayed while the drill log and media are being uploaded.[cite: 1]"
+  },
   "drillEvidenceSuccess": "सबमिशन सफल!",
-  "drillEvidenceSuccessMessage": "निकासी अभ्यास लॉग सफलतापूर्वक अपलोड कर दिया गया है और अनुमोदन लंबित है।",
-  "drillEvidenceTakePhoto": "फोटो लें",
-  "drillEvidenceTitle": "अनिवार्य ड्रिल साक्ष्य",
-  "drillEvidenceUploading": "साक्ष्य और चेकलिस्ट डेटा अपलोड किया जा रहा है",
+  "@drillEvidenceSuccess": {
+    "description": "Success header title displayed after the drill log is successfully uploaded.[cite: 1]"
+  },
+  "drillEvidenceSuccessMessage": "निकासी ड्रिल लॉग सफलतापूर्वक अपलोड कर दिया गया है और अनुमोदन के लिए लंबित है।",
+  "@drillEvidenceSuccessMessage": {
+    "description": "Informational message explaining that the drill log was submitted and is pending administrator approval.[cite: 1]"
+  },
+  "drillEvidenceTakePhoto": "फ़ोटो लें",
+  "@drillEvidenceTakePhoto": {
+    "description": "Button label to launch the camera and capture a photo as drill evidence.[cite: 1]"
+  },
+  "drillEvidenceTitle": "अनिवार्य ड्रिल प्रमाण",
+  "@drillEvidenceTitle": {
+    "description": "Screen title for the mandatory drill evidence capture and notes step.[cite: 1]"
+  },
+  "drillEvidenceUploading": "प्रमाण और चेकलिस्ट डेटा अपलोड किया जा रहा है",
+  "@drillEvidenceUploading": {
+    "description": "Progress description displayed during the upload of drill evidence media and checklist data.[cite: 1]"
+  },
   "drillRosterBus": "बस: {busNumber}",
+  "@drillRosterBus": {
+    "description": "Bus identifier label displayed in the drill roster header.[cite: 1]"
+  },
   "drillRosterDrillType": "ड्रिल: {drillType}",
-  "drillRosterMarkAttendance": "उपस्थिति चिह्नित करें",
-  "drillRosterNoStudents": "इस मार्ग पर कोई छात्र पंजीकृत नहीं है।",
+  "@drillRosterDrillType": {
+    "description": "Label displaying the selected evacuation drill classification in the roster header.[cite: 1]"
+  },
+  "drillRosterMarkAttendance": "उपस्थिति दर्ज करें",
+  "@drillRosterMarkAttendance": {
+    "description": "Section instruction prompting the driver to mark student attendance before starting the drill.[cite: 1]"
+  },
+  "drillRosterNoStudents": "इस रूट पर कोई छात्र पंजीकृत नहीं है।",
+  "@drillRosterNoStudents": {
+    "description": "Empty state message displayed when no students are registered for the selected route.[cite: 1]"
+  },
   "drillRosterPresentCount": "उपस्थित: {presentCount} / {totalCount}",
-  "drillRosterProceed": "ड्रिल चेकलिस्ट पर आगे बढ़ें",
-  "drillRosterRoute": "मार्ग: {routeName}",
+  "@drillRosterPresentCount": {
+    "description": "Attendance counter showing the number of present students out of total registered students.[cite: 1]"
+  },
+  "drillRosterProceed": "ड्रिल चेकलिस्ट के लिए आगे बढ़ें",
+  "@drillRosterProceed": {
+    "description": "Button label to confirm student attendance and proceed to the drill checklist.[cite: 1]"
+  },
+  "drillRosterRoute": "रूट: {routeName}",
+  "@drillRosterRoute": {
+    "description": "Route name label displayed in the drill roster header.[cite: 1]"
+  },
   "drillRosterSeat": "सीट: {seatNumber}",
-  "drillRosterSelectAll": "सभी का चयन करें",
-  "drillSummaryAdminNotesTitle": "प्रशासक नोट्स",
-  "drillSummaryApprovedAt": "अनुमोदित तिथि: {date}",
-  "drillSummaryApprovedAtLabel": "अनुमोदित तिथि",
-  "drillSummaryBackToDrills": "ड्रिल्स पर वापस",
+  "@drillRosterSeat": {
+    "description": "Detail label showing the assigned seat number for a student in the roster list.[cite: 1]"
+  },
+  "drillRosterSelectAll": "सभी चुनें",
+  "@drillRosterSelectAll": {
+    "description": "Button or checkbox label to select all students as present in the roster.[cite: 1]"
+  },
+  "drillSummaryAdminNotesTitle": "एडमिन नोट्स",
+  "@drillSummaryAdminNotesTitle": {
+    "description": "Section header in the drill summary displaying review notes from administrators.[cite: 1]"
+  },
+  "drillSummaryApprovedAt": "पर स्वीकृत: {date}",
+  "@drillSummaryApprovedAt": {
+    "description": "Timestamp label showing when the evacuation drill log was approved by administration.[cite: 1]"
+  },
+  "drillSummaryApprovedAtLabel": "पर स्वीकृत",
+  "@drillSummaryApprovedAtLabel": {
+    "description": "Field label for the approval timestamp in the drill summary details.[cite: 1]"
+  },
+  "drillSummaryBackToDrills": "ड्रिल पर वापस जाएं",
+  "@drillSummaryBackToDrills": {
+    "description": "Button label to navigate back to the evacuation drills dashboard.[cite: 1]"
+  },
   "drillSummaryBusNumber": "बस नंबर",
-  "drillSummaryConductedBy": "द्वारा संचालित: {name}",
+  "@drillSummaryBusNumber": {
+    "description": "Field label for the bus number in the drill summary metadata card.[cite: 1]"
+  },
+  "drillSummaryConductedBy": "द्वारा आयोजित: {name}",
+  "@drillSummaryConductedBy": {
+    "description": "Subtitle showing the name of the driver or staff member who conducted the drill.[cite: 1]"
+  },
   "drillSummaryDetailsTitle": "ड्रिल विवरण",
-  "drillSummaryDriverNotesTitle": "ड्राइवर नोट्स",
+  "@drillSummaryDetailsTitle": {
+    "description": "Card header for the general drill details and metadata section.[cite: 1]"
+  },
+  "drillSummaryDriverNotesTitle": "ड्राइवर के नोट्स",
+  "@drillSummaryDriverNotesTitle": {
+    "description": "Card header displaying the notes recorded by the driver during drill execution.[cite: 1]"
+  },
   "drillSummaryDuration": "अवधि",
+  "@drillSummaryDuration": {
+    "description": "Field label for the total time elapsed during the evacuation drill.[cite: 1]"
+  },
   "drillSummaryDurationValue": "{minutes} मिनट {seconds} सेकंड",
+  "@drillSummaryDurationValue": {
+    "description": "Formatted duration string displaying elapsed minutes and seconds of the drill.[cite: 1]"
+  },
   "drillSummaryEndTime": "समाप्ति समय",
+  "@drillSummaryEndTime": {
+    "description": "Field label for the timestamp when the drill concluded.[cite: 1]"
+  },
   "drillSummaryEvacuatedCount": "निकाला गया: {evacuatedCount}/{totalCount}",
+  "@drillSummaryEvacuatedCount": {
+    "description": "Evacuation metric showing the number of safely evacuated students out of total present students.[cite: 1]"
+  },
   "drillSummaryEvacuatedTime": "{time} पर निकाला गया",
-  "drillSummaryEvidenceTitle": "साक्ष्य मीडिया संलग्नक",
-  "drillSummaryGps": "जीपीएस निर्देशांक",
+  "@drillSummaryEvacuatedTime": {
+    "description": "Timestamp badge indicating the exact time a specific student evacuated.[cite: 1]"
+  },
+  "drillSummaryEvidenceTitle": "प्रमाण मीडिया अटैचमेंट",
+  "@drillSummaryEvidenceTitle": {
+    "description": "Section header for photo and video evidence attachments in the drill summary.[cite: 1]"
+  },
+  "drillSummaryGps": "GPS निर्देशांक",
+  "@drillSummaryGps": {
+    "description": "Field label for the geographic GPS coordinates where the drill took place.[cite: 1]"
+  },
   "drillSummaryGpsValue": "अक्षांश: {lat}, देशांतर: {lng}",
-  "drillSummaryLoadFailed": "आईडी #{id} के लिए ड्रिल सारांश लोड करने में विफल रहा।\n{error}",
+  "@drillSummaryGpsValue": {
+    "description": "Formatted latitude and longitude GPS coordinates displayed in the drill summary.[cite: 1]"
+  },
+  "drillSummaryLoadFailed": "आईडी #{id} के लिए ड्रिल सारांश लोड करने में विफल।\n{error}",
+  "@drillSummaryLoadFailed": {
+    "description": "Error message displayed when loading drill summary details fails for a specific drill ID.[cite: 1]"
+  },
   "drillSummaryNoData": "कोई ड्रिल डेटा नहीं मिला।",
+  "@drillSummaryNoData": {
+    "description": "Empty state message displayed when no drill summary data is found.[cite: 1]"
+  },
   "drillSummaryNotOnBus": "बस में नहीं",
-  "drillSummaryOnBusNotEvacuated": "बस में - निकाला नहीं गया",
-  "drillSummaryPhotoEvidence": "फोटो साक्ष्य",
-  "drillSummaryRouteId": "मार्ग आईडी",
+  "@drillSummaryNotOnBus": {
+    "description": "Status badge in student evacuation log for students who were absent or not on the bus.[cite: 1]"
+  },
+  "drillSummaryOnBusNotEvacuated": "बस में हैं - निकाला नहीं गया",
+  "@drillSummaryOnBusNotEvacuated": {
+    "description": "Status badge in student evacuation log for students who did not evacuate the bus.[cite: 1]"
+  },
+  "drillSummaryPhotoEvidence": "फ़ोटो प्रमाण",
+  "@drillSummaryPhotoEvidence": {
+    "description": "Section header for photo evidence media attachments in the drill summary.[cite: 1]"
+  },
+  "drillSummaryRouteId": "रूट आईडी",
+  "@drillSummaryRouteId": {
+    "description": "Field label for the route identifier in the drill summary metadata.[cite: 1]"
+  },
   "drillSummarySeat": "सीट: {seatNumber}",
+  "@drillSummarySeat": {
+    "description": "Detail label showing the student's assigned seat number in the evacuation log.[cite: 1]"
+  },
   "drillSummaryStartTime": "प्रारंभ समय",
+  "@drillSummaryStartTime": {
+    "description": "Field label for the timestamp when the evacuation drill began.[cite: 1]"
+  },
   "drillSummaryStatus": "स्थिति",
+  "@drillSummaryStatus": {
+    "description": "Field label for the current approval or completion status of the drill.[cite: 1]"
+  },
   "drillSummaryStudentLogTitle": "छात्र निकासी लॉग",
+  "@drillSummaryStudentLogTitle": {
+    "description": "Section header for the individual student evacuation outcome log.[cite: 1]"
+  },
   "drillSummaryTitle": "ड्रिल सारांश (#{id})",
-  "drillSummaryType": "ड्रिल प्रकार",
-  "drillSummaryVideoEvidence": "वीडियो साक्ष्य",
+  "@drillSummaryTitle": {
+    "description": "Screen title for the evacuation drill summary displaying the drill ID.[cite: 1]"
+  },
+  "drillSummaryType": "ड्रिल का प्रकार",
+  "@drillSummaryType": {
+    "description": "Field label for the evacuation drill classification type.[cite: 1]"
+  },
+  "drillSummaryVideoEvidence": "वीडियो प्रमाण",
+  "@drillSummaryVideoEvidence": {
+    "description": "Section header for video evidence media attachments in the drill summary.[cite: 1]"
+  },
   "drillTypeBus": "बस {busNumber}",
+  "@drillTypeBus": {
+    "description": "Bus identifier label displayed in the drill type selection header.[cite: 1]"
+  },
   "drillTypeClassification": "ड्रिल वर्गीकरण चुनें:",
+  "@drillTypeClassification": {
+    "description": "Instruction header asking the driver to choose an evacuation drill classification.[cite: 1]"
+  },
   "drillTypeCustomHint": "कस्टम निकासी ड्रिल प्रकार दर्ज करें...",
-  "drillTypeInvalidState": "अमान्य वाहन या मार्ग स्थिति।",
+  "@drillTypeCustomHint": {
+    "description": "Input placeholder text for entering a custom evacuation drill classification.[cite: 1]"
+  },
+  "drillTypeInvalidState": "अमान्य वाहन या रूट स्थिति।",
+  "@drillTypeInvalidState": {
+    "description": "Error message displayed when attempting to start a drill with an invalid vehicle or route state.[cite: 1]"
+  },
   "drillTypeNameBusFire": "बस में आग",
-  "drillTypeNameDangerZone": "खतरनाक क्षेत्र",
+  "@drillTypeNameBusFire": {
+    "description": "Evacuation drill classification option for a simulated bus fire scenario.[cite: 1]"
+  },
+  "drillTypeNameDangerZone": "खतरे का क्षेत्र (डेंजर ज़ोन)",
+  "@drillTypeNameDangerZone": {
+    "description": "Evacuation drill classification option for bus loading and unloading danger zones.[cite: 1]"
+  },
   "drillTypeNameDriverIncapacitation": "ड्राइवर की अक्षमता",
-  "drillTypeNameEquipmentOrientation": "उपकरण अभिविन्यास",
-  "drillTypeNameFrontDoor": "सामने का दरवाजा",
+  "@drillTypeNameDriverIncapacitation": {
+    "description": "Evacuation drill classification option for driver incapacitation emergency response.[cite: 1]"
+  },
+  "drillTypeNameEquipmentOrientation": "उपकरण ओरिएंटेशन",
+  "@drillTypeNameEquipmentOrientation": {
+    "description": "Evacuation drill classification option for emergency safety equipment familiarization.[cite: 1]"
+  },
+  "drillTypeNameFrontDoor": "सामने का दरवाज़ा",
+  "@drillTypeNameFrontDoor": {
+    "description": "Evacuation drill classification option for front door emergency exit evacuation.[cite: 1]"
+  },
   "drillTypeNameOthers": "अन्य",
-  "drillTypeNameRearDoor": "पीछे का दरवाजा",
+  "@drillTypeNameOthers": {
+    "description": "Evacuation drill classification option for custom or other emergency evacuation scenarios.[cite: 1]"
+  },
+  "drillTypeNameRearDoor": "पीछे का दरवाज़ा",
+  "@drillTypeNameRearDoor": {
+    "description": "Evacuation drill classification option for rear emergency door evacuation.[cite: 1]"
+  },
   "drillTypeNameSideOrRoof": "साइड या छत",
-  "drillTypeNameSplit": "विभाजित",
-  "drillTypeNoRouteSelected": "कोई मार्ग चयनित नहीं",
-  "drillTypePreparation": "ड्रिल तैयारी",
-  "drillTypeProceed": "छात्र रोस्टर पर आगे बढ़ें",
-  "drillTypeRoute": "मार्ग: {routeName}",
-  "drillTypeSelectRoute": "मार्ग चुनें:",
-  "drillTypeSpecifyCustom": "ड्रिल प्रकार विवरण निर्दिष्ट करें:",
-  "drillTypeTitle": "ड्रिल प्रकार चुनें",
-  "drillTypeWarning": "निष्पादन शुरू करने से पहले सुनिश्चित करें कि वाहन सुरक्षित रूप से पार्क किया गया है।",
-  "drillsAssignedVehicle": "निर्धारित वाहन",
-  "drillsChecking": "जाँच हो रही है...",
+  "@drillTypeNameSideOrRoof": {
+    "description": "Evacuation drill classification option for side emergency door or roof hatch evacuation.[cite: 1]"
+  },
+  "drillTypeNameSplit": "स्प्लिट",
+  "@drillTypeNameSplit": {
+    "description": "Evacuation drill classification option for split emergency exit evacuation.[cite: 1]"
+  },
+  "drillTypeNoRouteSelected": "कोई रूट नहीं चुना गया",
+  "@drillTypeNoRouteSelected": {
+    "description": "Validation warning shown when proceeding without selecting a route for the drill.[cite: 1]"
+  },
+  "drillTypePreparation": "ड्रिल की तैयारी",
+  "@drillTypePreparation": {
+    "description": "Header section title for evacuation drill preparation guidelines and safety checks.[cite: 1]"
+  },
+  "drillTypeProceed": "छात्र रोस्टर के लिए आगे बढ़ें",
+  "@drillTypeProceed": {
+    "description": "Button label to proceed from drill type selection to the student roster marking screen.[cite: 1]"
+  },
+  "drillTypeRoute": "रूट: {routeName}",
+  "@drillTypeRoute": {
+    "description": "Route name label displayed on the drill type selection screen.[cite: 1]"
+  },
+  "drillTypeSelectRoute": "रूट चुनें:",
+  "@drillTypeSelectRoute": {
+    "description": "Section label prompting the driver to select a route for the drill.[cite: 1]"
+  },
+  "drillTypeSpecifyCustom": "ड्रिल प्रकार का विवरण निर्दिष्ट करें:",
+  "@drillTypeSpecifyCustom": {
+    "description": "Field label prompting the driver to enter a custom drill type description.[cite: 1]"
+  },
+  "drillTypeTitle": "ड्रिल का प्रकार चुनें",
+  "@drillTypeTitle": {
+    "description": "Screen title for selecting the evacuation drill type and route.[cite: 1]"
+  },
+  "drillTypeWarning": "सुनिश्चित करें कि निष्पादन शुरू करने से पहले वाहन सुरक्षित रूप से पार्क किया गया है।",
+  "@drillTypeWarning": {
+    "description": "Safety reminder instructing the driver to safely park the bus before beginning drill execution.[cite: 1]"
+  },
+  "drillsAssignedVehicle": "असाइन किया गया वाहन",
+  "@drillsAssignedVehicle": {
+    "description": "Card label displaying the vehicle currently assigned to the driver on the drills dashboard.[cite: 1]"
+  },
+  "drillsChecking": "जांच की जा रही है...",
+  "@drillsChecking": {
+    "description": "Status text shown while checking vehicle and route eligibility to start an evacuation drill.[cite: 1]"
+  },
   "drillsHeader": "ड्रिल #{id} - {type}",
-  "drillsNoBusAssigned": "कोई बस निर्धारित नहीं",
-  "drillsNoDrillsRecorded": "बस {busNumber} के लिए कोई ड्रिल रिकॉर्ड नहीं किया गया।",
-  "drillsNoRoutesAvailable": "ड्रिल शुरू करने के लिए कोई मार्ग उपलब्ध नहीं है।",
-  "drillsShowSummary": "सारांश दिखाएँ",
+  "@drillsHeader": {
+    "description": "List item header displaying the drill ID and classification type.[cite: 1]"
+  },
+  "drillsNoBusAssigned": "कोई बस असाइन नहीं की गई",
+  "@drillsNoBusAssigned": {
+    "description": "Warning banner indicating that no bus is assigned to the current driver.[cite: 1]"
+  },
+  "drillsNoDrillsRecorded": "बस {busNumber} के लिए कोई ड्रिल रिकॉर्ड नहीं की गई",
+  "@drillsNoDrillsRecorded": {
+    "description": "Empty state message displayed when no evacuation drills have been logged for the bus.[cite: 1]"
+  },
+  "drillsNoRoutesAvailable": "ड्रिल शुरू करने के लिए कोई रूट उपलब्ध नहीं है।",
+  "@drillsNoRoutesAvailable": {
+    "description": "Warning state message shown when no active routes are available to start a drill.[cite: 1]"
+  },
+  "drillsShowSummary": "सारांश दिखाएं",
+  "@drillsShowSummary": {
+    "description": "Button label to view the full summary details of a completed evacuation drill.[cite: 1]"
+  },
   "drillsStartDrill": "ड्रिल शुरू करें",
-  "drillsSubtitle": "संचालित: {date}\nस्थिति: {status}",
-  "drillsTitle": "निकासी अभ्यास",
-  "drillsVehicleOutOfService": "वाहन सेवा से बाहर",
+  "@drillsStartDrill": {
+    "description": "Primary action button label to initiate a new evacuation drill.[cite: 1]"
+  },
+  "drillsSubtitle": "आयोजित: {date}\nस्थिति: {status}",
+  "@drillsSubtitle": {
+    "description": "List item subtitle displaying the date conducted and current status of a drill.[cite: 1]"
+  },
+  "drillsTitle": "निकासी ड्रिल",
+  "@drillsTitle": {
+    "description": "Screen title for the Evacuation Drills dashboard and registry.[cite: 1]"
+  },
+  "drillsVehicleOutOfService": "वाहन सेवा से बाहर है",
+  "@drillsVehicleOutOfService": {
+    "description": "Alert dialog title shown when the assigned vehicle is marked out of service.[cite: 1]"
+  },
   "drillsVehicleOutOfServiceMessage": "यह वाहन वर्तमान में सेवा से बाहर है और इसका उपयोग ड्रिल के लिए नहीं किया जा सकता है।",
-  "driverDetailsCdlClassLabel": "सीडीएल वर्ग",
+  "@drillsVehicleOutOfServiceMessage": {
+    "description": "Alert message explaining that the vehicle is out of service and cannot conduct drills.[cite: 1]"
+  },
+  "driverDetailsCdlClassLabel": "CDL क्लास",
+  "@driverDetailsCdlClassLabel": {
+    "description": "Field label for the Commercial Driver's License class.[cite: 1]"
+  },
   "driverDetailsDrivingLicenseLabel": "ड्राइविंग लाइसेंस",
+  "@driverDetailsDrivingLicenseLabel": {
+    "description": "Section header for the digital driving license card.[cite: 1]"
+  },
   "driverDetailsDrivingLicenseName": "नाम: {name}",
+  "@driverDetailsDrivingLicenseName": {
+    "description": "Formatted driver full name displayed on the digital license card.[cite: 1]"
+  },
   "driverDetailsDrivingLicenseNo": "लाइसेंस: {licenseNo}",
+  "@driverDetailsDrivingLicenseNo": {
+    "description": "Formatted license number displayed on the digital license card.[cite: 1]"
+  },
   "driverDetailsEndorsementPassenger": "यात्री",
+  "@driverDetailsEndorsementPassenger": {
+    "description": "Badge label for Passenger (P) transport endorsement authorization.[cite: 1]"
+  },
   "driverDetailsEndorsementSchoolBus": "स्कूल बस",
-  "driverDetailsEndorsementsTitle": "धारण किए गए एंडोर्समेंट",
+  "@driverDetailsEndorsementSchoolBus": {
+    "description": "Badge label for School Bus (S) operation endorsement authorization.[cite: 1]"
+  },
+  "driverDetailsEndorsementsTitle": "प्राप्त अनुमोदन (Endorsements)",
+  "@driverDetailsEndorsementsTitle": {
+    "description": "Section title displaying the special endorsements held on the driver's license.[cite: 1]"
+  },
   "driverDetailsExpiryDateLabel": "समाप्ति तिथि",
+  "@driverDetailsExpiryDateLabel": {
+    "description": "Field label for the driver's license expiration date.[cite: 1]"
+  },
   "driverDetailsHolderSignature": "धारक के हस्ताक्षर",
+  "@driverDetailsHolderSignature": {
+    "description": "Label above the digital signature box on the driving license card.[cite: 1]"
+  },
   "driverDetailsId": "आईडी: {driverId}",
+  "@driverDetailsId": {
+    "description": "Detail label showing the unique driver identification number.[cite: 1]"
+  },
   "driverDetailsIssueDateLabel": "जारी करने की तिथि",
+  "@driverDetailsIssueDateLabel": {
+    "description": "Field label for the driver's license issue date.[cite: 1]"
+  },
   "driverDetailsLicenseDocTitle": "लाइसेंस दस्तावेज़",
+  "@driverDetailsLicenseDocTitle": {
+    "description": "Section title for the uploaded driving license document image preview.[cite: 1]"
+  },
   "driverDetailsLicenseNoLabel": "लाइसेंस नंबर",
+  "@driverDetailsLicenseNoLabel": {
+    "description": "Field label for the driver's license number.[cite: 1]"
+  },
   "driverDetailsLicenseTitle": "लाइसेंस विवरण",
-  "driverDetailsLicenseTypeLabel": "लाइसेंस प्रकार",
+  "@driverDetailsLicenseTitle": {
+    "description": "Card header for the driving license details section.[cite: 1]"
+  },
+  "driverDetailsLicenseTypeLabel": "लाइसेंस का प्रकार",
+  "@driverDetailsLicenseTypeLabel": {
+    "description": "Field label for the type or class of driving license.[cite: 1]"
+  },
   "driverDetailsOfficialSeal": "आधिकारिक मुहर",
-  "driverDetailsPreviewClass": "वर्ग: {cdlClass}",
+  "@driverDetailsOfficialSeal": {
+    "description": "Label for the official issuing authority seal on the digital license card.[cite: 1]"
+  },
+  "driverDetailsPreviewClass": "क्लास: {cdlClass}",
+  "@driverDetailsPreviewClass": {
+    "description": "Preview label showing the CDL class on the driving license card.[cite: 1]"
+  },
   "driverDetailsPreviewDob": "जन्म तिथि: {dob}",
-  "driverDetailsPreviewEndorse": "एंडोर्स: {endorsements}",
+  "@driverDetailsPreviewDob": {
+    "description": "Preview label showing the driver's date of birth on the driving license card.[cite: 1]"
+  },
+  "driverDetailsPreviewEndorse": "अनुमोदन: {endorsements}",
+  "@driverDetailsPreviewEndorse": {
+    "description": "Preview label showing the endorsements string on the driving license card.[cite: 1]"
+  },
   "driverDetailsPreviewExp": "समाप्ति: {expiryDate}",
-  "driverDetailsPreviewLicenseNo": "लाइसेंस नंबर: {licenseNo}",
-  "driverDetailsPreviewName": "पूरा नाम: {name}",
-  "driverDetailsTapToView": "डीएल दस्तावेज़ देखने के लिए टैप करें",
-  "driverDetailsTitle": "ड्राइवर विवरण",
-  "dvirCategoryBusSafetySystems": "बस-विशिष्ट सुरक्षा प्रणालियाँ",
-  "dvirCategoryCouplingDevices": "युग्मन उपकरण",
+  "@driverDetailsPreviewExp": {
+    "description": "Preview label showing the expiration date on the driving license card.[cite: 1]"
+  },
+  "driverDetailsPreviewLicenseNo": "लाइसेंस नं: {licenseNo}",
+  "@driverDetailsPreviewLicenseNo": {
+    "description": "Preview label showing the license number on the driving license card.[cite: 1]"
+  },
+  "driverDetailsPreviewName": "नाम: {name}",
+  "@driverDetailsPreviewName": {
+    "description": "Preview label showing the driver's full name on the driving license card.[cite: 1]"
+  },
+  "driverDetailsTapToView": "DL दस्तावेज़ देखने के लिए टैप करें",
+  "@driverDetailsTapToView": {
+    "description": "Action hint prompting the user to tap and view the full driving license document image.[cite: 1]"
+  },
+  "driverDetailsTitle": "ड्राइवर का विवरण",
+  "@driverDetailsTitle": {
+    "description": "Screen title displaying the driver's profile and license credentials.[cite: 1]"
+  },
+  "dvirCategoryBusSafetySystems": "बस-विशिष्ट सुरक्षा प्रणालियां",
+  "@dvirCategoryBusSafetySystems": {
+    "description": "DVIR inspection category for school bus specific safety systems like stop arms and emergency exits.[cite: 1]"
+  },
+  "dvirCategoryCouplingDevices": "कपलिंग डिवाइस",
+  "@dvirCategoryCouplingDevices": {
+    "description": "DVIR inspection category for vehicle coupling devices and towing hitch connections.[cite: 1]"
+  },
   "dvirCategoryEmergencyEquipment": "आपातकालीन उपकरण",
+  "@dvirCategoryEmergencyEquipment": {
+    "description": "DVIR inspection category for onboard emergency equipment including fire extinguishers and first aid kits.[cite: 1]"
+  },
   "dvirCategoryHorn": "हॉर्न",
-  "dvirCategoryLightingReflectors": "प्रकाश उपकरण और परावर्तक",
-  "dvirCategoryMirrors": "पीछे देखने वाले दर्पण",
+  "@dvirCategoryHorn": {
+    "description": "DVIR inspection category for testing vehicle warning horn operation.[cite: 1]"
+  },
+  "dvirCategoryLightingReflectors": "लाइटिंग डिवाइस और रिफ्लेक्टर",
+  "@dvirCategoryLightingReflectors": {
+    "description": "DVIR inspection category for vehicle lighting devices, turn signals, and reflectors.[cite: 1]"
+  },
+  "dvirCategoryMirrors": "रियर-विज़न दर्पण",
+  "@dvirCategoryMirrors": {
+    "description": "DVIR inspection category for rearview and side safety mirrors condition and alignment.[cite: 1]"
+  },
   "dvirCategoryParkingBrake": "पार्किंग ब्रेक",
-  "dvirCategoryPassengerSeating": "यात्री सीटिंग और प्रतिबंध",
-  "dvirCategoryServiceBrakes": "सेवा ब्रेक",
+  "@dvirCategoryParkingBrake": {
+    "description": "DVIR inspection category for the parking brake and emergency braking system.[cite: 1]"
+  },
+  "dvirCategoryPassengerSeating": "यात्री बैठक और सुरक्षा घेरे",
+  "@dvirCategoryPassengerSeating": {
+    "description": "DVIR inspection category for passenger seating, handrails, and seat restraints.[cite: 1]"
+  },
+  "dvirCategoryServiceBrakes": "सर्विस ब्रेक",
+  "@dvirCategoryServiceBrakes": {
+    "description": "DVIR inspection category for the primary service brake performance and components.[cite: 1]"
+  },
   "dvirCategorySteeringMechanism": "स्टीयरिंग तंत्र",
+  "@dvirCategorySteeringMechanism": {
+    "description": "DVIR inspection category for steering wheel, column, and linkage mechanisms.[cite: 1]"
+  },
   "dvirCategoryTires": "टायर",
+  "@dvirCategoryTires": {
+    "description": "DVIR inspection category for tire condition, tread depth, and air pressure.[cite: 1]"
+  },
   "dvirCategoryWheelsRims": "पहिए और रिम",
+  "@dvirCategoryWheelsRims": {
+    "description": "DVIR inspection category for wheels, lug nuts, and wheel rims condition.[cite: 1]"
+  },
   "dvirCategoryWipers": "विंडशील्ड वाइपर",
-  "dvirPostTripCapturePhoto": "दोष फोटो कैप्चर करें",
+  "@dvirCategoryWipers": {
+    "description": "DVIR inspection category for windshield wipers and washer fluid system.[cite: 1]"
+  },
+  "dvirPostTripCapturePhoto": "खराबी की फ़ोटो कैप्चर करें",
+  "@dvirPostTripCapturePhoto": {
+    "description": "Button label to capture a photo of an observed vehicle defect during post-trip inspection.[cite: 1]"
+  },
   "dvirPostTripComplianceTitle": "अनुपालन प्रमाणन",
-  "dvirPostTripDefectButton": "दोष",
-  "dvirPostTripDefectWithoutPhotoTitle": "फोटो के बिना दोष की रिपोर्ट करना",
-  "dvirPostTripDefectWithoutPhotoWarning": "चेतावनी: आप सुरक्षा क्षेत्रों ({zones}) पर बिना फोटो संलग्न किए एक दोष की रिपोर्ट कर रहे हैं। क्या आप फिर भी सबमिट करना चाहते हैं?",
+  "@dvirPostTripComplianceTitle": {
+    "description": "Section title for the regulatory compliance certification in post-trip inspection.[cite: 1]"
+  },
+  "dvirPostTripDefectButton": "खराबी",
+  "@dvirPostTripDefectButton": {
+    "description": "Toggle button option to mark an inspection zone or component as having a defect.[cite: 1]"
+  },
+  "dvirPostTripDefectWithoutPhotoTitle": "फ़ोटो के बिना खराबी की रिपोर्ट करना",
+  "@dvirPostTripDefectWithoutPhotoTitle": {
+    "description": "Title of confirmation dialog when submitting a defect without photo evidence.[cite: 1]"
+  },
+  "dvirPostTripDefectWithoutPhotoWarning": "चेतावनी: आप फ़ोटो संलग्न किए बिना सुरक्षा क्षेत्रों ({zones}) पर खराबी की रिपोर्ट कर रहे हैं। क्या आप वाकई वैसे भी सबमिट करना चाहते हैं?",
+  "@dvirPostTripDefectWithoutPhotoWarning": {
+    "description": "Warning message in confirmation dialog when submitting defect reports without attached photos.[cite: 1]"
+  },
   "dvirPostTripInspectionTitle": "निरीक्षण: बस {busNumber}",
+  "@dvirPostTripInspectionTitle": {
+    "description": "Screen header showing the bus number undergoing post-trip walkaround inspection.[cite: 1]"
+  },
   "dvirPostTripNotesDefectHint": "सुरक्षा चिंता का विवरण दर्ज करें...",
-  "dvirPostTripNotesLabel": "नोट्स (दोष पर अनिवार्य) और फोटो",
-  "dvirPostTripNotesPassedHint": "सुरक्षा चिंता विवरण दर्ज करने के लिए दोष चुनें...",
+  "@dvirPostTripNotesDefectHint": {
+    "description": "Input placeholder for describing the safety concern or defect details.[cite: 1]"
+  },
+  "dvirPostTripNotesLabel": "नोट्स (खराबी होने पर अनिवार्य) और फ़ोटो",
+  "@dvirPostTripNotesLabel": {
+    "description": "Section header for defect notes and photo attachment in post-trip inspection.[cite: 1]"
+  },
+  "dvirPostTripNotesPassedHint": "सुरक्षा चिंता का विवरण दर्ज करने के लिए 'खराबी' चुनें...",
+  "@dvirPostTripNotesPassedHint": {
+    "description": "Placeholder text shown when an inspection zone is marked passed and notes are disabled.[cite: 1]"
+  },
   "dvirPostTripOdometerHeader": "वर्तमान ओडोमीटर रीडिंग",
-  "dvirPostTripOdometerInstructions": "बस इंस्ट्रूमेंट पैनल पर दिखाए अनुसार माइलेज रीडिंग ठीक से दर्ज करें:",
-  "dvirPostTripOdometerLabel": "ओडोमीटर (मील)",
+  "@dvirPostTripOdometerHeader": {
+    "description": "Step header for entering the current bus odometer reading in post-trip inspection.[cite: 1]"
+  },
+  "dvirPostTripOdometerInstructions": "बस के इंस्ट्रूमेंट पैनल पर दिखाए गए अनुसार ही माइलेज रीडिंग दर्ज करें:",
+  "@dvirPostTripOdometerInstructions": {
+    "description": "Guidance instructing the driver to enter the mileage reading directly from the instrument cluster.[cite: 1]"
+  },
+  "dvirPostTripOdometerLabel": "ओडोमीटर (माइल्स)",
+  "@dvirPostTripOdometerLabel": {
+    "description": "Input field label for entering the bus odometer reading in miles.[cite: 1]"
+  },
   "dvirPostTripOdometerTitle": "वाहन रन टाइम मीट्रिक",
-  "dvirPostTripOdometerWarning": "आगे बढ़ने से पहले कृपया ओडोमीटर रीडिंग दर्ज करें।",
+  "@dvirPostTripOdometerTitle": {
+    "description": "Section title for the vehicle run time and mileage metric step.[cite: 1]"
+  },
+  "dvirPostTripOdometerWarning": "कृपया आगे बढ़ने से पहले ओडोमीटर रीडिंग दर्ज करें।",
+  "@dvirPostTripOdometerWarning": {
+    "description": "Validation warning shown when the driver attempts to proceed without entering the odometer reading.[cite: 1]"
+  },
   "dvirPostTripPassButton": "पास",
-  "dvirPostTripPhotoAttached": "फोटो सफलतापूर्वक संलग्न किया गया।",
+  "@dvirPostTripPassButton": {
+    "description": "Toggle button option to mark an inspection zone or component as passed with no defects.[cite: 1]"
+  },
+  "dvirPostTripPhotoAttached": "फ़ोटो सफलतापूर्वक संलग्न की गई।",
+  "@dvirPostTripPhotoAttached": {
+    "description": "Confirmation message indicating a photo has been attached to the defect report.[cite: 1]"
+  },
   "dvirPostTripProgressLabel": "निरीक्षण प्रगति",
-  "dvirPostTripSignatureCaptured": "हस्ताक्षर कैप्चर किया गया।",
-  "dvirPostTripSignatureCert": "मैं प्रमाणित करता हूं कि यह वाहन वॉकअराउंड चेकलिस्ट रिपोर्ट FMCSA 396.11 नियमों के अनुपालन में पूरी की गई है।",
+  "@dvirPostTripProgressLabel": {
+    "description": "Label for the progress bar tracking completed post-trip walkaround zones.[cite: 1]"
+  },
+  "dvirPostTripSignatureCaptured": "हस्ताक्षर कैप्चर किए गए।",
+  "@dvirPostTripSignatureCaptured": {
+    "description": "Status message confirming that the driver's signature has been recorded.[cite: 1]"
+  },
+  "dvirPostTripSignatureCert": "मैं प्रमाणित करता हूं कि यह वाहन वॉकअराउंड चेकलिस्ट रिपोर्ट FMCSA 396.11 नियमों के अनुपालन में पूरी कर ली गई है।",
+  "@dvirPostTripSignatureCert": {
+    "description": "Legal certification statement confirming the walkaround inspection complies with FMCSA 396.11 regulations.[cite: 1]"
+  },
   "dvirPostTripSignatureTitle": "ड्राइवर हस्ताक्षर सत्यापन",
+  "@dvirPostTripSignatureTitle": {
+    "description": "Section title for the driver signature verification step in post-trip inspection.[cite: 1]"
+  },
   "dvirPostTripSubmitButton": "निरीक्षण सबमिट करें",
-  "dvirPostTripSubmitSuccess": "ई-डीवीआईआर सफलतापूर्वक सबमिट किया गया।",
-  "dvirPostTripZoneHeader": "जोन {current} / {total}",
-  "dvirPostTripZonesProgress": "{current} / {total} जोन",
-  "dvirPreTripAcknowledgmentText": "मैं स्वीकार करता हूं कि मैंने अंतिम सबमिट की गई दोष रिपोर्ट की समीक्षा की है और मरम्मत (यदि कोई हो) को सत्यापित किया है और बताता हूं कि बस संचालन के लिए सुरक्षित है।",
-  "dvirPreTripActiveMessage": "यह वाहन सक्रिय है और इसमें कोई खुला दोष नहीं है। यह सत्यापित और संचालन के लिए सुरक्षित है।",
-  "dvirPreTripActiveRoute": "सक्रिय मार्ग: {routeName}",
-  "dvirPreTripAttentionRequiredTitle": "ध्यान दें: पिछले दिन के दोष लॉग किए गए",
+  "@dvirPostTripSubmitButton": {
+    "description": "Primary button label to submit the completed post-trip DVIR report.[cite: 1]"
+  },
+  "dvirPostTripSubmitSuccess": "eDVIR सफलतापूर्वक सबमिट किया गया।",
+  "@dvirPostTripSubmitSuccess": {
+    "description": "Confirmation message displayed after successfully submitting the post-trip DVIR report.[cite: 1]"
+  },
+  "dvirPostTripZoneHeader": "ज़ोन {current} / {total}",
+  "@dvirPostTripZoneHeader": {
+    "description": "Step header showing the active inspection zone index out of total zones.[cite: 1]"
+  },
+  "dvirPostTripZonesProgress": "{current} / {total} ज़ोन",
+  "@dvirPostTripZonesProgress": {
+    "description": "Progress text showing the number of completed inspection zones out of the total.[cite: 1]"
+  },
+  "dvirPreTripAcknowledgmentText": "मैं स्वीकार करता हूं कि मैंने पिछली सबमिट की गई खराबी रिपोर्ट की समीक्षा कर ली है और मरम्मत (यदि कोई हो) का सत्यापन कर लिया है और कहता हूं कि बस संचालन के लिए सुरक्षित है।",
+  "@dvirPreTripAcknowledgmentText": {
+    "description": "Checkbox acknowledgment text for the driver to certify review of prior defects and vehicle safety.[cite: 1]"
+  },
+  "dvirPreTripActiveMessage": "यह वाहन सक्रिय है और इसमें कोई खुली खराबी नहीं है। यह सत्यापित है और संचालन के लिए सुरक्षित है।",
+  "@dvirPreTripActiveMessage": {
+    "description": "Status message confirming the bus is active, has no open defects, and is safe for operation.[cite: 1]"
+  },
+  "dvirPreTripActiveRoute": "सक्रिय रूट: {routeName}",
+  "@dvirPreTripActiveRoute": {
+    "description": "Header label displaying the active route assigned for pre-trip verification.[cite: 1]"
+  },
+  "dvirPreTripAttentionRequiredTitle": "ध्यान आवश्यक है: पिछले दिन की खराबी लॉग की गई",
+  "@dvirPreTripAttentionRequiredTitle": {
+    "description": "Alert header displayed when unresolved defects from previous post-trip inspections exist.[cite: 1]"
+  },
   "dvirPreTripBusNumber": "बस नंबर: {busNumber}",
-  "dvirPreTripDispatchCheckTitle": "वाहन प्रेषण जांच",
+  "@dvirPreTripBusNumber": {
+    "description": "Bus number label displayed in the pre-trip verification header card.[cite: 1]"
+  },
+  "dvirPreTripDispatchCheckTitle": "वाहन प्रेषण जांच (डिस्पैच चेक)",
+  "@dvirPreTripDispatchCheckTitle": {
+    "description": "Card header for the vehicle dispatch readiness verification section.[cite: 1]"
+  },
   "dvirPreTripFailedToSign": "हस्ताक्षर करने में विफल: {error}",
-  "dvirPreTripNoPriorDefects": "कोई पूर्व दोष लॉग नहीं किया गया",
-  "dvirPreTripNoPriorDefectsMessage": "इस वाहन को पिछली पोस्ट-ट्रिप शिफ्ट निरीक्षण में साफ बताया गया था।",
+  "@dvirPreTripFailedToSign": {
+    "description": "Error message displayed when driver signature verification fails during pre-trip check.[cite: 1]"
+  },
+  "dvirPreTripNoPriorDefects": "कोई पूर्व खराबी लॉग नहीं की गई",
+  "@dvirPreTripNoPriorDefects": {
+    "description": "Status title indicating that no prior defects were logged on the vehicle.[cite: 1]"
+  },
+  "dvirPreTripNoPriorDefectsMessage": "पिछले पोस्ट-ट्रिप शिफ्ट निरीक्षण में इस वाहन को साफ (दोष-मुक्त) बताया गया था।",
+  "@dvirPreTripNoPriorDefectsMessage": {
+    "description": "Informational message confirming the vehicle had zero defects logged in the previous post-trip inspection.[cite: 1]"
+  },
   "dvirPreTripNoRepairsNeeded": "सुरक्षित संचालन के लिए किसी मरम्मत की आवश्यकता नहीं है।",
-  "dvirPreTripOutOfServiceMessage": "यह वाहन मरम्मत/रखरखाव के लिए सेवा से बाहर है। प्रेषण से पहले दुकान के कर्मचारियों द्वारा सुरक्षा चिंताओं का समाधान किया जाना चाहिए।",
-  "dvirPreTripOutofServiceButton": "वाहन सेवा से बाहर",
+  "@dvirPreTripNoRepairsNeeded": {
+    "description": "Status message confirming that no maintenance repairs are required for safe operation.[cite: 1]"
+  },
+  "dvirPreTripOutOfServiceMessage": "यह वाहन मरम्मत/रखरखाव के लिए सेवा से बाहर है। प्रेषण (डिस्पैच) से पहले दुकान के कर्मचारियों द्वारा सुरक्षा संबंधी चिंताओं का समाधान किया जाना चाहिए।",
+  "@dvirPreTripOutOfServiceMessage": {
+    "description": "Alert message explaining that the vehicle is out of service for repairs and cannot be dispatched.[cite: 1]"
+  },
+  "dvirPreTripOutofServiceButton": "वाहन सेवा से बाहर है",
+  "@dvirPreTripOutofServiceButton": {
+    "description": "Button or badge label indicating that the vehicle is currently out of service.[cite: 1]"
+  },
   "dvirPreTripReason": "कारण: {reason}",
-  "dvirPreTripRepairedDefect": "{description} (मरम्मत किया गया)",
-  "dvirPreTripReportNewDefectsButton": "नए दोषों की रिपोर्ट करें",
-  "dvirPreTripReportNewDefectsDisabled": "मरम्मत के दौरान नए दोषों की रिपोर्टिंग अक्षम है।",
+  "@dvirPreTripReason": {
+    "description": "Label displaying the recorded reason why a vehicle is marked out of service.[cite: 1]"
+  },
+  "dvirPreTripRepairedDefect": "{description} (मरम्मत की गई)",
+  "@dvirPreTripRepairedDefect": {
+    "description": "List item label displaying a defect description that has been marked as repaired.[cite: 1]"
+  },
+  "dvirPreTripReportNewDefectsButton": "नई खराबी की रिपोर्ट करें",
+  "@dvirPreTripReportNewDefectsButton": {
+    "description": "Button label allowing the driver to report newly observed defects during pre-trip inspection.[cite: 1]"
+  },
+  "dvirPreTripReportNewDefectsDisabled": "मरम्मत के दौरान नई खराबी की रिपोर्टिंग अक्षम कर दी गई है।",
+  "@dvirPreTripReportNewDefectsDisabled": {
+    "description": "Informational notice indicating new defect reporting is disabled while repairs are in progress.[cite: 1]"
+  },
   "dvirPreTripResolutionStatus": "स्थिति: {status}",
-  "dvirPreTripResolutionTitle": "परिवहन उप-प्रशासक संकल्प",
-  "dvirPreTripReturnToHomeButton": "घर लौटें",
-  "dvirPreTripSignOffTitle": "वॉकअराउंड पर आगे बढ़ने के लिए साइन-ऑफ करें",
+  "@dvirPreTripResolutionStatus": {
+    "description": "Label displaying the maintenance sub-administrator's resolution status for prior defects.[cite: 1]"
+  },
+  "dvirPreTripResolutionTitle": "परिवहन उप-प्रशासक समाधान",
+  "@dvirPreTripResolutionTitle": {
+    "description": "Section header for the maintenance sub-administrator's repair resolution report.[cite: 1]"
+  },
+  "dvirPreTripReturnToHomeButton": "होम पर वापस लौटें",
+  "@dvirPreTripReturnToHomeButton": {
+    "description": "Navigation button label to return to the home screen when vehicle is out of service.[cite: 1]"
+  },
+  "dvirPreTripSignOffTitle": "वॉकअराउंड के लिए आगे बढ़ने के लिए साइन-ऑफ़ करें",
+  "@dvirPreTripSignOffTitle": {
+    "description": "Section title for the pre-trip driver sign-off step.[cite: 1]"
+  },
   "dvirPreTripSignedSuccess": "सत्यापन सफलतापूर्वक हस्ताक्षरित। प्री-ट्रिप अनलॉक किया गया।",
+  "@dvirPreTripSignedSuccess": {
+    "description": "Success notification indicating pre-trip verification is signed and pre-trip walkaround is unlocked.[cite: 1]"
+  },
   "dvirPreTripSubmitVerificationButton": "सत्यापन सबमिट करें",
+  "@dvirPreTripSubmitVerificationButton": {
+    "description": "Button label to submit the completed pre-trip verification sign-off.[cite: 1]"
+  },
   "dvirPreTripTitle": "प्री-ट्रिप सत्यापन",
-  "dvirPreTripVehicleStatus": "वाहन स्थिति: {status}",
-  "dvirSigDrawTitle": "हस्ताक्षर बनाएं",
+  "@dvirPreTripTitle": {
+    "description": "Screen title for the Pre-Trip Vehicle Verification module.[cite: 1]"
+  },
+  "dvirPreTripVehicleStatus": "वाहन की स्थिति: {status}",
+  "@dvirPreTripVehicleStatus": {
+    "description": "Label displaying the current operational status of the vehicle in pre-trip inspection.[cite: 1]"
+  },
+  "dvirSigDrawTitle": "हस्ताक्षर ड्रा करें",
+  "@dvirSigDrawTitle": {
+    "description": "Screen or dialog title for the digital signature drawing pad.[cite: 1]"
+  },
   "dvirSigPreviewLabel": "कैप्चर किए गए हस्ताक्षर का पूर्वावलोकन:",
-  "dvirSigRedraw": "पुनः बनाएं",
+  "@dvirSigPreviewLabel": {
+    "description": "Label displayed above the image preview of the captured driver signature.[cite: 1]"
+  },
+  "dvirSigRedraw": "पुनः ड्रा करें",
+  "@dvirSigRedraw": {
+    "description": "Button label to clear the current drawing and re-sign on the signature pad.[cite: 1]"
+  },
   "dvirSigSave": "हस्ताक्षर सहेजें",
-  "dvirSigTapToDraw": "हस्ताक्षर बनाने के लिए टैप करें (अनिवार्य)",
-  "dvirSigWatermark": "लंबवत हस्ताक्षर करें (नीचे से ऊपर)",
+  "@dvirSigSave": {
+    "description": "Button label to confirm and save the drawn digital signature.[cite: 1]"
+  },
+  "dvirSigTapToDraw": "हस्ताक्षर ड्रा करने के लिए टैप करें (आवश्यक)",
+  "@dvirSigTapToDraw": {
+    "description": "Action placeholder prompt inviting the driver to tap and open the signature drawing pad.[cite: 1]"
+  },
+  "dvirSigWatermark": "लंबवत रूप से हस्ताक्षर करें (नीचे से ऊपर की ओर)",
+  "@dvirSigWatermark": {
+    "description": "Watermark orientation guide on the signature pad instructing vertical bottom-to-top signing.[cite: 1]"
+  },
   "forgotPasswordCancel": "रद्द करें",
+  "@forgotPasswordCancel": {
+    "description": "Button label to cancel and close the forgot password dialog.[cite: 1]"
+  },
   "forgotPasswordEmailLabel": "ईमेल",
+  "@forgotPasswordEmailLabel": {
+    "description": "Input field label for entering the account email address in password recovery.[cite: 1]"
+  },
   "forgotPasswordInvalidEmail": "कृपया एक वैध ईमेल दर्ज करें",
+  "@forgotPasswordInvalidEmail": {
+    "description": "Form validation error displayed when an invalid email format is entered in password recovery.[cite: 1]"
+  },
   "forgotPasswordSend": "भेजें",
-  "forgotPasswordSuccess": "यदि वह ईमेल मौजूद है, तो एक रीसेट लिंक भेजा गया है।",
-  "genericBack": "वापस",
+  "@forgotPasswordSend": {
+    "description": "Button label to send the password reset email request.[cite: 1]"
+  },
+  "forgotPasswordSuccess": "यदि वह ईमेल मौजूद है, तो एक रीसेट लिंक भेज दिया गया है।",
+  "@forgotPasswordSuccess": {
+    "description": "Success confirmation message displayed after sending a password reset request.[cite: 1]"
+  },
+  "genericBack": "पीछे",
+  "@genericBack": {
+    "description": "Generic button label to navigate back to the previous screen or step.[cite: 1]"
+  },
   "genericCancel": "रद्द करें",
-  "genericClear": "साफ करें",
+  "@genericCancel": {
+    "description": "Generic button label to cancel the active operation or dismiss a dialog.[cite: 1]"
+  },
+  "genericClear": "साफ़ करें",
+  "@genericClear": {
+    "description": "Generic button label to clear form fields or drawing inputs.[cite: 1]"
+  },
   "genericClose": "बंद करें",
+  "@genericClose": {
+    "description": "Generic button label to close a dialog, bottom sheet, or view.[cite: 1]"
+  },
   "genericConfirm": "पुष्टि करें",
+  "@genericConfirm": {
+    "description": "Generic button label to confirm an action in a modal or dialog.[cite: 1]"
+  },
   "genericEdit": "संपादित करें",
+  "@genericEdit": {
+    "description": "Generic button label to edit a field or record.[cite: 1]"
+  },
   "genericError": "कुछ गलत हो गया",
+  "@genericError": {
+    "description": "Generic error title or message displayed when an unexpected error occurs.[cite: 1]"
+  },
   "genericLoading": "लोड हो रहा है...",
+  "@genericLoading": {
+    "description": "Generic loading indicator text displayed during asynchronous tasks.[cite: 1]"
+  },
   "genericNext": "अगला",
+  "@genericNext": {
+    "description": "Generic button label to advance to the next step in a multi-step workflow.[cite: 1]"
+  },
   "genericOk": "ठीक है",
+  "@genericOk": {
+    "description": "Generic button label to acknowledge an alert dialog.[cite: 1]"
+  },
   "genericRetry": "पुनः प्रयास करें",
+  "@genericRetry": {
+    "description": "Generic button label to re-attempt a failed network operation.[cite: 1]"
+  },
   "genericSuccess": "सफलता",
+  "@genericSuccess": {
+    "description": "Generic success title or status message.[cite: 1]"
+  },
   "homeBusLabel": "बस: {busId}",
-  "homeDispatchBlocked": "प्रेषण अवरुद्ध",
-  "homeDispatchBlockedTitle": "प्रेषण अवरुद्ध",
-  "homeErrorNoRoutesPreTrip": "प्री-ट्रिप करने के लिए कोई मार्ग उपलब्ध नहीं है।",
-  "homeFailedToStartTrip": "सर्वर पर यात्रा शुरू करने में विफल: {error}",
+  "@homeBusLabel": {
+    "description": "Card label displaying the assigned bus identifier on the home screen.[cite: 1]"
+  },
+  "homeDispatchBlocked": "प्रेषण (डिस्पैच) अवरुद्ध",
+  "@homeDispatchBlocked": {
+    "description": "Status badge indicating that vehicle dispatch is blocked due to unresolved maintenance.[cite: 1]"
+  },
+  "homeDispatchBlockedTitle": "प्रेषण (डिस्पैच) अवरुद्ध",
+  "@homeDispatchBlockedTitle": {
+    "description": "Dialog title shown when vehicle dispatch is blocked from starting a trip.[cite: 1]"
+  },
+  "homeErrorNoRoutesPreTrip": "प्री-ट्रिप करने के लिए कोई रूट उपलब्ध नहीं है।",
+  "@homeErrorNoRoutesPreTrip": {
+    "description": "Error alert shown when pre-trip inspection cannot be opened because no routes are assigned.[cite: 1]"
+  },
+  "homeFailedToStartTrip": "सर्वर पर ट्रिप शुरू करने में विफल: {error}",
+  "@homeFailedToStartTrip": {
+    "description": "Error message displayed when starting a route trip fails on the server.[cite: 1]"
+  },
   "homeHi": "नमस्ते, {name}",
+  "@homeHi": {
+    "description": "Personalized greeting header welcoming the logged-in driver on the home screen.[cite: 1]"
+  },
   "homeLogout": "लॉग आउट",
-  "homeMenuAppInfo": "ऐप जानकारी",
+  "@homeLogout": {
+    "description": "Drawer menu item label to log out of the application.[cite: 1]"
+  },
+  "homeMenuAppInfo": "ऐप की जानकारी",
+  "@homeMenuAppInfo": {
+    "description": "Drawer menu item label navigating to the application information screen.[cite: 1]"
+  },
   "homeMenuDrill": "ड्रिल",
-  "homeMenuDriverDetails": "ड्राइवर विवरण",
+  "@homeMenuDrill": {
+    "description": "Drawer menu item label navigating to the evacuation drills management screen.[cite: 1]"
+  },
+  "homeMenuDriverDetails": "ड्राइवर का विवरण",
+  "@homeMenuDriverDetails": {
+    "description": "Drawer menu item label navigating to the driver details and license screen.[cite: 1]"
+  },
   "homeMenuLanguage": "भाषा",
+  "@homeMenuLanguage": {
+    "description": "Drawer menu item label navigating to the language preferences screen.[cite: 1]"
+  },
   "homeMenuPreTrip": "प्री-ट्रिप निरीक्षण",
-  "homeNoRoutes": "कोई मार्ग उपलब्ध नहीं",
-  "homeReviewVerifyPreTrip": "प्री-ट्रिप की समीक्षा और सत्यापन करें",
-  "homeSearchHint": "मार्ग खोजें",
+  "@homeMenuPreTrip": {
+    "description": "Drawer menu item label navigating to the pre-trip DVIR inspection screen.[cite: 1]"
+  },
+  "homeNoRoutes": "कोई रूट उपलब्ध नहीं",
+  "@homeNoRoutes": {
+    "description": "Empty state message displayed on the home screen when no routes are assigned to the driver.[cite: 1]"
+  },
+  "homeReviewVerifyPreTrip": "समीक्षा करें और प्री-ट्रिप सत्यापित करें",
+  "@homeReviewVerifyPreTrip": {
+    "description": "Action button label on the home screen prompting the driver to complete pre-trip verification.[cite: 1]"
+  },
+  "homeSearchHint": "रूट खोजें",
+  "@homeSearchHint": {
+    "description": "Placeholder text in the search input for filtering routes on the home dashboard.[cite: 1]"
+  },
   "homeStart": "शुरू करें",
+  "@homeStart": {
+    "description": "Button label to start tracking and executing an assigned route trip.[cite: 1]"
+  },
   "homeTitle": "होम",
+  "@homeTitle": {
+    "description": "Screen title and app bar header for the Home dashboard.[cite: 1]"
+  },
   "homeVehicleOutOfServiceDefault": "वाहन वर्तमान में सेवा से बाहर है।",
-  "homeVehicleReady": "वाहन सुरक्षित संचालन के लिए तैयार और सत्यापित है।",
+  "@homeVehicleOutOfServiceDefault": {
+    "description": "Warning banner on the home screen indicating the vehicle is out of service.[cite: 1]"
+  },
+  "homeVehicleReady": "वाहन तैयार है और सुरक्षित संचालन के लिए सत्यापित है।",
+  "@homeVehicleReady": {
+    "description": "Status banner on the home screen confirming the bus is inspected and ready for service.[cite: 1]"
+  },
   "languageTitle": "भाषा",
-  "loginButton": "लॉगिन",
+  "@languageTitle": {
+    "description": "Screen title and header for the language selection preferences screen.[cite: 1]"
+  },
+  "loginButton": "लॉग इन करें",
+  "@loginButton": {
+    "description": "Primary button label to submit login credentials and sign in.[cite: 1]"
+  },
   "loginEmailOrPhoneLabel": "ईमेल या फोन नंबर",
+  "@loginEmailOrPhoneLabel": {
+    "description": "Input field label for entering the username, email, or phone number.[cite: 1]"
+  },
   "loginErrorEnterPassword": "कृपया पासवर्ड दर्ज करें",
+  "@loginErrorEnterPassword": {
+    "description": "Form validation error displayed when the password field is left empty.[cite: 1]"
+  },
   "loginErrorEnterUsername": "कृपया उपयोगकर्ता नाम दर्ज करें",
-  "loginErrorFailed": "लॉगिन विफल। कृपया पुनः प्रयास करें।",
+  "@loginErrorEnterUsername": {
+    "description": "Form validation error displayed when the username field is left empty.[cite: 1]"
+  },
+  "loginErrorFailed": "लॉगिन विफल रहा। कृपया पुनः प्रयास करें।",
+  "@loginErrorFailed": {
+    "description": "Error banner message displayed when authentication fails.[cite: 1]"
+  },
   "loginErrorInvalidEmailOrPhone": "कृपया एक वैध ईमेल या फोन नंबर दर्ज करें",
+  "@loginErrorInvalidEmailOrPhone": {
+    "description": "Form validation error displayed when an invalid email or phone format is entered.[cite: 1]"
+  },
   "loginForgotPassword": "पासवर्ड भूल गए?",
+  "@loginForgotPassword": {
+    "description": "Link button label to open the forgot password recovery dialog.[cite: 1]"
+  },
   "loginPasswordLabel": "पासवर्ड",
+  "@loginPasswordLabel": {
+    "description": "Input field label for entering the user account password.[cite: 1]"
+  },
   "mapChildrenTooltip": "बच्चे और अभिभावक",
-  "mapConfirmMessage": "क्या आप वास्तव में यात्रा बंद करना चाहते हैं?",
+  "@mapChildrenTooltip": {
+    "description": "Map action button tooltip for opening the onboard children and guardians list.[cite: 1]"
+  },
+  "mapConfirmMessage": "क्या आप वाकई ट्रिप बंद करना चाहते हैं?",
+  "@mapConfirmMessage": {
+    "description": "Body message in confirmation dialog asking the driver to confirm ending the active trip.[cite: 1]"
+  },
   "mapConfirmTitle": "पुष्टि करें",
-  "mapCurrentPosition": "वर्तमान स्थिति",
+  "@mapConfirmTitle": {
+    "description": "Title of confirmation dialog displayed when ending an active route trip.[cite: 1]"
+  },
+  "mapCurrentPosition": "वर्तमान स्थान",
+  "@mapCurrentPosition": {
+    "description": "Tooltip or marker label indicating the current GPS location of the vehicle on the map.[cite: 1]"
+  },
   "mapNo": "नहीं",
-  "mapReconnectMessage": "स्थान अपडेट बार-बार विफल हो रहा है, कृपया अपना इंटरनेट जांचें।",
+  "@mapNo": {
+    "description": "Negative action button in map confirmation dialogs.[cite: 1]"
+  },
+  "mapReconnectMessage": "स्थान अपडेट बार-बार विफल हो रहा है, कृपया अपने इंटरनेट की जांच करें।",
+  "@mapReconnectMessage": {
+    "description": "Warning banner message displayed when live location updates fail due to network loss.[cite: 1]"
+  },
   "mapReconnectTitle": "ट्रैकर",
+  "@mapReconnectTitle": {
+    "description": "Dialog title for live tracking network reconnection alerts.[cite: 1]"
+  },
   "mapStop": "रोकें",
-  "mapStopping": "रुक रहा है...",
+  "@mapStop": {
+    "description": "Action button label to stop tracking and end the current route trip.[cite: 1]"
+  },
+  "mapStopping": "रोका जा रहा है...",
+  "@mapStopping": {
+    "description": "Button state label shown while the trip termination request is processing.[cite: 1]"
+  },
   "mapStopsTooltip": "स्टॉप",
+  "@mapStopsTooltip": {
+    "description": "Map action button tooltip for opening the route stops list.[cite: 1]"
+  },
   "mapUpdatedAgo": "{seconds} सेकंड पहले अपडेट किया गया",
-  "mapWaitingGps": "जीपीएस का इंतजार है...",
-  "mapYes": "हाँ",
+  "@mapUpdatedAgo": {
+    "description": "Status subtitle indicating elapsed seconds since the last successful vehicle GPS update.[cite: 1]"
+  },
+  "mapWaitingGps": "जीपीएस की प्रतीक्षा कर रहा है...",
+  "@mapWaitingGps": {
+    "description": "Status message displayed while acquiring initial GPS satellite signal.[cite: 1]"
+  },
+  "mapYes": "हां",
+  "@mapYes": {
+    "description": "Affirmative action button in map confirmation dialogs.[cite: 1]"
+  },
   "splashDriverApp": "ड्राइवर ऐप",
-  "stopsActionUndo": "पूर्ववत करें",
+  "@splashDriverApp": {
+    "description": "Application subtitle and role branding displayed on the splash launch screen.[cite: 1]"
+  },
+  "stopsActionUndo": "पूर्ववत (Undo)",
+  "@stopsActionUndo": {
+    "description": "Action button label to undo the most recent student pickup or drop-off action.[cite: 1]"
+  },
   "stopsCancelledSuccess": "सफलतापूर्वक रद्द किया गया",
+  "@stopsCancelledSuccess": {
+    "description": "Snackbar message confirming the cancellation of a student stop action.[cite: 1]"
+  },
   "stopsDefaultLabel": "स्टॉप",
+  "@stopsDefaultLabel": {
+    "description": "Default fallback label for an unnamed stop in the route stops roster.[cite: 1]"
+  },
   "stopsGenericError": "कुछ गलत हो गया। कृपया पुनः प्रयास करें।",
-  "stopsStatusComplete": "पूर्ण",
+  "@stopsGenericError": {
+    "description": "Error message displayed when an error occurs during student pickup or drop-off operations.[cite: 1]"
+  },
+  "stopsStatusComplete": "पूरा",
+  "@stopsStatusComplete": {
+    "description": "Status descriptor indicating all student pickup or drop-off tasks at a stop are complete.[cite: 1]"
+  },
   "stopsStatusDone": "हो गया",
-  "stopsSubmitCount": "सबमिट करें ({count})",
+  "@stopsStatusDone": {
+    "description": "Status descriptor indicating student pickup or drop-off operations are finished.[cite: 1]"
+  },
+  "stopsSubmitCount": "सबमिट ({count})",
+  "@stopsSubmitCount": {
+    "description": "Primary button label to submit student pickup or drop-off counts for the current stop.[cite: 1]"
+  },
   "stopsSubmittedSuccess": "सफलतापूर्वक सबमिट किया गया",
+  "@stopsSubmittedSuccess": {
+    "description": "Snackbar notification confirming student pickup or drop-off actions were successfully submitted.[cite: 1]"
+  },
   "stopsSummary": "{selected} चयनित · {done}/{total} {status}",
-  "stopsTypeDrop": "छोड़ें",
-  "stopsTypePick": "उठाएं",
-  "stopsUndoCount": "पूर्ववत करें ({count})",
-  "stopsUndoTooltip": "पिक/ड्रॉप पूर्ववत करें",
+  "@stopsSummary": {
+    "description": "Summary text displaying selected student counts and completed operations at a stop.[cite: 1]"
+  },
+  "stopsTypeDrop": "ड्रॉप",
+  "@stopsTypeDrop": {
+    "description": "Badge label indicating a student drop-off stop type or action.[cite: 1]"
+  },
+  "stopsTypePick": "पिक",
+  "@stopsTypePick": {
+    "description": "Badge label indicating a student pickup stop type or action.[cite: 1]"
+  },
+  "stopsUndoCount": "पूर्ववत (Undo) ({count})",
+  "@stopsUndoCount": {
+    "description": "Button label to undo a specified number of student pickup or drop-off actions.[cite: 1]"
+  },
+  "stopsUndoTooltip": "पिक/ड्रॉप को पूर्ववत करें",
+  "@stopsUndoTooltip": {
+    "description": "Tooltip explaining the action to undo student pickup or drop-off operations.[cite: 1]"
+  },
   "tripConfirmCancel": "रद्द करें",
+  "@tripConfirmCancel": {
+    "description": "Button label to cancel and dismiss the trip action confirmation dialog.[cite: 1]"
+  },
   "tripConfirmOk": "ठीक है",
+  "@tripConfirmOk": {
+    "description": "Button label to confirm and proceed with the trip action.[cite: 1]"
+  },
   "tripConfirmTitle": "ट्रैकर",
-  "tripErrorLocationRequired": "यात्रा शुरू करने के लिए स्थान अनुमति आवश्यक है।"
+  "@tripConfirmTitle": {
+    "description": "Title of the trip confirmation dialog in the tracking module.[cite: 1]"
+  },
+  "tripErrorLocationRequired": "ट्रिप शुरू करने के लिए स्थान अनुमति आवश्यक है।",
+  "@tripErrorLocationRequired": {
+    "description": "Error alert explaining that location permission is mandatory to start route tracking.[cite: 1]"
+  },
+  "homeMenuPostCrashReporting": "दुर्घटना के बाद की रिपोर्ट",
+  "@homeMenuPostCrashReporting": {
+    "description": "Drawer menu item label navigating to the post-crash incident reporting module.[cite: 1]"
+  },
+  "homeVehicleReason": "कारण: {reason}",
+  "@homeVehicleReason": {
+    "description": "Detail label displaying why the vehicle is out of service on the home dashboard.[cite: 1]"
+  },
+  "homeVehicleStatus": "स्थिति: {status}",
+  "@homeVehicleStatus": {
+    "description": "Detail label displaying the vehicle operational status on the home dashboard.[cite: 1]"
+  },
+  "crashLocationPickerCoords": "अक्षांश: {lat}, देशांतर: {lng}",
+  "@crashLocationPickerCoords": {
+    "description": "Coordinate display showing latitude and longitude on the crash location picker map.[cite: 1]"
+  },
+  "crashLocationPickerSearchHint": "स्थान खोजें (उदा. मार्केट स्ट्रीट)",
+  "@crashLocationPickerSearchHint": {
+    "description": "Placeholder text in the search input on the crash location picker map.[cite: 1]"
+  },
+  "crashLocationPickerTitle": "मानचित्र पर स्थान चुनें",
+  "@crashLocationPickerTitle": {
+    "description": "Screen title for selecting the crash location on an interactive map.[cite: 1]"
+  },
+  "crashLocationPickerTooltip": "स्थान की पुष्टि करें",
+  "@crashLocationPickerTooltip": {
+    "description": "Floating action button tooltip to confirm the selected crash location coordinates.[cite: 1]"
+  },
+  "incidentDashboardDescription": "घटना प्रबंधन के साथ आगे बढ़ने या पिछली रिपोर्ट देखने के लिए कोई कार्रवाई चुनें।",
+  "@incidentDashboardDescription": {
+    "description": "Descriptive subtitle on the post-crash incident management dashboard.[cite: 1]"
+  },
+  "incidentDashboardHeadline": "दुर्घटना (क्रैश) के बाद घटना की रिपोर्टिंग",
+  "@incidentDashboardHeadline": {
+    "description": "Main header headline on the post-crash incident management dashboard.[cite: 1]"
+  },
+  "incidentDashboardLogNew": "नई दुर्घटना (क्रैश) लॉग करें",
+  "@incidentDashboardLogNew": {
+    "description": "Card title button to start logging a new post-crash incident report.[cite: 1]"
+  },
+  "incidentDashboardLogNewSubtitle": "चरण दर चरण क्रैश रिपोर्ट प्रारंभ करें",
+  "@incidentDashboardLogNewSubtitle": {
+    "description": "Subtitle describing the action to start a step-by-step post-crash intake report.[cite: 1]"
+  },
+  "incidentDashboardTitle": "दुर्घटना के बाद की घटना",
+  "@incidentDashboardTitle": {
+    "description": "Screen title for the post-crash incident management dashboard.[cite: 1]"
+  },
+  "incidentDashboardViewHistory": "इतिहास देखें",
+  "@incidentDashboardViewHistory": {
+    "description": "Card title button to view past post-crash incident reports and statuses.[cite: 1]"
+  },
+  "incidentDashboardViewHistorySubtitle": "पिछली क्रैश रिपोर्ट और स्थिति देखें",
+  "@incidentDashboardViewHistorySubtitle": {
+    "description": "Subtitle describing the incident history and registry view option.[cite: 1]"
+  },
+  "incidentDetailsAdminLetter": "एडमिन पत्र",
+  "@incidentDetailsAdminLetter": {
+    "description": "Card or tab title for the generated administrative transmittal letter.[cite: 1]"
+  },
+  "incidentDetailsAlcoholCountdown": "DOT अल्कोहल टेस्ट उलटी गिनती (2 घंटे की सीमा)",
+  "@incidentDetailsAlcoholCountdown": {
+    "description": "Section title for the 2-hour federal DOT post-crash alcohol testing countdown timer.[cite: 1]"
+  },
+  "incidentDetailsBranchId": "ब्रांच आईडी",
+  "@incidentDetailsBranchId": {
+    "description": "Field label displaying the school district or branch identifier in incident details.[cite: 1]"
+  },
+  "incidentDetailsBusPlate": "बस लाइसेंस नंबर",
+  "@incidentDetailsBusPlate": {
+    "description": "Field label displaying the license plate number of the involved school bus.[cite: 1]"
+  },
+  "incidentDetailsCitationImpact": "चालान (Citation) का प्रभाव: {explanation}",
+  "@incidentDetailsCitationImpact": {
+    "description": "Field text explaining how traffic citations impact DOT post-crash testing requirements.[cite: 1]"
+  },
+  "incidentDetailsCitationIssued": "ड्राइवर को चालान (Citation) जारी किया गया",
+  "@incidentDetailsCitationIssued": {
+    "description": "Detail row indicating whether a traffic citation was issued to the driver.[cite: 1]"
+  },
+  "incidentDetailsCoordinates": "निर्देशांक: अक्षांश {lat}, देशांतर {lng}",
+  "@incidentDetailsCoordinates": {
+    "description": "Detail label displaying the GPS latitude and longitude of the crash location.[cite: 1]"
+  },
+  "incidentDetailsCopiedToClipboard": "{title} क्लिपबोर्ड पर कॉपी किया गया!",
+  "@incidentDetailsCopiedToClipboard": {
+    "description": "Toast message confirming that report details or transmittal letter were copied to clipboard.[cite: 1]"
+  },
+  "incidentDetailsCopyToClipboard": "क्लिपबोर्ड पर कॉपी करें",
+  "@incidentDetailsCopyToClipboard": {
+    "description": "Button label to copy transmittal letter or report text to the clipboard.[cite: 1]"
+  },
+  "incidentDetailsCrashCitationInfo": "क्रैश और चालान (Citation) की जानकारी",
+  "@incidentDetailsCrashCitationInfo": {
+    "description": "Card section header grouping crash circumstances and driver citation details.[cite: 1]"
+  },
+  "incidentDetailsDateTime": "दिनांक और समय: {dateTime}",
+  "@incidentDetailsDateTime": {
+    "description": "Detail label displaying the date and time when the crash occurred.[cite: 1]"
+  },
+  "incidentDetailsDoeReport": "DOE रिपोर्ट",
+  "@incidentDetailsDoeReport": {
+    "description": "Button or tab label for the State Department of Education incident report.[cite: 1]"
+  },
+  "incidentDetailsDoeReportTitle": "राज्य DOE रिपोर्ट (वैकल्पिक)",
+  "@incidentDetailsDoeReportTitle": {
+    "description": "Section header for the optional State Department of Education notification report.[cite: 1]"
+  },
+  "incidentDetailsDriverNotes": "ड्राइवर के नोट्स:",
+  "@incidentDetailsDriverNotes": {
+    "description": "Header for the section displaying driver notes submitted in the crash report.[cite: 1]"
+  },
+  "incidentDetailsDriverUserId": "ड्राइवर यूज़र आईडी",
+  "@incidentDetailsDriverUserId": {
+    "description": "Field label displaying the driver's unique system user ID in incident details.[cite: 1]"
+  },
+  "incidentDetailsDrugCountdown": "DOT ड्रग टेस्ट उलटी गिनती (8 घंटे की सीमा)",
+  "@incidentDetailsDrugCountdown": {
+    "description": "Section title for the 8-hour federal DOT post-crash drug testing countdown timer.[cite: 1]"
+  },
+  "incidentDetailsFatalityOccurred": "मृत्यु हुई",
+  "@incidentDetailsFatalityOccurred": {
+    "description": "Detail row indicating whether a fatality occurred as a result of the crash.[cite: 1]"
+  },
+  "incidentDetailsHeaderTitle": "घटना #{id}",
+  "@incidentDetailsHeaderTitle": {
+    "description": "App bar title displaying the incident report identification number.[cite: 1]"
+  },
+  "incidentDetailsInjuriesMedTreatment": "ऐसी चोटें जिनमें चिकित्सा उपचार की आवश्यकता हो",
+  "@incidentDetailsInjuriesMedTreatment": {
+    "description": "Detail row indicating whether injuries requiring off-scene medical treatment occurred.[cite: 1]"
+  },
+  "incidentDetailsLawEnforcement": "कानून प्रवर्तन एजेंसी",
+  "@incidentDetailsLawEnforcement": {
+    "description": "Field label displaying the responding police or highway patrol agency name.[cite: 1]"
+  },
+  "incidentDetailsLoadFailed": "विवरण लोड करने में विफल।",
+  "@incidentDetailsLoadFailed": {
+    "description": "Error message displayed when loading incident report details fails.[cite: 1]"
+  },
+  "incidentDetailsLocation": "स्थान: {location}",
+  "@incidentDetailsLocation": {
+    "description": "Detail label displaying the physical street address or intersection of the crash.[cite: 1]"
+  },
+  "incidentDetailsMediaAttachments": "मीडिया अटैचमेंट",
+  "@incidentDetailsMediaAttachments": {
+    "description": "Section header for photos and media attached to the incident report.[cite: 1]"
+  },
+  "incidentDetailsMediaStatus": "स्थिति: {status}",
+  "@incidentDetailsMediaStatus": {
+    "description": "Label displaying the upload or review status of incident media attachments.[cite: 1]"
+  },
+  "incidentDetailsNo": "नहीं",
+  "@incidentDetailsNo": {
+    "description": "Negative response badge for binary incident attributes in details view.[cite: 1]"
+  },
+  "incidentDetailsNoMediaAttachments": "कोई फ़ोटो या वीडियो संलग्न नहीं है।",
+  "@incidentDetailsNoMediaAttachments": {
+    "description": "Empty state message displayed when no photos or videos are attached to the report.[cite: 1]"
+  },
+  "incidentDetailsNoStudentsOnboard": "घटना के दौरान बस में किसी भी छात्र को चिह्नित नहीं किया गया था।",
+  "@incidentDetailsNoStudentsOnboard": {
+    "description": "Informational message indicating no students were onboard the bus during the crash.[cite: 1]"
+  },
+  "incidentDetailsNotificationsDesc": "अधिसूचना रिपोर्ट जेनरेट करें और जिला पर्यवेक्षकों या प्रशासन को टेम्पलेटेड पत्र भेजें।",
+  "@incidentDetailsNotificationsDesc": {
+    "description": "Description explaining transmittal letters and notifications sent to district supervisors.[cite: 1]"
+  },
+  "incidentDetailsNotificationsTitle": "प्रेषण (Transmittal) सूचनाएं",
+  "@incidentDetailsNotificationsTitle": {
+    "description": "Section header for administrative transmittal notifications and letters.[cite: 1]"
+  },
+  "incidentDetailsOfficer": "अधिकारी का विवरण",
+  "@incidentDetailsOfficer": {
+    "description": "Card section header displaying the responding police officer's details.[cite: 1]"
+  },
+  "incidentDetailsPoliceReport": "पुलिस रिपोर्ट संख्या",
+  "@incidentDetailsPoliceReport": {
+    "description": "Field label displaying the official police report case number.[cite: 1]"
+  },
+  "incidentDetailsPrePopulatedLetter": "पूर्व-भरी हुई प्रेषण पत्र:",
+  "@incidentDetailsPrePopulatedLetter": {
+    "description": "Header label above the pre-populated transmittal letter for school administrators.[cite: 1]"
+  },
+  "incidentDetailsRegulatoryBasis": "नियामक आधार:",
+  "@incidentDetailsRegulatoryBasis": {
+    "description": "Header label for the federal regulatory basis governing DOT testing requirements.[cite: 1]"
+  },
+  "incidentDetailsRouteId": "रूट आईडी",
+  "@incidentDetailsRouteId": {
+    "description": "Field label displaying the route identifier associated with the incident.[cite: 1]"
+  },
+  "incidentDetailsSchoolAdminTitle": "स्कूल व्यवस्थापक अधिसूचना",
+  "@incidentDetailsSchoolAdminTitle": {
+    "description": "Section title for notifications dispatched to school administration.[cite: 1]"
+  },
+  "incidentDetailsStatusPending": "लंबित",
+  "@incidentDetailsStatusPending": {
+    "description": "Status badge indicating that an incident report or testing action is pending.[cite: 1]"
+  },
+  "incidentDetailsStudentDetails": "विवरण: {notes}",
+  "@incidentDetailsStudentDetails": {
+    "description": "Detail label showing injury notes and notes recorded for an involved student.[cite: 1]"
+  },
+  "incidentDetailsStudentInjured": "घायल",
+  "@incidentDetailsStudentInjured": {
+    "description": "Status badge indicating that the student sustained injuries during the crash.[cite: 1]"
+  },
+  "incidentDetailsStudentNoInjury": "कोई चोट नहीं",
+  "@incidentDetailsStudentNoInjury": {
+    "description": "Status badge indicating that the student was uninjured during the crash.[cite: 1]"
+  },
+  "incidentDetailsStudentSeverity": "गंभीरता: {severity}",
+  "@incidentDetailsStudentSeverity": {
+    "description": "Detail label displaying the injury severity level for an involved student.[cite: 1]"
+  },
+  "incidentDetailsStudentTransportedTo": "यहां ले जाया गया: {facility}",
+  "@incidentDetailsStudentTransportedTo": {
+    "description": "Detail label showing the hospital or medical facility where the student was transported.[cite: 1]"
+  },
+  "incidentDetailsStudentsOnboard": "बस में सवार छात्र ({count})",
+  "@incidentDetailsStudentsOnboard": {
+    "description": "Section header listing students who were onboard the bus during the incident.[cite: 1]"
+  },
+  "incidentDetailsTestingRequiredTitle": "DOT क्रैश के बाद का परीक्षण आवश्यक है",
+  "@incidentDetailsTestingRequiredTitle": {
+    "description": "Prominent warning title indicating federal DOT post-crash drug/alcohol testing is mandatory.[cite: 1]"
+  },
+  "incidentDetailsTimerStatus": "स्थिति: {status}",
+  "@incidentDetailsTimerStatus": {
+    "description": "Label displaying the current operational status of the DOT testing countdown timer.[cite: 1]"
+  },
+  "incidentDetailsTitle": "घटना का विवरण",
+  "@incidentDetailsTitle": {
+    "description": "Screen title for the Post-Crash Incident Details screen.[cite: 1]"
+  },
+  "incidentDetailsVehicleTowed": "वाहन को खींचा (Tow) गया",
+  "@incidentDetailsVehicleTowed": {
+    "description": "Detail row indicating whether a vehicle required towing due to disabling damage.[cite: 1]"
+  },
+  "incidentDetailsYes": "हां",
+  "@incidentDetailsYes": {
+    "description": "Affirmative response badge for binary incident attributes in details view.[cite: 1]"
+  },
+  "incidentHistoryEmpty": "इस वाहन के लिए कोई घटना लॉग पंजीकृत नहीं है।",
+  "@incidentHistoryEmpty": {
+    "description": "Empty state message displayed when no crash incident logs exist for the vehicle.[cite: 1]"
+  },
+  "incidentHistoryFailed": "लॉग प्राप्त करने में विफल: {error}",
+  "@incidentHistoryFailed": {
+    "description": "Error message displayed when loading the post-crash incident history fails.[cite: 1]"
+  },
+  "incidentHistoryItemSubtitle": "समय: {time} बस: {busNumber} परीक्षण: {testingStatus}",
+  "@incidentHistoryItemSubtitle": {
+    "description": "Subtitle format string for incident history list items displaying time, bus, and testing status.[cite: 1]"
+  },
+  "incidentHistoryItemTitle": "घटना #{id}",
+  "@incidentHistoryItemTitle": {
+    "description": "Title format string for incident history list items displaying the report ID.[cite: 1]"
+  },
+  "incidentHistoryTestingNotRequired": "आवश्यक नहीं",
+  "@incidentHistoryTestingNotRequired": {
+    "description": "Status tag indicating DOT post-crash testing was not required for the incident.[cite: 1]"
+  },
+  "incidentHistoryTestingRequired": "आवश्यक है",
+  "@incidentHistoryTestingRequired": {
+    "description": "Status tag indicating DOT post-crash testing was mandatory for the incident.[cite: 1]"
+  },
+  "incidentHistoryTitle": "दुर्घटना के बाद घटना रजिस्ट्री",
+  "@incidentHistoryTitle": {
+    "description": "Screen title for the Post-Crash Incident Registry and history list.[cite: 1]"
+  },
+  "incidentIntakeAddAnotherPhoto": "एक और फ़ोटो जोड़ें",
+  "@incidentIntakeAddAnotherPhoto": {
+    "description": "Button label to attach an additional photo to the crash intake report.[cite: 1]"
+  },
+  "incidentIntakeBadgeNumberError": "आवश्यक है",
+  "@incidentIntakeBadgeNumberError": {
+    "description": "Form validation error displayed when the police officer badge number is missing.[cite: 1]"
+  },
+  "incidentIntakeBadgeNumberLabel": "बैज नंबर*",
+  "@incidentIntakeBadgeNumberLabel": {
+    "description": "Form field label for the investigating police officer's badge number.[cite: 1]"
+  },
+  "incidentIntakeBus": "बस नंबर: {busNumber}",
+  "@incidentIntakeBus": {
+    "description": "Bus number label in the incident intake vehicle and driver summary header.[cite: 1]"
+  },
+  "incidentIntakeCaptureScenePhoto": "घटना स्थल की फ़ोटो कैप्चर करें",
+  "@incidentIntakeCaptureScenePhoto": {
+    "description": "Button label to open camera and capture a photo of the crash scene.[cite: 1]"
+  },
+  "incidentIntakeCitationSubtitle": "क्या स्कूल बस ड्राइवर को चलती यातायात के उल्लंघन का चालान जारी किया गया था?",
+  "@incidentIntakeCitationSubtitle": {
+    "description": "Explanatory question asking if a moving traffic violation citation was issued to the driver.[cite: 1]"
+  },
+  "incidentIntakeCitationTitle": "क्या चालान जारी किया गया?",
+  "@incidentIntakeCitationTitle": {
+    "description": "Section title question asking whether a traffic citation was issued to the driver.[cite: 1]"
+  },
+  "incidentIntakeDateTimeLabel": "दुर्घटना का दिनांक और समय*",
+  "@incidentIntakeDateTimeLabel": {
+    "description": "Form field label for selecting the date and time when the crash occurred.[cite: 1]"
+  },
+  "incidentIntakeDotTestingNotRequired": "DOT परीक्षण आवश्यक नहीं है",
+  "@incidentIntakeDotTestingNotRequired": {
+    "description": "Determination banner indicating DOT drug and alcohol testing is not required.[cite: 1]"
+  },
+  "incidentIntakeDotTestingRequired": "DOT परीक्षण आवश्यक है",
+  "@incidentIntakeDotTestingRequired": {
+    "description": "Determination banner indicating mandatory DOT drug and alcohol testing is required.[cite: 1]"
+  },
+  "incidentIntakeDriver": "ड्राइवर: {driverName}",
+  "@incidentIntakeDriver": {
+    "description": "Driver name label in the incident intake summary header.[cite: 1]"
+  },
+  "incidentIntakeDriverNotesHint": "टक्कर के संबंध में कोई अतिरिक्त नोट दर्ज करें...",
+  "@incidentIntakeDriverNotesHint": {
+    "description": "Placeholder hint text for optional driver notes regarding the collision.[cite: 1]"
+  },
+  "incidentIntakeDriverNotesTitle": "ड्राइवर के घटना नोट्स",
+  "@incidentIntakeDriverNotesTitle": {
+    "description": "Section header for the driver's narrative account of the crash.[cite: 1]"
+  },
+  "incidentIntakeErrorRoutePassengers": "रूट के यात्रियों को लोड करने में विफल: {error}",
+  "@incidentIntakeErrorRoutePassengers": {
+    "description": "Error message displayed when loading route passengers fails during incident intake.[cite: 1]"
+  },
+  "incidentIntakeEvidenceTitle": "प्रमाण (फ़ोटो) संलग्न करें *",
+  "@incidentIntakeEvidenceTitle": {
+    "description": "Section header for mandatory photo evidence attachments in crash intake.[cite: 1]"
+  },
+  "incidentIntakeFatalitySubtitle": "क्या इस दुर्घटना के परिणामस्वरूप कोई मृत्यु हुई?",
+  "@incidentIntakeFatalitySubtitle": {
+    "description": "Explanatory question asking if any fatalities resulted from the crash.[cite: 1]"
+  },
+  "incidentIntakeFatalityTitle": "क्या मृत्यु हुई?",
+  "@incidentIntakeFatalityTitle": {
+    "description": "Section title question asking whether any fatalities occurred in the crash.[cite: 1]"
+  },
+  "incidentIntakeGpsLabel": "GPS निर्देशांक*",
+  "@incidentIntakeGpsLabel": {
+    "description": "Form field label displaying the GPS coordinates of the crash location.[cite: 1]"
+  },
+  "incidentIntakeHistoryTooltip": "इतिहास देखें",
+  "@incidentIntakeHistoryTooltip": {
+    "description": "App bar action tooltip to open the incident history registry.[cite: 1]"
+  },
+  "incidentIntakeInjuriesSubtitle": "क्या किसी व्यक्ति को ऐसी शारीरिक चोट लगी जिसके लिए घटनास्थल से दूर तत्काल चिकित्सा उपचार की आवश्यकता थी?",
+  "@incidentIntakeInjuriesSubtitle": {
+    "description": "Explanatory question asking if anyone suffered injuries requiring off-scene medical treatment.[cite: 1]"
+  },
+  "incidentIntakeInjuriesTitle": "क्या चिकित्सा उपचार की आवश्यकता वाली चोटें लगीं?",
+  "@incidentIntakeInjuriesTitle": {
+    "description": "Section title question asking whether injuries requiring medical treatment occurred.[cite: 1]"
+  },
+  "incidentIntakeInjuryNotesError": "घायल छात्रों के लिए चोट के नोट अनिवार्य हैं",
+  "@incidentIntakeInjuryNotesError": {
+    "description": "Form validation error displayed when injury notes are missing for an injured student.[cite: 1]"
+  },
+  "incidentIntakeInjuryNotesLabel": "चोट के नोट्स / विवरण (अनिवार्य) *",
+  "@incidentIntakeInjuryNotesLabel": {
+    "description": "Form field label for entering notes detailing a student's injuries.[cite: 1]"
+  },
+  "incidentIntakeInjurySeverityLabel": "चोट की गंभीरता *",
+  "@incidentIntakeInjurySeverityLabel": {
+    "description": "Dropdown label for selecting the injury severity level of an injured student.[cite: 1]"
+  },
+  "incidentIntakeLawEnforcementAgencyError": "कृपया कानून प्रवर्तन एजेंसी दर्ज करें",
+  "@incidentIntakeLawEnforcementAgencyError": {
+    "description": "Form validation error displayed when the law enforcement agency is omitted.[cite: 1]"
+  },
+  "incidentIntakeLawEnforcementAgencyLabel": "कानून प्रवर्तन एजेंसी (उदा. स्टेट हाईवे पेट्रोल)*",
+  "@incidentIntakeLawEnforcementAgencyLabel": {
+    "description": "Form field label for the investigating law enforcement agency name.[cite: 1]"
+  },
+  "incidentIntakeLawEnforcementTitle": "कानून प्रवर्तन और पुलिस रिपोर्ट",
+  "@incidentIntakeLawEnforcementTitle": {
+    "description": "Wizard step section header for law enforcement and police report information.[cite: 1]"
+  },
+  "incidentIntakeLocationDescError": "कृपया स्थान का विवरण दर्ज करें",
+  "@incidentIntakeLocationDescError": {
+    "description": "Form validation error displayed when the crash location description is omitted.[cite: 1]"
+  },
+  "incidentIntakeLocationDescLabel": "स्थान का विवरण (उदा. मार्केट सेंट और 5वां एवेन्यू) *",
+  "@incidentIntakeLocationDescLabel": {
+    "description": "Form field label for entering the street intersection or crash location description.[cite: 1]"
+  },
+  "incidentIntakeMedicalFacilityLabel": "चिकित्सा सुविधा जहां ले जाया गया",
+  "@incidentIntakeMedicalFacilityLabel": {
+    "description": "Form field label for the medical facility or hospital where a student was transported.[cite: 1]"
+  },
+  "incidentIntakeNoMatchingStudents": "कोई मेल खाने वाला छात्र नहीं।",
+  "@incidentIntakeNoMatchingStudents": {
+    "description": "Search filter message displayed when no students match the search query.[cite: 1]"
+  },
+  "incidentIntakeNoStudentsFound": "कोई छात्र नहीं मिला।",
+  "@incidentIntakeNoStudentsFound": {
+    "description": "Message displayed when no student records are found for the active route.[cite: 1]"
+  },
+  "incidentIntakeNoStudentsOnboard": "बस में कोई छात्र नहीं, कृपया जारी रखने के लिए 'अगला' दबाएं।",
+  "@incidentIntakeNoStudentsOnboard": {
+    "description": "Informational banner indicating no students were onboard during the crash.[cite: 1]"
+  },
+  "incidentIntakeNoStudentsRoute": "इस रूट के लिए कोई छात्र पंजीकृत नहीं है।",
+  "@incidentIntakeNoStudentsRoute": {
+    "description": "Message displayed when no students are registered on the selected route.[cite: 1]"
+  },
+  "incidentIntakeOfficerNameError": "कृपया अधिकारी का नाम दर्ज करें।",
+  "@incidentIntakeOfficerNameError": {
+    "description": "Form validation error displayed when the investigating officer name is omitted.[cite: 1]"
+  },
+  "incidentIntakeOfficerNameLabel": "अधिकारी का नाम*",
+  "@incidentIntakeOfficerNameLabel": {
+    "description": "Form field label for the investigating police officer's name.[cite: 1]"
+  },
+  "incidentIntakePoliceReportNumberError": "कृपया पुलिस रिपोर्ट संख्या दर्ज करें",
+  "@incidentIntakePoliceReportNumberError": {
+    "description": "Form validation error displayed when the police report case number is omitted.[cite: 1]"
+  },
+  "incidentIntakePoliceReportNumberLabel": "पुलिस रिपोर्ट संख्या *",
+  "@incidentIntakePoliceReportNumberLabel": {
+    "description": "Form field label for the official police report case number.[cite: 1]"
+  },
+  "incidentIntakeRoute": "रूट: {routeName}",
+  "@incidentIntakeRoute": {
+    "description": "Route name label in the incident intake vehicle and driver summary header.[cite: 1]"
+  },
+  "incidentIntakeRouteDriverInfo": "रूट और ड्राइवर की जानकारी",
+  "@incidentIntakeRouteDriverInfo": {
+    "description": "Wizard step title for route, vehicle, and driver information.[cite: 1]"
+  },
+  "incidentIntakeSearchInjuredHint": "घायल बच्चे को खोजें...",
+  "@incidentIntakeSearchInjuredHint": {
+    "description": "Placeholder text for searching and filtering the injured student list.[cite: 1]"
+  },
+  "incidentIntakeSearchStudentHint": "छात्र खोजें...",
+  "@incidentIntakeSearchStudentHint": {
+    "description": "Placeholder text for searching students onboard the bus during intake.[cite: 1]"
+  },
+  "incidentIntakeSelectAll": "सभी छात्रों को चुनें",
+  "@incidentIntakeSelectAll": {
+    "description": "Checkbox label to select all registered route students as onboard during the crash.[cite: 1]"
+  },
+  "incidentIntakeSelectOnMap": "मानचित्र पर चुनें",
+  "@incidentIntakeSelectOnMap": {
+    "description": "Button label to open the interactive map and pinpoint the crash location coordinates.[cite: 1]"
+  },
+  "incidentIntakeSeverityFatal": "घातक (Fatal)",
+  "@incidentIntakeSeverityFatal": {
+    "description": "Dropdown option for fatal student injury severity.[cite: 1]"
+  },
+  "incidentIntakeSeverityMinor": "मामूली",
+  "@incidentIntakeSeverityMinor": {
+    "description": "Dropdown option for minor student injury severity.[cite: 1]"
+  },
+  "incidentIntakeSeverityModerate": "मध्यम",
+  "@incidentIntakeSeverityModerate": {
+    "description": "Dropdown option for moderate student injury severity.[cite: 1]"
+  },
+  "incidentIntakeSeveritySevere": "गंभीर",
+  "@incidentIntakeSeveritySevere": {
+    "description": "Dropdown option for severe student injury severity.[cite: 1]"
+  },
+  "incidentIntakeSeverityTitle": "क्रैश की गंभीरता के चर (Variables)",
+  "@incidentIntakeSeverityTitle": {
+    "description": "Wizard step section header for federal DOT crash threshold criteria variables.[cite: 1]"
+  },
+  "incidentIntakeStudentId": "आईडी: {id}",
+  "@incidentIntakeStudentId": {
+    "description": "Detail label displaying the student ID in the incident passenger checklist.[cite: 1]"
+  },
+  "incidentIntakeSubmitButton": "रिपोर्ट सबमिट करें",
+  "@incidentIntakeSubmitButton": {
+    "description": "Primary button label to submit the completed post-crash intake report.[cite: 1]"
+  },
+  "incidentIntakeTitle": "दुर्घटना के बाद घटना सेवन (Intake)",
+  "@incidentIntakeTitle": {
+    "description": "Screen title for the step-by-step Post-Crash Incident Intake wizard.[cite: 1]"
+  },
+  "incidentIntakeTowedSubtitle": "क्या किसी वाहन को इतना नुकसान पहुंचा कि उसे घटनास्थल से खींचकर (Tow) ले जाने की आवश्यकता पड़ी?",
+  "@incidentIntakeTowedSubtitle": {
+    "description": "Explanatory question asking if any vehicle required towing due to disabling damage.[cite: 1]"
+  },
+  "incidentIntakeTowedTitle": "क्या वाहन को खींचा गया?",
+  "@incidentIntakeTowedTitle": {
+    "description": "Section title question asking whether any involved vehicle was towed from the scene.[cite: 1]"
+  },
+  "incidentIntakeWasInjured": "क्या घायल हुआ?",
+  "@incidentIntakeWasInjured": {
+    "description": "Checkbox or toggle asking if a specific student sustained injuries in the crash.[cite: 1]"
+  },
+  "dvirPreTripBusLabel": "बस: {busNumber}",
+  "@dvirPreTripBusLabel": {
+    "description": "Bus identifier label displayed in the pre-trip verification header.[cite: 1]"
+  },
+  "dvirPreTripClose": "बंद करें",
+  "@dvirPreTripClose": {
+    "description": "Button label to close the defect photo preview modal.[cite: 1]"
+  },
+  "dvirPreTripDriverCommentsLabel": "ड्राइवर की टिप्पणियां / नोट्स (वैकल्पिक)",
+  "@dvirPreTripDriverCommentsLabel": {
+    "description": "Form field label for optional driver comments in the pre-trip verification form.[cite: 1]"
+  },
+  "dvirPreTripNoComments": "कोई टिप्पणी नहीं जोड़ी गई।",
+  "@dvirPreTripNoComments": {
+    "description": "Fallback text displayed in the review step when no driver comments were added.[cite: 1]"
+  },
+  "dvirPreTripReasonLabel": "कारण: {reason}",
+  "@dvirPreTripReasonLabel": {
+    "description": "Detail label displaying the reason why the bus is out of service.[cite: 1]"
+  },
+  "dvirPreTripRouteLabel": "रूट: {routeName}",
+  "@dvirPreTripRouteLabel": {
+    "description": "Route name label displayed on the pre-trip verification screen.[cite: 1]"
+  },
+  "dvirPreTripSigCaptured": "हस्ताक्षर सफलतापूर्वक कैप्चर किए गए।",
+  "@dvirPreTripSigCaptured": {
+    "description": "Confirmation message indicating the driver's signature was successfully captured for pre-trip.[cite: 1]"
+  },
+  "dvirPreTripSigMissing": "हस्ताक्षर गायब हैं।",
+  "@dvirPreTripSigMissing": {
+    "description": "Validation error message indicating that a signature is required before proceeding.[cite: 1]"
+  },
+  "dvirPreTripSignDefectWarning": "कृपया पिछली खराबी की मरम्मत को सत्यापित करने के लिए हस्ताक्षर करें।",
+  "@dvirPreTripSignDefectWarning": {
+    "description": "Validation warning urging the driver to sign and verify repair completion of prior defects.[cite: 1]"
+  },
+  "dvirPreTripStepSignOff": "साइन-ऑफ़ करें",
+  "@dvirPreTripStepSignOff": {
+    "description": "Stepper label for the driver sign-off step in pre-trip verification.[cite: 1]"
+  },
+  "dvirPreTripStepSubmit": "सबमिट करें",
+  "@dvirPreTripStepSubmit": {
+    "description": "Stepper label for the final submission step in pre-trip verification.[cite: 1]"
+  },
+  "dvirPreTripStepVerify": "सत्यापित करें",
+  "@dvirPreTripStepVerify": {
+    "description": "Stepper label for the prior defect verification step in pre-trip verification.[cite: 1]"
+  },
+  "dvirPreTripTapNext": "कृपया आगे बढ़ने के लिए 'अगला' पर टैप करें।",
+  "@dvirPreTripTapNext": {
+    "description": "Instruction prompt guiding the driver to tap next to proceed through the pre-trip steps.[cite: 1]"
+  },
+  "dvirPreTripVehicleOutOfService": "वाहन सेवा से बाहर है",
+  "@dvirPreTripVehicleOutOfService": {
+    "description": "Status banner title indicating that the vehicle is out of service.[cite: 1]"
+  },
+  "dvirPreTripVehicleReady": "वाहन सेवा के लिए तैयार है",
+  "@dvirPreTripVehicleReady": {
+    "description": "Status banner title indicating that the vehicle is verified and ready for service.[cite: 1]"
+  },
+  "dvirPreTripVerifiedRepairStatus": "सत्यापित मरम्मत की स्थिति:",
+  "@dvirPreTripVerifiedRepairStatus": {
+    "description": "Section header for the verified repair checklist in pre-trip inspection.[cite: 1]"
+  },
+  "dvirPreTripVerifyCheckWarning": "कृपया प्रत्येक दोष के बगल में स्थित बॉक्स को चेक करके सत्यापित करें कि रिपोर्ट किए गए सभी दोषों की मरम्मत कर दी गई है।",
+  "@dvirPreTripVerifyCheckWarning": {
+    "description": "Validation warning requesting the driver to check off each repaired defect item to proceed.[cite: 1]"
+  },
+  "dvirPreTripYourComments": "आपकी टिप्पणियां:",
+  "@dvirPreTripYourComments": {
+    "description": "Field label displaying the driver's added comments on the pre-trip summary card.[cite: 1]"
+  },
+  "countryPickerNoCountries": "कोई देश नहीं मिला",
+  "@countryPickerNoCountries": {
+    "description": "Empty state message displayed in the country picker when no countries match the search.[cite: 1]"
+  },
+  "countryPickerSearchHint": "देश का नाम, कोड या डायल कोड द्वारा खोजें...",
+  "@countryPickerSearchHint": {
+    "description": "Placeholder text in the country picker search field for filtering countries.[cite: 1]"
+  },
+  "countryPickerTitle": "देश चुनें",
+  "@countryPickerTitle": {
+    "description": "Title of the bottom sheet for selecting a country phone code.[cite: 1]"
+  },
+  "mapDefaultStop": "स्टॉप",
+  "@mapDefaultStop": {
+    "description": "Default fallback label for an unnamed route stop on the live tracking map.[cite: 1]"
+  },
+  "mapEndLocation": "अंतिम स्थान",
+  "@mapEndLocation": {
+    "description": "Marker label or indicator marking the route's final destination on the tracking map.[cite: 1]"
+  },
+  "mapStartLocation": "प्रारंभिक स्थान",
+  "@mapStartLocation": {
+    "description": "Marker label or indicator marking the route's initial starting location on the tracking map.[cite: 1]"
+  },
+  "stopsNoChangesToUndo": "पूर्ववत (Undo) करने के लिए कोई बदलाव उपलब्ध नहीं है।",
+  "@stopsNoChangesToUndo": {
+    "description": "Snackbar message indicating that there are no student actions available to undo.[cite: 1]"
+  },
+  "stopsNoStopsAvailable": "कोई स्टॉप उपलब्ध नहीं है।",
+  "@stopsNoStopsAvailable": {
+    "description": "Empty state message displayed when no stops are configured for the route.[cite: 1]"
+  }
 }
