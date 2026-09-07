@@ -68,10 +68,21 @@ class _DrillTypeSelectionScreenState extends ConsumerState<DrillTypeSelectionScr
       (r.vehicleId != null && r.vehicleId == busId)
     ).toList();
 
-    final availableRoutes = busRoutes.isNotEmpty ? busRoutes : routesState.allRoutes;
+    final rawRoutes = busRoutes.isNotEmpty ? busRoutes : routesState.allRoutes;
+    
+    // Deduplicate routes by ID to prevent duplicate DropdownMenuItem assertions
+    final uniqueRoutesMap = <int, RouteResponse>{};
+    for (final r in rawRoutes) {
+      uniqueRoutesMap[r.id] = r;
+    }
+    final availableRoutes = uniqueRoutesMap.values.toList();
 
-    if (_selectedRoute == null && availableRoutes.isNotEmpty) {
-      _selectedRoute = availableRoutes.first;
+    // Safely match selected route with current available routes
+    RouteResponse? selectedRoute;
+    if (_selectedRoute != null && uniqueRoutesMap.containsKey(_selectedRoute!.id)) {
+      selectedRoute = uniqueRoutesMap[_selectedRoute!.id];
+    } else if (availableRoutes.isNotEmpty) {
+      selectedRoute = availableRoutes.first;
     }
 
     return Scaffold(
@@ -136,7 +147,7 @@ class _DrillTypeSelectionScreenState extends ConsumerState<DrillTypeSelectionScr
                   ),
                   const SizedBox(height: 12),
                   Text(
-                    _selectedRoute != null ? l10n.drillTypeRoute(_selectedRoute!.name) : l10n.drillTypeNoRouteSelected,
+                    selectedRoute != null ? l10n.drillTypeRoute(selectedRoute.name) : l10n.drillTypeNoRouteSelected,
                     style: const TextStyle(
                       color: Colors.white,
                       fontSize: 18,
@@ -166,8 +177,8 @@ class _DrillTypeSelectionScreenState extends ConsumerState<DrillTypeSelectionScr
           const SizedBox(height: 8),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
-            child: DropdownButtonFormField<RouteResponse>(
-              value: _selectedRoute,
+            child: DropdownButtonFormField<int>(
+              value: selectedRoute?.id,
               decoration: InputDecoration(
                 border: const OutlineInputBorder(),
                 contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
@@ -175,8 +186,8 @@ class _DrillTypeSelectionScreenState extends ConsumerState<DrillTypeSelectionScr
                 filled: true,
               ),
               items: availableRoutes.map((route) {
-                return DropdownMenuItem<RouteResponse>(
-                  value: route,
+                return DropdownMenuItem<int>(
+                  value: route.id,
                   child: Text(
                     route.name,
                     style: const TextStyle(fontSize: 14),
@@ -184,9 +195,11 @@ class _DrillTypeSelectionScreenState extends ConsumerState<DrillTypeSelectionScr
                 );
               }).toList(),
               onChanged: (val) {
-                setState(() {
-                  _selectedRoute = val;
-                });
+                if (val != null && uniqueRoutesMap.containsKey(val)) {
+                  setState(() {
+                    _selectedRoute = uniqueRoutesMap[val];
+                  });
+                }
               },
             ),
           ),
@@ -327,10 +340,10 @@ class _DrillTypeSelectionScreenState extends ConsumerState<DrillTypeSelectionScr
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
                   elevation: 2,
                 ),
-                onPressed: _selectedDrillType == null || ( _isCustomType && _customTypeController.text.trim().isEmpty ) || _selectedRoute == null
+                onPressed: _selectedDrillType == null || ( _isCustomType && _customTypeController.text.trim().isEmpty ) || selectedRoute == null
                     ? null
                     : () {
-                        if (busId == null || _selectedRoute == null) {
+                        if (busId == null || selectedRoute == null) {
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(content: Text(l10n.drillTypeInvalidState)),
                           );
@@ -340,7 +353,7 @@ class _DrillTypeSelectionScreenState extends ConsumerState<DrillTypeSelectionScr
                         final drillType = _isCustomType ? _customTypeController.text.trim() : _selectedDrillType!;
                         
                         ref.read(drillChecklistProvider.notifier).startDrill(
-                              routeId: _selectedRoute!.id,
+                              routeId: selectedRoute.id,
                               busId: busId,
                               busNumber: busNumber,
                               drillType: drillType,

@@ -118,12 +118,13 @@ class DrillRepository {
       for (int i = 0; i < drillLog.evidenceFiles.length; i++) {
         final item = drillLog.evidenceFiles[i];
         if (item.mediaType == EvidenceMediaType.video && item.localFilePath != null) {
+          final fileName = item.localFilePath!.split(RegExp(r'[/\\]')).last;
           formData.files.add(
             MapEntry(
               'video',
               await MultipartFile.fromFile(
                 item.localFilePath!,
-                filename: item.localFilePath!.split('/').last.split('\\').last,
+                filename: fileName,
                 contentType: MediaType('video', 'mp4'),
               ),
             ),
@@ -134,11 +135,6 @@ class DrillRepository {
       final response = await _apiClient.post(
         ApiEndpoints.drillLog,
         data: formData,
-        options: Options(
-          headers: {
-            'Content-Type': 'multipart/form-data',
-          },
-        ),
         onSendProgress: onProgress,
       );
       final data = response.data is String ? jsonDecode(response.data) : response.data;

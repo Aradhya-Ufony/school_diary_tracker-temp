@@ -19,4 +19,17 @@ class VehicleStateResponse {
       blockReason: json['blockReason']?.toString(),
     );
   }
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is VehicleStateResponse &&
+          runtimeType == other.runtimeType &&
+          schoolBusId == other.schoolBusId &&
+          currentState == other.currentState &&
+          isBlocked == other.isBlocked &&
+          blockReason == other.blockReason;
+
+  @override
+  int get hashCode => Object.hash(schoolBusId, currentState, isBlocked, blockReason);
 }

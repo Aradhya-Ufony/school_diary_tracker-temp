@@ -99,6 +99,37 @@ class HomeViewModel extends StateNotifier<HomeState> {
 
   Future<void> refresh() => _loadRoutes();
 
+  Future<void> refreshVehicleState({bool silent = true}) async {
+    if (state.allRoutes.isEmpty) {
+      await _loadRoutes();
+      return;
+    }
+    if (!silent) {
+      state = state.copyWith(isVehicleStateLoading: true);
+    }
+    final firstRoute = state.allRoutes.first;
+    final vehicleId = firstRoute.vehicleId ?? 0;
+    final busNumber = firstRoute.vehicleLicenseNumber;
+    try {
+      final latestState = await _dvirRepository.getVehicleState(
+        vehicleId,
+        fallbackBusNumber: busNumber,
+      );
+      if (state.vehicleState != latestState || state.isVehicleStateLoading) {
+        state = state.copyWith(
+          vehicleState: latestState,
+          isVehicleStateLoading: false,
+        );
+      }
+    } catch (e) {
+      if (state.isVehicleStateLoading) {
+        state = state.copyWith(
+          isVehicleStateLoading: false,
+        );
+      }
+    }
+  }
+
   void search(String query) {
     state = state.copyWith(searchQuery: query);
   }

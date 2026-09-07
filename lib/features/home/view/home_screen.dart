@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../../../core/di/providers.dart';
-import '../../../core/routing/app_router.dart';
 import '../../../core/utils/app_constants.dart';
 import '../../../data/models/route_response.dart';
 import '../../../data/models/user_location.dart';
@@ -19,7 +18,7 @@ class HomeScreen extends ConsumerStatefulWidget {
   ConsumerState<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends ConsumerState<HomeScreen> with RouteAware {
+class _HomeScreenState extends ConsumerState<HomeScreen> {
   final _searchController = TextEditingController();
   bool _isStarting = false;
   late final AppLifecycleListener _lifecycleListener;
@@ -28,27 +27,12 @@ class _HomeScreenState extends ConsumerState<HomeScreen> with RouteAware {
   void initState() {
     super.initState();
     _lifecycleListener = AppLifecycleListener(
-      onResume: () => ref.read(homeViewModelProvider.notifier).refresh(),
+      onResume: () => ref.read(homeViewModelProvider.notifier).refreshVehicleState(),
     );
   }
 
   @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    final route = ModalRoute.of(context);
-    if (route != null) {
-      rootRouteObserver.subscribe(this, route);
-    }
-  }
-
-  @override
-  void didPopNext() {
-    ref.read(homeViewModelProvider.notifier).refresh();
-  }
-
-  @override
   void dispose() {
-    rootRouteObserver.unsubscribe(this);
     _lifecycleListener.dispose();
     _searchController.dispose();
     super.dispose();
@@ -59,13 +43,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen> with RouteAware {
     final l10n = AppLocalizations.of(context)!;
     final state = ref.watch(homeViewModelProvider);
     final user = ref.watch(authRepositoryProvider).getCurrentUser();
-
-    // Listen to current screen updates to ensure refresh on returning to Home
-    ref.listen<String>(currentScreenProvider, (previous, next) {
-      if (next == Constants.HOME && previous != Constants.HOME) {
-        ref.read(homeViewModelProvider.notifier).refresh();
-      }
-    });
 
     return Scaffold(
       appBar: AppBar(
@@ -102,19 +79,17 @@ class _HomeScreenState extends ConsumerState<HomeScreen> with RouteAware {
             ListTile(
               leading: const Icon(Icons.person),
               title: Text(l10n.homeMenuDriverDetails),
-              onTap: () async {
+              onTap: () {
                 Navigator.pop(context);
-                await context.push(Constants.DRIVER_DETAILS_ROUTE);
-                if (mounted) ref.read(homeViewModelProvider.notifier).refresh();
+                context.push(Constants.DRIVER_DETAILS_ROUTE);
               },
             ),
             ListTile(
               leading: const Icon(Icons.warning_amber_rounded),
               title: Text(l10n.homeMenuDrill),
-              onTap: () async {
+              onTap: () {
                 Navigator.pop(context);
-                await context.push(Constants.DRILL_LIST_ROUTE);
-                if (mounted) ref.read(homeViewModelProvider.notifier).refresh();
+                context.push(Constants.DRILL_LIST_ROUTE);
               },
             ),
             ListTile(
@@ -129,7 +104,9 @@ class _HomeScreenState extends ConsumerState<HomeScreen> with RouteAware {
                     'routeName': firstRoute.name,
                     'route': firstRoute,
                   });
-                  if (mounted) ref.read(homeViewModelProvider.notifier).refresh();
+                  if (mounted) {
+                    ref.read(homeViewModelProvider.notifier).refreshVehicleState();
+                  }
                 } else {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(content: Text(l10n.homeErrorNoRoutesPreTrip)),
@@ -140,28 +117,25 @@ class _HomeScreenState extends ConsumerState<HomeScreen> with RouteAware {
             ListTile(
               leading: const Icon(Icons.language),
               title: Text(l10n.homeMenuLanguage),
-              onTap: () async {
+              onTap: () {
                 Navigator.pop(context);
-                await context.push(Constants.LANGUAGE_ROUTE);
-                if (mounted) ref.read(homeViewModelProvider.notifier).refresh();
+                context.push(Constants.LANGUAGE_ROUTE);
               },
             ),
             ListTile(
               leading: const Icon(Icons.info_outline),
               title: Text(l10n.homeMenuAppInfo),
-              onTap: () async {
+              onTap: () {
                 Navigator.pop(context);
-                await context.push(Constants.APP_INFO_ROUTE);
-                if (mounted) ref.read(homeViewModelProvider.notifier).refresh();
+                context.push(Constants.APP_INFO_ROUTE);
               },
             ),
             ListTile(
               leading: const Icon(Icons.error_outline, color: AppColors.ERROR),
               title: Text(l10n.homeMenuPostCrashReporting),
-              onTap: () async {
+              onTap: () {
                 Navigator.pop(context);
-                await context.push(Constants.INCIDENT_INTAKE_ROUTE);
-                if (mounted) ref.read(homeViewModelProvider.notifier).refresh();
+                context.push(Constants.INCIDENT_INTAKE_ROUTE);
               },
             ),
             const Divider(),
@@ -334,9 +308,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen> with RouteAware {
     if (confirmed != true || !context.mounted) return;
 
     setState(() => _isStarting = true);
-
-    if (confirmed != true || !context.mounted) return;
-    setState(() => _isStarting = true);
     try {
       // 1. Fetch vehicle status from API
       final dvirRepo = ref.read(dvirRepositoryProvider);
@@ -348,11 +319,14 @@ class _HomeScreenState extends ConsumerState<HomeScreen> with RouteAware {
         if (context.mounted) {
           setState(() => _isStarting = false);
           // Redirect to Pre-Trip verification to review repairs and sign off
-          context.go(Constants.DVIR_PRE_TRIP_ROUTE, extra: {
+          await context.push(Constants.DVIR_PRE_TRIP_ROUTE, extra: {
             'schoolBusId': route.vehicleId?.toString() ?? '',
             'routeName': route.name,
             'route': route,
           });
+          if (mounted) {
+            ref.read(homeViewModelProvider.notifier).refreshVehicleState();
+          }
         }
         return;
       }

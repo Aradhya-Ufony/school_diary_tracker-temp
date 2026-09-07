@@ -255,29 +255,45 @@ class DrillChecklistNotifier extends StateNotifier<DrillChecklistState> {
 
     final hasVideos = drillLog.evidenceFiles.any((e) => e.mediaType == EvidenceMediaType.video && e.localFilePath != null);
 
-    if (hasVideos) {
-      _submitMultipartDrillInBackground(drillLog);
-      return true; // Return immediately to allow background execution and screen transitions
-    } else {
-      state = state.copyWith(isLoading: true, error: null);
-      try {
-        final response = await _repository.submitDrillLog(drillLog);
-        state = state.copyWith(
-          isLoading: false,
-          lastResponse: response,
-          evidenceList: _enrichAttachments(response) ?? response.attachments ?? state.evidenceList,
-        );
-        return response.code == DrillResponseCode.success;
-      } catch (e) {
-        state = state.copyWith(
-          isLoading: false,
-          lastResponse: const DrillCommandResponse(
-            code: DrillResponseCode.failure,
-            message: 'Network error submitting drill log',
-          ),
-        );
-        return false;
-      }
+    state = state.copyWith(
+      isLoading: true,
+      error: null,
+      videoUploadStatus: hasVideos ? 'Submitting drill log and video...' : 'Submitting drill log...',
+      videoUploadProgress: 0.0,
+    );
+
+    try {
+      final response = await _repository.submitDrillLog(
+        drillLog,
+        onProgress: (sent, total) {
+          final progress = total > 0 ? sent / total : 0.0;
+          state = state.copyWith(
+            videoUploadProgress: progress,
+            videoUploadStatus: hasVideos
+                ? 'Uploading video and logs (${(progress * 100).toInt()}%)...'
+                : 'Uploading evidence (${(progress * 100).toInt()}%)...',
+          );
+        },
+      );
+      state = state.copyWith(
+        isLoading: false,
+        lastResponse: response,
+        evidenceList: _enrichAttachments(response) ?? response.attachments ?? state.evidenceList,
+        videoUploadStatus: null,
+        videoUploadProgress: null,
+      );
+      return response.code == DrillResponseCode.success;
+    } catch (e) {
+      state = state.copyWith(
+        isLoading: false,
+        lastResponse: DrillCommandResponse(
+          code: DrillResponseCode.failure,
+          message: 'Error submitting drill log: ${e.toString()}',
+        ),
+        videoUploadStatus: null,
+        videoUploadProgress: null,
+      );
+      return false;
     }
   }
 
@@ -303,49 +319,6 @@ class DrillChecklistNotifier extends StateNotifier<DrillChecklistState> {
     }).toList();
   }
 
-  Future<void> _submitMultipartDrillInBackground(DrillLog drillLog) async {
-    state = state.copyWith(
-      videoUploadStatus: 'Submitting drill log and video...',
-      videoUploadProgress: 0.0,
-    );
-
-    try {
-      final response = await _repository.submitDrillLog(
-        drillLog,
-        onProgress: (sent, total) {
-          final progress = total > 0 ? sent / total : 0.0;
-          state = state.copyWith(
-            videoUploadProgress: progress,
-            videoUploadStatus: 'Uploading video and logs (${(progress * 100).toInt()}%)...',
-          );
-        },
-      );
-
-      state = state.copyWith(
-        lastResponse: response,
-        evidenceList: _enrichAttachments(response) ?? response.attachments ?? state.evidenceList,
-        videoUploadStatus: response.code == DrillResponseCode.success
-            ? 'Submission complete!'
-            : 'Submission failed',
-        videoUploadProgress: response.code == DrillResponseCode.success ? 1.0 : 0.0,
-      );
-    } catch (e) {
-      state = state.copyWith(
-        lastResponse: const DrillCommandResponse(
-          code: DrillResponseCode.failure,
-          message: 'Network error submitting drill log with video',
-        ),
-        videoUploadStatus: 'Submission failed',
-        videoUploadProgress: null,
-      );
-    }
-
-    await Future.delayed(const Duration(seconds: 3));
-    state = state.copyWith(
-      videoUploadStatus: null,
-      videoUploadProgress: null,
-    );
-  }
 }
 
 final drillChecklistProvider =
@@ -463,10 +436,10 @@ class DrillListNotifier extends StateNotifier<DrillListState> {
 
 final drillListProvider =
     StateNotifierProvider<DrillListNotifier, DrillListState>((ref) {
-  final routesState = ref.watch(homeViewModelProvider);
-  final firstRoute = routesState.allRoutes.isNotEmpty ? routesState.allRoutes.first : null;
-  final assignedBusNumber = firstRoute?.vehicleLicenseNumber;
-  final assignedBusId = firstRoute?.vehicleId;
+  final (assignedBusNumber, assignedBusId) = ref.watch(homeViewModelProvider.select((s) {
+    final firstRoute = s.allRoutes.isNotEmpty ? s.allRoutes.first : null;
+    return (firstRoute?.vehicleLicenseNumber, firstRoute?.vehicleId);
+  }));
 
   return DrillListNotifier(
     ref.watch(drillRepositoryProvider),

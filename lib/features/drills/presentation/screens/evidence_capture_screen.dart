@@ -96,9 +96,20 @@ class _EvidenceCaptureScreenState extends ConsumerState<EvidenceCaptureScreen> {
               ),
               const SizedBox(height: 8),
               Text(
-                l10n.drillEvidenceUploading,
+                state.videoUploadStatus ?? l10n.drillEvidenceUploading,
                 style: const TextStyle(color: Colors.grey),
               ),
+              if (state.videoUploadProgress != null && state.videoUploadProgress! > 0) ...[
+                const SizedBox(height: 16),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 48.0),
+                  child: LinearProgressIndicator(
+                    value: state.videoUploadProgress,
+                    backgroundColor: Colors.grey.shade200,
+                    valueColor: const AlwaysStoppedAnimation<Color>(AppColors.PRIMARY),
+                  ),
+                ),
+              ],
             ],
           ),
         ),
@@ -370,6 +381,9 @@ class _EvidenceCaptureScreenState extends ConsumerState<EvidenceCaptureScreen> {
                             onChanged: (text) => setState(() {}),
                             decoration: InputDecoration(
                               hintText: l10n.drillEvidenceDriverNotesHint,
+                              hintStyle: TextStyle(
+                                color: Color.fromARGB(150, 128, 128, 128)
+                              ),
                               border: const OutlineInputBorder(),
                             ),
                           ),
