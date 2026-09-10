@@ -1,5 +1,5 @@
 import 'dart:async';
-
+import 'package:geolocator/geolocator.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/di/providers.dart';
@@ -18,6 +18,8 @@ class TripState {
   final bool showReconnectWarning;
   final bool isStopping;
   final bool isLoadingStops;
+  final bool depotArrivalDetected;
+  final double? distanceToDepotMeters;
   final String? error;
 
   const TripState({
@@ -27,6 +29,8 @@ class TripState {
     this.showReconnectWarning = false,
     this.isStopping = false,
     this.isLoadingStops = false,
+    this.depotArrivalDetected = false,
+    this.distanceToDepotMeters,
     this.error,
   });
 
@@ -37,6 +41,8 @@ class TripState {
     bool? showReconnectWarning,
     bool? isStopping,
     bool? isLoadingStops,
+    bool? depotArrivalDetected,
+    double? distanceToDepotMeters,
     String? error,
   }) {
     return TripState(
@@ -47,6 +53,8 @@ class TripState {
       showReconnectWarning: showReconnectWarning ?? this.showReconnectWarning,
       isStopping: isStopping ?? this.isStopping,
       isLoadingStops: isLoadingStops ?? this.isLoadingStops,
+      depotArrivalDetected: depotArrivalDetected ?? this.depotArrivalDetected,
+      distanceToDepotMeters: distanceToDepotMeters ?? this.distanceToDepotMeters,
       error: error,
     );
   }
@@ -64,6 +72,8 @@ class TripViewModel extends StateNotifier<TripState> {
   StreamSubscription<UserLocation>? _positionSub;
   Timer? _watchdogTimer;
   int _pollTicks = 0;
+  int _depotDwellSeconds = 0;
+  bool _depotArrivalTriggered = false;
 
   TripViewModel({
     required this.route,
@@ -106,6 +116,7 @@ class TripViewModel extends StateNotifier<TripState> {
     try {
       final loc = await _getCurrentLocation();
       if (loc != null) {
+        _checkDepotProximity(loc);
         state = state.copyWith(
           currentPosition: loc,
           secondsSinceLastUpdate: 0,
@@ -116,11 +127,37 @@ class TripViewModel extends StateNotifier<TripState> {
   }
 
   void _onPosition(UserLocation location) {
+    _checkDepotProximity(location);
     state = state.copyWith(
       currentPosition: location,
       secondsSinceLastUpdate: 0,
       showReconnectWarning: false,
     );
+  }
+
+  void _checkDepotProximity(UserLocation location) {
+    final depot = route.depotLocation ?? route.endLocation;
+    if (depot == null || _depotArrivalTriggered) return;
+
+    final distance = Geolocator.distanceBetween(
+      location.latitude,
+      location.longitude,
+      depot.latitude,
+      depot.longitude,
+    );
+
+    state = state.copyWith(distanceToDepotMeters: distance);
+
+    if (distance <= 75.0) {
+      _depotDwellSeconds++;
+      // If parked inside depot for >= 10 seconds or speed is stationary
+      if (_depotDwellSeconds >= 10 && !_depotArrivalTriggered) {
+        _depotArrivalTriggered = true;
+        state = state.copyWith(depotArrivalDetected: true);
+      }
+    } else {
+      _depotDwellSeconds = 0;
+    }
   }
 
   void _tick() {

@@ -63,6 +63,9 @@ class _TransportMapScreenState extends ConsumerState<TransportMapScreen> {
       if (next.showReconnectWarning && context.mounted) {
         _showReconnectWarning(context, ref);
       }
+      if (next.depotArrivalDetected && (previous == null || !previous.depotArrivalDetected) && context.mounted) {
+        _handleDepotArrivalAutoPrompt(context, ref);
+      }
     });
 
     final markers = <Marker>{
@@ -238,6 +241,45 @@ class _TransportMapScreenState extends ConsumerState<TransportMapScreen> {
         await ref.read(tripViewModelProvider(widget.route).notifier).stopTrip();
     if (stopped && context.mounted) {
       context.go(Constants.DVIR_POST_TRIP_ROUTE, extra: widget.route);
+    }
+  }
+
+  Future<void> _handleDepotArrivalAutoPrompt(BuildContext context, WidgetRef ref) async {
+    final l10n = AppLocalizations.of(context)!;
+    final autoEnd = await showDialog<bool>(
+      context: context,
+      barrierDismissible: false,
+      builder: (dialogContext) => AlertDialog(
+        title: Row(
+          children: [
+            const Icon(Icons.location_on, color: Colors.green),
+            const SizedBox(width: 8),
+            Text(l10n.depotArrivalDetectedTitle),
+          ],
+        ),
+        content: Text(
+          l10n.depotArrivalDetectedMessage,
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(dialogContext).pop(false),
+            child: Text(l10n.genericCancel),
+          ),
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(backgroundColor: AppColors.PRIMARY),
+            onPressed: () => Navigator.of(dialogContext).pop(true),
+            child: Text(l10n.depotArrivalEndTripAndStartCheck, style: const TextStyle(color: Colors.white)),
+          ),
+        ],
+      ),
+    );
+
+    if (autoEnd == true && context.mounted) {
+      final stopped =
+          await ref.read(tripViewModelProvider(widget.route).notifier).stopTrip();
+      if (stopped && context.mounted) {
+        context.go(Constants.CHILD_SAFETY_CHECK_ROUTE, extra: widget.route);
+      }
     }
   }
 

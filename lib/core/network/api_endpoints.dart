@@ -44,4 +44,9 @@ abstract class ApiEndpoints {
   static const incidentCrashUpdate = 'incidentcrash/update';
   static const incidentCrashBus = 'incidentcrash/bus';
   static const incidentCrashRoute = 'incidentcrash/route';
+
+  // Child Left Behind / Safety Check endpoints
+  static const childSafetyCheckActive = 'childsafetycheck/active';
+  static const childSafetyCheckComplete = 'childsafetycheck/complete';
 }
+

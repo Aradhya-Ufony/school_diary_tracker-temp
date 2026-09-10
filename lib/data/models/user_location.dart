@@ -8,9 +8,22 @@ class UserLocation {
   const UserLocation({required this.latitude, required this.longitude});
 
   factory UserLocation.fromJson(Map<String, dynamic> json) {
+    final lat = json['latitude'] ??
+        json['lat'] ??
+        json['depotLat'] ??
+        json['depot_lat'] ??
+        json['Latitude'];
+    final lng = json['longitude'] ??
+        json['long'] ??
+        json['lng'] ??
+        json['depotlang'] ??
+        json['depot_lng'] ??
+        json['depotLong'] ??
+        json['Longitude'];
+
     return UserLocation(
-      latitude: (json['latitude'] as num).toDouble(),
-      longitude: (json['longitude'] as num).toDouble(),
+      latitude: (lat as num?)?.toDouble() ?? 0.0,
+      longitude: (lng as num?)?.toDouble() ?? 0.0,
     );
   }
 

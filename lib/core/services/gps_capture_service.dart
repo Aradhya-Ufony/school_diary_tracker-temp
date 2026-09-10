@@ -41,11 +41,12 @@ class GPSCaptureService {
         ),
       );
       if (pos.latitude == 0.0 && pos.longitude == 0.0) {
-        return GPSCaptureResult.failure('Invalid coordinates captured (0,0)');
+        return GPSCaptureResult.failure('Invalid coordinates captured');
       }
       return GPSCaptureResult.success(pos.latitude, pos.longitude);
     } catch (e) {
-      return GPSCaptureResult.failure('Failed to lock GPS position: $e');
+      return GPSCaptureResult.failure('Failed to lock GPS position. Please try again.');
     }
   }
 }
+

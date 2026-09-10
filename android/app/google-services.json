@@ -543,51 +543,6 @@
     },
     {
       "client_info": {
-        "mobilesdk_app_id": "1:137452521998:android:370c25f11133fb40908a5f",
-        "android_client_info": {
-          "package_name": "com.ufony.cosmos"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "137452521998-jesfqvmd3fnlkvmkftrht9jfb6gso9ee.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyDFr-tzTxtTGFJ_HjZDX4V2OhHeuFrfUIg"
-        },
-        {
-          "current_key": "AIzaSyBfvnAqxzk1mTNRN-oGF4L6GgFasdbOVMY"
-        },
-        {
-          "current_key": "AIzaSyD9Z5VRD4voBkYbflGzvffxr0CpEu1MThA"
-        },
-        {
-          "current_key": "AIzaSyDjJ4tzWu4p-zr9gD8sjAkZAg8iXk0i_9U"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "137452521998-jesfqvmd3fnlkvmkftrht9jfb6gso9ee.apps.googleusercontent.com",
-              "client_type": 3
-            },
-            {
-              "client_id": "137452521998-3l2ifb6p0595noducilkt7kl0ji7e9er.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.ufony.NpsDiary"
-              }
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
         "mobilesdk_app_id": "1:137452521998:android:54b3bfc51a983d9d908a5f",
         "android_client_info": {
           "package_name": "com.ufony.kido"
@@ -726,51 +681,6 @@
         "mobilesdk_app_id": "1:137452521998:android:e1593f785b927e79908a5f",
         "android_client_info": {
           "package_name": "com.ufony.school_diary_tracker"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "137452521998-jesfqvmd3fnlkvmkftrht9jfb6gso9ee.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyDFr-tzTxtTGFJ_HjZDX4V2OhHeuFrfUIg"
-        },
-        {
-          "current_key": "AIzaSyBfvnAqxzk1mTNRN-oGF4L6GgFasdbOVMY"
-        },
-        {
-          "current_key": "AIzaSyD9Z5VRD4voBkYbflGzvffxr0CpEu1MThA"
-        },
-        {
-          "current_key": "AIzaSyDjJ4tzWu4p-zr9gD8sjAkZAg8iXk0i_9U"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "137452521998-jesfqvmd3fnlkvmkftrht9jfb6gso9ee.apps.googleusercontent.com",
-              "client_type": 3
-            },
-            {
-              "client_id": "137452521998-3l2ifb6p0595noducilkt7kl0ji7e9er.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.ufony.NpsDiary"
-              }
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:137452521998:android:768961226486fbec908a5f",
-        "android_client_info": {
-          "package_name": "com.ufony.schooldiarytracker"
         }
       },
       "oauth_client": [

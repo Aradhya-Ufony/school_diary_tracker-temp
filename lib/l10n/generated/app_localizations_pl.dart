@@ -560,6 +560,9 @@ class AppLocalizationsPl extends AppLocalizations {
   String get dvirPostTripNotesLabel => 'NOTATKI (OBOWIĄZKOWE W PRZYPADKU USTERKI) I ZDJĘCIE';
 
   @override
+  String get dvirPostTripPhotoLabel => 'PHOTO (OPTIONAL)';
+
+  @override
   String get dvirPostTripNotesPassedHint => 'Wybierz USTERKA, aby wprowadzić szczegóły problemu...';
 
   @override
@@ -1455,4 +1458,93 @@ class AppLocalizationsPl extends AppLocalizations {
 
   @override
   String get stopsNoStopsAvailable => 'Brak dostępnych przystanków.';
+
+  @override
+  String get depotArrivalDetectedTitle => 'Depot Arrival Detected';
+
+  @override
+  String get depotArrivalDetectedMessage => 'The bus is parked at the depot. Would you like to end the trip and start the mandatory sleeping child safety check now?';
+
+  @override
+  String get depotArrivalEndTripAndStartCheck => 'End Trip & Start Check';
+
+  @override
+  String get childSafetyCheckTitle => 'Mandatory Child Safety Check';
+
+  @override
+  String get childSafetyCheckTimeExpiredTitle => 'TIME EXPIRED - DISPATCH ALERTED';
+
+  @override
+  String get childSafetyCheckMandatoryPostRouteTitle => 'MANDATORY POST-ROUTE CHECK';
+
+  @override
+  String get childSafetyCheckTimeExpiredSubtitle => 'Submit rear inspection immediately to record compliance.';
+
+  @override
+  String get childSafetyCheckMandatoryPostRouteSubtitle => 'Walk down the center aisle to the rear. Inspect under all seats.';
+
+  @override
+  String get childSafetyCheckTimeRemainingHeader => 'Time Remaining to Inspect Bus';
+
+  @override
+  String childSafetyCheckRouteLabel(String routeName) {
+    return 'Route: $routeName';
+  }
+
+  @override
+  String get childSafetyCheckInspectionChecklistTitle => 'Inspection Checklist';
+
+  @override
+  String get childSafetyCheckStep1 => 'Turn off vehicle engine and secure parking brake.';
+
+  @override
+  String get childSafetyCheckStep2 => 'Walk to the rear of the bus, looking under and between every seat.';
+
+  @override
+  String get childSafetyCheckStep3 => 'Verify no sleeping or unattended children remain.';
+
+  @override
+  String get childSafetyCheckStep4 => 'Reach the back row and tap Confirm to capture rear GPS fix.';
+
+  @override
+  String get childSafetyCheckResultTitle => 'Child Inspection Result';
+
+  @override
+  String get childSafetyCheckAllClear => 'All Clear';
+
+  @override
+  String get childSafetyCheckChildFound => 'Child Found';
+
+  @override
+  String get childSafetyCheckNumberOfChildrenFound => 'Number of Children Found: ';
+
+  @override
+  String get childSafetyCheckChildDetailsLabel => 'Child details & seat location *';
+
+  @override
+  String get childSafetyCheckChildDetailsHint => 'e.g., Student found sleeping in Row 4 left seat. Safe and awake.';
+
+  @override
+  String get childSafetyCheckCapturingGps => 'Capturing Rear GPS & Submitting...';
+
+  @override
+  String get childSafetyCheckConfirmButton => 'CONFIRM REAR INSPECTION';
+
+  @override
+  String get childSafetyCheckSubmitReportButton => 'SUBMIT CHILD REPORT & REAR CHECK';
+
+  @override
+  String get childSafetyCheckNotesRequiredWarning => 'Please enter notes describing the child location.';
+
+  @override
+  String get childSafetyCheckSuccessMessage => 'Child Safety Check confirmed successfully. Rear GPS recorded.';
+
+  @override
+  String get childSafetyCheckChildReportedDialogTitle => 'Child Reported on Bus';
+
+  @override
+  String get childSafetyCheckChildReportedDialogBody => 'School dispatch and supervisors have been alerted immediately.\n\nPlease stay with the student and follow district emergency protocol. Do not leave the vehicle until authorized.';
+
+  @override
+  String get childSafetyCheckAcknowledgeProceedButton => 'Acknowledge & Proceed';
 }

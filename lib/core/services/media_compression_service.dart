@@ -3,6 +3,7 @@ import 'package:exif/exif.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:video_thumbnail/video_thumbnail.dart';
 import '../../../../data/models/drill_evidence.dart';
 
 class MediaCompressionService {
@@ -11,21 +12,42 @@ class MediaCompressionService {
   Future<DrillEvidence?> pickAndCompressMedia(ImageSource source, {bool isVideo = false}) async {
     final pickTime = DateTime.now();
     if (isVideo) {
-      final video = await _picker.pickVideo(source: source);
+      final video = await _picker.pickVideo(
+        source: source,
+        preferredCameraDevice: CameraDevice.rear,
+      );
       if (video == null) return null;
       final file = File(video.path);
       final stat = await file.stat();
       final createdAt = source == ImageSource.camera ? pickTime : stat.modified;
       final uploadedAt = pickTime;
 
+      String? thumbnailPath;
+      try {
+        final tempDir = await getTemporaryDirectory();
+        thumbnailPath = await VideoThumbnail.thumbnailFile(
+          video: video.path,
+          thumbnailPath: tempDir.path,
+          imageFormat: ImageFormat.JPEG,
+          maxHeight: 300,
+          quality: 75,
+        );
+      } catch (e) {
+        // Thumbnail generation failed, fallback gracefully
+      }
+
       return DrillEvidence(
         localFilePath: video.path,
+        thumbnailPath: thumbnailPath,
         mediaType: EvidenceMediaType.video,
         createdAt: createdAt,
         uploadedAt: uploadedAt,
       );
     } else {
-      final photo = await _picker.pickImage(source: source);
+      final photo = await _picker.pickImage(
+        source: source,
+        preferredCameraDevice: CameraDevice.rear,
+      );
       if (photo == null) return null;
       
       final tempDir = await getTemporaryDirectory();

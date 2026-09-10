@@ -632,9 +632,13 @@
   "@dvirPostTripNotesDefectHint": {
     "description": "Input placeholder for describing the safety concern or defect details."
   },
-  "dvirPostTripNotesLabel": "NOTES (MANDATORY ON DEFECT) & PHOTO",
+  "dvirPostTripNotesLabel": "NOTES (MANDATORY)",
   "@dvirPostTripNotesLabel": {
-    "description": "Section header for defect notes and photo attachment in post-trip inspection."
+    "description": "Section header for defect notes in post-trip inspection."
+  },
+  "dvirPostTripPhotoLabel": "PHOTO (OPTIONAL)",
+  "@dvirPostTripPhotoLabel": {
+    "description": "Section header for defect photo attachment in post-trip inspection."
   },
   "dvirPostTripNotesPassedHint": "Select DEFECT to enter safety concern details...",
   "@dvirPostTripNotesPassedHint": {
@@ -1719,5 +1723,126 @@
   "stopsNoStopsAvailable": "No stops available.",
   "@stopsNoStopsAvailable": {
     "description": "Empty state message displayed when no stops are configured for the route."
+  },
+  "depotArrivalDetectedTitle": "Depot Arrival Detected",
+  "@depotArrivalDetectedTitle": {
+    "description": "Dialog title shown when GPS detects the bus has parked inside the depot geofence."
+  },
+  "depotArrivalDetectedMessage": "The bus is parked at the depot. Would you like to end the trip and start the mandatory sleeping child safety check now?",
+  "@depotArrivalDetectedMessage": {
+    "description": "Dialog prompt asking driver to end trip and begin mandatory child safety check upon arrival at depot."
+  },
+  "depotArrivalEndTripAndStartCheck": "End Trip & Start Check",
+  "@depotArrivalEndTripAndStartCheck": {
+    "description": "Button action to end trip and launch mandatory child safety check."
+  },
+  "childSafetyCheckTitle": "Mandatory Child Safety Check",
+  "@childSafetyCheckTitle": {
+    "description": "App bar title for the sleeping child / child left behind inspection screen."
+  },
+  "childSafetyCheckTimeExpiredTitle": "TIME EXPIRED - DISPATCH ALERTED",
+  "@childSafetyCheckTimeExpiredTitle": {
+    "description": "Alert banner title shown when the countdown timer expires without rear check confirmation."
+  },
+  "childSafetyCheckMandatoryPostRouteTitle": "MANDATORY POST-ROUTE CHECK",
+  "@childSafetyCheckMandatoryPostRouteTitle": {
+    "description": "Alert banner title shown during the active post-route inspection countdown."
+  },
+  "childSafetyCheckTimeExpiredSubtitle": "Submit rear inspection immediately to record compliance.",
+  "@childSafetyCheckTimeExpiredSubtitle": {
+    "description": "Alert banner subtitle shown when time expires urging immediate submission."
+  },
+  "childSafetyCheckMandatoryPostRouteSubtitle": "Walk down the center aisle to the rear. Inspect under all seats.",
+  "@childSafetyCheckMandatoryPostRouteSubtitle": {
+    "description": "Alert banner subtitle instructing the driver to walk down the aisle."
+  },
+  "childSafetyCheckTimeRemainingHeader": "Time Remaining to Inspect Bus",
+  "@childSafetyCheckTimeRemainingHeader": {
+    "description": "Card header above the active countdown timer."
+  },
+  "childSafetyCheckRouteLabel": "Route: {routeName}",
+  "@childSafetyCheckRouteLabel": {
+    "description": "Label indicating the route name on the safety check timer card.",
+    "placeholders": {
+      "routeName": {
+        "type": "String"
+      }
+    }
+  },
+  "childSafetyCheckInspectionChecklistTitle": "Inspection Checklist",
+  "@childSafetyCheckInspectionChecklistTitle": {
+    "description": "Header for the step-by-step driver inspection checklist."
+  },
+  "childSafetyCheckStep1": "Turn off vehicle engine and secure parking brake.",
+  "@childSafetyCheckStep1": {
+    "description": "Step 1 instruction in the child safety check checklist."
+  },
+  "childSafetyCheckStep2": "Walk to the rear of the bus, looking under and between every seat.",
+  "@childSafetyCheckStep2": {
+    "description": "Step 2 instruction in the child safety check checklist."
+  },
+  "childSafetyCheckStep3": "Verify no sleeping or unattended children remain.",
+  "@childSafetyCheckStep3": {
+    "description": "Step 3 instruction in the child safety check checklist."
+  },
+  "childSafetyCheckStep4": "Reach the back row and tap Confirm to capture rear GPS fix.",
+  "@childSafetyCheckStep4": {
+    "description": "Step 4 instruction in the child safety check checklist."
+  },
+  "childSafetyCheckResultTitle": "Child Inspection Result",
+  "@childSafetyCheckResultTitle": {
+    "description": "Header for the child inspection result intake section."
+  },
+  "childSafetyCheckAllClear": "All Clear",
+  "@childSafetyCheckAllClear": {
+    "description": "Option selected when no sleeping or unattended children are found on the bus."
+  },
+  "childSafetyCheckChildFound": "Child Found",
+  "@childSafetyCheckChildFound": {
+    "description": "Option selected when a sleeping or unattended child is discovered on the bus."
+  },
+  "childSafetyCheckNumberOfChildrenFound": "Number of Children Found: ",
+  "@childSafetyCheckNumberOfChildrenFound": {
+    "description": "Label for the count of children found during inspection."
+  },
+  "childSafetyCheckChildDetailsLabel": "Child details & seat location *",
+  "@childSafetyCheckChildDetailsLabel": {
+    "description": "Form field label for describing child location and condition."
+  },
+  "childSafetyCheckChildDetailsHint": "e.g., Student found sleeping in Row 4 left seat. Safe and awake.",
+  "@childSafetyCheckChildDetailsHint": {
+    "description": "Placeholder hint text for the child details input."
+  },
+  "childSafetyCheckCapturingGps": "Capturing Rear GPS & Submitting...",
+  "@childSafetyCheckCapturingGps": {
+    "description": "Button loading label while high accuracy GPS is being captured."
+  },
+  "childSafetyCheckConfirmButton": "CONFIRM REAR INSPECTION",
+  "@childSafetyCheckConfirmButton": {
+    "description": "Primary action button to confirm rear bus inspection when all clear."
+  },
+  "childSafetyCheckSubmitReportButton": "SUBMIT CHILD REPORT & REAR CHECK",
+  "@childSafetyCheckSubmitReportButton": {
+    "description": "Primary action button to submit inspection with child found incident."
+  },
+  "childSafetyCheckNotesRequiredWarning": "Please enter notes describing the child location.",
+  "@childSafetyCheckNotesRequiredWarning": {
+    "description": "Validation warning when notes are empty while reporting a child found."
+  },
+  "childSafetyCheckSuccessMessage": "Child Safety Check confirmed successfully. Rear GPS recorded.",
+  "@childSafetyCheckSuccessMessage": {
+    "description": "Snackbar message indicating successful submission and GPS logging."
+  },
+  "childSafetyCheckChildReportedDialogTitle": "Child Reported on Bus",
+  "@childSafetyCheckChildReportedDialogTitle": {
+    "description": "Title of the emergency modal dialog after submitting a child found report."
+  },
+  "childSafetyCheckChildReportedDialogBody": "School dispatch and supervisors have been alerted immediately.\n\nPlease stay with the student and follow district emergency protocol. Do not leave the vehicle until authorized.",
+  "@childSafetyCheckChildReportedDialogBody": {
+    "description": "Emergency protocol instruction body shown to driver when a child is left on bus."
+  },
+  "childSafetyCheckAcknowledgeProceedButton": "Acknowledge & Proceed",
+  "@childSafetyCheckAcknowledgeProceedButton": {
+    "description": "Action button to dismiss emergency dialog and proceed to post-trip DVIR."
   }
 }

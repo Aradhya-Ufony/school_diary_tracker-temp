@@ -64,7 +64,13 @@ class IncidentCrashEvidence {
       'fileName': fileName,
       'mediaType': mediaType,
     };
-    if (stream != null) map['stream'] = stream;
+    if (stream != null) {
+      var cleanStream = stream!;
+      if (cleanStream.contains(',')) {
+        cleanStream = cleanStream.split(',').last;
+      }
+      map['stream'] = cleanStream;
+    }
     if (mediaUrl != null) map['mediaUrl'] = mediaUrl;
     if (description != null) map['description'] = description;
     return map;
@@ -200,28 +206,33 @@ class IncidentCrashLog {
     this.drugMinutesRemaining,
   });
 
-  Map<String, dynamic> toJson() => {
-        'crashTimestamp': crashTimestamp.toIso8601String(),
-        'schoolBranchId': schoolBranchId,
-        'routeId': routeId,
-        'busId': schoolBusId,
-        'busNumber': busNumber,
-        'driverUserId': driverUserId,
-        'latitude': latitude,
-        'longitude': longitude,
-        'locationDescription': locationDescription,
-        'hasFatalities': hasFatalities,
-        'hasInjuriesRequiringMedicalTreatment': hasInjuriesRequiringMedicalTreatment,
-        'isVehicleTowed': isVehicleTowed,
-        'wasCitationIssued': wasCitationIssued,
-        'lawEnforcementAgency': lawEnforcementAgency,
-        'officerName': officerName,
-        'badgeNumber': badgeNumber,
-        'policeReportNumber': policeReportNumber,
-        'driverNotes': driverNotes,
-        'students': students.map((e) => e.toJson()).toList(),
-        'evidences': evidences.map((e) => e.toJson()).toList(),
-      };
+  Map<String, dynamic> toJson() {
+    final evidencesJson = evidences.map((e) => e.toJson()).toList();
+    return {
+      'crashTimestamp': crashTimestamp.toIso8601String(),
+      'schoolBranchId': schoolBranchId,
+      'routeId': routeId,
+      'busId': schoolBusId,
+      'schoolBusId': schoolBusId,
+      'busNumber': busNumber,
+      'driverUserId': driverUserId,
+      'latitude': latitude,
+      'longitude': longitude,
+      'locationDescription': locationDescription,
+      'hasFatalities': hasFatalities,
+      'hasInjuriesRequiringMedicalTreatment': hasInjuriesRequiringMedicalTreatment,
+      'isVehicleTowed': isVehicleTowed,
+      'wasCitationIssued': wasCitationIssued,
+      'lawEnforcementAgency': lawEnforcementAgency,
+      'officerName': officerName,
+      'badgeNumber': badgeNumber,
+      'policeReportNumber': policeReportNumber,
+      'driverNotes': driverNotes,
+      'students': students.map((e) => e.toJson()).toList(),
+      'evidences': evidencesJson,
+      'attachments': evidencesJson,
+    };
+  }
 
   factory IncidentCrashLog.fromJson(Map<String, dynamic> json) {
     var rawId = json['id'] ?? json['incidentCrashLogId'];

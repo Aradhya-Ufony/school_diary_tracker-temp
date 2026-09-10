@@ -1,3 +1,4 @@
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -37,22 +38,25 @@ class _SchoolBusTrackerAppState extends ConsumerState<SchoolBusTrackerApp> {
       debugShowCheckedModeBanner: false,
       theme: AppTheme.light,
       routerConfig: router,
-      locale: locale, // null = follow system locale, matching Flutter's
-      // own default rather than the original's "always English until the
-      // driver explicitly picks a language" — a reasonable small
-      // improvement, flagged rather than silently decided; the driver
-      // can still always override via the Language screen (Step 9).
-
-      // Supported locales mirror the Android project's res/values-{code}
-      // folders: en (default/template), gu, hi, kn, mr, te. As of Step 9
-      // all six have real translations for every string this app
-      // currently uses — see lib/l10n/app_*.arb. Where the original app
-      // had no existing translated string to draw from (e.g. the Login
-      // screen, which was never localized in the Android app either —
-      // its layout hardcodes English hint text), the non-English ARB
-      // files intentionally repeat the English text rather than invent
-      // unreviewed translations; have your localization team review
-      // those before shipping.
+      locale: locale,
+      builder: (context, widget) {
+        ErrorWidget.builder = (FlutterErrorDetails errorDetails) {
+          FirebaseCrashlytics.instance.recordFlutterError(errorDetails);
+          return Scaffold(
+            body: Center(
+              child: Padding(
+                padding: const EdgeInsets.all(24.0),
+                child: Text(
+                  'Something went wrong. Please try restarting the app.',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(color: Colors.grey.shade700, fontSize: 16),
+                ),
+              ),
+            ),
+          );
+        };
+        return widget ?? const SizedBox.shrink();
+      },
       supportedLocales: AppLocalizations.supportedLocales,
       localizationsDelegates: const [
         AppLocalizations.delegate,
@@ -63,3 +67,4 @@ class _SchoolBusTrackerAppState extends ConsumerState<SchoolBusTrackerApp> {
     );
   }
 }
+

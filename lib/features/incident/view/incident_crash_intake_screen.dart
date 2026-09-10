@@ -67,19 +67,10 @@ class _IncidentCrashIntakeScreenState extends ConsumerState<IncidentCrashIntakeS
                     ],
                   ),
                 ),
-                if (state.error != null)
-                  Container(
-                    width: double.infinity,
-                    padding: const EdgeInsets.all(12),
-                    color: Colors.red.shade50,
-                    child: Text(
-                      state.error!,
-                      style: TextStyle(color: Colors.red.shade700, fontWeight: FontWeight.bold),
-                    ),
-                  ),
 
                 Expanded(
                   child: IndexedStack(
+
                     index: _currentStep,
                     children: [
                       _buildStep1(vm, state, l10n),
@@ -201,11 +192,22 @@ class _IncidentCrashIntakeScreenState extends ConsumerState<IncidentCrashIntakeS
         if (success && mounted) {
           final submittedLog = ref.read(incidentCrashViewModelProvider).submittedLog;
           if (submittedLog != null) {
-            context.go('${Constants.INCIDENT_DETAILS_ROUTE.replaceAll(':id', submittedLog.id.toString())}');
+            context.go(Constants.INCIDENT_DETAILS_ROUTE.replaceAll(':id', submittedLog.id.toString()));
           }
+        } else if (mounted) {
+          final err = ref.read(incidentCrashViewModelProvider).error ?? 'Failed to submit report. Please try again.';
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(err),
+              backgroundColor: Colors.red.shade700,
+              behavior: SnackBarBehavior.floating,
+            ),
+          );
         }
       }
     }
+
+
   }
 
   Widget _buildStep1(IncidentCrashViewModel vm, IncidentCrashFormState state, AppLocalizations l10n) {

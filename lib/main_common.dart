@@ -37,11 +37,14 @@ Future<void> bootstrap(FirebaseOptions firebaseOptions) async {
 
   await Firebase.initializeApp(options: firebaseOptions);
 
+  await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(true);
+
   FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterFatalError;
   PlatformDispatcher.instance.onError = (error, stack) {
     FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
     return true;
   };
+
 
   final prefs = await SharedPreferences.getInstance();
   final localStorageService = LocalStorageService(prefs);

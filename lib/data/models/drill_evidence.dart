@@ -5,6 +5,8 @@ class DrillEvidence {
   final int? id;
   final String? mediaUrl; // Backend static media URL (e.g. /static/drills/photo1.jpg)
   final String? localFilePath; // Sandboxed local path before upload
+  final String? thumbnailPath; // Local file path for video thumbnail
+  final String? thumbnailUrl; // Remote URL for video thumbnail
   final EvidenceMediaType mediaType;
   final DateTime createdAt; // Moment photo/video was clicked (EXIF/camera time)
   final DateTime? uploadedAt; // Moment evidence file was uploaded to backend
@@ -17,6 +19,8 @@ class DrillEvidence {
     this.id,
     this.mediaUrl,
     this.localFilePath,
+    this.thumbnailPath,
+    this.thumbnailUrl,
     required this.mediaType,
     required this.createdAt,
     this.uploadedAt,
@@ -61,6 +65,8 @@ class DrillEvidence {
       id: parsedId,
       mediaUrl: (json['mediaUrl'] ?? json['MediaUrl']) as String?,
       localFilePath: (json['localFilePath'] ?? json['LocalFilePath']) as String?,
+      thumbnailPath: (json['thumbnailPath'] ?? json['ThumbnailPath']) as String?,
+      thumbnailUrl: (json['thumbnailUrl'] ?? json['ThumbnailUrl']) as String?,
       mediaType: typeStr == 'video' ? EvidenceMediaType.video : EvidenceMediaType.photo,
       createdAt: createdAtVal != null
           ? DateTime.tryParse(createdAtVal as String) ?? DateTime.now()
@@ -79,6 +85,8 @@ class DrillEvidence {
         'id': id,
         'mediaUrl': mediaUrl,
         'localFilePath': localFilePath,
+        'thumbnailPath': thumbnailPath,
+        'thumbnailUrl': thumbnailUrl,
         'mediaType': mediaType.name,
         'createdAt': createdAt.toIso8601String(),
         'uploadedAt': uploadedAt?.toIso8601String(),

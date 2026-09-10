@@ -8,7 +8,6 @@ import '../../../core/di/providers.dart';
 import '../../../core/utils/app_constants.dart';
 import '../../../data/models/dvir_submit_request.dart';
 import '../../../data/models/route_response.dart';
-import '../../../data/repositories/dvir_repository.dart';
 import '../../auth/viewmodel/login_viewmodel.dart';
 import '../../drills/presentation/providers/drill_providers.dart';
 import '../viewmodel/dvir_sync_worker.dart';
@@ -370,7 +369,7 @@ class _PostTripWalkaroundScreenState extends ConsumerState<PostTripWalkaroundScr
                   ),
                 ],
               ),
-              const SizedBox(height: 20),
+              const SizedBox(height: 16),
               Text(
                 l10n.dvirPostTripNotesLabel,
                 style: TextStyle(
@@ -397,6 +396,14 @@ class _PostTripWalkaroundScreenState extends ConsumerState<PostTripWalkaroundScr
                 },
               ),
               const SizedBox(height: 16),
+              Text(
+                'PHOTO (Optional)',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: model.isPassed ? Colors.grey : Colors.red,
+                ),
+              ),
+              const SizedBox(height: 10),
               if (model.photo != null)
                 Container(
                   height: 150,

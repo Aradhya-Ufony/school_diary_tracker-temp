@@ -8,6 +8,7 @@ import '../../../../core/utils/image_utils.dart';
 import '../../../../data/models/drill_evidence.dart';
 import '../providers/drill_providers.dart';
 import 'full_screen_media_viewer.dart';
+import '../widgets/video_thumbnail_view.dart';
 import '../../../../l10n/generated/app_localizations.dart';
 
 class EvidenceCaptureScreen extends ConsumerStatefulWidget {
@@ -171,7 +172,10 @@ class _EvidenceCaptureScreenState extends ConsumerState<EvidenceCaptureScreen> {
                           borderRadius: BorderRadius.circular(8),
                         ),
                       ),
-                      onPressed: () => context.go('/home'),
+                      onPressed: () {
+                        ref.invalidate(drillListProvider);
+                        context.go(Constants.DRILL_LIST_ROUTE);
+                      },
                       child: Text(
                         l10n.drillEvidenceReturnToDashboard,
                         style: const TextStyle(
@@ -217,7 +221,7 @@ class _EvidenceCaptureScreenState extends ConsumerState<EvidenceCaptureScreen> {
                           borderRadius: BorderRadius.circular(8),
                         ),
                       ),
-                      onPressed: () => context.go('/home'),
+                      onPressed: () => context.go(Constants.DRILL_LIST_ROUTE),
                       child: Text(
                         l10n.genericCancel.toUpperCase(),
                         style: const TextStyle(
@@ -307,11 +311,11 @@ class _EvidenceCaptureScreenState extends ConsumerState<EvidenceCaptureScreen> {
                         Widget mediaWidget;
 
                         if (item.mediaType == EvidenceMediaType.video) {
-                          mediaWidget = Container(
-                            color: Colors.black87,
-                            child: const Center(
-                              child: Icon(Icons.videocam, color: Colors.white, size: 48),
-                            ),
+                          mediaWidget = VideoThumbnailView(
+                            localFilePath: item.localFilePath,
+                            thumbnailPath: item.thumbnailPath,
+                            networkUrl: resolvedUrl,
+                            thumbnailUrl: item.thumbnailUrl,
                           );
                         } else if (item.localFilePath != null && File(item.localFilePath!).existsSync()) {
                           mediaWidget = Image.file(File(item.localFilePath!), fit: BoxFit.cover);
@@ -381,8 +385,8 @@ class _EvidenceCaptureScreenState extends ConsumerState<EvidenceCaptureScreen> {
                             onChanged: (text) => setState(() {}),
                             decoration: InputDecoration(
                               hintText: l10n.drillEvidenceDriverNotesHint,
-                              hintStyle: TextStyle(
-                                color: Color.fromARGB(150, 128, 128, 128)
+                              hintStyle: const TextStyle(
+                                color: Color.fromARGB(150, 128, 128, 128),
                               ),
                               border: const OutlineInputBorder(),
                             ),

@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import '../../../../core/utils/app_constants.dart';
+import '../../../../core/utils/status_utils.dart';
 import '../../../home/viewmodel/home_viewmodel.dart';
 import '../providers/drill_providers.dart';
 import '../../../../core/di/providers.dart';
@@ -17,6 +18,16 @@ class DrillListScreen extends ConsumerStatefulWidget {
 
 class _DrillListScreenState extends ConsumerState<DrillListScreen> {
   bool _isStarting = false;
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) {
+        ref.read(drillListProvider.notifier).loadBuses();
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -187,7 +198,10 @@ class _DrillListScreenState extends ConsumerState<DrillListScreen> {
                                       l10n.drillsHeader(drill.id?.toString() ?? "N/A", drill.drillType),
                                       style: const TextStyle(fontWeight: FontWeight.bold),
                                     ),
-                                    subtitle: Text(l10n.drillsSubtitle(formattedDate, drill.status)),
+                                    subtitle: Text(l10n.drillsSubtitle(
+                                      formattedDate,
+                                      StatusUtils.formatStatus(drill.status),
+                                    )),
                                     trailing: ElevatedButton(
                                       onPressed: () {
                                         if (drill.id != null) {

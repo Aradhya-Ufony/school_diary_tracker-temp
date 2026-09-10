@@ -4,10 +4,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:school_diary_tracker/core/utils/app_constants.dart';
+import '../../../../core/utils/status_utils.dart';
 import '../../../../data/models/drill_log.dart';
 import '../../../../data/models/drill_evidence.dart';
 import '../providers/drill_providers.dart';
 import 'full_screen_media_viewer.dart';
+import '../widgets/video_thumbnail_view.dart';
 import '../../../../l10n/generated/app_localizations.dart';
 
 class DrillSummaryScreen extends ConsumerStatefulWidget {
@@ -40,6 +42,7 @@ class _DrillSummaryScreenState extends ConsumerState<DrillSummaryScreen> {
   }
 
   void _goBack() {
+    ref.invalidate(drillListProvider);
     if (context.canPop()) {
       context.pop();
     } else {
@@ -146,7 +149,7 @@ class _DrillSummaryScreenState extends ConsumerState<DrillSummaryScreen> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              drill.status.toUpperCase(),
+                              StatusUtils.formatStatus(drill.status),
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   fontSize: 18,
@@ -215,7 +218,7 @@ class _DrillSummaryScreenState extends ConsumerState<DrillSummaryScreen> {
                         _buildInfoRow(l10n.drillSummaryGps,
                             l10n.drillSummaryGpsValue(drill.latitude, drill.longitude)),
                         const Divider(),
-                        _buildInfoRow(l10n.drillSummaryStatus, drill.status.toUpperCase()),
+                        _buildInfoRow(l10n.drillSummaryStatus, StatusUtils.formatStatus(drill.status)),
                         if (drill.approvedAt != null) ...[
                           const Divider(),
                           _buildInfoRow(
@@ -385,13 +388,11 @@ class _DrillSummaryScreenState extends ConsumerState<DrillSummaryScreen> {
 
                       Widget fileWidget;
                       if (isVideo) {
-                        //TO CHANGE TO THUMBNAIL AFTER THIS SUCCESSFUL RUN
-                        fileWidget = Container(
-                          color: Colors.black87,
-                          child: const Center(
-                            child: Icon(Icons.videocam,
-                                color: Colors.white, size: 48),
-                          ),
+                        fileWidget = VideoThumbnailView(
+                          localFilePath: file.localFilePath,
+                          thumbnailPath: file.thumbnailPath,
+                          networkUrl: fullUrl,
+                          thumbnailUrl: file.thumbnailUrl,
                         );
                       } else if (file.localFilePath != null &&
                           File(file.localFilePath!).existsSync()) {

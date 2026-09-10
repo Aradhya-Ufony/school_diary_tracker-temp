@@ -1,6 +1,8 @@
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/di/providers.dart';
+import '../../../core/network/api_exception.dart';
 import '../../../data/models/child_with_guardians.dart';
 import '../../../data/repositories/children_repository.dart';
 
@@ -46,17 +48,17 @@ class ChildrenViewModel extends StateNotifier<ChildrenState> {
       final children = await _repository.getChildren(routeId);
       state = state.copyWith(isLoading: false, children: children);
     } catch (e, stack) {
-      print('CHILDREN_VIEWMODEL_ERROR: $e');
-      print('CHILDREN_VIEWMODEL_STACK: $stack');
+      FirebaseCrashlytics.instance.recordError(e, stack, reason: 'getChildren failed', fatal: false);
       state = state.copyWith(
         isLoading: false,
-        error: 'Unable to load children: $e',
+        error: e is ApiException ? e.message : 'Unable to load children. Please try again.',
       );
     }
   }
 
   Future<void> refresh() => _load();
 }
+
 
 final childrenViewModelProvider = StateNotifierProvider.autoDispose
     .family<ChildrenViewModel, ChildrenState, int>((ref, routeId) {

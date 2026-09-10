@@ -1297,11 +1297,17 @@ abstract class AppLocalizations {
   /// **'Enter details of the safety concern...'**
   String get dvirPostTripNotesDefectHint;
 
-  /// Section header for defect notes and photo attachment in post-trip inspection.
+  /// Section header for defect notes in post-trip inspection.
   ///
   /// In en, this message translates to:
-  /// **'NOTES (MANDATORY ON DEFECT) & PHOTO'**
+  /// **'NOTES (MANDATORY)'**
   String get dvirPostTripNotesLabel;
+
+  /// Section header for defect photo attachment in post-trip inspection.
+  ///
+  /// In en, this message translates to:
+  /// **'PHOTO (OPTIONAL)'**
+  String get dvirPostTripPhotoLabel;
 
   /// Placeholder text shown when an inspection zone is marked passed and notes are disabled.
   ///
@@ -2928,6 +2934,180 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'No stops available.'**
   String get stopsNoStopsAvailable;
+
+  /// Dialog title shown when GPS detects the bus has parked inside the depot geofence.
+  ///
+  /// In en, this message translates to:
+  /// **'Depot Arrival Detected'**
+  String get depotArrivalDetectedTitle;
+
+  /// Dialog prompt asking driver to end trip and begin mandatory child safety check upon arrival at depot.
+  ///
+  /// In en, this message translates to:
+  /// **'The bus is parked at the depot. Would you like to end the trip and start the mandatory sleeping child safety check now?'**
+  String get depotArrivalDetectedMessage;
+
+  /// Button action to end trip and launch mandatory child safety check.
+  ///
+  /// In en, this message translates to:
+  /// **'End Trip & Start Check'**
+  String get depotArrivalEndTripAndStartCheck;
+
+  /// App bar title for the sleeping child / child left behind inspection screen.
+  ///
+  /// In en, this message translates to:
+  /// **'Mandatory Child Safety Check'**
+  String get childSafetyCheckTitle;
+
+  /// Alert banner title shown when the countdown timer expires without rear check confirmation.
+  ///
+  /// In en, this message translates to:
+  /// **'TIME EXPIRED - DISPATCH ALERTED'**
+  String get childSafetyCheckTimeExpiredTitle;
+
+  /// Alert banner title shown during the active post-route inspection countdown.
+  ///
+  /// In en, this message translates to:
+  /// **'MANDATORY POST-ROUTE CHECK'**
+  String get childSafetyCheckMandatoryPostRouteTitle;
+
+  /// Alert banner subtitle shown when time expires urging immediate submission.
+  ///
+  /// In en, this message translates to:
+  /// **'Submit rear inspection immediately to record compliance.'**
+  String get childSafetyCheckTimeExpiredSubtitle;
+
+  /// Alert banner subtitle instructing the driver to walk down the aisle.
+  ///
+  /// In en, this message translates to:
+  /// **'Walk down the center aisle to the rear. Inspect under all seats.'**
+  String get childSafetyCheckMandatoryPostRouteSubtitle;
+
+  /// Card header above the active countdown timer.
+  ///
+  /// In en, this message translates to:
+  /// **'Time Remaining to Inspect Bus'**
+  String get childSafetyCheckTimeRemainingHeader;
+
+  /// Label indicating the route name on the safety check timer card.
+  ///
+  /// In en, this message translates to:
+  /// **'Route: {routeName}'**
+  String childSafetyCheckRouteLabel(String routeName);
+
+  /// Header for the step-by-step driver inspection checklist.
+  ///
+  /// In en, this message translates to:
+  /// **'Inspection Checklist'**
+  String get childSafetyCheckInspectionChecklistTitle;
+
+  /// Step 1 instruction in the child safety check checklist.
+  ///
+  /// In en, this message translates to:
+  /// **'Turn off vehicle engine and secure parking brake.'**
+  String get childSafetyCheckStep1;
+
+  /// Step 2 instruction in the child safety check checklist.
+  ///
+  /// In en, this message translates to:
+  /// **'Walk to the rear of the bus, looking under and between every seat.'**
+  String get childSafetyCheckStep2;
+
+  /// Step 3 instruction in the child safety check checklist.
+  ///
+  /// In en, this message translates to:
+  /// **'Verify no sleeping or unattended children remain.'**
+  String get childSafetyCheckStep3;
+
+  /// Step 4 instruction in the child safety check checklist.
+  ///
+  /// In en, this message translates to:
+  /// **'Reach the back row and tap Confirm to capture rear GPS fix.'**
+  String get childSafetyCheckStep4;
+
+  /// Header for the child inspection result intake section.
+  ///
+  /// In en, this message translates to:
+  /// **'Child Inspection Result'**
+  String get childSafetyCheckResultTitle;
+
+  /// Option selected when no sleeping or unattended children are found on the bus.
+  ///
+  /// In en, this message translates to:
+  /// **'All Clear'**
+  String get childSafetyCheckAllClear;
+
+  /// Option selected when a sleeping or unattended child is discovered on the bus.
+  ///
+  /// In en, this message translates to:
+  /// **'Child Found'**
+  String get childSafetyCheckChildFound;
+
+  /// Label for the count of children found during inspection.
+  ///
+  /// In en, this message translates to:
+  /// **'Number of Children Found: '**
+  String get childSafetyCheckNumberOfChildrenFound;
+
+  /// Form field label for describing child location and condition.
+  ///
+  /// In en, this message translates to:
+  /// **'Child details & seat location *'**
+  String get childSafetyCheckChildDetailsLabel;
+
+  /// Placeholder hint text for the child details input.
+  ///
+  /// In en, this message translates to:
+  /// **'e.g., Student found sleeping in Row 4 left seat. Safe and awake.'**
+  String get childSafetyCheckChildDetailsHint;
+
+  /// Button loading label while high accuracy GPS is being captured.
+  ///
+  /// In en, this message translates to:
+  /// **'Capturing Rear GPS & Submitting...'**
+  String get childSafetyCheckCapturingGps;
+
+  /// Primary action button to confirm rear bus inspection when all clear.
+  ///
+  /// In en, this message translates to:
+  /// **'CONFIRM REAR INSPECTION'**
+  String get childSafetyCheckConfirmButton;
+
+  /// Primary action button to submit inspection with child found incident.
+  ///
+  /// In en, this message translates to:
+  /// **'SUBMIT CHILD REPORT & REAR CHECK'**
+  String get childSafetyCheckSubmitReportButton;
+
+  /// Validation warning when notes are empty while reporting a child found.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter notes describing the child location.'**
+  String get childSafetyCheckNotesRequiredWarning;
+
+  /// Snackbar message indicating successful submission and GPS logging.
+  ///
+  /// In en, this message translates to:
+  /// **'Child Safety Check confirmed successfully. Rear GPS recorded.'**
+  String get childSafetyCheckSuccessMessage;
+
+  /// Title of the emergency modal dialog after submitting a child found report.
+  ///
+  /// In en, this message translates to:
+  /// **'Child Reported on Bus'**
+  String get childSafetyCheckChildReportedDialogTitle;
+
+  /// Emergency protocol instruction body shown to driver when a child is left on bus.
+  ///
+  /// In en, this message translates to:
+  /// **'School dispatch and supervisors have been alerted immediately.\n\nPlease stay with the student and follow district emergency protocol. Do not leave the vehicle until authorized.'**
+  String get childSafetyCheckChildReportedDialogBody;
+
+  /// Action button to dismiss emergency dialog and proceed to post-trip DVIR.
+  ///
+  /// In en, this message translates to:
+  /// **'Acknowledge & Proceed'**
+  String get childSafetyCheckAcknowledgeProceedButton;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

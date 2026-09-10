@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../../../core/utils/app_constants.dart';
+import '../../../core/utils/status_utils.dart';
 import '../../../data/models/dvir_previous_day_response.dart';
 import '../../../data/models/route_response.dart';
 import '../../../core/di/providers.dart';
@@ -133,7 +134,9 @@ class _PreTripVerificationScreenState
         backgroundColor: AppColors.PRIMARY,
         foregroundColor: Colors.white,
         actions: [
-          if (_vehicleState?.currentState != 'OUT_OF_SERVICE')
+          if (!_isLoading &&
+              _vehicleState != null &&
+              _vehicleState!.currentState != 'OUT_OF_SERVICE')
             IconButton(
               icon: const Icon(Icons.add),
               tooltip: l10n.dvirPreTripReportNewDefectsButton,
@@ -244,7 +247,7 @@ class _PreTripVerificationScreenState
                       borderRadius: BorderRadius.circular(4),
                     ),
                     child: Text(
-                      _vehicleState!.currentState.replaceAll('_', ' '),
+                      StatusUtils.formatStatus(_vehicleState!.currentState),
                       style: TextStyle(
                         fontSize: 12,
                         fontWeight: FontWeight.bold,
@@ -305,32 +308,103 @@ class _PreTripVerificationScreenState
     }
 
     if (_vehicleState?.currentState == 'OUT_OF_SERVICE') {
+      final defects = _priorData?.priorDvir?.defects ?? [];
+      final workOrder = _priorData?.priorDvir?.workOrder;
+      final rawReason = _vehicleState?.blockReason;
+      final cleanReason = rawReason
+          ?.replaceAll('OUT_OF_SERVICE', 'out of service')
+          .replaceAll('CERTIFIED_PENDING_VERIFICATION', 'pending verification');
+
       return Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            _buildHeaderCard(l10n),
-            const SizedBox(height: 40),
-            Center(
-              child: Column(
-                children: [
-                  const Icon(Icons.cancel, color: Colors.red, size: 64),
-                  const SizedBox(height: 16),
+        padding: const EdgeInsets.all(16.0),
+        child: Card(
+          color: Colors.white,
+          elevation: 1,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+            side: BorderSide(color: Colors.grey.shade300),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      l10n.dvirPreTripBusLabel(widget.routeResponse.vehicleLicenseNumber ?? ''),
+                      style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    ),
+                    Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                      decoration: BoxDecoration(
+                        color: Colors.red.shade50,
+                        borderRadius: BorderRadius.circular(4),
+                      ),
+                      child: Text(
+                        StatusUtils.formatStatus(_vehicleState?.currentState ?? 'OUT_OF_SERVICE'),
+                        style: TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.red.shade800,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 8),
+                Text(
+                  l10n.dvirPreTripRouteLabel(widget.routeName),
+                  style: TextStyle(color: Colors.grey.shade700, fontSize: 14),
+                ),
+                if (cleanReason != null && cleanReason.isNotEmpty) ...[
+                  const SizedBox(height: 12),
                   Text(
-                    l10n.dvirPreTripVehicleOutOfService,
-                    style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    l10n.dvirPreTripOutOfServiceMessage,
-                    textAlign: TextAlign.center,
-                    style: const TextStyle(color: Colors.grey),
+                    cleanReason.toLowerCase().startsWith('reason:')
+                        ? cleanReason
+                        : 'Reason: $cleanReason',
+                    style: const TextStyle(
+                      fontSize: 14,
+                      color: Colors.black87,
+                    ),
                   ),
                 ],
-              ),
+                if (defects.isNotEmpty) ...[
+                  const SizedBox(height: 12),
+                  const Divider(),
+                  const SizedBox(height: 6),
+                  const Text(
+                    'Reported Defects:',
+                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                  ),
+                  const SizedBox(height: 6),
+                  ...defects.map((d) {
+                    final desc = d.description.isNotEmpty ? d.description : 'Defect reported';
+                    final zone = d.zoneCode.isNotEmpty ? StatusUtils.formatStatus(d.zoneCode) : null;
+                    final text = (zone != null && zone != desc) ? '$desc ($zone)' : desc;
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 2),
+                      child: Text(
+                        '• $text',
+                        style: TextStyle(fontSize: 13, color: Colors.grey.shade800),
+                      ),
+                    );
+                  }),
+                ],
+                if (workOrder != null && workOrder.subAdminNotes.isNotEmpty) ...[
+                  const SizedBox(height: 12),
+                  const Divider(),
+                  const SizedBox(height: 6),
+                  Text(
+                    'Notes: ${workOrder.subAdminNotes}',
+                    style: TextStyle(fontSize: 13, color: Colors.grey.shade800),
+                  ),
+                ],
+              ],
             ),
-          ],
+          ),
         ),
       );
     }

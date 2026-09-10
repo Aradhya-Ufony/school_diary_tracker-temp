@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../../../core/di/providers.dart';
 import '../../../core/utils/app_constants.dart';
+import '../../../core/utils/status_utils.dart';
 import '../../../data/models/route_response.dart';
 import '../../../data/models/user_location.dart';
 import '../../../l10n/generated/app_localizations.dart';
@@ -250,7 +251,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                                       mainAxisSize: MainAxisSize.min,
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
-                                        Text(l10n.homeVehicleStatus(state.vehicleState?.currentState.replaceAll('_', ' ') ?? 'Unknown')),
+                                        Text(l10n.homeVehicleStatus(StatusUtils.formatStatus(state.vehicleState?.currentState))),
                                         if (state.vehicleState?.blockReason != null) ...[
                                           const SizedBox(height: 8),
                                           Text(l10n.homeVehicleReason(state.vehicleState!.blockReason!)),

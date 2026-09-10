@@ -306,6 +306,8 @@ class DrillChecklistNotifier extends StateNotifier<DrillChecklistState> {
           id: e.id,
           mediaUrl: e.mediaUrl,
           localFilePath: e.localFilePath,
+          thumbnailPath: e.thumbnailPath,
+          thumbnailUrl: e.thumbnailUrl,
           mediaType: e.mediaType,
           createdAt: e.createdAt,
           uploadedAt: e.uploadedAt,

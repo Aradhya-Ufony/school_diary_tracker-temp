@@ -275,15 +275,53 @@ class _LanguageScreenState extends ConsumerState<LanguageScreen> {
   @override
   void initState() {
     super.initState();
-    // Sort languages strictly in alphabetical order by English name
-    _sortedLanguages = List<AppLanguageItem>.from(LanguageScreen.supportedLanguages)
-      ..sort((a, b) => a.name.toLowerCase().compareTo(b.name.toLowerCase()));
-    _filteredLanguages = _sortedLanguages;
-
     final currentCode = ref.read(localeControllerProvider.notifier).currentCode;
     _selectedCode = currentCode.isNotEmpty ? currentCode : 'en';
 
+    _updateLanguageLists();
     _searchController.addListener(_onSearchChanged);
+  }
+
+  void _updateLanguageLists() {
+    final query = _searchController.text.trim().toLowerCase();
+
+    // Sort all languages alphabetically first by English name
+    final allSorted = List<AppLanguageItem>.from(LanguageScreen.supportedLanguages)
+      ..sort((a, b) => a.name.toLowerCase().compareTo(b.name.toLowerCase()));
+
+    // Separate selected language and non-selected languages
+    AppLanguageItem? selectedItem;
+    final otherItems = <AppLanguageItem>[];
+    for (final lang in allSorted) {
+      if (lang.code == _selectedCode) {
+        selectedItem = lang;
+      } else {
+        otherItems.add(lang);
+      }
+    }
+
+    // Always position the selected language at the top
+    _sortedLanguages = [
+      if (selectedItem != null) selectedItem,
+      ...otherItems,
+    ];
+
+    if (query.isEmpty) {
+      _filteredLanguages = _sortedLanguages;
+    } else {
+      final matching = _sortedLanguages.where((lang) {
+        return lang.name.toLowerCase().contains(query) ||
+            lang.nativeName.toLowerCase().contains(query) ||
+            lang.code.toLowerCase().contains(query);
+      }).toList();
+
+      // Ensure if selected language matches query, it is at index 0 of filtered results
+      if (selectedItem != null && matching.contains(selectedItem)) {
+        matching.remove(selectedItem);
+        matching.insert(0, selectedItem);
+      }
+      _filteredLanguages = matching;
+    }
   }
 
   @override
@@ -294,17 +332,8 @@ class _LanguageScreenState extends ConsumerState<LanguageScreen> {
   }
 
   void _onSearchChanged() {
-    final query = _searchController.text.trim().toLowerCase();
     setState(() {
-      if (query.isEmpty) {
-        _filteredLanguages = _sortedLanguages;
-      } else {
-        _filteredLanguages = _sortedLanguages.where((lang) {
-          return lang.name.toLowerCase().contains(query) ||
-              lang.nativeName.toLowerCase().contains(query) ||
-              lang.code.toLowerCase().contains(query);
-        }).toList();
-      }
+      _updateLanguageLists();
     });
   }
 
@@ -442,6 +471,7 @@ class _LanguageScreenState extends ConsumerState<LanguageScreen> {
                           onTap: () {
                             setState(() {
                               _selectedCode = language.code;
+                              _updateLanguageLists();
                             });
                           },
                           child: Container(
@@ -451,7 +481,7 @@ class _LanguageScreenState extends ConsumerState<LanguageScreen> {
                             ),
                             decoration: BoxDecoration(
                               color: isSelected
-                                  ? AppColors.PRIMARY.withOpacity(0.08)
+                                  ? AppColors.PRIMARY.withValues(alpha: 0.08)
                                   : Colors.transparent,
                               borderRadius: BorderRadius.circular(8),
                             ),
@@ -465,6 +495,7 @@ class _LanguageScreenState extends ConsumerState<LanguageScreen> {
                                     if (val != null) {
                                       setState(() {
                                         _selectedCode = val;
+                                        _updateLanguageLists();
                                       });
                                     }
                                   },
@@ -519,7 +550,7 @@ class _LanguageScreenState extends ConsumerState<LanguageScreen> {
                 color: Colors.white,
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.black.withOpacity(0.05),
+                    color: Colors.black.withValues(alpha: 0.05),
                     offset: const Offset(0, -2),
                     blurRadius: 6,
                   ),

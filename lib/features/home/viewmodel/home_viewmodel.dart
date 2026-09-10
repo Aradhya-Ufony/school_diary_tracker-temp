@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/di/providers.dart';
@@ -56,9 +57,27 @@ class HomeViewModel extends StateNotifier<HomeState> {
   final RouteRepository _routeRepository;
   final LocalStorageService _storage;
   final DvirRepository _dvirRepository;
+  StreamSubscription? _dvirSubscription;
 
-  HomeViewModel(this._routeRepository, this._storage, this._dvirRepository) : super(const HomeState()) {
+  HomeViewModel(
+    this._routeRepository,
+    this._storage,
+    this._dvirRepository,
+  ) : super(const HomeState()) {
     _loadRoutes();
+    _listenToDvirChanges();
+  }
+
+  void _listenToDvirChanges() {
+    _dvirSubscription = _dvirRepository.onVehicleStateChanged.listen((_) {
+      refreshVehicleState(silent: true);
+    });
+  }
+
+  @override
+  void dispose() {
+    _dvirSubscription?.cancel();
+    super.dispose();
   }
 
   Future<void> _loadRoutes() async {

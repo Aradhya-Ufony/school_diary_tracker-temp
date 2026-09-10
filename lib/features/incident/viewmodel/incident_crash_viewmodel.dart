@@ -1,8 +1,11 @@
 import 'dart:async';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 import '../../../core/di/providers.dart';
+import '../../../core/network/api_exception.dart';
 import '../../../core/services/gps_capture_service.dart';
 import '../../../core/storage/local_storage_service.dart';
 import '../../../core/utils/app_constants.dart';
@@ -119,15 +122,23 @@ class IncidentCrashViewModel extends StateNotifier<IncidentCrashFormState> {
 
   Future<void> captureLocation() async {
     state = state.copyWith(isLoading: true);
-    final gpsResult = await _gpsCaptureService.captureLocation();
-    if (gpsResult.isSuccess) {
-      latitude = gpsResult.latitude;
-      longitude = gpsResult.longitude;
-      state = state.copyWith(isLoading: false);
-    } else {
+    try {
+      final gpsResult = await _gpsCaptureService.captureLocation();
+      if (gpsResult.isSuccess) {
+        latitude = gpsResult.latitude;
+        longitude = gpsResult.longitude;
+        state = state.copyWith(isLoading: false);
+      } else {
+        state = state.copyWith(
+          isLoading: false,
+          error: gpsResult.errorMessage ?? 'Unable to capture GPS location. Please check location permissions.',
+        );
+      }
+    } catch (e, stack) {
+      FirebaseCrashlytics.instance.recordError(e, stack, reason: 'captureLocation failed', fatal: false);
       state = state.copyWith(
         isLoading: false,
-        error: gpsResult.errorMessage ?? 'Failed to lock GPS position',
+        error: 'Unable to capture GPS location.',
       );
     }
   }
@@ -186,12 +197,16 @@ class IncidentCrashViewModel extends StateNotifier<IncidentCrashFormState> {
 
   Future<void> captureEvidencePhoto() async {
     final picker = ImagePicker();
-    final pickedFile = await picker.pickImage(source: ImageSource.camera, imageQuality: 85);
+    final pickedFile = await picker.pickImage(
+      source: ImageSource.camera,
+      imageQuality: 85,
+      preferredCameraDevice: CameraDevice.rear,
+    );
     if (pickedFile != null) {
       final base64 = await fileToBase64(pickedFile.path);
       if (base64 != null) {
         final evidence = IncidentCrashEvidence(
-          stream: 'data:image/jpeg;base64,$base64',
+          stream: base64,
           fileName: pickedFile.name,
           mediaType: 'image/jpeg',
           localFilePath: pickedFile.path,
@@ -240,8 +255,18 @@ class IncidentCrashViewModel extends StateNotifier<IncidentCrashFormState> {
       state = state.copyWith(isLoading: false, submittedLog: result);
       startTimerTicks(result.id!);
       return true;
-    } catch (e) {
-      state = state.copyWith(isLoading: false, error: e.toString());
+    } catch (e, stackTrace) {
+      FirebaseCrashlytics.instance.recordError(
+        e,
+        stackTrace,
+        reason: 'submitCrashReport failed',
+        fatal: false,
+      );
+      String errorMessage = 'An error occurred while submitting the crash report. Please try again.';
+      if (e is ApiException) {
+        errorMessage = e.message;
+      }
+      state = state.copyWith(isLoading: false, error: errorMessage);
       return false;
     }
   }
@@ -321,10 +346,21 @@ class IncidentCrashViewModel extends StateNotifier<IncidentCrashFormState> {
       final log = await _repository.getIncidentDetails(incidentId);
       state = state.copyWith(isLoading: false, submittedLog: log);
       startTimerTicks(incidentId);
-    } catch (e) {
-      state = state.copyWith(isLoading: false, error: e.toString());
+    } catch (e, stackTrace) {
+      FirebaseCrashlytics.instance.recordError(
+        e,
+        stackTrace,
+        reason: 'fetchSubmittedLogDetails failed',
+        fatal: false,
+      );
+      String errorMessage = 'Failed to load report details. Please try again.';
+      if (e is ApiException) {
+        errorMessage = e.message;
+      }
+      state = state.copyWith(isLoading: false, error: errorMessage);
     }
   }
+
 
   @override
   void dispose() {

@@ -23,7 +23,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
     });
   }
 
-  void _checkAndNavigate() {
+  Future<void> _checkAndNavigate() async {
     if (!mounted) return;
     final hasSelectedLanguage =
         ref.read(localeControllerProvider.notifier).hasSelectedLanguage;
@@ -32,7 +32,22 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
     if (!hasSelectedLanguage) {
       context.go(Constants.LANGUAGE_ROUTE, extra: true);
     } else if (isLoggedIn) {
-      context.go(Constants.HOME_ROUTE);
+      // Sync any offline queued safety checks in the background
+      final safetyRepo = ref.read(childSafetyCheckRepositoryProvider);
+      safetyRepo.syncPendingOfflineChecks().catchError((_) {});
+
+      // Check if driver has an active pending safety check (e.g. after app kill/restart)
+      try {
+        final activeCheck = await safetyRepo.getActiveCheck().timeout(const Duration(seconds: 4));
+        if (activeCheck.shouldLockOnStartup && mounted) {
+          context.go(Constants.CHILD_SAFETY_CHECK_ROUTE);
+          return;
+        }
+      } catch (_) {}
+
+      if (mounted) {
+        context.go(Constants.HOME_ROUTE);
+      }
     } else {
       context.go(Constants.LOGIN_ROUTE);
     }

@@ -8,6 +8,8 @@ class RouteResponse {
   final int? vehicleId; // Added to identify vehicle by integer ID
   final UserLocation? startLocation;
   final UserLocation? endLocation;
+  final UserLocation? depotLocation;
+  final int? childSafetyTimer; // timer in minutes from API response
   final String? startTime;
   final String? endTime;
   int sequenceNumber;
@@ -19,6 +21,8 @@ class RouteResponse {
     this.vehicleId,
     this.startLocation,
     this.endLocation,
+    this.depotLocation,
+    this.childSafetyTimer,
     this.startTime,
     this.endTime,
     this.sequenceNumber = 0,
@@ -70,6 +74,34 @@ class RouteResponse {
     return null;
   }
 
+  static UserLocation? _parseDepotLocation(Map<String, dynamic> json) {
+    final depot = json['depotLocation'] ??
+        json['depot_location'] ??
+        json['DepotLocation'];
+    if (depot is Map<String, dynamic>) {
+      return UserLocation.fromJson(depot);
+    }
+    if (json.containsKey('depotLat') || json.containsKey('depot_lat')) {
+      return UserLocation.fromJson(json);
+    }
+    return null;
+  }
+
+  static int? _parseSafetyTimer(Map<String, dynamic> json) {
+    final timer = json['childsafetytimer'] ??
+        json['childSafetyTimer'] ??
+        json['child_safety_timer'] ??
+        json['timer'] ??
+        json['Timer'];
+    if (timer is num) {
+      return timer.toInt();
+    }
+    if (timer is String) {
+      return int.tryParse(timer);
+    }
+    return null;
+  }
+
   factory RouteResponse.fromJson(Map<String, dynamic> json) {
     return RouteResponse(
       id: (json['id'] as num).toInt(),
@@ -82,6 +114,8 @@ class RouteResponse {
       endLocation: json['endLocation'] != null
           ? UserLocation.fromJson(json['endLocation'] as Map<String, dynamic>)
           : null,
+      depotLocation: _parseDepotLocation(json),
+      childSafetyTimer: _parseSafetyTimer(json),
       startTime: (json['startTime'] ?? json['StartTime'] ?? json['start_time'])?.toString(),
       endTime: (json['endTime'] ?? json['EndTime'] ?? json['end_time'])?.toString(),
     );
@@ -95,6 +129,8 @@ class RouteResponse {
         'busId': vehicleId,
         'startLocation': startLocation?.toJson(),
         'endLocation': endLocation?.toJson(),
+        'depotLocation': depotLocation?.toJson(),
+        'childsafetytimer': childSafetyTimer,
         'startTime': startTime,
         'endTime': endTime,
       };

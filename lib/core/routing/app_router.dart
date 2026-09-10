@@ -24,6 +24,7 @@ import '../../features/incident/view/incident_crash_intake_screen.dart';
 import '../../features/incident/view/incident_dashboard_screen.dart';
 import '../../features/incident/view/incident_crash_details_screen.dart';
 import '../../features/incident/view/incident_crash_history_screen.dart';
+import '../../features/safety_check/view/child_safety_check_screen.dart';
 import '../utils/app_constants.dart';
 
 /// Provider to track the current screen name for logging purposes.
@@ -184,6 +185,14 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         path: Constants.DRIVER_DETAILS_ROUTE,
         name: Constants.DRIVER_DETAILS,
         builder: (context, state) => const DriverDetailsScreen(),
+      ),
+      GoRoute(
+        path: Constants.CHILD_SAFETY_CHECK_ROUTE,
+        name: Constants.CHILD_SAFETY_CHECK,
+        builder: (context, state) {
+          final route = state.extra as RouteResponse?;
+          return ChildSafetyCheckScreen(route: route);
+        },
       ),
       GoRoute(
         path: Constants.DVIR_POST_TRIP_ROUTE,

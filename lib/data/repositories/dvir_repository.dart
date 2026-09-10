@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 import 'package:path_provider/path_provider.dart';
@@ -13,6 +14,17 @@ import '../models/vehicle_state_response.dart';
 class DvirRepository {
   final ApiClient _apiClient;
   final LocalStorageService _storage;
+  final StreamController<void> _vehicleStateChangeController =
+      StreamController<void>.broadcast();
+
+  Stream<void> get onVehicleStateChanged =>
+      _vehicleStateChangeController.stream;
+
+  void notifyVehicleStateChanged() {
+    if (!_vehicleStateChangeController.isClosed) {
+      _vehicleStateChangeController.add(null);
+    }
+  }
 
   static const String _offlineQueueKey = 'dvir_offline_queue';
 
@@ -64,6 +76,7 @@ class DvirRepository {
       final List<String> queue = _storage.getString(_offlineQueueKey)?.split('|') ?? [];
       queue.add(jsonEncode(offlineRequest.toJson()));
       await _storage.setString(_offlineQueueKey, queue.join('|'));
+      notifyVehicleStateChanged();
       return;
     }
 
@@ -96,6 +109,7 @@ class DvirRepository {
       ApiEndpoints.dvir,
       data: resolvedRequest.toJson(),
     );
+    notifyVehicleStateChanged();
   }
 
   Future<int?> getBusIdFromNumber(String busNumber) async {
@@ -154,6 +168,7 @@ class DvirRepository {
       '${ApiEndpoints.dvirSign}/$dvirId',
       data: {'signatureBase64': signatureBase64},
     );
+    notifyVehicleStateChanged();
   }
 
   /// Flushes the offline cached queue

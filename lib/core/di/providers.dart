@@ -10,6 +10,7 @@ import '../services/location_tracking_service.dart';
 import '../storage/local_storage_service.dart';
 import '../../data/repositories/dvir_repository.dart';
 import '../../data/repositories/incident_crash_repository.dart';
+import '../../data/repositories/child_safety_check_repository.dart';
 
 /// [LocalStorageService] placeholder.
 final localStorageServiceProvider = Provider<LocalStorageService>((ref) {
@@ -77,6 +78,13 @@ final dvirRepositoryProvider = Provider<DvirRepository>((ref) {
 
 final incidentCrashRepositoryProvider = Provider<IncidentCrashRepository>((ref) {
   return IncidentCrashRepository(apiClient: ref.watch(apiClientProvider));
+});
+
+final childSafetyCheckRepositoryProvider = Provider<ChildSafetyCheckRepository>((ref) {
+  return ChildSafetyCheckRepository(
+    apiClient: ref.watch(apiClientProvider),
+    storage: ref.watch(localStorageServiceProvider),
+  );
 });
 
 /// Background location tracking

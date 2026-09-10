@@ -26,8 +26,8 @@ class ApiClient {
           BaseOptions(
             baseUrl: Constants.BASE_URL,
             contentType: Constants.CONTENT_TYPE_JSON,
-            connectTimeout: const Duration(seconds: 30),
-            receiveTimeout: const Duration(seconds: 30),
+            connectTimeout: const Duration(seconds: 60),
+            receiveTimeout: const Duration(seconds: 60),
           ),
         ) {
     _dio.interceptors.add(
@@ -167,6 +167,7 @@ class ApiClient {
       // Report to Crashlytics
       await _crashReporting.logApiFailure(
         exception: e,
+        stackTrace: e.stackTrace,
         endpoint: e.requestOptions.uri.toString(),
         responseCode: e.response?.statusCode,
         extraInfo: {
@@ -194,7 +195,28 @@ class ApiClient {
         final statusCode = e.response?.statusCode;
         if (statusCode == 401) return const UnauthorizedException();
         if (statusCode == 500) return const ServerException();
-        return UnknownApiException(e.message ?? 'Something went wrong');
+
+        final serverMessage = _extractServerMessage(e.response?.data);
+        return UnknownApiException(serverMessage ?? Constants.UNKNOWN_ERROR);
     }
+  }
+
+  String? _extractServerMessage(dynamic data) {
+    if (data == null) return null;
+    if (data is Map<String, dynamic>) {
+      final msg = data['message'] ?? data['error'] ?? data['msg'] ?? data['errorMessage'];
+      if (msg != null && msg.toString().trim().isNotEmpty) {
+        return msg.toString().trim();
+      }
+    } else if (data is String && data.trim().isNotEmpty) {
+      final trimmed = data.trim();
+      if (!trimmed.startsWith('<') &&
+          !trimmed.contains('Exception') &&
+          !trimmed.contains('validateStatus') &&
+          trimmed.length < 200) {
+        return trimmed;
+      }
+    }
+    return null;
   }
 }
