@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter/services.dart';
+import 'package:intl/intl.dart';
 import '../../../core/utils/app_constants.dart';
 import '../../../data/models/incident_crash_models.dart';
 import '../../../l10n/generated/app_localizations.dart';
@@ -151,7 +152,9 @@ class _IncidentCrashDetailsScreenState extends ConsumerState<IncidentCrashDetail
             ),
             const SizedBox(height: 12),
             Text(
-              l10n.incidentDetailsDateTime(log.crashTimestamp.toLocal().toString()),
+              l10n.incidentDetailsDateTime(
+                DateFormat('yyyy-MM-dd hh:mm a').format(log.crashTimestamp.toLocal()),
+              ),
               style: TextStyle(color: Colors.blue.shade900, fontSize: 13),
             ),
             const SizedBox(height: 4),

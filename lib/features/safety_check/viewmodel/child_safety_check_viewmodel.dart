@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:geolocator/geolocator.dart';
 
@@ -91,31 +90,34 @@ class ChildSafetyCheckViewModel extends StateNotifier<ChildSafetyCheckState> {
     _initialize();
   }
 
+  DateTime? _getTargetWindowEndTime() {
+    final endMin = _parseTimeToMinutes(route?.endTime);
+    final timerMinutes = route?.childSafetyTimer ?? 10;
+    if (endMin != null) {
+      final now = DateTime.now();
+      final totalEndMin = endMin + timerMinutes;
+      final endHour = totalEndMin ~/ 60;
+      final endMinute = totalEndMin % 60;
+      return DateTime(now.year, now.month, now.day, endHour, endMinute, 0);
+    }
+
+    if (state.activeCheck?.deadlineTimestamp != null) {
+      return state.activeCheck!.deadlineTimestamp;
+    }
+
+    return null;
+  }
+
   Future<void> _initialize() async {
     state = state.copyWith(isLoading: true);
     try {
-      // 1. Check for active check on the server / local storage
       final activeCheck = await _repository.getActiveCheck();
 
-      int initialTotal = 600; // default 10 minutes
-      int initialRemaining = 600;
-
-      if (route?.childSafetyTimer != null && route!.childSafetyTimer! > 0) {
-        initialTotal = route!.childSafetyTimer! * 60;
-        initialRemaining = initialTotal;
-      }
-
-      if (activeCheck.hasActiveCheck) {
-        if (activeCheck.remainingSeconds > 0) {
-          initialRemaining = activeCheck.remainingSeconds;
-          if (initialTotal < initialRemaining) {
-            initialTotal = initialRemaining;
-          }
-        } else {
-          // If remainingSeconds is 0 or negative (overdue), initialize countdown to 0
-          initialRemaining = 0;
-        }
-      }
+      int initialTotal = (route?.childSafetyTimer ?? 10) * 60;
+      final targetEnd = _getTargetWindowEndTime();
+      int initialRemaining = targetEnd != null
+          ? targetEnd.difference(DateTime.now()).inSeconds
+          : initialTotal;
 
       state = state.copyWith(
         isLoading: false,
@@ -127,10 +129,15 @@ class ChildSafetyCheckViewModel extends StateNotifier<ChildSafetyCheckState> {
       _startTimer();
     } catch (e) {
       final initialTotal = (route?.childSafetyTimer ?? 10) * 60;
+      final targetEnd = _getTargetWindowEndTime();
+      final initialRemaining = targetEnd != null
+          ? targetEnd.difference(DateTime.now()).inSeconds
+          : initialTotal;
+
       state = state.copyWith(
         isLoading: false,
         totalSeconds: initialTotal,
-        remainingSeconds: initialTotal,
+        remainingSeconds: initialRemaining,
       );
       _startTimer();
     }
@@ -139,17 +146,11 @@ class ChildSafetyCheckViewModel extends StateNotifier<ChildSafetyCheckState> {
   void _startTimer() {
     _countdownTimer?.cancel();
     _countdownTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
-      if (state.remainingSeconds > 0) {
-        final next = state.remainingSeconds - 1;
-        state = state.copyWith(remainingSeconds: next);
-
-        // Haptic feedback at 3 min (180s) and 1 min (60s)
-        if (next == 180 || next == 60 || next == 30) {
-          HapticFeedback.heavyImpact();
-        }
-      } else {
-        _countdownTimer?.cancel();
-      }
+      final targetEnd = _getTargetWindowEndTime();
+      final next = targetEnd != null
+          ? targetEnd.difference(DateTime.now()).inSeconds
+          : state.remainingSeconds - 1;
+      state = state.copyWith(remainingSeconds: next);
     });
   }
 
@@ -166,11 +167,68 @@ class ChildSafetyCheckViewModel extends StateNotifier<ChildSafetyCheckState> {
     state = state.copyWith(driverNotes: notes);
   }
 
-  Future<bool> submitCheck() async {
-    if (state.isSubmitting) return false;
+  int? _parseTimeToMinutes(String? timeStr) {
+    if (timeStr == null || timeStr.trim().isEmpty) return null;
+    timeStr = timeStr.trim().toUpperCase();
 
-    state = state.copyWith(isSubmitting: true, isCapturingGps: true, errorMessage: null);
+    if (timeStr.contains('T')) {
+      final parsedDt = DateTime.tryParse(timeStr);
+      if (parsedDt != null) {
+        return parsedDt.hour * 60 + parsedDt.minute;
+      }
+    }
 
+    final matchAmPm =
+        RegExp(r'^(\d+):(\d+)(?::\d+)?\s*(AM|PM)$').firstMatch(timeStr);
+    if (matchAmPm != null) {
+      int hour = int.parse(matchAmPm.group(1)!);
+      final int minute = int.parse(matchAmPm.group(2)!);
+      final String period = matchAmPm.group(3)!;
+      if (period == 'PM' && hour != 12) {
+        hour += 12;
+      } else if (period == 'AM' && hour == 12) {
+        hour = 0;
+      }
+      return hour * 60 + minute;
+    }
+
+    final match24h = RegExp(r'^(\d+):(\d+)(?::\d+)?$').firstMatch(timeStr);
+    if (match24h != null) {
+      final int hour = int.parse(match24h.group(1)!);
+      final int minute = int.parse(match24h.group(2)!);
+      return hour * 60 + minute;
+    }
+
+    return null;
+  }
+
+  /// Calculates compliance timeStatus based on route endTime + childSafetyTimer.
+  String computeTimeStatus({DateTime? checkTime}) {
+    final now = checkTime ?? DateTime.now();
+    final endMin = _parseTimeToMinutes(route?.endTime);
+    final timerMinutes = route?.childSafetyTimer ?? 10;
+
+    if (endMin != null) {
+      final currentMin = now.hour * 60 + now.minute;
+      if (currentMin < endMin) {
+        return 'MARKED_EARLY';
+      } else if (currentMin > (endMin + timerMinutes)) {
+        return 'MARKED_LATE';
+      } else {
+        return 'ON_TIME';
+      }
+    }
+
+    // Fallback if endTime is not defined
+    if (state.isExpired) {
+      return 'MARKED_LATE';
+    }
+    return 'ON_TIME';
+  }
+
+  /// Captures the device GPS location.
+  Future<UserLocation> captureCurrentLocation() async {
+    state = state.copyWith(isCapturingGps: true);
     UserLocation? location;
     try {
       final pos = await Geolocator.getCurrentPosition(
@@ -192,12 +250,44 @@ class ChildSafetyCheckViewModel extends StateNotifier<ChildSafetyCheckState> {
       } catch (_) {}
     }
 
-    // Default fallback to depot/end location if completely unavailable
     location ??= route?.depotLocation ??
         route?.endLocation ??
         const UserLocation(latitude: 0.0, longitude: 0.0);
 
     state = state.copyWith(isCapturingGps: false, capturedLocation: location);
+    return location;
+  }
+
+  /// Checks whether a given location matches the route's depot location.
+  bool isLocationAtDepot(UserLocation location, {double thresholdMeters = 100.0}) {
+    final depot = route?.depotLocation ?? route?.endLocation;
+    if (depot == null || (depot.latitude == 0.0 && depot.longitude == 0.0)) {
+      // If no depot location is configured, consider it matching
+      return true;
+    }
+
+    final distance = Geolocator.distanceBetween(
+      location.latitude,
+      location.longitude,
+      depot.latitude,
+      depot.longitude,
+    );
+    return distance <= thresholdMeters;
+  }
+
+  Future<bool> submitCheck({
+    String? childSafetyMarkStatus,
+    String? timeStatus,
+  }) async {
+    if (state.isSubmitting) return false;
+
+    state = state.copyWith(isSubmitting: true, errorMessage: null);
+
+    UserLocation location = state.capturedLocation ?? await captureCurrentLocation();
+
+    final isAtDepot = isLocationAtDepot(location);
+    final resolvedMarkStatus = childSafetyMarkStatus ?? (isAtDepot ? 'AT_DEPOT' : 'AWAY_FROM_DEPOT');
+    final resolvedTimeStatus = timeStatus ?? computeTimeStatus();
 
     final checkLogId = state.activeCheck?.checkLogId ?? 0;
     final tripId = state.activeCheck?.tripId ?? (route?.id ?? 0);
@@ -211,6 +301,8 @@ class ChildSafetyCheckViewModel extends StateNotifier<ChildSafetyCheckState> {
       sleepingChildrenCount: state.anySleepingChildFound ? state.sleepingChildrenCount : 0,
       driverNotes: state.driverNotes,
       verificationMethod: 'AppSafetyButton',
+      childSafetyMarkStatus: resolvedMarkStatus,
+      timeStatus: resolvedTimeStatus,
       clientTimestamp: DateTime.now().toUtc().toIso8601String(),
     );
 

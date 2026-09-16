@@ -2,7 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:image_picker/image_picker.dart';
+import '../../../../core/camera/camera_capture_screen.dart';
 import '../../../../core/utils/app_constants.dart';
 import '../../../../core/utils/image_utils.dart';
 import '../../../../data/models/drill_evidence.dart';
@@ -271,9 +271,16 @@ class _EvidenceCaptureScreenState extends ConsumerState<EvidenceCaptureScreen> {
                     children: [
                       ElevatedButton.icon(
                         onPressed: () async {
-                          final mediaService = ref.read(mediaCompressionServiceProvider);
-                          final item = await mediaService.pickAndCompressMedia(ImageSource.camera, isVideo: false);
-                          if (item != null) notifier.addEvidence(item);
+                          final filePath = await Navigator.of(context).push<String>(
+                            MaterialPageRoute(
+                              builder: (_) => const CameraCaptureScreen(isVideoMode: false),
+                            ),
+                          );
+                          if (filePath != null) {
+                            final mediaService = ref.read(mediaCompressionServiceProvider);
+                            final item = await mediaService.processCapturedFile(filePath, isVideo: false);
+                            if (item != null) notifier.addEvidence(item);
+                          }
                         },
                         icon: const Icon(
                           Icons.camera_alt,
@@ -283,9 +290,16 @@ class _EvidenceCaptureScreenState extends ConsumerState<EvidenceCaptureScreen> {
                       ),
                       ElevatedButton.icon(
                         onPressed: () async {
-                          final mediaService = ref.read(mediaCompressionServiceProvider);
-                          final item = await mediaService.pickAndCompressMedia(ImageSource.camera, isVideo: true);
-                          if (item != null) notifier.addEvidence(item);
+                          final filePath = await Navigator.of(context).push<String>(
+                            MaterialPageRoute(
+                              builder: (_) => const CameraCaptureScreen(isVideoMode: true),
+                            ),
+                          );
+                          if (filePath != null) {
+                            final mediaService = ref.read(mediaCompressionServiceProvider);
+                            final item = await mediaService.processCapturedFile(filePath, isVideo: true);
+                            if (item != null) notifier.addEvidence(item);
+                          }
                         },
                         icon: const Icon(
                           Icons.videocam,

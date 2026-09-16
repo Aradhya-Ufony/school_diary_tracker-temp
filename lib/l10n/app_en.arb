@@ -24,7 +24,7 @@
   "@appInfoVersion": {
     "description": "Label displaying the application release version on the App Info screen."
   },
-  "appTitleSchoolDiary": "SD Tracker",
+  "appTitleSchoolDiary": "Locato",
   "@appTitleSchoolDiary": {
     "description": "The main application branding title displayed in the app header."
   },
@@ -624,9 +624,9 @@
   "@dvirPostTripDefectWithoutPhotoWarning": {
     "description": "Warning message in confirmation dialog when submitting defect reports without attached photos."
   },
-  "dvirPostTripInspectionTitle": "Inspection: Bus {busNumber}",
+  "dvirPostTripInspectionTitle": "Report Defects: Bus {busNumber}",
   "@dvirPostTripInspectionTitle": {
-    "description": "Screen header showing the bus number undergoing post-trip walkaround inspection."
+    "description": "Screen header showing the bus number undergoing defect reporting walkaround inspection."
   },
   "dvirPostTripNotesDefectHint": "Enter details of the safety concern...",
   "@dvirPostTripNotesDefectHint": {
@@ -939,6 +939,14 @@
   "homeMenuPreTrip": "Pre-Trip Inspection",
   "@homeMenuPreTrip": {
     "description": "Drawer menu item label navigating to the pre-trip DVIR inspection screen."
+  },
+  "homeMenuReportDefects": "Report Defects",
+  "@homeMenuReportDefects": {
+    "description": "Drawer menu item label navigating to the defect reporting inspection screen."
+  },
+  "homeErrorNoRoutesReportDefects": "No routes available to report defects",
+  "@homeErrorNoRoutesReportDefects": {
+    "description": "Error message shown when attempting to report defects without any assigned routes."
   },
   "homeNoRoutes": "No routes available",
   "@homeNoRoutes": {
@@ -1844,5 +1852,37 @@
   "childSafetyCheckAcknowledgeProceedButton": "Acknowledge & Proceed",
   "@childSafetyCheckAcknowledgeProceedButton": {
     "description": "Action button to dismiss emergency dialog and proceed to post-trip DVIR."
+  },
+  "homeMenuChildSafetyCheck": "Child Safety Check",
+  "@homeMenuChildSafetyCheck": {
+    "description": "Drawer menu item label navigating to the child safety check screen."
+  },
+  "childSafetyAwayWarningTitle": "Away from Depot Location",
+  "@childSafetyAwayWarningTitle": {
+    "description": "Dialog title warning the driver that they are not currently at the depot location."
+  },
+  "childSafetyAwayWarningBody": "You are not at the depot location. Please go to the depot location and perform the Child Safety Check there.",
+  "@childSafetyAwayWarningBody": {
+    "description": "Dialog body instructing driver to go to depot to mark child safety."
+  },
+  "childSafetyOptionOk": "OK",
+  "@childSafetyOptionOk": {
+    "description": "Button option OK in child safety check dialogs."
+  },
+  "childSafetyOptionMarkHere": "No, Mark Here Only",
+  "@childSafetyOptionMarkHere": {
+    "description": "Button option allowing driver to proceed with marking at current location."
+  },
+  "childSafetyConfirmAwayTitle": "Warning: Marking Away from Location",
+  "@childSafetyConfirmAwayTitle": {
+    "description": "Dialog title confirming driver intends to mark away from depot location."
+  },
+  "childSafetyConfirmAwayBody": "You are about to mark the Child Safety Check away from the designated depot location. Are you sure you want to proceed?",
+  "@childSafetyConfirmAwayBody": {
+    "description": "Dialog body warning driver about submitting safety check away from depot location."
+  },
+  "childSafetyOptionCancel": "Cancel",
+  "@childSafetyOptionCancel": {
+    "description": "Button option Cancel in child safety check dialogs."
   }
 }

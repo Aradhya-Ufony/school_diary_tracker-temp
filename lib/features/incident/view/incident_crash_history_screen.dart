@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:intl/intl.dart';
 import '../../../core/utils/app_constants.dart';
 import '../../../l10n/generated/app_localizations.dart';
 import '../viewmodel/incident_crash_viewmodel.dart';
@@ -46,7 +47,7 @@ class IncidentCrashHistoryScreen extends ConsumerWidget {
             itemCount: logs.length,
             itemBuilder: (context, index) {
               final log = logs[index];
-              final dateStr = log.crashTimestamp.toLocal().toString().split('.').first;
+              final dateStr = DateFormat('yyyy-MM-dd hh:mm a').format(log.crashTimestamp.toLocal());
               final testRequired = log.requiresAlcoholTest || log.requiresDrugTest;
 
               return Card(

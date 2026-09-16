@@ -148,7 +148,7 @@ class TripViewModel extends StateNotifier<TripState> {
 
     state = state.copyWith(distanceToDepotMeters: distance);
 
-    if (distance <= 75.0) {
+    if (distance <= 50.0) {
       _depotDwellSeconds++;
       // If parked inside depot for >= 10 seconds or speed is stationary
       if (_depotDwellSeconds >= 10 && !_depotArrivalTriggered) {
@@ -158,6 +158,57 @@ class TripViewModel extends StateNotifier<TripState> {
     } else {
       _depotDwellSeconds = 0;
     }
+  }
+
+  bool get isAtDepot {
+    if (state.depotArrivalDetected) return true;
+    final depot = route.depotLocation ?? route.endLocation;
+    if (depot == null) return false;
+    final currentPos = state.currentPosition;
+    if (currentPos == null) return false;
+    final dist = Geolocator.distanceBetween(
+      currentPos.latitude,
+      currentPos.longitude,
+      depot.latitude,
+      depot.longitude,
+    );
+    return dist <= 50.0;
+  }
+
+  Future<bool> checkIsAtDepot() async {
+    if (state.depotArrivalDetected) return true;
+    final depot = route.depotLocation ?? route.endLocation;
+    if (depot == null) return false;
+
+    UserLocation? currentPos = state.currentPosition;
+    if (currentPos == null) {
+      try {
+        final pos = await Geolocator.getCurrentPosition(
+          locationSettings: const LocationSettings(
+            accuracy: LocationAccuracy.medium,
+            timeLimit: Duration(seconds: 3),
+          ),
+        );
+        currentPos = UserLocation(latitude: pos.latitude, longitude: pos.longitude);
+      } catch (_) {
+        try {
+          final lastKnown = await Geolocator.getLastKnownPosition();
+          if (lastKnown != null) {
+            currentPos = UserLocation(latitude: lastKnown.latitude, longitude: lastKnown.longitude);
+          }
+        } catch (_) {}
+      }
+    }
+
+    if (currentPos == null) return false;
+
+    final dist = Geolocator.distanceBetween(
+      currentPos.latitude,
+      currentPos.longitude,
+      depot.latitude,
+      depot.longitude,
+    );
+    return dist <= 50.0;
   }
 
   void _tick() {

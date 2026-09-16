@@ -133,18 +133,6 @@ class _PreTripVerificationScreenState
         title: Text(l10n.dvirPreTripTitle),
         backgroundColor: AppColors.PRIMARY,
         foregroundColor: Colors.white,
-        actions: [
-          if (!_isLoading &&
-              _vehicleState != null &&
-              _vehicleState!.currentState != 'OUT_OF_SERVICE')
-            IconButton(
-              icon: const Icon(Icons.add),
-              tooltip: l10n.dvirPreTripReportNewDefectsButton,
-              onPressed: () {
-                context.push(Constants.DVIR_POST_TRIP_ROUTE, extra: widget.routeResponse);
-              },
-            ),
-        ],
       ),
       body: _isLoading
           ? const Center(child: CircularProgressIndicator())

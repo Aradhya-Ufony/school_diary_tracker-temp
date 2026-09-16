@@ -35,16 +35,36 @@ class _DrillListScreenState extends ConsumerState<DrillListScreen> {
     final listNotifier = ref.read(drillListProvider.notifier);
     final l10n = AppLocalizations.of(context)!;
 
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(l10n.drillsTitle),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.refresh),
-            onPressed: () => listNotifier.loadBuses(),
+    return PopScope(
+      canPop: false,
+      onPopInvokedWithResult: (didPop, result) {
+        if (didPop) return;
+        if (context.canPop()) {
+          context.pop();
+        } else {
+          context.go(Constants.HOME_ROUTE);
+        }
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(l10n.drillsTitle),
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back),
+            onPressed: () {
+              if (context.canPop()) {
+                context.pop();
+              } else {
+                context.go(Constants.HOME_ROUTE);
+              }
+            },
           ),
-        ],
-      ),
+          actions: [
+            IconButton(
+              icon: const Icon(Icons.refresh),
+              onPressed: () => listNotifier.loadBuses(),
+            ),
+          ],
+        ),
       body: listState.isLoading && listState.selectedBusNumber == null
           ? const Center(child: CircularProgressIndicator())
           : Column(
@@ -217,6 +237,7 @@ class _DrillListScreenState extends ConsumerState<DrillListScreen> {
                 ),
               ],
             ),
+      ),
     );
   }
 }

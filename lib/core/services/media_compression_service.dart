@@ -102,4 +102,67 @@ class MediaCompressionService {
       );
     }
   }
+
+  Future<DrillEvidence?> processCapturedFile(String filePath, {bool isVideo = false}) async {
+    final captureTime = DateTime.now();
+    if (isVideo) {
+      String? thumbnailPath;
+      try {
+        final tempDir = await getTemporaryDirectory();
+        thumbnailPath = await VideoThumbnail.thumbnailFile(
+          video: filePath,
+          thumbnailPath: tempDir.path,
+          imageFormat: ImageFormat.JPEG,
+          maxHeight: 300,
+          quality: 75,
+        );
+      } catch (e) {
+        // Thumbnail generation failed, fallback gracefully
+      }
+
+      return DrillEvidence(
+        localFilePath: filePath,
+        thumbnailPath: thumbnailPath,
+        mediaType: EvidenceMediaType.video,
+        createdAt: captureTime,
+        uploadedAt: captureTime,
+      );
+    } else {
+      final tempDir = await getTemporaryDirectory();
+      final targetPath = '${tempDir.path}/${DateTime.now().millisecondsSinceEpoch}_compressed.jpg';
+      
+      final compressedFile = await FlutterImageCompress.compressAndGetFile(
+        filePath,
+        targetPath,
+        quality: 80,
+        minWidth: 1920,
+        minHeight: 1080,
+      );
+
+      return DrillEvidence(
+        localFilePath: compressedFile?.path ?? filePath,
+        mediaType: EvidenceMediaType.photo,
+        createdAt: captureTime,
+        uploadedAt: captureTime,
+      );
+    }
+  }
+
+  Future<String?> compressPhoto(String filePath) async {
+    try {
+      final tempDir = await getTemporaryDirectory();
+      final targetPath = '${tempDir.path}/${DateTime.now().millisecondsSinceEpoch}_compressed.jpg';
+      
+      final compressedFile = await FlutterImageCompress.compressAndGetFile(
+        filePath,
+        targetPath,
+        quality: 80,
+        minWidth: 1920,
+        minHeight: 1080,
+      );
+      return compressedFile?.path ?? filePath;
+    } catch (_) {
+      return filePath;
+    }
+  }
 }

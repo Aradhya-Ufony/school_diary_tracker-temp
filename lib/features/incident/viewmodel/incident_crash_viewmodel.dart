@@ -195,6 +195,20 @@ class IncidentCrashViewModel extends StateNotifier<IncidentCrashFormState> {
     state = state.copyWith(selectedStudents: list);
   }
 
+  Future<void> addCapturedEvidencePhoto(String filePath) async {
+    final fileName = filePath.split('/').last.split('\\').last;
+    final base64 = await fileToBase64(filePath);
+    if (base64 != null) {
+      final evidence = IncidentCrashEvidence(
+        stream: base64,
+        fileName: fileName,
+        mediaType: 'image/jpeg',
+        localFilePath: filePath,
+      );
+      state = state.copyWith(evidences: [...state.evidences, evidence]);
+    }
+  }
+
   Future<void> captureEvidencePhoto() async {
     final picker = ImagePicker();
     final pickedFile = await picker.pickImage(

@@ -194,12 +194,7 @@ class _StopCard extends StatelessWidget {
               style: const TextStyle(fontWeight: FontWeight.bold),
             ),
             subtitle: Text(
-              l10n.stopsSummary(
-                stop.selectedCount,
-                stop.totalPickedDropped,
-                isUndoMode ? stop.totalPickedDropped : stop.children.length,
-                isUndoMode ? l10n.stopsStatusDone : l10n.stopsStatusComplete,
-              ),
+              '${stop.totalPickedDropped}/${isUndoMode ? stop.totalPickedDropped : stop.children.length} ${isUndoMode ? l10n.stopsStatusDone : l10n.stopsStatusComplete}',
             ),
             controlAffinity: ListTileControlAffinity.leading,
             secondary: IconButton(

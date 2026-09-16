@@ -812,6 +812,12 @@ class AppLocalizationsMr extends AppLocalizations {
   String get homeMenuPreTrip => 'पूर्व-ट्रिप तपासणी';
 
   @override
+  String get homeMenuReportDefects => 'Report Defects';
+
+  @override
+  String get homeErrorNoRoutesReportDefects => 'No routes available to report defects';
+
+  @override
   String get homeNoRoutes => 'कोणतेही मार्ग उपलब्ध नाहीत';
 
   @override
@@ -1547,4 +1553,28 @@ class AppLocalizationsMr extends AppLocalizations {
 
   @override
   String get childSafetyCheckAcknowledgeProceedButton => 'Acknowledge & Proceed';
+
+  @override
+  String get homeMenuChildSafetyCheck => 'Child Safety Check';
+
+  @override
+  String get childSafetyAwayWarningTitle => 'Away from Depot Location';
+
+  @override
+  String get childSafetyAwayWarningBody => 'You are not at the depot location. Please go to the depot location and perform the Child Safety Check there.';
+
+  @override
+  String get childSafetyOptionOk => 'OK';
+
+  @override
+  String get childSafetyOptionMarkHere => 'No, Mark Here Only';
+
+  @override
+  String get childSafetyConfirmAwayTitle => 'Warning: Marking Away from Location';
+
+  @override
+  String get childSafetyConfirmAwayBody => 'You are about to mark the Child Safety Check away from the designated depot location. Are you sure you want to proceed?';
+
+  @override
+  String get childSafetyOptionCancel => 'Cancel';
 }

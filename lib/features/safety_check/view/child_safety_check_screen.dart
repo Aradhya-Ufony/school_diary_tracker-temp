@@ -25,17 +25,13 @@ class _ChildSafetyCheckScreenState extends ConsumerState<ChildSafetyCheckScreen>
   }
 
   String _formatTimer(int seconds) {
-    if (seconds <= 0) return '00:00';
-    final mins = seconds ~/ 60;
-    final secs = seconds % 60;
-    return '${mins.toString().padLeft(2, '0')}:${secs.toString().padLeft(2, '0')}';
-  }
-
-  Color _getTimerColor(double fraction, bool isExpired) {
-    if (isExpired) return AppColors.ERROR;
-    if (fraction > 0.5) return Colors.green.shade700;
-    if (fraction > 0.25) return Colors.orange.shade800;
-    return AppColors.ERROR;
+    final isNegative = seconds < 0;
+    final absSeconds = seconds.abs();
+    final mins = absSeconds ~/ 60;
+    final secs = absSeconds % 60;
+    final formatted =
+        '${mins.toString().padLeft(2, '0')}:${secs.toString().padLeft(2, '0')}';
+    return isNegative ? '-$formatted' : formatted;
   }
 
   @override
@@ -43,281 +39,228 @@ class _ChildSafetyCheckScreenState extends ConsumerState<ChildSafetyCheckScreen>
     final state = ref.watch(childSafetyCheckViewModelProvider(widget.route));
     final vm = ref.read(childSafetyCheckViewModelProvider(widget.route).notifier);
     final l10n = AppLocalizations.of(context)!;
+    final routeName = widget.route?.name ?? state.activeCheck?.routeName;
 
-    final timerColor = _getTimerColor(state.progressFraction, state.isExpired);
-
-    return PopScope(
-      canPop: false, // Prevents driver from backing out without completing safety check
-      child: Scaffold(
-        appBar: AppBar(
-          automaticallyImplyLeading: false,
-          title: Text(l10n.childSafetyCheckTitle),
-          backgroundColor: timerColor,
-          foregroundColor: Colors.white,
-          centerTitle: true,
-        ),
-        body: state.isLoading
-            ? const Center(child: CircularProgressIndicator())
-            : SingleChildScrollView(
-                padding: const EdgeInsets.all(16.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    // 1. Alert Banner
-                    Container(
-                      padding: const EdgeInsets.all(12),
-                      decoration: BoxDecoration(
-                        color: timerColor.withValues(alpha: 0.12),
-                        borderRadius: BorderRadius.circular(8),
-                        border: Border.all(color: timerColor, width: 1.5),
-                      ),
-                      child: Row(
+    return Scaffold(
+      appBar: AppBar(
+        automaticallyImplyLeading: true,
+        title: Text(l10n.childSafetyCheckTitle),
+        centerTitle: true,
+      ),
+      body: state.isLoading
+          ? const Center(child: CircularProgressIndicator())
+          : SingleChildScrollView(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  // 1. Route & Time Remaining Card
+                  Card(
+                    elevation: 1.5,
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 16),
+                      child: Column(
                         children: [
-                          Icon(
-                            state.isExpired ? Icons.warning_amber_rounded : Icons.shield_rounded,
-                            color: timerColor,
-                            size: 32,
-                          ),
-                          const SizedBox(width: 12),
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  state.isExpired
-                                      ? l10n.childSafetyCheckTimeExpiredTitle
-                                      : l10n.childSafetyCheckMandatoryPostRouteTitle,
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 14,
-                                    color: timerColor,
-                                  ),
-                                ),
-                                const SizedBox(height: 2),
-                                Text(
-                                  state.isExpired
-                                      ? l10n.childSafetyCheckTimeExpiredSubtitle
-                                      : l10n.childSafetyCheckMandatoryPostRouteSubtitle,
-                                  style: TextStyle(fontSize: 12, color: Colors.grey.shade800),
-                                ),
-                              ],
+                          if (routeName != null && routeName.isNotEmpty) ...[
+                            Text(
+                              routeName,
+                              style: const TextStyle(
+                                fontSize: 15,
+                                fontWeight: FontWeight.bold,
+                              ),
+                              textAlign: TextAlign.center,
                             ),
+                            const SizedBox(height: 6),
+                          ],
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(
+                                Icons.access_time_rounded,
+                                size: 18,
+                                color: state.remainingSeconds < 0 ? AppColors.ERROR : Colors.grey.shade700,
+                              ),
+                              const SizedBox(width: 6),
+                              Text(
+                                '${l10n.childSafetyCheckTimeRemainingHeader}: ',
+                                style: TextStyle(
+                                  fontSize: 13,
+                                  color: Colors.grey.shade700,
+                                ),
+                              ),
+                              Text(
+                                _formatTimer(state.remainingSeconds),
+                                style: TextStyle(
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.bold,
+                                  color: state.remainingSeconds < 0 ? AppColors.ERROR : AppColors.PRIMARY,
+                                ),
+                              ),
+                            ],
                           ),
                         ],
                       ),
                     ),
-                    const SizedBox(height: 20),
+                  ),
+                  const SizedBox(height: 16),
 
-                    // 2. Countdown Timer Card
-                    Card(
-                      elevation: 3,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
-                        side: BorderSide(color: timerColor.withValues(alpha: 0.5), width: 1.5),
+                  // 2. Inspection Checklist Instructions
+                  Card(
+                    elevation: 1,
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                    child: Padding(
+                      padding: const EdgeInsets.all(14),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            l10n.childSafetyCheckInspectionChecklistTitle,
+                            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+                          ),
+                          const SizedBox(height: 10),
+                          _buildCheckStep(1, l10n.childSafetyCheckStep1),
+                          _buildCheckStep(2, l10n.childSafetyCheckStep2),
+                          _buildCheckStep(3, l10n.childSafetyCheckStep3),
+                          _buildCheckStep(4, l10n.childSafetyCheckStep4),
+                        ],
                       ),
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 16),
-                        child: Column(
-                          children: [
-                            Text(
-                              l10n.childSafetyCheckTimeRemainingHeader,
-                              style: TextStyle(
-                                fontSize: 13,
-                                fontWeight: FontWeight.w600,
-                                color: Colors.grey.shade700,
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+
+                  // 3. Sleeping Child / Child Found Intake Section
+                  Card(
+                    elevation: 1.5,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      side: BorderSide(
+                        color: state.anySleepingChildFound ? AppColors.ERROR : Colors.grey.shade200,
+                        width: 1,
+                      ),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(14),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            l10n.childSafetyCheckResultTitle,
+                            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+                          ),
+                          const SizedBox(height: 8),
+                          Row(
+                            children: [
+                              Expanded(
+                                child: RadioListTile<bool>(
+                                  title: Text(l10n.childSafetyCheckAllClear, style: const TextStyle(fontSize: 13)),
+                                  value: false,
+                                  groupValue: state.anySleepingChildFound,
+                                  activeColor: Colors.green,
+                                  contentPadding: EdgeInsets.zero,
+                                  onChanged: (val) => vm.toggleSleepingChild(false),
+                                ),
                               ),
-                            ),
-                            const SizedBox(height: 8),
-                            Text(
-                              _formatTimer(state.remainingSeconds),
-                              style: TextStyle(
-                                fontSize: 44,
-                                fontWeight: FontWeight.w900,
-                                letterSpacing: 2,
-                                color: timerColor,
-                              ),
-                            ),
-                            const SizedBox(height: 8),
-                            ClipRRect(
-                              borderRadius: BorderRadius.circular(4),
-                              child: LinearProgressIndicator(
-                                value: state.progressFraction,
-                                backgroundColor: Colors.grey.shade200,
-                                valueColor: AlwaysStoppedAnimation<Color>(timerColor),
-                                minHeight: 6,
-                              ),
-                            ),
-                            if ((widget.route?.name ?? state.activeCheck?.routeName) != null) ...[
-                              const SizedBox(height: 10),
-                              Text(
-                                l10n.childSafetyCheckRouteLabel(
-                                    widget.route?.name ?? state.activeCheck!.routeName!),
-                                style: const TextStyle(fontSize: 12, color: Colors.grey),
+                              Expanded(
+                                child: RadioListTile<bool>(
+                                  title: Text(l10n.childSafetyCheckChildFound, style: const TextStyle(fontSize: 13, color: AppColors.ERROR, fontWeight: FontWeight.bold)),
+                                  value: true,
+                                  groupValue: state.anySleepingChildFound,
+                                  activeColor: AppColors.ERROR,
+                                  contentPadding: EdgeInsets.zero,
+                                  onChanged: (val) => vm.toggleSleepingChild(true),
+                                ),
                               ),
                             ],
-                          ],
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 20),
+                          ),
 
-                    // 3. Inspection Checklist Instructions
-                    Card(
-                      elevation: 1,
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                      child: Padding(
-                        padding: const EdgeInsets.all(14),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              l10n.childSafetyCheckInspectionChecklistTitle,
-                              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
-                            ),
-                            const SizedBox(height: 10),
-                            _buildCheckStep(1, l10n.childSafetyCheckStep1),
-                            _buildCheckStep(2, l10n.childSafetyCheckStep2),
-                            _buildCheckStep(3, l10n.childSafetyCheckStep3),
-                            _buildCheckStep(4, l10n.childSafetyCheckStep4),
-                          ],
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 20),
-
-                    // 4. Sleeping Child / Child Found Intake Section
-                    Card(
-                      elevation: 2,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        side: BorderSide(
-                          color: state.anySleepingChildFound ? AppColors.ERROR : Colors.transparent,
-                          width: 1.5,
-                        ),
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(14),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              l10n.childSafetyCheckResultTitle,
-                              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
-                            ),
-                            const SizedBox(height: 8),
+                          if (state.anySleepingChildFound) ...[
+                            const Divider(),
+                            const SizedBox(height: 6),
                             Row(
                               children: [
-                                Expanded(
-                                  child: RadioListTile<bool>(
-                                    title: Text(l10n.childSafetyCheckAllClear, style: const TextStyle(fontSize: 13)),
-                                    value: false,
-                                    groupValue: state.anySleepingChildFound,
-                                    activeColor: Colors.green,
-                                    contentPadding: EdgeInsets.zero,
-                                    onChanged: (val) => vm.toggleSleepingChild(false),
-                                  ),
+                                Text(l10n.childSafetyCheckNumberOfChildrenFound, style: const TextStyle(fontSize: 13)),
+                                IconButton(
+                                  icon: const Icon(Icons.remove_circle_outline, color: AppColors.ERROR),
+                                  onPressed: state.sleepingChildrenCount > 1
+                                      ? () => vm.setSleepingChildrenCount(state.sleepingChildrenCount - 1)
+                                      : null,
                                 ),
-                                Expanded(
-                                  child: RadioListTile<bool>(
-                                    title: Text(l10n.childSafetyCheckChildFound, style: const TextStyle(fontSize: 13, color: AppColors.ERROR, fontWeight: FontWeight.bold)),
-                                    value: true,
-                                    groupValue: state.anySleepingChildFound,
-                                    activeColor: AppColors.ERROR,
-                                    contentPadding: EdgeInsets.zero,
-                                    onChanged: (val) => vm.toggleSleepingChild(true),
-                                  ),
+                                Text(
+                                  '${state.sleepingChildrenCount}',
+                                  style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                                ),
+                                IconButton(
+                                  icon: const Icon(Icons.add_circle_outline, color: AppColors.ERROR),
+                                  onPressed: () => vm.setSleepingChildrenCount(state.sleepingChildrenCount + 1),
                                 ),
                               ],
                             ),
-
-                            if (state.anySleepingChildFound) ...[
-                              const Divider(),
-                              const SizedBox(height: 6),
-                              Row(
-                                children: [
-                                  Text(l10n.childSafetyCheckNumberOfChildrenFound, style: const TextStyle(fontSize: 13)),
-                                  IconButton(
-                                    icon: const Icon(Icons.remove_circle_outline, color: AppColors.ERROR),
-                                    onPressed: state.sleepingChildrenCount > 1
-                                        ? () => vm.setSleepingChildrenCount(state.sleepingChildrenCount - 1)
-                                        : null,
-                                  ),
-                                  Text(
-                                    '${state.sleepingChildrenCount}',
-                                    style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-                                  ),
-                                  IconButton(
-                                    icon: const Icon(Icons.add_circle_outline, color: AppColors.ERROR),
-                                    onPressed: () => vm.setSleepingChildrenCount(state.sleepingChildrenCount + 1),
-                                  ),
-                                ],
+                            const SizedBox(height: 6),
+                            TextField(
+                              controller: _notesController,
+                              onChanged: vm.setDriverNotes,
+                              maxLines: 2,
+                              decoration: InputDecoration(
+                                labelText: l10n.childSafetyCheckChildDetailsLabel,
+                                hintText: l10n.childSafetyCheckChildDetailsHint,
+                                border: const OutlineInputBorder(),
+                                isDense: true,
                               ),
-                              const SizedBox(height: 6),
-                              TextField(
-                                controller: _notesController,
-                                onChanged: vm.setDriverNotes,
-                                maxLines: 2,
-                                decoration: InputDecoration(
-                                  labelText: l10n.childSafetyCheckChildDetailsLabel,
-                                  hintText: l10n.childSafetyCheckChildDetailsHint,
-                                  border: const OutlineInputBorder(),
-                                  isDense: true,
+                            ),
+                          ],
+                        ],
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 24),
+
+                  // 5. Submit Button
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: state.anySleepingChildFound ? AppColors.ERROR : AppColors.PRIMARY,
+                      padding: const EdgeInsets.symmetric(vertical: 16),
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                    ),
+                    onPressed: state.isSubmitting ? null : () => _handleConfirmPressed(context, ref),
+                    child: state.isSubmitting
+                        ? Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const SizedBox(
+                                width: 20,
+                                height: 20,
+                                child: CircularProgressIndicator(color: Colors.white, strokeWidth: 2),
+                              ),
+                              const SizedBox(width: 12),
+                              Text(l10n.childSafetyCheckCapturingGps, style: const TextStyle(color: Colors.white, fontSize: 15)),
+                            ],
+                          )
+                        : Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(
+                                state.anySleepingChildFound ? Icons.warning_rounded : Icons.check_circle_rounded,
+                                color: Colors.white,
+                              ),
+                              const SizedBox(width: 8),
+                              Text(
+                                state.anySleepingChildFound
+                                    ? l10n.childSafetyCheckSubmitReportButton
+                                    : l10n.childSafetyCheckConfirmButton,
+                                style: const TextStyle(
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white,
                                 ),
                               ),
                             ],
-                          ],
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 24),
-
-                    // 5. Submit Button
-                    ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: state.anySleepingChildFound ? AppColors.ERROR : AppColors.PRIMARY,
-                        padding: const EdgeInsets.symmetric(vertical: 16),
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                      ),
-                      onPressed: state.isSubmitting ? null : () => _handleConfirmPressed(context, ref),
-                      child: state.isSubmitting
-                          ? Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                const SizedBox(
-                                  width: 20,
-                                  height: 20,
-                                  child: CircularProgressIndicator(color: Colors.white, strokeWidth: 2),
-                                ),
-                                const SizedBox(width: 12),
-                                Text(l10n.childSafetyCheckCapturingGps, style: const TextStyle(color: Colors.white, fontSize: 15)),
-                              ],
-                            )
-                          : Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Icon(
-                                  state.anySleepingChildFound ? Icons.warning_rounded : Icons.check_circle_rounded,
-                                  color: Colors.white,
-                                ),
-                                const SizedBox(width: 8),
-                                Text(
-                                  state.anySleepingChildFound
-                                      ? l10n.childSafetyCheckSubmitReportButton
-                                      : l10n.childSafetyCheckConfirmButton,
-                                  style: const TextStyle(
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                              ],
-                            ),
-                    ),
-                    const SizedBox(height: 24),
-                  ],
-                ),
+                          ),
+                  ),
+                  const SizedBox(height: 24),
+                ],
               ),
-      ),
+            ),
     );
   }
 
@@ -362,7 +305,97 @@ class _ChildSafetyCheckScreenState extends ConsumerState<ChildSafetyCheckScreen>
       return;
     }
 
-    await vm.submitCheck();
+    // 1. Capture location and check depot proximity
+    final location = await vm.captureCurrentLocation();
+    final isAtDepot = vm.isLocationAtDepot(location);
+
+    String markStatus = 'AT_DEPOT';
+
+    if (!isAtDepot) {
+      if (!context.mounted) return;
+
+      // Dialog 1: Warn driver to go to depot location
+      final action1 = await showDialog<String>(
+        context: context,
+        barrierDismissible: false,
+        builder: (dialogContext) => AlertDialog(
+          title: Row(
+            children: [
+              const Icon(Icons.location_off_rounded, color: Colors.orange, size: 28),
+              const SizedBox(width: 8),
+              Expanded(
+                child: Text(
+                  l10n.childSafetyAwayWarningTitle,
+                  style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                ),
+              ),
+            ],
+          ),
+          content: Text(l10n.childSafetyAwayWarningBody),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(dialogContext).pop('go_to_depot'),
+              child: Text(l10n.childSafetyOptionOk),
+            ),
+            TextButton(
+              onPressed: () => Navigator.of(dialogContext).pop('mark_here'),
+              child: Text(
+                l10n.childSafetyOptionMarkHere,
+                style: const TextStyle(color: AppColors.ERROR, fontWeight: FontWeight.bold),
+              ),
+            ),
+          ],
+        ),
+      );
+
+      if (action1 != 'mark_here' || !context.mounted) {
+        return; // Driver chose OK to go to depot
+      }
+
+      // Dialog 2: Warn driver that they are about to mark away from location
+      final confirmedAway = await showDialog<bool>(
+        context: context,
+        barrierDismissible: false,
+        builder: (dialogContext) => AlertDialog(
+          title: Row(
+            children: [
+              const Icon(Icons.warning_amber_rounded, color: AppColors.ERROR, size: 28),
+              const SizedBox(width: 8),
+              Expanded(
+                child: Text(
+                  l10n.childSafetyConfirmAwayTitle,
+                  style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: AppColors.ERROR),
+                ),
+              ),
+            ],
+          ),
+          content: Text(l10n.childSafetyConfirmAwayBody),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(dialogContext).pop(false),
+              child: Text(l10n.childSafetyOptionCancel),
+            ),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(backgroundColor: AppColors.ERROR),
+              onPressed: () => Navigator.of(dialogContext).pop(true),
+              child: Text(l10n.childSafetyOptionOk, style: const TextStyle(color: Colors.white)),
+            ),
+          ],
+        ),
+      );
+
+      if (confirmedAway != true || !context.mounted) {
+        return; // Driver cancelled marking away from location
+      }
+
+      markStatus = 'AWAY_FROM_DEPOT';
+    }
+
+    final timeStatus = vm.computeTimeStatus();
+    await vm.submitCheck(
+      childSafetyMarkStatus: markStatus,
+      timeStatus: timeStatus,
+    );
     if (!context.mounted) return;
 
     if (state.anySleepingChildFound) {
@@ -406,8 +439,8 @@ class _ChildSafetyCheckScreenState extends ConsumerState<ChildSafetyCheckScreen>
   }
 
   void _proceedToNextScreen(BuildContext context) {
-    if (widget.route != null) {
-      context.go(Constants.DVIR_POST_TRIP_ROUTE, extra: widget.route);
+    if (context.canPop()) {
+      context.pop();
     } else {
       context.go(Constants.HOME_ROUTE);
     }

@@ -2,8 +2,8 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:geolocator/geolocator.dart';
+import '../../../core/camera/camera_capture_screen.dart';
 import '../../../core/di/providers.dart';
 import '../../../core/utils/app_constants.dart';
 import '../../../data/models/dvir_submit_request.dart';
@@ -106,16 +106,21 @@ class _PostTripWalkaroundScreenState extends ConsumerState<PostTripWalkaroundScr
   }
 
   Future<void> _capturePhoto(String zoneCode) async {
-    final mediaService = ref.read(mediaCompressionServiceProvider);
     final l10n = AppLocalizations.of(context)!;
-
-    // Trigger image picker and compression matching Drill Evidence Flow
-    final photo = await mediaService.pickAndCompressMedia(ImageSource.camera, isVideo: false);
-    if (photo != null && photo.localFilePath != null) {
-      ref.read(dvirViewModelProvider.notifier).updateZonePhoto(zoneCode, photo.localFilePath!);
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(l10n.dvirPostTripPhotoAttached)),
-      );
+    final filePath = await Navigator.of(context).push<String>(
+      MaterialPageRoute(
+        builder: (_) => const CameraCaptureScreen(isVideoMode: false),
+      ),
+    );
+    if (filePath != null) {
+      final mediaService = ref.read(mediaCompressionServiceProvider);
+      final compressedPath = await mediaService.compressPhoto(filePath);
+      ref.read(dvirViewModelProvider.notifier).updateZonePhoto(zoneCode, compressedPath ?? filePath);
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(l10n.dvirPostTripPhotoAttached)),
+        );
+      }
     }
   }
 

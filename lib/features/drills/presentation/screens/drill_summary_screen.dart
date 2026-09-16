@@ -258,7 +258,7 @@ class _DrillSummaryScreenState extends ConsumerState<DrillSummaryScreen> {
                 ],
 
                 // 3b. Admin Notes
-                if (drill.adminNotes != null) ...[
+                if (drill.adminNotes != null && drill.adminNotes!.trim().isNotEmpty) ...[
                   Text(l10n.drillSummaryAdminNotesTitle,
                       style:
                           const TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),

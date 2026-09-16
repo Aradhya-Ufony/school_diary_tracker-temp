@@ -135,12 +135,6 @@ class PreDrillChecklistScreen extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(l10n.drillChecklistTitle),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.refresh),
-            onPressed: () => notifier.initRoster(),
-          ),
-        ],
       ),
       body: state.isLoading
           ? const Center(child: CircularProgressIndicator())

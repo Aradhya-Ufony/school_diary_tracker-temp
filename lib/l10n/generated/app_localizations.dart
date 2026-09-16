@@ -388,7 +388,7 @@ abstract class AppLocalizations {
   /// The main application branding title displayed in the app header.
   ///
   /// In en, this message translates to:
-  /// **'SD Tracker'**
+  /// **'Locato'**
   String get appTitleSchoolDiary;
 
   /// Action button label to open the authorized guardians list for a child.
@@ -1285,10 +1285,10 @@ abstract class AppLocalizations {
   /// **'Warning: You are reporting a defect on safety zones ({zones}) without attaching a photo. Are you sure you want to submit anyway?'**
   String dvirPostTripDefectWithoutPhotoWarning(Object zones);
 
-  /// Screen header showing the bus number undergoing post-trip walkaround inspection.
+  /// Screen header showing the bus number undergoing defect reporting walkaround inspection.
   ///
   /// In en, this message translates to:
-  /// **'Inspection: Bus {busNumber}'**
+  /// **'Report Defects: Bus {busNumber}'**
   String dvirPostTripInspectionTitle(Object busNumber);
 
   /// Input placeholder for describing the safety concern or defect details.
@@ -1758,6 +1758,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Pre-Trip Inspection'**
   String get homeMenuPreTrip;
+
+  /// Drawer menu item label navigating to the defect reporting inspection screen.
+  ///
+  /// In en, this message translates to:
+  /// **'Report Defects'**
+  String get homeMenuReportDefects;
+
+  /// Error message shown when attempting to report defects without any assigned routes.
+  ///
+  /// In en, this message translates to:
+  /// **'No routes available to report defects'**
+  String get homeErrorNoRoutesReportDefects;
 
   /// Empty state message displayed on the home screen when no routes are assigned to the driver.
   ///
@@ -3108,6 +3120,54 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Acknowledge & Proceed'**
   String get childSafetyCheckAcknowledgeProceedButton;
+
+  /// Drawer menu item label navigating to the child safety check screen.
+  ///
+  /// In en, this message translates to:
+  /// **'Child Safety Check'**
+  String get homeMenuChildSafetyCheck;
+
+  /// Dialog title warning the driver that they are not currently at the depot location.
+  ///
+  /// In en, this message translates to:
+  /// **'Away from Depot Location'**
+  String get childSafetyAwayWarningTitle;
+
+  /// Dialog body instructing driver to go to depot to mark child safety.
+  ///
+  /// In en, this message translates to:
+  /// **'You are not at the depot location. Please go to the depot location and perform the Child Safety Check there.'**
+  String get childSafetyAwayWarningBody;
+
+  /// Button option OK in child safety check dialogs.
+  ///
+  /// In en, this message translates to:
+  /// **'OK'**
+  String get childSafetyOptionOk;
+
+  /// Button option allowing driver to proceed with marking at current location.
+  ///
+  /// In en, this message translates to:
+  /// **'No, Mark Here Only'**
+  String get childSafetyOptionMarkHere;
+
+  /// Dialog title confirming driver intends to mark away from depot location.
+  ///
+  /// In en, this message translates to:
+  /// **'Warning: Marking Away from Location'**
+  String get childSafetyConfirmAwayTitle;
+
+  /// Dialog body warning driver about submitting safety check away from depot location.
+  ///
+  /// In en, this message translates to:
+  /// **'You are about to mark the Child Safety Check away from the designated depot location. Are you sure you want to proceed?'**
+  String get childSafetyConfirmAwayBody;
+
+  /// Button option Cancel in child safety check dialogs.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get childSafetyOptionCancel;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

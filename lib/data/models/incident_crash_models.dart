@@ -209,7 +209,7 @@ class IncidentCrashLog {
   Map<String, dynamic> toJson() {
     final evidencesJson = evidences.map((e) => e.toJson()).toList();
     return {
-      'crashTimestamp': crashTimestamp.toIso8601String(),
+      'crashTimestamp': crashTimestamp.toUtc().toIso8601String(),
       'schoolBranchId': schoolBranchId,
       'routeId': routeId,
       'busId': schoolBusId,
@@ -282,7 +282,7 @@ class IncidentCrashLog {
 
     return IncidentCrashLog(
       id: parsedId,
-      crashTimestamp: DateTime.parse(json['crashTimestamp'] as String),
+      crashTimestamp: _parseTimestamp(json['crashTimestamp']),
       schoolBranchId: _parseInt(json['schoolBranchId']),
       schoolBranchName: json['schoolBranchName'] as String?,
       routeId: _parseInt(json['routeId']),
@@ -310,8 +310,8 @@ class IncidentCrashLog {
       attachments: parsedAttachments,
       requiresAlcoholTest: json['requiresAlcoholTest'] as bool? ?? false,
       requiresDrugTest: json['requiresDrugTest'] as bool? ?? false,
-      alcoholTestDeadline: json['alcoholTestDeadline'] != null ? DateTime.parse(json['alcoholTestDeadline'] as String) : null,
-      drugTestDeadline: json['drugTestDeadline'] != null ? DateTime.parse(json['drugTestDeadline'] as String) : null,
+      alcoholTestDeadline: json['alcoholTestDeadline'] != null ? _parseTimestamp(json['alcoholTestDeadline']) : null,
+      drugTestDeadline: json['drugTestDeadline'] != null ? _parseTimestamp(json['drugTestDeadline']) : null,
       alcoholTestStatus: json['alcoholTestStatus'] as String?,
       drugTestStatus: json['drugTestStatus'] as String?,
       status: json['status'] as String?,
@@ -347,4 +347,15 @@ double? _parseDoubleNullable(dynamic value) {
   if (value == null) return null;
   if (value is num) return value.toDouble();
   return double.tryParse(value.toString());
+}
+
+DateTime _parseTimestamp(dynamic value) {
+  if (value == null) return DateTime.now();
+  if (value is DateTime) return value;
+  final str = value.toString();
+  if (str.isEmpty) return DateTime.now();
+  if (!str.endsWith('Z') && !str.contains('+') && !RegExp(r'-\d\d:\d\d').hasMatch(str)) {
+    return DateTime.tryParse('${str}Z') ?? DateTime.parse(str);
+  }
+  return DateTime.parse(str);
 }

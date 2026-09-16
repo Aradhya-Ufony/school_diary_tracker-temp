@@ -78,6 +78,14 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
               ),
             ),
             ListTile(
+              leading: const Icon(Icons.error_outline, color: AppColors.ERROR),
+              title: Text(l10n.homeMenuPostCrashReporting),
+              onTap: () {
+                Navigator.pop(context);
+                context.push(Constants.INCIDENT_INTAKE_ROUTE);
+              },
+            ),
+            ListTile(
               leading: const Icon(Icons.person),
               title: Text(l10n.homeMenuDriverDetails),
               onTap: () {
@@ -116,6 +124,33 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
               },
             ),
             ListTile(
+              leading: const Icon(Icons.report_problem_outlined),
+              title: Text(l10n.homeMenuReportDefects),
+              onTap: () async {
+                Navigator.pop(context);
+                final firstRoute = state.allRoutes.isNotEmpty ? state.allRoutes.first : null;
+                if (firstRoute != null) {
+                  await context.push(Constants.DVIR_POST_TRIP_ROUTE, extra: firstRoute);
+                  if (mounted) {
+                    ref.read(homeViewModelProvider.notifier).refreshVehicleState();
+                  }
+                } else {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text(l10n.homeErrorNoRoutesReportDefects)),
+                  );
+                }
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.shield_outlined, color: AppColors.PRIMARY),
+              title: Text(l10n.homeMenuChildSafetyCheck),
+              onTap: () async {
+                Navigator.pop(context);
+                final firstRoute = state.allRoutes.isNotEmpty ? state.allRoutes.first : null;
+                await context.push(Constants.CHILD_SAFETY_CHECK_ROUTE, extra: firstRoute);
+              },
+            ),
+            ListTile(
               leading: const Icon(Icons.language),
               title: Text(l10n.homeMenuLanguage),
               onTap: () {
@@ -129,14 +164,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
               onTap: () {
                 Navigator.pop(context);
                 context.push(Constants.APP_INFO_ROUTE);
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.error_outline, color: AppColors.ERROR),
-              title: Text(l10n.homeMenuPostCrashReporting),
-              onTap: () {
-                Navigator.pop(context);
-                context.push(Constants.INCIDENT_INTAKE_ROUTE);
               },
             ),
             const Divider(),

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 abstract final class Constants{
 
   static const String APP_NAME = 'Locato';
-  static const String BASE_URL = 'https://staging.schooldiary.me/DrillTemp/api/';
+  static const String BASE_URL = 'https://testapi.schooldiary.me/Transport/api/';
   static const String APPLICATION_ID = 'com.ufony.SDTracker';
 
   static const String AUTHORIZATION_HEADER = 'Authorization';
@@ -77,7 +77,7 @@ abstract final class Constants{
   static const String DRILL_EVIDENCE = 'Drill Evidence';
   static const String DRILL_SUMMARY = 'Drill Summary';
   static const String DRIVER_DETAILS = 'Driver Details';
-  static const String DVIR_POST_TRIP_SCREEN = 'DVIR Post-Trip';
+  static const String DVIR_POST_TRIP_SCREEN = 'Report Defects';
   static const String DVIR_PRE_TRIP_SCREEN = 'DVIR Pre-Trip';
   static const String INCIDENT_INTAKE = 'Incident Intake';
   static const String INCIDENT_FORM = 'Incident Form';

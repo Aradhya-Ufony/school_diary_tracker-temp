@@ -36,15 +36,6 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
       final safetyRepo = ref.read(childSafetyCheckRepositoryProvider);
       safetyRepo.syncPendingOfflineChecks().catchError((_) {});
 
-      // Check if driver has an active pending safety check (e.g. after app kill/restart)
-      try {
-        final activeCheck = await safetyRepo.getActiveCheck().timeout(const Duration(seconds: 4));
-        if (activeCheck.shouldLockOnStartup && mounted) {
-          context.go(Constants.CHILD_SAFETY_CHECK_ROUTE);
-          return;
-        }
-      } catch (_) {}
-
       if (mounted) {
         context.go(Constants.HOME_ROUTE);
       }

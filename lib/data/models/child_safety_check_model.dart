@@ -30,6 +30,9 @@ class ActiveChildSafetyCheckResponse {
   /// (timer running, or triggered within the last 60 minutes).
   /// Stale checks from previous days or hours ago will return false.
   bool get shouldLockOnStartup {
+    // TODO: Temporary hack to keep isSafetyCheck / shouldLockOnStartup always false. Remove 'return false;' afterwards.
+    return false;
+    /*
     if (!hasActiveCheck) return false;
     if (remainingSeconds > 0) return true;
 
@@ -40,6 +43,7 @@ class ActiveChildSafetyCheckResponse {
     }
 
     return false;
+    */
   }
 
   factory ActiveChildSafetyCheckResponse.fromJson(Map<String, dynamic> json) {
@@ -90,6 +94,8 @@ class CompleteChildSafetyCheckRequest {
   final int sleepingChildrenCount;
   final String? driverNotes;
   final String verificationMethod;
+  final String? childSafetyMarkStatus;
+  final String? timeStatus;
   final String? clientTimestamp;
 
   CompleteChildSafetyCheckRequest({
@@ -102,6 +108,8 @@ class CompleteChildSafetyCheckRequest {
     this.sleepingChildrenCount = 0,
     this.driverNotes,
     this.verificationMethod = 'AppSafetyButton',
+    this.childSafetyMarkStatus,
+    this.timeStatus,
     this.clientTimestamp,
   });
 
@@ -115,6 +123,8 @@ class CompleteChildSafetyCheckRequest {
         'sleepingChildrenCount': sleepingChildrenCount,
         'driverNotes': driverNotes ?? '',
         'verificationMethod': verificationMethod,
+        if (childSafetyMarkStatus != null) 'childSafetyMarkStatus': childSafetyMarkStatus,
+        if (timeStatus != null) 'timeStatus': timeStatus,
         if (clientTimestamp != null) 'clientTimestamp': clientTimestamp,
       };
 
@@ -129,6 +139,8 @@ class CompleteChildSafetyCheckRequest {
       sleepingChildrenCount: (json['sleepingChildrenCount'] as num?)?.toInt() ?? 0,
       driverNotes: json['driverNotes']?.toString(),
       verificationMethod: json['verificationMethod']?.toString() ?? 'AppSafetyButton',
+      childSafetyMarkStatus: json['childSafetyMarkStatus']?.toString() ?? json['child_safety_mark_status']?.toString(),
+      timeStatus: json['timeStatus']?.toString() ?? json['time_status']?.toString(),
       clientTimestamp: json['clientTimestamp']?.toString(),
     );
   }

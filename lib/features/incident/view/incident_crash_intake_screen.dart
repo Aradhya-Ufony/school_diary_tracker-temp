@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import '../../../core/camera/camera_capture_screen.dart';
 import '../../../core/di/providers.dart';
 import '../../../core/services/dot_decision_matrix.dart';
 import '../../../core/utils/app_constants.dart';
@@ -190,10 +191,59 @@ class _IncidentCrashIntakeScreenState extends ConsumerState<IncidentCrashIntakeS
       if (_formKey4.currentState?.validate() ?? false) {
         final success = await vm.submitCrashReport();
         if (success && mounted) {
-          final submittedLog = ref.read(incidentCrashViewModelProvider).submittedLog;
-          if (submittedLog != null) {
-            context.go(Constants.INCIDENT_DETAILS_ROUTE.replaceAll(':id', submittedLog.id.toString()));
-          }
+          await showDialog<void>(
+            context: context,
+            barrierDismissible: false,
+            builder: (dialogContext) => AlertDialog(
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+              contentPadding: const EdgeInsets.all(24),
+              content: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Container(
+                    width: 60,
+                    height: 60,
+                    decoration: const BoxDecoration(
+                      color: Color(0xFFDCFCE7),
+                      shape: BoxShape.circle,
+                    ),
+                    child: const Icon(Icons.check_circle_outline, color: Color(0xFF16A34A), size: 36),
+                  ),
+                  const SizedBox(height: 16),
+                  const Text(
+                    'Report Submitted',
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    textAlign: TextAlign.center,
+                  ),
+                  const SizedBox(height: 8),
+                  const Text(
+                    'The post-crash incident report has been submitted successfully.',
+                    style: TextStyle(fontSize: 14, color: Colors.black54),
+                    textAlign: TextAlign.center,
+                  ),
+                  const SizedBox(height: 24),
+                  SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: AppColors.PRIMARY,
+                        padding: const EdgeInsets.symmetric(vertical: 14),
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                      ),
+                      onPressed: () {
+                        Navigator.of(dialogContext).pop();
+                        context.go(Constants.INCIDENT_INTAKE_ROUTE);
+                      },
+                      child: const Text(
+                        'Return to Dashboard',
+                        style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          );
         } else if (mounted) {
           final err = ref.read(incidentCrashViewModelProvider).error ?? 'Failed to submit report. Please try again.';
           ScaffoldMessenger.of(context).showSnackBar(
@@ -687,7 +737,16 @@ class _IncidentCrashIntakeScreenState extends ConsumerState<IncidentCrashIntakeS
                   ),
                   child: Center(
                     child: TextButton.icon(
-                      onPressed: vm.captureEvidencePhoto,
+                      onPressed: () async {
+                        final filePath = await Navigator.of(context).push<String>(
+                          MaterialPageRoute(
+                            builder: (_) => const CameraCaptureScreen(isVideoMode: false),
+                          ),
+                        );
+                        if (filePath != null) {
+                          await vm.addCapturedEvidencePhoto(filePath);
+                        }
+                      },
                       icon: const Icon(Icons.add_a_photo),
                       label: Text(l10n.incidentIntakeCaptureScenePhoto),
                     ),
@@ -731,7 +790,16 @@ class _IncidentCrashIntakeScreenState extends ConsumerState<IncidentCrashIntakeS
                     ),
                     const SizedBox(height: 8),
                     ElevatedButton.icon(
-                      onPressed: vm.captureEvidencePhoto,
+                      onPressed: () async {
+                        final filePath = await Navigator.of(context).push<String>(
+                          MaterialPageRoute(
+                            builder: (_) => const CameraCaptureScreen(isVideoMode: false),
+                          ),
+                        );
+                        if (filePath != null) {
+                          await vm.addCapturedEvidencePhoto(filePath);
+                        }
+                      },
                       icon: const Icon(
                           Icons.add_a_photo,
                         color: Colors.white,

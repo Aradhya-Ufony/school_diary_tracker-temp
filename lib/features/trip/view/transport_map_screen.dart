@@ -121,12 +121,8 @@ class _TransportMapScreenState extends ConsumerState<TransportMapScreen> {
             position: pos,
             infoWindow: InfoWindow(
               title: stop.address ?? l10n.mapDefaultStop,
-              snippet: l10n.stopsSummary(
-                stop.selectedCount,
-                stop.totalPickedDropped,
-                stop.children.length,
-                l10n.stopsStatusComplete,
-              ),
+              snippet:
+                  '${stop.totalPickedDropped}/${stop.children.length} ${l10n.stopsStatusComplete}',
             ),
           ),
         );
@@ -237,10 +233,10 @@ class _TransportMapScreenState extends ConsumerState<TransportMapScreen> {
 
     if (confirmed != true || !context.mounted) return;
 
-    final stopped =
-        await ref.read(tripViewModelProvider(widget.route).notifier).stopTrip();
+    final tripNotifier = ref.read(tripViewModelProvider(widget.route).notifier);
+    final stopped = await tripNotifier.stopTrip();
     if (stopped && context.mounted) {
-      context.go(Constants.DVIR_POST_TRIP_ROUTE, extra: widget.route);
+      context.go(Constants.HOME_ROUTE);
     }
   }
 
@@ -278,7 +274,7 @@ class _TransportMapScreenState extends ConsumerState<TransportMapScreen> {
       final stopped =
           await ref.read(tripViewModelProvider(widget.route).notifier).stopTrip();
       if (stopped && context.mounted) {
-        context.go(Constants.CHILD_SAFETY_CHECK_ROUTE, extra: widget.route);
+        context.go(Constants.HOME_ROUTE);
       }
     }
   }
