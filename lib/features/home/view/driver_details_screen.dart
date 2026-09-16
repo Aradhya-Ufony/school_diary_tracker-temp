@@ -6,7 +6,8 @@ import '../../auth/viewmodel/login_viewmodel.dart';
 import '../../../l10n/generated/app_localizations.dart';
 
 class DriverDetailsScreen extends ConsumerWidget {
-  const DriverDetailsScreen({super.key});
+  final bool hideAppBar;
+  const DriverDetailsScreen({super.key, this.hideAppBar = false});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -31,12 +32,14 @@ class DriverDetailsScreen extends ConsumerWidget {
     const primaryColor = AppColors.PRIMARY;
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text(l10n.driverDetailsTitle),
-        elevation: 0,
-        backgroundColor: primaryColor,
-        foregroundColor: Colors.white,
-      ),
+      appBar: hideAppBar
+          ? null
+          : AppBar(
+              title: Text(l10n.driverDetailsTitle),
+              elevation: 0,
+              backgroundColor: primaryColor,
+              foregroundColor: Colors.white,
+            ),
       body: SingleChildScrollView(
         child: Column(
           children: [
