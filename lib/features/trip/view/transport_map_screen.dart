@@ -64,7 +64,7 @@ class _TransportMapScreenState extends ConsumerState<TransportMapScreen> {
         _showReconnectWarning(context, ref);
       }
       if (next.depotArrivalDetected && (previous == null || !previous.depotArrivalDetected) && context.mounted) {
-        _handleDepotArrivalAutoPrompt(context, ref);
+        context.go(Constants.CHILD_SAFETY_CHECK_ROUTE, extra: widget.route);
       }
     });
 
@@ -134,13 +134,13 @@ class _TransportMapScreenState extends ConsumerState<TransportMapScreen> {
     }
 
     return PopScope(
-      canPop: false,
-      onPopInvokedWithResult: (didPop, result) async {
-        if (didPop) return;
-        await _confirmStop(context, ref);
-      },
+      canPop: true,
       child: Scaffold(
         appBar: AppBar(
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back),
+            onPressed: () => context.go(Constants.HOME_ROUTE),
+          ),
           title: Text(route.name),
           actions: [
             IconButton(
@@ -201,83 +201,11 @@ class _TransportMapScreenState extends ConsumerState<TransportMapScreen> {
               ),
           ],
         ),
-        floatingActionButton: FloatingActionButton.extended(
-          onPressed: state.isStopping ? null : () => _confirmStop(context, ref),
-          icon: const Icon(Icons.stop),
-          label: Text(state.isStopping ? l10n.mapStopping : l10n.mapStop),
-          backgroundColor: Colors.red,
-        ),
       ),
     );
   }
 
-  Future<void> _confirmStop(BuildContext context, WidgetRef ref) async {
-    final l10n = AppLocalizations.of(context)!;
-    final confirmed = await showDialog<bool>(
-      context: context,
-      builder: (dialogContext) => AlertDialog(
-        title: Text(l10n.mapConfirmTitle),
-        content: Text(l10n.mapConfirmMessage),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.of(dialogContext).pop(false),
-            child: Text(l10n.mapNo),
-          ),
-          TextButton(
-            onPressed: () => Navigator.of(dialogContext).pop(true),
-            child: Text(l10n.mapYes),
-          ),
-        ],
-      ),
-    );
 
-    if (confirmed != true || !context.mounted) return;
-
-    final tripNotifier = ref.read(tripViewModelProvider(widget.route).notifier);
-    final stopped = await tripNotifier.stopTrip();
-    if (stopped && context.mounted) {
-      context.go(Constants.HOME_ROUTE);
-    }
-  }
-
-  Future<void> _handleDepotArrivalAutoPrompt(BuildContext context, WidgetRef ref) async {
-    final l10n = AppLocalizations.of(context)!;
-    final autoEnd = await showDialog<bool>(
-      context: context,
-      barrierDismissible: false,
-      builder: (dialogContext) => AlertDialog(
-        title: Row(
-          children: [
-            const Icon(Icons.location_on, color: Colors.green),
-            const SizedBox(width: 8),
-            Text(l10n.depotArrivalDetectedTitle),
-          ],
-        ),
-        content: Text(
-          l10n.depotArrivalDetectedMessage,
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.of(dialogContext).pop(false),
-            child: Text(l10n.genericCancel),
-          ),
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(backgroundColor: AppColors.PRIMARY),
-            onPressed: () => Navigator.of(dialogContext).pop(true),
-            child: Text(l10n.depotArrivalEndTripAndStartCheck, style: const TextStyle(color: Colors.white)),
-          ),
-        ],
-      ),
-    );
-
-    if (autoEnd == true && context.mounted) {
-      final stopped =
-          await ref.read(tripViewModelProvider(widget.route).notifier).stopTrip();
-      if (stopped && context.mounted) {
-        context.go(Constants.HOME_ROUTE);
-      }
-    }
-  }
 
   void _showReconnectWarning(BuildContext context, WidgetRef ref) {
     final l10n = AppLocalizations.of(context)!;

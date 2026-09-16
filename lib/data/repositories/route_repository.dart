@@ -43,38 +43,57 @@ class RouteRepository {
   ///    only one will be shown — a pre-existing behavior, not introduced
   ///    here.
   Future<List<RouteResponse>> getRoutes() async {
-    final response = await _apiClient.get(ApiEndpoints.route);
-    print("RAW ROUTES RESPONSE FROM SERVER: ${response.data}");
+    try {
+      final response = await _apiClient.get(ApiEndpoints.route);
+      print("RAW ROUTES RESPONSE FROM SERVER: ${response.data}");
 
-    if (response.statusCode == 204) {
-      return [];
+      if (response.statusCode == 204) {
+        return [];
+      }
+
+      final list = response.data is String
+          ? jsonDecode(response.data as String) as List<dynamic>
+          : response.data as List<dynamic>;
+
+      final routes = list
+          .map((e) => RouteResponse.fromJson(e as Map<String, dynamic>))
+          .toList();
+
+      _assignSequenceNumbers(routes);
+      routes.sort((a, b) => a.sequenceNumber.compareTo(b.sequenceNumber));
+
+      final deduped = _dedupeByName(routes);
+
+      // Cache routes locally
+      try {
+        final jsonString = jsonEncode(deduped.map((r) => r.toJson()).toList());
+        await _storage.setString(StorageKeys.ALL_ROUTES, jsonString);
+      } catch (_) {}
+
+      return deduped;
+    } catch (e) {
+      // Offline fallback: return cached routes if network fetch fails
+      final cached = getCachedRoutes();
+      if (cached.isNotEmpty) {
+        return cached;
+      }
+      rethrow;
     }
-
-    final list = response.data is String
-        ? jsonDecode(response.data as String) as List<dynamic>
-        : response.data as List<dynamic>;
-
-    final routes = list
-        .map((e) => RouteResponse.fromJson(e as Map<String, dynamic>))
-        .toList();
-
-    _assignSequenceNumbers(routes);
-    routes.sort((a, b) => a.sequenceNumber.compareTo(b.sequenceNumber));
-
-    final deduped = _dedupeByName(routes);
-
-
-
-    return deduped;
   }
 
-  /// Returns the last-fetched routes from cache without hitting the
-  /// network — equivalent to `PreferenceManager.getAllRoutes(context)`
-  /// being read directly in several places in the original (e.g.
-  /// `AllRouteFragment.onCreateView` checking cache before its own
-  /// fetch).
+  /// Returns the last-fetched routes from local storage cache without hitting the network.
   List<RouteResponse> getCachedRoutes() {
-    return [];
+    try {
+      final jsonString = _storage.getString(StorageKeys.ALL_ROUTES);
+      if (jsonString == null || jsonString.isEmpty) return [];
+
+      final list = jsonDecode(jsonString) as List<dynamic>;
+      return list
+          .map((e) => RouteResponse.fromJson(e as Map<String, dynamic>))
+          .toList();
+    } catch (_) {
+      return [];
+    }
   }
 
   void _assignSequenceNumbers(List<RouteResponse> routes) {

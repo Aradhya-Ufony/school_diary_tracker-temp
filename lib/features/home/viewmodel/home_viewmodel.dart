@@ -27,11 +27,9 @@ class HomeState {
   });
 
   List<RouteResponse> get filteredRoutes {
-    final now = DateTime.now();
-    final liveRoutes = allRoutes.where((r) => r.isLiveAt(now)).toList();
-    if (searchQuery.isEmpty) return liveRoutes;
+    if (searchQuery.isEmpty) return allRoutes;
     final q = searchQuery.toLowerCase();
-    return liveRoutes.where((r) => r.name.toLowerCase().contains(q)).toList();
+    return allRoutes.where((r) => r.name.toLowerCase().contains(q)).toList();
   }
 
   HomeState copyWith({

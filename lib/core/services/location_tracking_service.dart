@@ -84,7 +84,13 @@ class LocationTrackingService {
 
     try {
       final tripId = _tripRepository.activeTripId;
-      if (tripId != null) {
+      if (tripId == null) {
+        // Automatic trip start on first GPS fix
+        await _tripRepository.startTrip(
+          route: route,
+          location: location,
+        );
+      } else {
         await _tripRepository.updateLocation(
           tripId: tripId,
           location: location,

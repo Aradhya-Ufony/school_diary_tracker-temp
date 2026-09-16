@@ -5,7 +5,6 @@ import '../../../core/di/providers.dart';
 import '../../../core/utils/app_constants.dart';
 import '../../../core/utils/status_utils.dart';
 import '../../../data/models/route_response.dart';
-import '../../../data/models/user_location.dart';
 import '../../../l10n/generated/app_localizations.dart';
 import '../../auth/viewmodel/login_viewmodel.dart';
 import '../viewmodel/home_viewmodel.dart';
@@ -228,9 +227,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                                   separatorBuilder: (_, __) => const SizedBox(height: 10),
                                   itemBuilder: (context, index) {
                                     final route = state.filteredRoutes[index];
-                                    final isBusActive = state.vehicleState != null &&
-                                        state.vehicleState!.currentState.toUpperCase() == 'ACTIVE' &&
-                                        !state.vehicleState!.isBlocked;
 
                                     return Container(
                                       decoration: BoxDecoration(
@@ -246,7 +242,44 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                                         ],
                                       ),
                                       child: ListTile(
-                                        contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+                                        contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                                        onTap: () {
+                                          if (_isStarting) return;
+                                          final isBlocked = state.vehicleState != null &&
+                                              (state.vehicleState!.isBlocked ||
+                                                  state.vehicleState!.currentState.toUpperCase() != 'ACTIVE');
+                                          if (isBlocked) {
+                                            final displayBusNo = (route.vehicleLicenseNumber != null && route.vehicleLicenseNumber!.isNotEmpty)
+                                                ? route.vehicleLicenseNumber!
+                                                : (state.vehicleState?.schoolBusId ?? 'Unknown');
+                                            showDialog(
+                                              context: context,
+                                              builder: (dialogContext) => AlertDialog(
+                                                title: Text(l10n.homeBusLabel(displayBusNo)),
+                                                content: Column(
+                                                  mainAxisSize: MainAxisSize.min,
+                                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                                  children: [
+                                                    Text(l10n.homeVehicleStatus(StatusUtils.formatStatus(state.vehicleState?.currentState))),
+                                                    if (state.vehicleState?.blockReason != null) ...[
+                                                      const SizedBox(height: 8),
+                                                      Text(l10n.homeVehicleReason(state.vehicleState!.blockReason!)),
+                                                    ],
+                                                  ],
+                                                ),
+                                                actions: [
+                                                  TextButton(
+                                                    onPressed: () => Navigator.pop(dialogContext),
+                                                    child: Text(l10n.genericOk.toUpperCase()),
+                                                  ),
+                                                ],
+                                              ),
+                                            );
+                                          } else {
+                                            Navigator.pop(modalContext);
+                                            _confirmAndStart(context, route);
+                                          }
+                                        },
                                         leading: Container(
                                           padding: const EdgeInsets.all(10),
                                           decoration: BoxDecoration(
@@ -255,74 +288,61 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                                           ),
                                           child: const Icon(Icons.route_rounded, color: AppColors.PRIMARY),
                                         ),
-                                        title: Text(
-                                          route.name,
-                                          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                                        title: Row(
+                                          children: [
+                                            Expanded(
+                                              child: Text(
+                                                route.name,
+                                                style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                                                overflow: TextOverflow.ellipsis,
+                                              ),
+                                            ),
+                                            if (route.isLiveAt(DateTime.now())) ...[
+                                              const SizedBox(width: 6),
+                                              Container(
+                                                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                                                decoration: BoxDecoration(
+                                                  color: Colors.green.shade50,
+                                                  borderRadius: BorderRadius.circular(8),
+                                                  border: Border.all(color: Colors.green.shade300),
+                                                ),
+                                                child: Row(
+                                                  mainAxisSize: MainAxisSize.min,
+                                                  children: [
+                                                    Container(
+                                                      width: 6,
+                                                      height: 6,
+                                                      decoration: const BoxDecoration(
+                                                        color: Colors.green,
+                                                        shape: BoxShape.circle,
+                                                      ),
+                                                    ),
+                                                    const SizedBox(width: 4),
+                                                    Text(
+                                                      'Live Now',
+                                                      style: TextStyle(
+                                                        color: Colors.green.shade800,
+                                                        fontSize: 10,
+                                                        fontWeight: FontWeight.bold,
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ],
+                                          ],
                                         ),
                                         subtitle: route.vehicleLicenseNumber != null && route.vehicleLicenseNumber!.isNotEmpty
                                             ? Text('Bus No: ${route.vehicleLicenseNumber}')
                                             : null,
-                                        trailing: isBusActive
-                                            ? FilledButton(
-                                                style: FilledButton.styleFrom(
-                                                  backgroundColor: AppColors.PRIMARY,
-                                                  shape: RoundedRectangleBorder(
-                                                    borderRadius: BorderRadius.circular(10),
-                                                  ),
-                                                ),
-                                                onPressed: _isStarting
-                                                    ? null
-                                                    : () {
-                                                        Navigator.pop(modalContext);
-                                                        _confirmAndStart(context, route);
-                                                      },
-                                                child: Text(l10n.homeStart),
-                                              )
-                                            : Row(
-                                                mainAxisSize: MainAxisSize.min,
-                                                children: [
-                                                  FilledButton(
-                                                    onPressed: null,
-                                                    style: FilledButton.styleFrom(
-                                                      shape: RoundedRectangleBorder(
-                                                        borderRadius: BorderRadius.circular(10),
-                                                      ),
-                                                    ),
-                                                    child: Text(l10n.homeStart),
-                                                  ),
-                                                  if (state.vehicleState != null && !state.isVehicleStateLoading)
-                                                    IconButton(
-                                                      icon: const Icon(Icons.info_outline, color: Colors.orange),
-                                                      onPressed: () {
-                                                        final displayBusNo = (route.vehicleLicenseNumber != null && route.vehicleLicenseNumber!.isNotEmpty)
-                                                            ? route.vehicleLicenseNumber!
-                                                            : (state.vehicleState?.schoolBusId ?? 'Unknown');
-                                                        showDialog(
-                                                          context: context,
-                                                          builder: (dialogContext) => AlertDialog(
-                                                            title: Text(l10n.homeBusLabel(displayBusNo)),
-                                                            content: Column(
-                                                              mainAxisSize: MainAxisSize.min,
-                                                              crossAxisAlignment: CrossAxisAlignment.start,
-                                                              children: [
-                                                                Text(l10n.homeVehicleStatus(StatusUtils.formatStatus(state.vehicleState?.currentState))),
-                                                                if (state.vehicleState?.blockReason != null) ...[
-                                                                  const SizedBox(height: 8),
-                                                                  Text(l10n.homeVehicleReason(state.vehicleState!.blockReason!)),
-                                                                ],
-                                                              ],
-                                                            ),
-                                                            actions: [
-                                                              TextButton(
-                                                                onPressed: () => Navigator.pop(dialogContext),
-                                                                child: Text(l10n.genericOk.toUpperCase()),
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        );
-                                                      },
-                                                    ),
-                                                ],
+                                        trailing: state.vehicleState != null &&
+                                                (state.vehicleState!.isBlocked ||
+                                                    state.vehicleState!.currentState.toUpperCase() != 'ACTIVE')
+                                            ? const Icon(Icons.info_outline, color: Colors.orange)
+                                            : Icon(
+                                                Icons.chevron_right_rounded,
+                                                color: Colors.grey.shade400,
+                                                size: 26,
                                               ),
                                       ),
                                     );
@@ -492,6 +512,17 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
         ? user.fullName
         : 'Assigned Driver';
 
+    final activeTripId = ref.watch(tripRepositoryProvider).activeTripId;
+    final storedRouteId = ref.watch(localStorageServiceProvider).getString(StorageKeys.ROUTE_ID);
+    RouteResponse? activeRoute;
+    if (activeTripId != null) {
+      final rId = storedRouteId != null ? int.tryParse(storedRouteId) : null;
+      activeRoute = state.allRoutes.firstWhere(
+        (r) => r.id == rId,
+        orElse: () => firstRoute ?? RouteResponse(id: rId ?? 0, name: 'Active Trip In Progress'),
+      );
+    }
+
     return RefreshIndicator(
       onRefresh: () => ref.read(homeViewModelProvider.notifier).refresh(),
       child: SingleChildScrollView(
@@ -500,6 +531,90 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            if (activeTripId != null && activeRoute != null) ...[
+              GestureDetector(
+                onTap: () {
+                  final locService = ref.read(locationTrackingServiceProvider);
+                  if (!locService.isRunning && activeRoute != null) {
+                    locService.start(activeRoute);
+                  }
+                  context.go(Constants.TRIP_MAP_ROUTE, extra: activeRoute);
+                },
+                child: Container(
+                  margin: const EdgeInsets.only(bottom: 16),
+                  padding: const EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    gradient: const LinearGradient(
+                      colors: [Color(0xFF10B981), Color(0xFF059669)],
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                    ),
+                    borderRadius: BorderRadius.circular(16),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.green.withOpacity(0.3),
+                        blurRadius: 10,
+                        offset: const Offset(0, 4),
+                      )
+                    ],
+                  ),
+                  child: Row(
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.all(10),
+                        decoration: BoxDecoration(
+                          color: Colors.white.withOpacity(0.2),
+                          shape: BoxShape.circle,
+                        ),
+                        child: const Icon(Icons.navigation_rounded, color: Colors.white, size: 24),
+                      ),
+                      const SizedBox(width: 14),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              children: [
+                                Container(
+                                  width: 8,
+                                  height: 8,
+                                  decoration: const BoxDecoration(
+                                    color: Colors.white,
+                                    shape: BoxShape.circle,
+                                  ),
+                                ),
+                                const SizedBox(width: 6),
+                                const Text(
+                                  'TRIP IN PROGRESS',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 11,
+                                    fontWeight: FontWeight.w900,
+                                    letterSpacing: 1.0,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 2),
+                            Text(
+                              activeRoute.name,
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 15,
+                                fontWeight: FontWeight.bold,
+                              ),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ],
+                        ),
+                      ),
+                      const Icon(Icons.chevron_right_rounded, color: Colors.white, size: 28),
+                    ],
+                  ),
+                ),
+              ),
+            ],
             // Quick Actions Header
             const Padding(
               padding: EdgeInsets.only(left: 4, bottom: 12),
@@ -597,7 +712,39 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                   icon: Icons.assignment_outlined,
                   iconBgColor: const Color(0xFF8B5CF6).withOpacity(0.12),
                   iconColor: const Color(0xFF8B5CF6),
-                  onTap: () => context.push(Constants.DRILL_LIST_ROUTE),
+                  onTap: () {
+                    final vState = state.vehicleState;
+                    if (vState != null &&
+                        (vState.isBlocked ||
+                            vState.currentState.toUpperCase() == 'OUT_OF_SERVICE' ||
+                            vState.currentState.toUpperCase() == 'CERTIFIED_PENDING_VERIFICATION' ||
+                            vState.currentState.toUpperCase() == 'INACTIVE' ||
+                            vState.currentState.toUpperCase() == 'BLOCKED')) {
+                      final title = vState.currentState.toUpperCase() == 'CERTIFIED_PENDING_VERIFICATION'
+                          ? 'Vehicle Verification Pending'
+                          : 'Vehicle Out of Service';
+                      final msg = vState.blockReason ??
+                          (vState.currentState.toUpperCase() == 'CERTIFIED_PENDING_VERIFICATION'
+                              ? 'This vehicle has repairs pending inspection sign-off. Drills cannot be logged.'
+                              : 'This vehicle is currently out of service. Drills cannot be logged.');
+
+                      showDialog<void>(
+                        context: context,
+                        builder: (dialogContext) => AlertDialog(
+                          title: Text(title, style: const TextStyle(fontWeight: FontWeight.bold)),
+                          content: Text(msg),
+                          actions: [
+                            TextButton(
+                              onPressed: () => Navigator.pop(dialogContext),
+                              child: Text(l10n.genericOk.toUpperCase()),
+                            ),
+                          ],
+                        ),
+                      );
+                      return;
+                    }
+                    context.push(Constants.DRILL_LIST_ROUTE);
+                  },
                 ),
                 // Row 3 Card 2: Child Safety Check
                 _buildActionCard(
@@ -834,25 +981,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
 
   Future<void> _confirmAndStart(BuildContext context, RouteResponse route) async {
     final l10n = AppLocalizations.of(context)!;
-    final confirmed = await showDialog<bool>(
-      context: context,
-      builder: (dialogContext) => AlertDialog(
-        title: Text(l10n.tripConfirmTitle),
-        content: Text(route.name),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.of(dialogContext).pop(false),
-            child: Text(l10n.tripConfirmCancel),
-          ),
-          TextButton(
-            onPressed: () => Navigator.of(dialogContext).pop(true),
-            child: Text(l10n.tripConfirmOk),
-          ),
-        ],
-      ),
-    );
-
-    if (confirmed != true || !context.mounted) return;
 
     setState(() => _isStarting = true);
     try {
@@ -862,34 +990,33 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
         route.vehicleId ?? 0,
         fallbackBusNumber: route.vehicleLicenseNumber,
       );
-      if (stateResponse.currentState == 'CERTIFIED_PENDING_VERIFICATION') {
+      final isBlockedState = stateResponse.isBlocked ||
+          stateResponse.currentState.toUpperCase() == 'OUT_OF_SERVICE' ||
+          stateResponse.currentState.toUpperCase() == 'CERTIFIED_PENDING_VERIFICATION' ||
+          stateResponse.currentState.toUpperCase() == 'INACTIVE' ||
+          stateResponse.currentState.toUpperCase() == 'BLOCKED';
+
+      if (isBlockedState) {
         if (context.mounted) {
           setState(() => _isStarting = false);
-          // Redirect to Pre-Trip verification to review repairs and sign off
-          await context.push(Constants.DVIR_PRE_TRIP_ROUTE, extra: {
-            'schoolBusId': route.vehicleId?.toString() ?? '',
-            'routeName': route.name,
-            'route': route,
-          });
-          if (mounted) {
-            ref.read(homeViewModelProvider.notifier).refreshVehicleState();
-          }
-        }
-        return;
-      }
-      if (stateResponse.isBlocked) {
-        if (context.mounted) {
-          setState(() => _isStarting = false);
+          final title = stateResponse.currentState.toUpperCase() == 'CERTIFIED_PENDING_VERIFICATION'
+              ? 'Vehicle Verification Pending'
+              : 'Vehicle Out of Service';
+          final msg = stateResponse.blockReason ??
+              (stateResponse.currentState.toUpperCase() == 'CERTIFIED_PENDING_VERIFICATION'
+                  ? 'This vehicle has repairs pending inspection sign-off and cannot be dispatched.'
+                  : 'This vehicle is currently out of service and cannot start trips.');
+
           showDialog<void>(
             context: context,
             builder: (dialogContext) => AlertDialog(
-              title: Text(l10n.homeDispatchBlockedTitle, style: const TextStyle(color: Colors.red, fontWeight: FontWeight.bold)),
-              content: Text(stateResponse.blockReason ?? l10n.homeVehicleOutOfServiceDefault),
+              title: Text(title, style: const TextStyle(fontWeight: FontWeight.bold)),
+              content: Text(msg),
               actions: [
                 TextButton(
                   onPressed: () => Navigator.pop(dialogContext),
                   child: Text(l10n.genericOk.toUpperCase()),
-                )
+                ),
               ],
             ),
           );
@@ -916,24 +1043,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
 
     await ref.read(homeViewModelProvider.notifier).selectRoute(route);
 
-    try {
-      final tripRepo = ref.read(tripRepositoryProvider);
-      await tripRepo.startTrip(
-        route: route,
-        location: route.startLocation ?? const UserLocation(latitude: 0, longitude: 0),
-      );
-    } catch (e) {
-      if (context.mounted) {
-        setState(() => _isStarting = false);
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(l10n.homeFailedToStartTrip(e.toString())),
-          ),
-        );
-      }
-      return;
-    }
-
+    // Start location tracking (First GPS fix will automatically trigger POST trip/start)
     await locationService.start(route);
 
     if (context.mounted) {

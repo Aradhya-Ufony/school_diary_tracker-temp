@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../../core/di/providers.dart';
 import '../../../core/utils/app_constants.dart';
+import '../../../data/models/route_response.dart';
 import '../../auth/viewmodel/login_viewmodel.dart';
 import '../../settings/viewmodel/locale_controller.dart';
 
@@ -35,6 +36,38 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
       // Sync any offline queued safety checks in the background
       final safetyRepo = ref.read(childSafetyCheckRepositoryProvider);
       safetyRepo.syncPendingOfflineChecks().catchError((_) {});
+
+      // Auto-resume active trip if tracking is already in progress
+      final tripRepo = ref.read(tripRepositoryProvider);
+      final activeTripId = tripRepo.activeTripId;
+      final storage = ref.read(localStorageServiceProvider);
+      final storedRouteId = storage.getString(StorageKeys.ROUTE_ID);
+
+      if (activeTripId != null && storedRouteId != null) {
+        final routeId = int.tryParse(storedRouteId);
+        final routeRepo = ref.read(routeRepositoryProvider);
+        try {
+          final routes = await routeRepo.getRoutes();
+          final activeRoute = routes.firstWhere(
+            (r) => r.id == routeId,
+            orElse: () {
+              final cached = routeRepo.getCachedRoutes();
+              return cached.firstWhere(
+                (r) => r.id == routeId,
+                orElse: () => RouteResponse(id: routeId ?? 0, name: 'Active Trip'),
+              );
+            },
+          );
+          final locationService = ref.read(locationTrackingServiceProvider);
+          if (!locationService.isRunning) {
+            await locationService.start(activeRoute);
+          }
+          if (mounted) {
+            context.go(Constants.TRIP_MAP_ROUTE, extra: activeRoute);
+            return;
+          }
+        } catch (_) {}
+      }
 
       if (mounted) {
         context.go(Constants.HOME_ROUTE);
