@@ -228,9 +228,9 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                                   separatorBuilder: (_, __) => const SizedBox(height: 10),
                                   itemBuilder: (context, index) {
                                     final route = state.filteredRoutes[index];
-                                    final isBusActive = state.vehicleState != null &&
-                                        state.vehicleState!.currentState.toUpperCase() == 'ACTIVE' &&
-                                        !state.vehicleState!.isBlocked;
+                                    final isBusActive = state.vehicleState == null ||
+                                        (state.vehicleState!.currentState.toUpperCase() == 'ACTIVE' &&
+                                            !state.vehicleState!.isBlocked);
 
                                     return Container(
                                       decoration: BoxDecoration(
@@ -247,6 +247,12 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                                       ),
                                       child: ListTile(
                                         contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+                                        onTap: isBusActive && !_isStarting
+                                            ? () {
+                                                Navigator.pop(modalContext);
+                                                _confirmAndStart(context, route);
+                                              }
+                                            : null,
                                         leading: Container(
                                           padding: const EdgeInsets.all(10),
                                           decoration: BoxDecoration(
@@ -492,6 +498,35 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
         ? user.fullName
         : 'Assigned Driver';
 
+    final vState = state.vehicleState;
+    final isOutOfServiceOrBlocked = vState != null &&
+        (vState.isBlocked ||
+            vState.currentState.toUpperCase() == 'OUT_OF_SERVICE' ||
+            vState.currentState.toUpperCase() == 'BLOCKED' ||
+            vState.currentState.toUpperCase() == 'INACTIVE');
+
+    final isPendingVerification = vState != null &&
+        vState.currentState.toUpperCase() == 'CERTIFIED_PENDING_VERIFICATION';
+
+    final isPickupDisabled = isOutOfServiceOrBlocked || isPendingVerification;
+    final isDrillDisabled = isOutOfServiceOrBlocked || isPendingVerification;
+    final isSafetyCheckDisabled = isOutOfServiceOrBlocked || isPendingVerification;
+    final isReportDefectsDisabled = isOutOfServiceOrBlocked;
+
+    final disabledMsgPickup = isPendingVerification
+        ? 'Bus is pending inspection sign-off. Student Pickup/Drop is disabled.'
+        : 'Bus is Out of Service. Student Pickup/Drop is disabled.';
+
+    final disabledMsgDrill = isPendingVerification
+        ? 'Bus is pending inspection sign-off. Drill logging is disabled.'
+        : 'Bus is Out of Service. Drill logging is disabled.';
+
+    final disabledMsgSafetyCheck = isPendingVerification
+        ? 'Bus is pending inspection sign-off. Child safety check is disabled.'
+        : 'Bus is Out of Service. Child safety check is disabled.';
+
+    const disabledMsgReportDefects = 'Bus is Out of Service. Defect reporting is disabled.';
+
     return RefreshIndicator(
       onRefresh: () => ref.read(homeViewModelProvider.notifier).refresh(),
       child: SingleChildScrollView(
@@ -531,6 +566,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                   icon: Icons.people_alt_rounded,
                   iconBgColor: AppColors.PRIMARY.withOpacity(0.12),
                   iconColor: AppColors.PRIMARY,
+                  isDisabled: isPickupDisabled,
+                  disabledReason: disabledMsgPickup,
                   onTap: () => _showRoutesModal(context, l10n),
                 ),
                 // Top Row Card 2: Incident Report
@@ -576,6 +613,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                   icon: Icons.report_problem_outlined,
                   iconBgColor: const Color(0xFFF59E0B).withOpacity(0.12),
                   iconColor: const Color(0xFFF59E0B),
+                  isDisabled: isReportDefectsDisabled,
+                  disabledReason: disabledMsgReportDefects,
                   onTap: () async {
                     if (firstRoute != null) {
                       await context.push(Constants.DVIR_POST_TRIP_ROUTE, extra: firstRoute);
@@ -597,6 +636,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                   icon: Icons.assignment_outlined,
                   iconBgColor: const Color(0xFF8B5CF6).withOpacity(0.12),
                   iconColor: const Color(0xFF8B5CF6),
+                  isDisabled: isDrillDisabled,
+                  disabledReason: disabledMsgDrill,
                   onTap: () => context.push(Constants.DRILL_LIST_ROUTE),
                 ),
                 // Row 3 Card 2: Child Safety Check
@@ -607,6 +648,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                   icon: Icons.shield_outlined,
                   iconBgColor: const Color(0xFF06B6D4).withOpacity(0.12),
                   iconColor: const Color(0xFF06B6D4),
+                  isDisabled: isSafetyCheckDisabled,
+                  disabledReason: disabledMsgSafetyCheck,
                   onTap: () async {
                     await context.push(Constants.CHILD_SAFETY_CHECK_ROUTE, extra: firstRoute);
                   },
@@ -719,17 +762,47 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     required Color iconBgColor,
     required Color iconColor,
     required VoidCallback onTap,
+    bool isDisabled = false,
+    String? disabledReason,
   }) {
     return Card(
       elevation: 0,
       margin: EdgeInsets.zero,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(18),
-        side: BorderSide(color: Colors.grey.shade200),
+        side: BorderSide(
+          color: isDisabled ? Colors.grey.shade300 : Colors.grey.shade200,
+        ),
       ),
-      color: Colors.white,
+      color: isDisabled ? Colors.grey.shade50 : Colors.white,
       child: InkWell(
-        onTap: onTap,
+        onTap: () {
+          if (isDisabled) {
+            showDialog(
+              context: context,
+              builder: (ctx) => AlertDialog(
+                title: Row(
+                  children: [
+                    const Icon(Icons.info_outline_rounded, color: Colors.orange),
+                    const SizedBox(width: 8),
+                    Text(title),
+                  ],
+                ),
+                content: Text(
+                  disabledReason ?? 'This action is currently disabled due to vehicle status.',
+                ),
+                actions: [
+                  TextButton(
+                    onPressed: () => Navigator.pop(ctx),
+                    child: const Text('OK'),
+                  ),
+                ],
+              ),
+            );
+          } else {
+            onTap();
+          }
+        },
         borderRadius: BorderRadius.circular(18),
         child: Padding(
           padding: const EdgeInsets.all(14.0),
@@ -743,16 +816,34 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                   Container(
                     padding: const EdgeInsets.all(10),
                     decoration: BoxDecoration(
-                      color: iconBgColor,
+                      color: isDisabled ? Colors.grey.shade200 : iconBgColor,
                       borderRadius: BorderRadius.circular(12),
                     ),
-                    child: Icon(icon, color: iconColor, size: 24),
+                    child: Icon(
+                      icon,
+                      color: isDisabled ? Colors.grey.shade500 : iconColor,
+                      size: 24,
+                    ),
                   ),
-                  Icon(
-                    Icons.chevron_right_rounded,
-                    color: Colors.grey.shade400,
-                    size: 22,
-                  ),
+                  if (isDisabled)
+                    Container(
+                      padding: const EdgeInsets.all(4),
+                      decoration: BoxDecoration(
+                        color: Colors.orange.withOpacity(0.15),
+                        shape: BoxShape.circle,
+                      ),
+                      child: const Icon(
+                        Icons.info_outline_rounded,
+                        color: Colors.orange,
+                        size: 20,
+                      ),
+                    )
+                  else
+                    Icon(
+                      Icons.chevron_right_rounded,
+                      color: Colors.grey.shade400,
+                      size: 22,
+                    ),
                 ],
               ),
               Column(
@@ -762,10 +853,10 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                     title,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.bold,
-                      color: Colors.black87,
+                      color: isDisabled ? Colors.grey.shade600 : Colors.black87,
                     ),
                   ),
                   const SizedBox(height: 4),
@@ -775,7 +866,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
                       fontSize: 11,
-                      color: Colors.grey.shade600,
+                      color: isDisabled ? Colors.grey.shade400 : Colors.grey.shade600,
                       height: 1.2,
                     ),
                   ),

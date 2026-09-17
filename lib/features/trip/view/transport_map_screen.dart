@@ -141,6 +141,10 @@ class _TransportMapScreenState extends ConsumerState<TransportMapScreen> {
       },
       child: Scaffold(
         appBar: AppBar(
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back),
+            onPressed: () => _confirmStop(context, ref),
+          ),
           title: Text(route.name),
           actions: [
             IconButton(
