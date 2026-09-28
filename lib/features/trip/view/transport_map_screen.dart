@@ -1,9 +1,9 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
-import '../../../core/routing/app_router.dart';
 import '../../../core/utils/app_constants.dart';
 import '../../../data/models/route_response.dart';
 import '../../../l10n/generated/app_localizations.dart';
@@ -64,7 +64,7 @@ class _TransportMapScreenState extends ConsumerState<TransportMapScreen> {
         _showReconnectWarning(context, ref);
       }
       if (next.depotArrivalDetected && (previous == null || !previous.depotArrivalDetected) && context.mounted) {
-        context.go(Constants.CHILD_SAFETY_CHECK_ROUTE, extra: widget.route);
+        _showDepotArrivalDialog(context, ref);
       }
     });
 
@@ -143,22 +143,6 @@ class _TransportMapScreenState extends ConsumerState<TransportMapScreen> {
           ),
           title: Text(route.name),
           actions: [
-            IconButton(
-              icon: const Icon(Icons.checklist),
-              tooltip: l10n.mapStopsTooltip,
-              onPressed: () => context.push(
-                Constants.STOPS_ROUTE,
-                extra: StopsRouteArgs(routeId: route.id, routeName: route.name),
-              ),
-            ),
-            IconButton(
-              icon: const Icon(Icons.groups),
-              tooltip: l10n.mapChildrenTooltip,
-              onPressed: () => context.push(
-                Constants.CHILDREN_ROUTE,
-                extra: StopsRouteArgs(routeId: route.id, routeName: route.name),
-              ),
-            ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 12),
               child: Center(
@@ -226,6 +210,79 @@ class _TransportMapScreenState extends ConsumerState<TransportMapScreen> {
           ),
         ],
       ),
+    );
+  }
+
+  void _showDepotArrivalDialog(BuildContext context, WidgetRef ref) {
+    int countdown = 30;
+    Timer? timer;
+
+    showDialog<void>(
+      context: context,
+      barrierDismissible: false,
+      builder: (dialogContext) {
+        return StatefulBuilder(
+          builder: (context, setDialogState) {
+            timer ??= Timer.periodic(const Duration(seconds: 1), (t) {
+              if (countdown > 1) {
+                setDialogState(() {
+                  countdown--;
+                });
+              } else {
+                t.cancel();
+                if (Navigator.of(dialogContext).canPop()) {
+                  Navigator.of(dialogContext).pop();
+                }
+                ref.read(tripViewModelProvider(widget.route).notifier).stopTrip().then((_) {
+                  if (context.mounted) {
+                    context.go(Constants.CHILD_SAFETY_CHECK_ROUTE, extra: widget.route);
+                  }
+                });
+              }
+            });
+
+            return AlertDialog(
+              title: const Row(
+                children: [
+                  Icon(Icons.location_on_rounded, color: Colors.orange),
+                  SizedBox(width: 8),
+                  Text('Depot Arrival Detected'),
+                ],
+              ),
+              content: Text(
+                'Depot arrival detected. Ending trip in $countdown seconds...',
+                style: const TextStyle(fontSize: 15),
+              ),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    timer?.cancel();
+                    ref.read(tripViewModelProvider(widget.route).notifier).cancelDepotArrivalAlert();
+                    Navigator.of(dialogContext).pop();
+                  },
+                  child: const Text('CANCEL'),
+                ),
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.green.shade700,
+                    foregroundColor: Colors.white,
+                  ),
+                  onPressed: () {
+                    timer?.cancel();
+                    Navigator.of(dialogContext).pop();
+                    ref.read(tripViewModelProvider(widget.route).notifier).stopTrip().then((_) {
+                      if (context.mounted) {
+                        context.go(Constants.CHILD_SAFETY_CHECK_ROUTE, extra: widget.route);
+                      }
+                    });
+                  },
+                  child: const Text('CONFIRM NOW'),
+                ),
+              ],
+            );
+          },
+        );
+      },
     );
   }
 }

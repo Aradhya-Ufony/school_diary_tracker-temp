@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../../../core/di/providers.dart';
+import '../../../core/routing/app_router.dart';
 import '../../../core/utils/app_constants.dart';
 import '../../../core/utils/status_utils.dart';
 import '../../../data/models/route_response.dart';
+import '../../../data/models/user_location.dart';
 import '../../../l10n/generated/app_localizations.dart';
 import '../../auth/viewmodel/login_viewmodel.dart';
 import '../viewmodel/home_viewmodel.dart';
@@ -139,6 +141,16 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
             final isLandscape = MediaQuery.of(context).orientation == Orientation.landscape;
             final modalHeight = MediaQuery.of(context).size.height * (isLandscape ? 0.90 : 0.75);
 
+            final now = DateTime.now();
+            final sortedRoutes = List<RouteResponse>.from(state.filteredRoutes);
+            sortedRoutes.sort((a, b) {
+              final aLive = a.isLiveAt(now);
+              final bLive = b.isLiveAt(now);
+              if (aLive && !bLive) return -1;
+              if (!aLive && bLive) return 1;
+              return a.name.compareTo(b.name);
+            });
+
             return Container(
               height: modalHeight,
               decoration: const BoxDecoration(
@@ -233,130 +245,157 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                       onRefresh: () => ref.read(homeViewModelProvider.notifier).refresh(),
                       child: state.isLoading || state.isVehicleStateLoading
                           ? const Center(child: CircularProgressIndicator())
-                          : state.filteredRoutes.isEmpty
+                          : sortedRoutes.isEmpty
                               ? Center(child: Text(l10n.homeNoRoutes))
                               : ListView.separated(
                                   padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                                  itemCount: state.filteredRoutes.length,
+                                  itemCount: sortedRoutes.length,
                                   separatorBuilder: (_, __) => const SizedBox(height: 10),
                                   itemBuilder: (context, index) {
-                                    final route = state.filteredRoutes[index];
+                                    final route = sortedRoutes[index];
+                                    final isLive = route.isLiveAt(now);
 
                                     return Container(
                                       decoration: BoxDecoration(
-                                        color: Colors.white,
+                                        color: isLive ? Colors.white : Colors.grey.shade100,
                                         borderRadius: BorderRadius.circular(16),
-                                        border: Border.all(color: Colors.grey.shade200),
-                                        boxShadow: [
-                                          BoxShadow(
-                                            color: Colors.black.withOpacity(0.03),
-                                            blurRadius: 8,
-                                            offset: const Offset(0, 3),
-                                          )
-                                        ],
+                                        border: Border.all(
+                                          color: isLive ? Colors.grey.shade200 : Colors.grey.shade300,
+                                        ),
+                                        boxShadow: isLive
+                                            ? [
+                                                BoxShadow(
+                                                  color: Colors.black.withOpacity(0.03),
+                                                  blurRadius: 8,
+                                                  offset: const Offset(0, 3),
+                                                )
+                                              ]
+                                            : [],
                                       ),
                                       child: ListTile(
                                         contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                                        onTap: () {
-                                          if (_isStarting) return;
-                                          final isBlocked = state.vehicleState != null &&
-                                              (state.vehicleState!.isBlocked ||
-                                                  state.vehicleState!.currentState.toUpperCase() != 'ACTIVE');
-                                          if (isBlocked) {
-                                            final displayBusNo = (route.vehicleLicenseNumber != null && route.vehicleLicenseNumber!.isNotEmpty)
-                                                ? route.vehicleLicenseNumber!
-                                                : (state.vehicleState?.schoolBusId ?? 'Unknown');
-                                            showDialog(
-                                              context: context,
-                                              builder: (dialogContext) => AlertDialog(
-                                                title: Text(l10n.homeBusLabel(displayBusNo)),
-                                                content: Column(
-                                                  mainAxisSize: MainAxisSize.min,
-                                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                                  children: [
-                                                    Text(l10n.homeVehicleStatus(StatusUtils.formatStatus(state.vehicleState?.currentState))),
-                                                    if (state.vehicleState?.blockReason != null) ...[
-                                                      const SizedBox(height: 8),
-                                                      Text(l10n.homeVehicleReason(state.vehicleState!.blockReason!)),
-                                                    ],
-                                                  ],
-                                                ),
-                                                actions: [
-                                                  TextButton(
-                                                    onPressed: () => Navigator.pop(dialogContext),
-                                                    child: Text(l10n.genericOk.toUpperCase()),
-                                                  ),
-                                                ],
-                                              ),
-                                            );
-                                          } else {
-                                            Navigator.pop(modalContext);
-                                            _confirmAndStart(context, route);
-                                          }
-                                        },
+                                        onTap: !isLive
+                                            ? null
+                                            : () {
+                                                if (_isStarting) return;
+                                                final isBlocked = state.vehicleState != null &&
+                                                    (state.vehicleState!.isBlocked ||
+                                                        state.vehicleState!.currentState.toUpperCase() != 'ACTIVE');
+                                                if (isBlocked) {
+                                                  final displayBusNo = (route.vehicleLicenseNumber != null && route.vehicleLicenseNumber!.isNotEmpty)
+                                                      ? route.vehicleLicenseNumber!
+                                                      : (state.vehicleState?.schoolBusId ?? 'Unknown');
+                                                  showDialog(
+                                                    context: context,
+                                                    builder: (dialogContext) => AlertDialog(
+                                                      title: Text(l10n.homeBusLabel(displayBusNo)),
+                                                      content: Column(
+                                                        mainAxisSize: MainAxisSize.min,
+                                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                                        children: [
+                                                          Text(l10n.homeVehicleStatus(StatusUtils.formatStatus(state.vehicleState?.currentState))),
+                                                          if (state.vehicleState?.blockReason != null) ...[
+                                                            const SizedBox(height: 8),
+                                                            Text(l10n.homeVehicleReason(state.vehicleState!.blockReason!)),
+                                                          ],
+                                                        ],
+                                                      ),
+                                                      actions: [
+                                                        TextButton(
+                                                          onPressed: () => Navigator.pop(dialogContext),
+                                                          child: Text(l10n.genericOk.toUpperCase()),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  );
+                                                } else {
+                                                  Navigator.pop(modalContext);
+                                                  _confirmAndStart(context, route);
+                                                }
+                                              },
                                         leading: Container(
                                           padding: const EdgeInsets.all(10),
                                           decoration: BoxDecoration(
-                                            color: AppColors.PRIMARY.withOpacity(0.1),
+                                            color: isLive
+                                                ? AppColors.PRIMARY.withOpacity(0.1)
+                                                : Colors.grey.shade300,
                                             shape: BoxShape.circle,
                                           ),
-                                          child: const Icon(Icons.route_rounded, color: AppColors.PRIMARY),
+                                          child: Icon(
+                                            Icons.route_rounded,
+                                            color: isLive ? AppColors.PRIMARY : Colors.grey.shade500,
+                                          ),
                                         ),
                                         title: Row(
                                           children: [
                                             Expanded(
                                               child: Text(
                                                 route.name,
-                                                style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                                                style: TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 15,
+                                                  color: isLive ? Colors.black87 : Colors.grey.shade600,
+                                                ),
                                                 overflow: TextOverflow.ellipsis,
                                               ),
                                             ),
-                                            if (route.isLiveAt(DateTime.now())) ...[
-                                              const SizedBox(width: 6),
-                                              Container(
-                                                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
-                                                decoration: BoxDecoration(
-                                                  color: Colors.green.shade50,
-                                                  borderRadius: BorderRadius.circular(8),
-                                                  border: Border.all(color: Colors.green.shade300),
-                                                ),
-                                                child: Row(
-                                                  mainAxisSize: MainAxisSize.min,
-                                                  children: [
-                                                    Container(
-                                                      width: 6,
-                                                      height: 6,
-                                                      decoration: const BoxDecoration(
-                                                        color: Colors.green,
-                                                        shape: BoxShape.circle,
-                                                      ),
-                                                    ),
-                                                    const SizedBox(width: 4),
-                                                    Text(
-                                                      'Live Now',
-                                                      style: TextStyle(
-                                                        color: Colors.green.shade800,
-                                                        fontSize: 10,
-                                                        fontWeight: FontWeight.bold,
-                                                      ),
-                                                    ),
-                                                  ],
+                                            const SizedBox(width: 6),
+                                            Container(
+                                              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                                              decoration: BoxDecoration(
+                                                color: isLive ? Colors.green.shade50 : Colors.grey.shade200,
+                                                borderRadius: BorderRadius.circular(8),
+                                                border: Border.all(
+                                                  color: isLive ? Colors.green.shade300 : Colors.grey.shade400,
                                                 ),
                                               ),
-                                            ],
+                                              child: Row(
+                                                mainAxisSize: MainAxisSize.min,
+                                                children: [
+                                                  Container(
+                                                    width: 6,
+                                                    height: 6,
+                                                    decoration: BoxDecoration(
+                                                      color: isLive ? Colors.green : Colors.grey.shade500,
+                                                      shape: BoxShape.circle,
+                                                    ),
+                                                  ),
+                                                  const SizedBox(width: 4),
+                                                  Text(
+                                                    isLive ? 'Live Now' : 'Not Scheduled',
+                                                    style: TextStyle(
+                                                      color: isLive ? Colors.green.shade800 : Colors.grey.shade700,
+                                                      fontSize: 10,
+                                                      fontWeight: FontWeight.bold,
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
                                           ],
                                         ),
                                         subtitle: route.vehicleLicenseNumber != null && route.vehicleLicenseNumber!.isNotEmpty
-                                            ? Text('Bus No: ${route.vehicleLicenseNumber}')
+                                            ? Text(
+                                                'Bus No: ${route.vehicleLicenseNumber}',
+                                                style: TextStyle(
+                                                  color: isLive ? Colors.grey.shade600 : Colors.grey.shade500,
+                                                ),
+                                              )
                                             : null,
-                                        trailing: state.vehicleState != null &&
-                                                (state.vehicleState!.isBlocked ||
-                                                    state.vehicleState!.currentState.toUpperCase() != 'ACTIVE')
-                                            ? const Icon(Icons.info_outline, color: Colors.orange)
+                                        trailing: isLive
+                                            ? (state.vehicleState != null &&
+                                                    (state.vehicleState!.isBlocked ||
+                                                        state.vehicleState!.currentState.toUpperCase() != 'ACTIVE')
+                                                ? const Icon(Icons.info_outline, color: Colors.orange)
+                                                : Icon(
+                                                    Icons.chevron_right_rounded,
+                                                    color: Colors.grey.shade400,
+                                                    size: 26,
+                                                  ))
                                             : Icon(
-                                                Icons.chevron_right_rounded,
+                                                Icons.lock_outline_rounded,
                                                 color: Colors.grey.shade400,
-                                                size: 26,
+                                                size: 20,
                                               ),
                                       ),
                                     );
@@ -552,7 +591,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                   if (!locService.isRunning && activeRoute != null) {
                     locService.start(activeRoute);
                   }
-                  context.go(Constants.TRIP_MAP_ROUTE, extra: activeRoute);
+                  context.push(Constants.TRIP_MAP_ROUTE, extra: activeRoute);
                 },
                 child: Container(
                   margin: const EdgeInsets.only(bottom: 16),
@@ -628,6 +667,17 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                   ),
                 ),
               ),
+            ] else ...[
+              Text(
+                'NO ACTIVE TRIP',
+                style: TextStyle(
+                  color: Colors.grey.shade500,
+                  fontSize: 11,
+                  fontWeight: FontWeight.w900,
+                  letterSpacing: 1.0,
+                ),
+              ),
+              const Divider(height: 8)
             ],
             // Quick Actions Header
             const Padding(
@@ -668,7 +718,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                   mainAxisSpacing: 12,
                   childAspectRatio: childAspectRatio,
                   children: [
-                    // Top Row Card 1
+                    // Card 1: Student Pickup / Drop
                     _buildActionCard(
                       context,
                       title: 'Student Pickup / Drop',
@@ -676,9 +726,18 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                       icon: Icons.people_alt_rounded,
                       iconBgColor: AppColors.PRIMARY.withOpacity(0.12),
                       iconColor: AppColors.PRIMARY,
-                      onTap: () => _showRoutesModal(context, l10n),
+                      onTap: () {
+                        if (activeTripId != null && activeRoute != null) {
+                          context.push(
+                            Constants.STOPS_ROUTE,
+                            extra: StopsRouteArgs(routeId: activeRoute.id, routeName: activeRoute.name),
+                          );
+                        } else {
+                          _showRoutesModal(context, l10n);
+                        }
+                      },
                     ),
-                    // Top Row Card 2: Incident Report
+                    // Card 2: Incident Report
                     _buildActionCard(
                       context,
                       title: 'Incident Report',
@@ -688,11 +747,11 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                       iconColor: AppColors.ERROR,
                       onTap: () => context.push(Constants.INCIDENT_INTAKE_ROUTE),
                     ),
-                    // Row 2 Card 1: Pre-Trip Inspection
+                    // Card 3: Bus Inspection
                     _buildActionCard(
                       context,
-                      title: l10n.homeMenuPreTrip,
-                      subtitle: 'Check and report vehicle inspections',
+                      title: 'Bus Inspection',
+                      subtitle: 'Check vehicle & report defects',
                       icon: Icons.playlist_add_check_rounded,
                       iconBgColor: const Color(0xFF10B981).withOpacity(0.12),
                       iconColor: const Color(0xFF10B981),
@@ -713,28 +772,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                         }
                       },
                     ),
-                    // Row 2 Card 2: Report Defects
-                    _buildActionCard(
-                      context,
-                      title: l10n.homeMenuReportDefects,
-                      subtitle: 'Report and manage vehicle defects',
-                      icon: Icons.report_problem_outlined,
-                      iconBgColor: const Color(0xFFF59E0B).withOpacity(0.12),
-                      iconColor: const Color(0xFFF59E0B),
-                      onTap: () async {
-                        if (firstRoute != null) {
-                          await context.push(Constants.DVIR_POST_TRIP_ROUTE, extra: firstRoute);
-                          if (mounted) {
-                            ref.read(homeViewModelProvider.notifier).refreshVehicleState();
-                          }
-                        } else {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(content: Text(l10n.homeErrorNoRoutesReportDefects)),
-                          );
-                        }
-                      },
-                    ),
-                    // Row 3 Card 1: Log Drill
+                    // Card 4: Log Drill
                     _buildActionCard(
                       context,
                       title: l10n.homeMenuDrill,
@@ -776,7 +814,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                         context.push(Constants.DRILL_LIST_ROUTE);
                       },
                     ),
-                    // Row 3 Card 2: Child Safety Check
+                    // Card 5: Child Safety Check
                     _buildActionCard(
                       context,
                       title: l10n.homeMenuChildSafetyCheck,
@@ -786,6 +824,18 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                       iconColor: const Color(0xFF06B6D4),
                       onTap: () async {
                         await context.push(Constants.CHILD_SAFETY_CHECK_ROUTE, extra: firstRoute);
+                      },
+                    ),
+                    // Card 6: Driver's Corner
+                    _buildActionCard(
+                      context,
+                      title: "Driver's Corner",
+                      subtitle: 'Compliance docs & certs',
+                      icon: Icons.folder_shared_rounded,
+                      iconBgColor: const Color(0xFFF59E0B).withOpacity(0.12),
+                      iconColor: const Color(0xFFD97706),
+                      onTap: () {
+                        context.push(Constants.DRIVERS_CORNER_ROUTE);
                       },
                     ),
                   ],
@@ -1018,7 +1068,9 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   Future<void> _confirmAndStart(BuildContext context, RouteResponse route) async {
     final l10n = AppLocalizations.of(context)!;
 
+    if (_isStarting) return;
     setState(() => _isStarting = true);
+
     try {
       // 1. Fetch vehicle status from API
       final dvirRepo = ref.read(dvirRepositoryProvider);
@@ -1034,7 +1086,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
 
       if (isBlockedState) {
         if (context.mounted) {
-          setState(() => _isStarting = false);
           final title = stateResponse.currentState.toUpperCase() == 'CERTIFIED_PENDING_VERIFICATION'
               ? 'Vehicle Verification Pending'
               : 'Vehicle Out of Service';
@@ -1063,28 +1114,77 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
       debugPrint("eDVIR state check failed: $e");
     }
 
-    final locationService = ref.read(locationTrackingServiceProvider);
-    final granted = await locationService.requestPermissions();
-    if (!granted) {
+    try {
+      final locationService = ref.read(locationTrackingServiceProvider);
+      final tripRepo = ref.read(tripRepositoryProvider);
+      final storage = ref.read(localStorageServiceProvider);
+
+      final granted = await locationService.requestPermissions();
+      if (!granted) {
+        if (context.mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(l10n.tripErrorLocationRequired),
+            ),
+          );
+        }
+        return;
+      }
+
+      // Show acquiring GPS fix indicator
+      BuildContext? dialogCtx;
       if (context.mounted) {
-        setState(() => _isStarting = false);
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(l10n.tripErrorLocationRequired),
-          ),
+        showDialog(
+          context: context,
+          barrierDismissible: false,
+          builder: (bContext) {
+            dialogCtx = bContext;
+            return const AlertDialog(
+              content: Row(
+                children: [
+                  CircularProgressIndicator(),
+                  SizedBox(width: 16),
+                  Expanded(child: Text("Acquiring GPS fix...")),
+                ],
+              ),
+            );
+          },
         );
       }
-      return;
-    }
 
-    await ref.read(homeViewModelProvider.notifier).selectRoute(route);
+      final fix = await locationService.getCurrentLocation();
+      final currentLoc = fix ?? route.startLocation ?? UserLocation(latitude: 21.0, longitude: 78.0);
 
-    // Start location tracking (First GPS fix will automatically trigger POST trip/start)
-    await locationService.start(route);
+      if (dialogCtx != null && dialogCtx!.mounted) {
+        Navigator.pop(dialogCtx!);
+      }
 
-    if (context.mounted) {
-      setState(() => _isStarting = false);
-      context.go(Constants.TRIP_MAP_ROUTE, extra: route);
+      // Start trip in backend & save TRIP_ID + ROUTE_ID immediately
+      try {
+        final tripId = await tripRepo.startTrip(route: route, location: currentLoc);
+        await storage.setString(StorageKeys.TRIP_ID, tripId.toString());
+      } catch (e) {
+        debugPrint("Trip start API error: $e");
+        await storage.setString(StorageKeys.TRIP_ID, DateTime.now().millisecondsSinceEpoch.toString());
+      }
+
+      await storage.setString(StorageKeys.ROUTE_ID, route.id.toString());
+
+      // Start location tracking stream
+      await locationService.start(route);
+
+      if (context.mounted) {
+        context.push(
+          Constants.STOPS_ROUTE,
+          extra: StopsRouteArgs(routeId: route.id, routeName: route.name),
+        );
+      }
+    } catch (e) {
+      debugPrint("Start trip failed: $e");
+    } finally {
+      if (mounted) {
+        setState(() => _isStarting = false);
+      }
     }
   }
 }

@@ -14,6 +14,7 @@ import '../models/user_location.dart';
 class TripRepository {
   final ApiClient _apiClient;
   final LocalStorageService _storage;
+  final List<UserLocation> _pendingLocationsQueue = [];
 
   TripRepository({
     required ApiClient apiClient,
@@ -48,10 +49,17 @@ class TripRepository {
       data: request.toJson(),
     );
 
-    // Original: `Long.parseLong(response.trim())` — the backend returns
-    // the new trip ID as a raw numeric string body, not JSON. Matched
-    // exactly rather than assuming a JSON wrapper that isn't there.
-    final tripId = int.parse(response.data.toString().trim());
+    int tripId;
+    if (response.data is Map) {
+      final map = response.data as Map;
+      tripId = (map['id'] ?? map['tripId'] ?? map['trip_id'] ?? route.id).toInt();
+    } else if (response.data is num) {
+      tripId = (response.data as num).toInt();
+    } else {
+      final raw = response.data.toString().trim();
+      tripId = int.tryParse(raw) ?? DateTime.now().millisecondsSinceEpoch;
+    }
+
     await _storage.setString(StorageKeys.TRIP_ID, tripId.toString());
     return tripId;
   }
@@ -63,6 +71,7 @@ class TripRepository {
     final request = TripUpdateRequest(id: tripId, location: location);
     await _apiClient.post(ApiEndpoints.tripStop, data: request.toJson());
     await _storage.remove(StorageKeys.TRIP_ID);
+    _pendingLocationsQueue.clear();
   }
 
   /// Ported from `UpdateTripLocationTask`, which used
@@ -74,12 +83,43 @@ class TripRepository {
     required int tripId,
     required UserLocation location,
   }) async {
+    // Attempt to flush previously queued offline breadcrumbs first
+    await _flushQueue(tripId);
+
     final request = TripUpdateRequest(id: tripId, location: location);
-    await _apiClient.post(
-      ApiEndpoints.tripLocation,
-      data: request.toJson(),
-      options: Options(sendTimeout: const Duration(seconds: 8)),
-    );
+    try {
+      await _apiClient.post(
+        ApiEndpoints.tripLocation,
+        data: request.toJson(),
+        options: Options(sendTimeout: const Duration(seconds: 8)),
+      );
+    } catch (_) {
+      // Queue location for retry when network recovers
+      if (_pendingLocationsQueue.length < 100) {
+        _pendingLocationsQueue.add(location);
+      }
+    }
+  }
+
+  Future<void> _flushQueue(int tripId) async {
+    if (_pendingLocationsQueue.isEmpty) return;
+    final toFlush = List<UserLocation>.from(_pendingLocationsQueue);
+    _pendingLocationsQueue.clear();
+
+    for (final loc in toFlush) {
+      try {
+        final request = TripUpdateRequest(id: tripId, location: loc);
+        await _apiClient.post(
+          ApiEndpoints.tripLocation,
+          data: request.toJson(),
+          options: Options(sendTimeout: const Duration(seconds: 5)),
+        );
+      } catch (_) {
+        // Re-queue remaining locations if flushing fails
+        _pendingLocationsQueue.insertAll(0, toFlush.sublist(toFlush.indexOf(loc)));
+        break;
+      }
+    }
   }
 
   Future<UserLocation?> getTripLocation(int tripId) async {
@@ -101,5 +141,27 @@ class TripRepository {
   int? get activeTripId {
     final stored = _storage.getString(StorageKeys.TRIP_ID);
     return stored != null ? int.tryParse(stored) : null;
+  }
+
+  Future<bool> validateActiveTrip() async {
+    final tripId = activeTripId;
+    if (tripId == null) return false;
+    try {
+      final loc = await getTripLocation(tripId);
+      if (loc == null) {
+        // Trip was stopped on web portal or server
+        await _storage.remove(StorageKeys.TRIP_ID);
+        await _storage.remove(StorageKeys.ROUTE_ID);
+        return false;
+      }
+      return true;
+    } catch (e) {
+      if (e is DioException && (e.response?.statusCode == 404 || e.response?.statusCode == 400)) {
+        await _storage.remove(StorageKeys.TRIP_ID);
+        await _storage.remove(StorageKeys.ROUTE_ID);
+        return false;
+      }
+      return true;
+    }
   }
 }

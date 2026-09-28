@@ -8,6 +8,7 @@ import '../../../data/models/route_response.dart';
 import '../../../data/models/vehicle_state_response.dart';
 import '../../../data/repositories/dvir_repository.dart';
 import '../../../data/repositories/route_repository.dart';
+import '../../../data/repositories/trip_repository.dart';
 
 class HomeState {
   final bool isLoading;
@@ -55,12 +56,14 @@ class HomeViewModel extends StateNotifier<HomeState> {
   final RouteRepository _routeRepository;
   final LocalStorageService _storage;
   final DvirRepository _dvirRepository;
+  final TripRepository _tripRepository;
   StreamSubscription? _dvirSubscription;
 
   HomeViewModel(
     this._routeRepository,
     this._storage,
     this._dvirRepository,
+    this._tripRepository,
   ) : super(const HomeState()) {
     _loadRoutes();
     _listenToDvirChanges();
@@ -81,6 +84,7 @@ class HomeViewModel extends StateNotifier<HomeState> {
   Future<void> _loadRoutes() async {
     state = state.copyWith(isLoading: true, isVehicleStateLoading: true, error: null);
     try {
+      await _tripRepository.validateActiveTrip();
       final routes = await _routeRepository.getRoutes();
       state = state.copyWith(allRoutes: routes, isLoading: false);
 
@@ -117,6 +121,7 @@ class HomeViewModel extends StateNotifier<HomeState> {
   Future<void> refresh() => _loadRoutes();
 
   Future<void> refreshVehicleState({bool silent = true}) async {
+    await _tripRepository.validateActiveTrip();
     if (state.allRoutes.isEmpty) {
       await _loadRoutes();
       return;
@@ -162,5 +167,6 @@ final homeViewModelProvider =
     ref.watch(routeRepositoryProvider),
     ref.watch(localStorageServiceProvider),
     ref.watch(dvirRepositoryProvider),
+    ref.watch(tripRepositoryProvider),
   );
 });

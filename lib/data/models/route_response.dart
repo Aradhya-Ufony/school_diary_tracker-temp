@@ -12,6 +12,7 @@ class RouteResponse {
   final int? childSafetyTimer; // timer in minutes from API response
   final String? startTime;
   final String? endTime;
+  final String trackingMode; // 'SOFTWARE' | 'HARDWARE'
   int sequenceNumber;
 
   RouteResponse({
@@ -25,6 +26,7 @@ class RouteResponse {
     this.childSafetyTimer,
     this.startTime,
     this.endTime,
+    this.trackingMode = 'Software',
     this.sequenceNumber = 0,
   });
 
@@ -118,6 +120,7 @@ class RouteResponse {
       childSafetyTimer: _parseSafetyTimer(json),
       startTime: (json['startTime'] ?? json['StartTime'] ?? json['start_time'])?.toString(),
       endTime: (json['endTime'] ?? json['EndTime'] ?? json['end_time'])?.toString(),
+      trackingMode: (json['trackingMode'] ?? json['tracking_mode'] ?? 'Software').toString(),
     );
   }
 
@@ -133,6 +136,7 @@ class RouteResponse {
         'childsafetytimer': childSafetyTimer,
         'startTime': startTime,
         'endTime': endTime,
+        'trackingMode': trackingMode,
       };
 
   int? _parseTimeToMinutes(String? timeStr) {

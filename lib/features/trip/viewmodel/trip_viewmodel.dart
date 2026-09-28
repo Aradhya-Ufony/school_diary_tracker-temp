@@ -150,15 +150,19 @@ class TripViewModel extends StateNotifier<TripState> {
 
     if (distance <= 50.0) {
       _depotDwellSeconds++;
-      // If parked inside depot for >= 10 seconds, trigger automatic trip stop
       if (_depotDwellSeconds >= 10 && !_depotArrivalTriggered) {
         _depotArrivalTriggered = true;
         state = state.copyWith(depotArrivalDetected: true);
-        stopTrip();
       }
     } else {
       _depotDwellSeconds = 0;
     }
+  }
+
+  void cancelDepotArrivalAlert() {
+    _depotDwellSeconds = 0;
+    _depotArrivalTriggered = false;
+    state = state.copyWith(depotArrivalDetected: false);
   }
 
   bool get isAtDepot {
