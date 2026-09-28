@@ -11,6 +11,7 @@ import '../storage/local_storage_service.dart';
 import '../../data/repositories/dvir_repository.dart';
 import '../../data/repositories/incident_crash_repository.dart';
 import '../../data/repositories/child_safety_check_repository.dart';
+import '../../data/repositories/driver_compliance_repository.dart';
 
 /// [LocalStorageService] placeholder.
 final localStorageServiceProvider = Provider<LocalStorageService>((ref) {
@@ -84,6 +85,12 @@ final childSafetyCheckRepositoryProvider = Provider<ChildSafetyCheckRepository>(
   return ChildSafetyCheckRepository(
     apiClient: ref.watch(apiClientProvider),
     storage: ref.watch(localStorageServiceProvider),
+  );
+});
+
+final driverComplianceRepositoryProvider = Provider<DriverComplianceRepository>((ref) {
+  return DriverComplianceRepository(
+    apiClient: ref.watch(apiClientProvider),
   );
 });
 

@@ -48,5 +48,8 @@ abstract class ApiEndpoints {
   // Child Left Behind / Safety Check endpoints
   static const childSafetyCheckActive = 'childsafetycheck/active';
   static const childSafetyCheckComplete = 'childsafetycheck/complete';
+
+  // Driver Compliance / Drivers Corner endpoints
+  static const driverComplianceAllDocuments = 'driver-compliance/allDriverDocuments';
 }
 

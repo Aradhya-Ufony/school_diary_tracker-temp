@@ -63,7 +63,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
             await locationService.start(activeRoute);
           }
           if (mounted) {
-            context.go(Constants.TRIP_MAP_ROUTE, extra: activeRoute);
+            context.go(Constants.HOME_ROUTE);
             return;
           }
         } catch (_) {}

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 abstract final class Constants{
 
   static const String APP_NAME = 'Locato';
-  static const String BASE_URL = 'https://staging .schooldiary.me/DrillTemp/api/';
+  static const String BASE_URL = 'https://staging.schooldiary.me/DrillTemp/api/';
   static const String APPLICATION_ID = 'com.ufony.SDTracker';
 
   static const String AUTHORIZATION_HEADER = 'Authorization';
@@ -59,6 +59,7 @@ abstract final class Constants{
   static const String INCIDENT_DETAILS_ROUTE = '/incident/details/:id';
   static const String INCIDENT_HISTORY_ROUTE = '/incident/history';
   static const String CHILD_SAFETY_CHECK_ROUTE = '/child-safety-check';
+  static const String DRIVERS_CORNER_ROUTE = '/drivers-corner';
 
   //Screen Names
   static const String SPLASH = 'Splash';
@@ -84,6 +85,7 @@ abstract final class Constants{
   static const String INCIDENT_DETAILS = 'Incident Details';
   static const String INCIDENT_HISTORY = 'Incident History';
   static const String CHILD_SAFETY_CHECK = 'Child Safety Check';
+  static const String DRIVERS_CORNER = "Driver's Corner";
 
 
   //Crashlytics keys

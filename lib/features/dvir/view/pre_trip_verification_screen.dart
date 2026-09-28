@@ -130,9 +130,19 @@ class _PreTripVerificationScreenState
     final l10n = AppLocalizations.of(context)!;
     return Scaffold(
       appBar: AppBar(
-        title: Text(l10n.dvirPreTripTitle),
+        title: const Text('Bus Inspection'),
         backgroundColor: AppColors.PRIMARY,
         foregroundColor: Colors.white,
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.add_rounded, size: 28),
+            tooltip: 'Report Defect',
+            onPressed: () async {
+              await context.push(Constants.DVIR_POST_TRIP_ROUTE, extra: widget.routeResponse);
+              _fetchPriorDayReport();
+            },
+          ),
+        ],
       ),
       body: _isLoading
           ? const Center(child: CircularProgressIndicator())

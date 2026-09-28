@@ -68,10 +68,11 @@ class LocationTrackingService {
   Future<void> start(RouteResponse route) async {
     await stop();
 
-    final settings = _buildLocationSettings();
-
-    _subscription = Geolocator.getPositionStream(locationSettings: settings)
-        .listen((position) => _onPosition(route, position));
+    try {
+      final settings = _buildLocationSettings();
+      _subscription = Geolocator.getPositionStream(locationSettings: settings)
+          .listen((position) => _onPosition(route, position));
+    } catch (_) {}
   }
 
   Future<void> _onPosition(RouteResponse route, Position position) async {
@@ -81,6 +82,11 @@ class LocationTrackingService {
     );
 
     _positionController.add(location);
+
+    // Skip phone GPS location streaming if HARDWARE tracking mode is set
+    if (route.trackingMode.toUpperCase() == 'HARDWARE') {
+      return;
+    }
 
     try {
       final tripId = _tripRepository.activeTripId;

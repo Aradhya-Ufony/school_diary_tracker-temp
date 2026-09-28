@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../core/utils/app_constants.dart';
 import '../../../data/models/route_stop.dart';
@@ -36,80 +37,115 @@ class StopsScreen extends ConsumerWidget {
       appBar: AppBar(
         title: Text(routeName),
         actions: [
-          if (!isUndoMode)
+          if (!isUndoMode) ...[
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 4),
+              child: TextButton.icon(
+                style: TextButton.styleFrom(
+                  foregroundColor: Colors.red.shade700,
+                  backgroundColor: Colors.red.shade50,
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                ),
+                icon: const Icon(Icons.stop_circle_outlined, size: 18),
+                label: const Text(
+                  'Stop Trip',
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13),
+                ),
+                onPressed: state.isSubmitting
+                    ? null
+                    : () => _handleStopTrip(context, ref, viewModel, checkedCount),
+              ),
+            ),
             IconButton(
               icon: const Icon(Icons.undo),
               tooltip: l10n.stopsUndoTooltip,
-              onPressed: () async {
-                await Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (_) => StopsScreen(
-                      routeId: routeId,
-                      routeName: routeName,
-                      isUndoMode: true,
-                    ),
-                  ),
-                );
-                viewModel.refresh();
-              },
-            ),
-        ],
-      ),
-      body: RefreshIndicator(
-        onRefresh: viewModel.refresh,
-        child: state.isLoading && state.stops.isEmpty
-            ? const Center(child: CircularProgressIndicator())
-            : state.error != null && state.stops.isEmpty
-                ? Center(child: Text(state.error!))
-                : () {
-                    final displayStops = isUndoMode
-                        ? state.stops
-                            .where((s) => s.children.any((c) => c.pickedOrDropped))
-                            .toList()
-                        : state.stops;
-                    if (displayStops.isEmpty) {
-                      return Center(
-                        child: Text(
-                          isUndoMode
-                              ? l10n.stopsNoChangesToUndo
-                              : l10n.stopsNoStopsAvailable,
-                          style: const TextStyle(fontSize: 16),
+              onPressed: state.isSubmitting
+                  ? null
+                  : () async {
+                      await Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (_) => StopsScreen(
+                            routeId: routeId,
+                            routeName: routeName,
+                            isUndoMode: true,
+                          ),
                         ),
                       );
-                    }
-                    return ListView.builder(
-                      itemCount: displayStops.length,
-                      itemBuilder: (context, index) {
-                        final stop = displayStops[index];
-                        return _StopCard(
-                          stop: stop,
-                          routeName: routeName,
-                          isUndoMode: isUndoMode,
-                          onToggleSelectAll: () => viewModel.toggleSelectAll(stop),
-                          onToggleExpanded: () => viewModel.toggleExpanded(stop),
-                          onToggleChild: (child) =>
-                              viewModel.toggleChild(stop, child),
-                          onSubmitSingle: (child) async {
-                            final ok = await viewModel.submitSingleChild(child);
-                            if (context.mounted) {
-                              _showResultSnackBar(context, ok, isUndoMode);
-                            }
-                          },
+                      viewModel.refresh();
+                    },
+            ),
+          ],
+        ],
+      ),
+      body: AbsorbPointer(
+        absorbing: state.isSubmitting,
+        child: RefreshIndicator(
+          onRefresh: viewModel.refresh,
+          child: state.isLoading && state.stops.isEmpty
+              ? const Center(child: CircularProgressIndicator())
+              : state.error != null && state.stops.isEmpty
+                  ? Center(child: Text(state.error!))
+                  : () {
+                      final displayStops = isUndoMode
+                          ? state.stops
+                              .where((s) => s.children.any((c) => c.pickedOrDropped))
+                              .toList()
+                          : state.stops;
+                      if (displayStops.isEmpty) {
+                        return Center(
+                          child: Text(
+                            isUndoMode
+                                ? l10n.stopsNoChangesToUndo
+                                : l10n.stopsNoStopsAvailable,
+                            style: const TextStyle(fontSize: 16),
+                          ),
                         );
-                      },
-                    );
-                  }(),
+                      }
+                      return ListView.builder(
+                        itemCount: displayStops.length,
+                        itemBuilder: (context, index) {
+                          final stop = displayStops[index];
+                          return _StopCard(
+                            stop: stop,
+                            routeName: routeName,
+                            isUndoMode: isUndoMode,
+                            onToggleSelectAll: () => viewModel.toggleSelectAll(stop),
+                            onToggleExpanded: () => viewModel.toggleExpanded(stop),
+                            onToggleChild: (child) =>
+                                viewModel.toggleChild(stop, child),
+                            onSubmitSingle: (child) async {
+                              final ok = await viewModel.submitSingleChild(child);
+                              if (context.mounted) {
+                                _showResultSnackBar(context, ok, isUndoMode);
+                              }
+                            },
+                          );
+                        },
+                      );
+                    }(),
+        ),
       ),
       floatingActionButton: checkedCount == 0
           ? null
           : FloatingActionButton.extended(
-              onPressed: () async {
-                final ok = await viewModel.submitAllChecked();
-                if (context.mounted) {
-                  _showResultSnackBar(context, ok, isUndoMode);
-                }
-              },
-              icon: const Icon(Icons.check),
+              onPressed: state.isSubmitting
+                  ? null
+                  : () async {
+                      final ok = await viewModel.submitAllChecked();
+                      if (context.mounted) {
+                        _showResultSnackBar(context, ok, isUndoMode);
+                      }
+                    },
+              icon: state.isSubmitting
+                  ? const SizedBox(
+                      width: 18,
+                      height: 18,
+                      child: CircularProgressIndicator(color: Colors.white, strokeWidth: 2),
+                    )
+                  : const Icon(Icons.check),
               label: Text(
                 isUndoMode
                     ? l10n.stopsUndoCount(checkedCount)
@@ -117,6 +153,76 @@ class StopsScreen extends ConsumerWidget {
               ),
             ),
     );
+  }
+
+  Future<void> _handleStopTrip(
+    BuildContext context,
+    WidgetRef ref,
+    StopsViewModel viewModel,
+    int checkedCount,
+  ) async {
+    if (checkedCount > 0) {
+      final shouldProceed = await showDialog<bool>(
+        context: context,
+        builder: (dialogContext) => AlertDialog(
+          title: const Text('Unsubmitted Attendance Selections'),
+          content: Text(
+            'You have $checkedCount unsubmitted student attendance selection(s). Submit first or discard?',
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(dialogContext, false),
+              child: const Text('CANCEL'),
+            ),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.red,
+                foregroundColor: Colors.white,
+              ),
+              onPressed: () => Navigator.pop(dialogContext, true),
+              child: const Text('DISCARD & STOP'),
+            ),
+          ],
+        ),
+      );
+
+      if (shouldProceed != true) return;
+    }
+
+    final confirmStop = await showDialog<bool>(
+      context: context,
+      builder: (dialogContext) => AlertDialog(
+        title: const Text('End Active Trip'),
+        content: const Text(
+          'Are you sure you want to end the active trip and stop location updates?',
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(dialogContext, false),
+            child: const Text('CANCEL'),
+          ),
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.red,
+              foregroundColor: Colors.white,
+            ),
+            onPressed: () => Navigator.pop(dialogContext, true),
+            child: const Text('STOP TRIP'),
+          ),
+        ],
+      ),
+    );
+
+    if (confirmStop == true) {
+      await viewModel.stopTrip();
+      if (context.mounted) {
+        if (Navigator.of(context).canPop()) {
+          Navigator.of(context).pop();
+        } else {
+          context.go(Constants.HOME_ROUTE);
+        }
+      }
+    }
   }
 
   void _showResultSnackBar(BuildContext context, bool ok, bool isUndoMode) {

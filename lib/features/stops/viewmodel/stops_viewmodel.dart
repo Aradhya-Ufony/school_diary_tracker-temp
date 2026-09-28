@@ -1,10 +1,14 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/di/providers.dart';
+import '../../../core/services/location_tracking_service.dart';
+import '../../../core/storage/local_storage_service.dart';
+import '../../../core/utils/app_constants.dart';
 import '../../../core/utils/validators.dart';
 import '../../../data/models/child_pick_drop_request.dart';
 import '../../../data/models/route_stop.dart';
 import '../../../data/repositories/stops_repository.dart';
+import '../../../data/repositories/trip_repository.dart';
 
 /// Ported from `StopsListActivity` (`isUndoMode: false`) and
 /// `UndoStopActivity` (`isUndoMode: true`) — the two Activities were
@@ -23,12 +27,14 @@ import '../../../data/repositories/stops_repository.dart';
 /// collision.
 class StopsState {
   final bool isLoading;
+  final bool isSubmitting;
   final List<RouteStop> stops;
   final Map<int, Set<int>> routeMap; // routeId -> child IDs in that route
   final String? error;
 
   const StopsState({
     this.isLoading = false,
+    this.isSubmitting = false,
     this.stops = const [],
     this.routeMap = const {},
     this.error,
@@ -36,12 +42,14 @@ class StopsState {
 
   StopsState copyWith({
     bool? isLoading,
+    bool? isSubmitting,
     List<RouteStop>? stops,
     Map<int, Set<int>>? routeMap,
     String? error,
   }) {
     return StopsState(
       isLoading: isLoading ?? this.isLoading,
+      isSubmitting: isSubmitting ?? this.isSubmitting,
       stops: stops ?? this.stops,
       routeMap: routeMap ?? this.routeMap,
       error: error,
@@ -51,16 +59,25 @@ class StopsState {
 
 class StopsViewModel extends StateNotifier<StopsState> {
   final StopsRepository _stopsRepository;
+  final TripRepository _tripRepository;
+  final LocationTrackingService _locationTrackingService;
+  final LocalStorageService _storage;
   final int activeRouteId;
   final String routeName;
   final bool isUndoMode;
 
   StopsViewModel({
     required StopsRepository stopsRepository,
+    required TripRepository tripRepository,
+    required LocationTrackingService locationTrackingService,
+    required LocalStorageService storage,
     required this.activeRouteId,
     required this.routeName,
     required this.isUndoMode,
   })  : _stopsRepository = stopsRepository,
+        _tripRepository = tripRepository,
+        _locationTrackingService = locationTrackingService,
+        _storage = storage,
         super(const StopsState()) {
     _load();
   }
@@ -153,6 +170,7 @@ class StopsViewModel extends StateNotifier<StopsState> {
   /// Toggles one child's checkbox — matches the original's checkbox-tap
   /// branch (`isDrop = false` call site): visual-only, no network call.
   void toggleChild(RouteStop stop, StopChild child) {
+    if (state.isSubmitting) return;
     if (!isUndoMode && !_isChildActionEnabled(child)) return;
     child.checked = !child.checked;
     _recount(stop);
@@ -161,6 +179,7 @@ class StopsViewModel extends StateNotifier<StopsState> {
 
   /// Matches the stop-level "select all" checkbox.
   void toggleSelectAll(RouteStop stop) {
+    if (state.isSubmitting) return;
     stop.allSelected = !stop.allSelected;
     final targetChildren = stop.children.where(_isChildCheckable);
     for (final child in targetChildren) {
@@ -189,6 +208,7 @@ class StopsViewModel extends StateNotifier<StopsState> {
   /// child immediately (the per-row action button), independent of
   /// checkbox state.
   Future<bool> submitSingleChild(StopChild child) async {
+    if (state.isSubmitting) return false;
     final routeId = _routeIdFor(child.id);
     if (routeId == null) return false;
 
@@ -208,6 +228,7 @@ class StopsViewModel extends StateNotifier<StopsState> {
   /// same stop list — the original's `RouteMap` grouping is preserved
   /// exactly here).
   Future<bool> submitAllChecked() async {
+    if (state.isSubmitting) return false;
     final byRoute = <int, List<int>>{};
     bool isDropDirection = true;
 
@@ -240,6 +261,8 @@ class StopsViewModel extends StateNotifier<StopsState> {
     List<ChildPickDropRequest> requests, {
     required bool isDropDirection,
   }) async {
+    if (state.isSubmitting) return false;
+    state = state.copyWith(isSubmitting: true, error: null);
     try {
       if (isUndoMode) {
         await _stopsRepository.cancelPickDrop(requests);
@@ -247,10 +270,33 @@ class StopsViewModel extends StateNotifier<StopsState> {
         await _stopsRepository.pickOrDrop(requests, isDrop: isDropDirection);
       }
       await _load(); // matches the original's `recreate()` full refresh
+      state = state.copyWith(isSubmitting: false);
       return true;
     } catch (_) {
-      state = state.copyWith(error: 'Unable to submit. Please try again.');
+      state = state.copyWith(isSubmitting: false, error: 'Unable to submit. Please try again.');
       return false;
+    }
+  }
+
+  Future<bool> stopTrip() async {
+    state = state.copyWith(isSubmitting: true);
+    try {
+      final tripId = _tripRepository.activeTripId;
+      final currentLoc = await _locationTrackingService.getCurrentLocation();
+      if (tripId != null && currentLoc != null) {
+        await _tripRepository.stopTrip(tripId: tripId, location: currentLoc);
+      }
+      await _locationTrackingService.stop();
+      await _storage.remove(StorageKeys.TRIP_ID);
+      await _storage.remove(StorageKeys.ROUTE_ID);
+      state = state.copyWith(isSubmitting: false);
+      return true;
+    } catch (_) {
+      await _locationTrackingService.stop();
+      await _storage.remove(StorageKeys.TRIP_ID);
+      await _storage.remove(StorageKeys.ROUTE_ID);
+      state = state.copyWith(isSubmitting: false);
+      return true;
     }
   }
 
@@ -266,6 +312,9 @@ final stopsViewModelProvider = StateNotifierProvider.autoDispose
     .family<StopsViewModel, StopsState, StopsArgs>((ref, args) {
   return StopsViewModel(
     stopsRepository: ref.watch(stopsRepositoryProvider),
+    tripRepository: ref.watch(tripRepositoryProvider),
+    locationTrackingService: ref.watch(locationTrackingServiceProvider),
+    storage: ref.watch(localStorageServiceProvider),
     activeRouteId: args.routeId,
     routeName: args.routeName,
     isUndoMode: args.isUndoMode,
