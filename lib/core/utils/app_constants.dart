@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 abstract final class Constants{
 
   static const String APP_NAME = 'Locato';
-  static const String BASE_URL = 'https://testapi.schooldiary.me/Transport/api/';
+  static const String BASE_URL = 'https://staging .schooldiary.me/DrillTemp/api/';
   static const String APPLICATION_ID = 'com.ufony.SDTracker';
 
   static const String AUTHORIZATION_HEADER = 'Authorization';
@@ -90,7 +90,7 @@ abstract final class Constants{
   static const String CRASHLYTICS_API_ENDPOINT_KEY = 'api_endpoint';
   static const String CRASHLYTICS_RESPONSE_CODE_KEY = 'response_code';
 
-  static const int LOCATION_REFRESH_INTERVAL_IN_SECONDS = 3;
+  static const int LOCATION_REFRESH_INTERVAL_IN_SECONDS = 15;
   static const String BUS_ONGOING_MESSAGE = 'Bus is moving';
 }
 

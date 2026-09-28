@@ -100,17 +100,17 @@ class LocationTrackingService {
   }
 
   LocationSettings _buildLocationSettings() {
-    const interval = Duration(seconds: Constants.LOCATION_REFRESH_INTERVAL_IN_SECONDS); // matches original exactly
+    const interval = Duration(seconds: Constants.LOCATION_REFRESH_INTERVAL_IN_SECONDS);
 
     if (Platform.isAndroid) {
       return AndroidSettings(
         accuracy: LocationAccuracy.high,
-        distanceFilter: 0,
+        distanceFilter: 15,
         intervalDuration: interval,
         foregroundNotificationConfig: ForegroundNotificationConfig(
           notificationTitle: Constants.APP_NAME,
-          notificationText: Constants.BUS_ONGOING_MESSAGE, // matches ONGOING_MESSAGE
-          enableWakeLock: true,
+          notificationText: Constants.BUS_ONGOING_MESSAGE,
+          enableWakeLock: false,
         ),
       );
     }
@@ -119,14 +119,14 @@ class LocationTrackingService {
       return AppleSettings(
         accuracy: LocationAccuracy.high,
         activityType: ActivityType.automotiveNavigation,
-        distanceFilter: 0,
-        pauseLocationUpdatesAutomatically: false,
+        distanceFilter: 15,
+        pauseLocationUpdatesAutomatically: true,
         showBackgroundLocationIndicator: true,
         allowBackgroundLocationUpdates: true,
       );
     }
 
-    return LocationSettings(accuracy: LocationAccuracy.high, distanceFilter: 0);
+    return LocationSettings(accuracy: LocationAccuracy.high, distanceFilter: 15);
   }
 
   Future<void> stop() async {

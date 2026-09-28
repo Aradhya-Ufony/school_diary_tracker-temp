@@ -265,7 +265,7 @@ class _PreTripVerificationScreenState
 
   Widget _buildReportDetails(AppLocalizations l10n) {
     if (_vehicleState?.currentState == 'ACTIVE') {
-      return Padding(
+      return SingleChildScrollView(
         padding: const EdgeInsets.all(20.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -303,7 +303,7 @@ class _PreTripVerificationScreenState
           ?.replaceAll('OUT_OF_SERVICE', 'out of service')
           .replaceAll('CERTIFIED_PENDING_VERIFICATION', 'pending verification');
 
-      return Padding(
+      return SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Card(
           color: Colors.white,

@@ -416,9 +416,10 @@ class DriverDetailsScreen extends ConsumerWidget {
                 )
               ],
             ),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -511,7 +512,8 @@ class DriverDetailsScreen extends ConsumerWidget {
               ],
             ),
           ),
-        );
+        ),
+      );
       },
     );
   }

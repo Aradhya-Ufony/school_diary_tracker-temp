@@ -54,15 +54,59 @@ class _ChildSafetyCheckScreenState extends ConsumerState<ChildSafetyCheckScreen>
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  // 1. Route & Time Remaining Card
+                  // 1. Route Selector & Time Remaining Card
                   Card(
                     elevation: 1.5,
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                     child: Padding(
                       padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 16),
                       child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
-                          if (routeName != null && routeName.isNotEmpty) ...[
+                          if (state.availableRoutes.isNotEmpty) ...[
+                            const Row(
+                              children: [
+                                Icon(Icons.directions_bus_rounded, size: 18, color: AppColors.PRIMARY),
+                                SizedBox(width: 8),
+                                Text(
+                                  'Select Trip / Route:',
+                                  style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold, color: Colors.black87),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 8),
+                            DropdownButtonFormField<int>(
+                              value: state.selectedRoute?.id,
+                              isExpanded: true,
+                              decoration: InputDecoration(
+                                contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+                                border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
+                                isDense: true,
+                              ),
+                              items: state.availableRoutes.map((r) {
+                                final timeStr = (r.startTime != null && r.endTime != null)
+                                    ? ' (${r.startTime} - ${r.endTime})'
+                                    : (r.endTime != null ? ' (End: ${r.endTime})' : '');
+                                return DropdownMenuItem<int>(
+                                  value: r.id,
+                                  child: Text(
+                                    '${r.name}$timeStr',
+                                    style: const TextStyle(fontSize: 14),
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                );
+                              }).toList(),
+                              onChanged: (int? newId) {
+                                if (newId != null) {
+                                  final selected = state.availableRoutes.firstWhere((r) => r.id == newId);
+                                  vm.selectRoute(selected);
+                                }
+                              },
+                            ),
+                            const SizedBox(height: 12),
+                            const Divider(),
+                            const SizedBox(height: 8),
+                          ] else if (routeName != null && routeName.isNotEmpty) ...[
                             Text(
                               routeName,
                               style: const TextStyle(
@@ -73,12 +117,44 @@ class _ChildSafetyCheckScreenState extends ConsumerState<ChildSafetyCheckScreen>
                             ),
                             const SizedBox(height: 6),
                           ],
+
+                          if (state.selectedRoute != null) ...[
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  'Scheduled End:',
+                                  style: TextStyle(fontSize: 12, color: Colors.grey.shade700),
+                                ),
+                                Text(
+                                  state.selectedRoute?.endTime ?? 'N/A',
+                                  style: const TextStyle(fontSize: 13, fontWeight: FontWeight.bold),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 4),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  'Safety Window:',
+                                  style: TextStyle(fontSize: 12, color: Colors.grey.shade700),
+                                ),
+                                Text(
+                                  '+${state.selectedRoute?.childSafetyTimer ?? 10} min window',
+                                  style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: AppColors.PRIMARY),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 10),
+                          ],
+
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Icon(
                                 Icons.access_time_rounded,
-                                size: 18,
+                                size: 20,
                                 color: state.remainingSeconds < 0 ? AppColors.ERROR : Colors.grey.shade700,
                               ),
                               const SizedBox(width: 6),
@@ -92,12 +168,31 @@ class _ChildSafetyCheckScreenState extends ConsumerState<ChildSafetyCheckScreen>
                               Text(
                                 _formatTimer(state.remainingSeconds),
                                 style: TextStyle(
-                                  fontSize: 15,
+                                  fontSize: 16,
                                   fontWeight: FontWeight.bold,
                                   color: state.remainingSeconds < 0 ? AppColors.ERROR : AppColors.PRIMARY,
                                 ),
                               ),
                             ],
+                          ),
+                          const SizedBox(height: 8),
+                          Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                            decoration: BoxDecoration(
+                              color: Colors.blue.shade50,
+                              borderRadius: BorderRadius.circular(6),
+                            ),
+                            child: const Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(Icons.sync_rounded, size: 14, color: AppColors.PRIMARY),
+                                SizedBox(width: 6),
+                                Text(
+                                  'Resets daily for each scheduled trip',
+                                  style: TextStyle(fontSize: 11, color: AppColors.PRIMARY, fontWeight: FontWeight.w500),
+                                ),
+                              ],
+                            ),
                           ),
                         ],
                       ),

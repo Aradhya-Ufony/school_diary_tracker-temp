@@ -41,83 +41,86 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   void _showSettingsSheet(BuildContext context, AppLocalizations l10n) {
     showModalBottomSheet(
       context: context,
+      isScrollControlled: true,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
       ),
       builder: (bottomSheetContext) => SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 16),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Center(
-                child: Container(
-                  width: 40,
-                  height: 4,
-                  margin: const EdgeInsets.only(bottom: 16),
-                  decoration: BoxDecoration(
-                    color: Colors.grey.shade300,
-                    borderRadius: BorderRadius.circular(2),
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 16),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Center(
+                  child: Container(
+                    width: 40,
+                    height: 4,
+                    margin: const EdgeInsets.only(bottom: 16),
+                    decoration: BoxDecoration(
+                      color: Colors.grey.shade300,
+                      borderRadius: BorderRadius.circular(2),
+                    ),
                   ),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                child: Text(
-                  l10n.homeMenuLanguage == 'Language' ? 'Settings' : l10n.homeTitle,
-                  style: const TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    color: AppColors.PRIMARY_DARK,
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                  child: Text(
+                    l10n.homeMenuLanguage == 'Language' ? 'Settings' : l10n.homeTitle,
+                    style: const TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: AppColors.PRIMARY_DARK,
+                    ),
                   ),
                 ),
-              ),
-              const SizedBox(height: 12),
-              ListTile(
-                leading: Container(
-                  padding: const EdgeInsets.all(8),
-                  decoration: BoxDecoration(
-                    color: AppColors.PRIMARY.withOpacity(0.1),
-                    shape: BoxShape.circle,
+                const SizedBox(height: 12),
+                ListTile(
+                  leading: Container(
+                    padding: const EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                      color: AppColors.PRIMARY.withOpacity(0.1),
+                      shape: BoxShape.circle,
+                    ),
+                    child: const Icon(Icons.language_rounded, color: AppColors.PRIMARY),
                   ),
-                  child: const Icon(Icons.language_rounded, color: AppColors.PRIMARY),
-                ),
-                title: Text(
-                  l10n.homeMenuLanguage,
-                  style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
-                ),
-                trailing: const Icon(Icons.chevron_right_rounded),
-                onTap: () {
-                  Navigator.pop(bottomSheetContext);
-                  context.push(Constants.LANGUAGE_ROUTE);
-                },
-              ),
-              const Divider(height: 16),
-              ListTile(
-                leading: Container(
-                  padding: const EdgeInsets.all(8),
-                  decoration: BoxDecoration(
-                    color: AppColors.ERROR.withOpacity(0.1),
-                    shape: BoxShape.circle,
+                  title: Text(
+                    l10n.homeMenuLanguage,
+                    style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
                   ),
-                  child: const Icon(Icons.logout_rounded, color: AppColors.ERROR),
+                  trailing: const Icon(Icons.chevron_right_rounded),
+                  onTap: () {
+                    Navigator.pop(bottomSheetContext);
+                    context.push(Constants.LANGUAGE_ROUTE);
+                  },
                 ),
-                title: Text(
-                  l10n.homeLogout,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.w600,
-                    fontSize: 16,
-                    color: AppColors.ERROR,
+                const Divider(height: 16),
+                ListTile(
+                  leading: Container(
+                    padding: const EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                      color: AppColors.ERROR.withOpacity(0.1),
+                      shape: BoxShape.circle,
+                    ),
+                    child: const Icon(Icons.logout_rounded, color: AppColors.ERROR),
                   ),
+                  title: Text(
+                    l10n.homeLogout,
+                    style: const TextStyle(
+                      fontWeight: FontWeight.w600,
+                      fontSize: 16,
+                      color: AppColors.ERROR,
+                    ),
+                  ),
+                  onTap: () async {
+                    Navigator.pop(bottomSheetContext);
+                    await ref.read(authRepositoryProvider).logout();
+                    if (context.mounted) context.go(Constants.LOGIN_ROUTE);
+                  },
                 ),
-                onTap: () async {
-                  Navigator.pop(bottomSheetContext);
-                  await ref.read(authRepositoryProvider).logout();
-                  if (context.mounted) context.go(Constants.LOGIN_ROUTE);
-                },
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
@@ -133,8 +136,11 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
         return Consumer(
           builder: (context, ref, _) {
             final state = ref.watch(homeViewModelProvider);
+            final isLandscape = MediaQuery.of(context).orientation == Orientation.landscape;
+            final modalHeight = MediaQuery.of(context).size.height * (isLandscape ? 0.90 : 0.75);
+
             return Container(
-              height: MediaQuery.of(context).size.height * 0.75,
+              height: modalHeight,
               decoration: const BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.vertical(top: Radius.circular(28)),
@@ -155,37 +161,45 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Row(
-                          children: [
-                            Container(
-                              padding: const EdgeInsets.all(8),
-                              decoration: BoxDecoration(
-                                color: AppColors.PRIMARY.withOpacity(0.1),
-                                borderRadius: BorderRadius.circular(10),
+                        Expanded(
+                          child: Row(
+                            children: [
+                              Container(
+                                padding: const EdgeInsets.all(8),
+                                decoration: BoxDecoration(
+                                  color: AppColors.PRIMARY.withOpacity(0.1),
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                child: const Icon(Icons.directions_bus_rounded, color: AppColors.PRIMARY),
                               ),
-                              child: const Icon(Icons.directions_bus_rounded, color: AppColors.PRIMARY),
-                            ),
-                            const SizedBox(width: 12),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                const Text(
-                                  'Student Pickup / Drop',
-                                  style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold,
-                                  ),
+                              const SizedBox(width: 12),
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    const Text(
+                                      'Student Pickup / Drop',
+                                      style: TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                    Text(
+                                      'Select a route to start trip',
+                                      style: TextStyle(
+                                        fontSize: 12,
+                                        color: Colors.grey.shade600,
+                                      ),
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                  ],
                                 ),
-                                Text(
-                                  'Select a route to start trip',
-                                  style: TextStyle(
-                                    fontSize: 12,
-                                    color: Colors.grey.shade600,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
+                              ),
+                            ],
+                          ),
                         ),
                         IconButton(
                           icon: const Icon(Icons.close_rounded),
@@ -629,136 +643,154 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
               ),
             ),
 
-            // Quick Actions Grid (2 Columns)
-            GridView.count(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              crossAxisCount: 2,
-              crossAxisSpacing: 12,
-              mainAxisSpacing: 12,
-              childAspectRatio: 1.15,
-              children: [
-                // Top Row Card 1
-                _buildActionCard(
-                  context,
-                  title: 'Student Pickup / Drop',
-                  subtitle: 'Scan / confirm students at stops',
-                  icon: Icons.people_alt_rounded,
-                  iconBgColor: AppColors.PRIMARY.withOpacity(0.12),
-                  iconColor: AppColors.PRIMARY,
-                  onTap: () => _showRoutesModal(context, l10n),
-                ),
-                // Top Row Card 2: Incident Report
-                _buildActionCard(
-                  context,
-                  title: 'Incident Report',
-                  subtitle: 'Report and manage incidents',
-                  icon: Icons.error_outline_rounded,
-                  iconBgColor: AppColors.ERROR.withOpacity(0.12),
-                  iconColor: AppColors.ERROR,
-                  onTap: () => context.push(Constants.INCIDENT_INTAKE_ROUTE),
-                ),
-                // Row 2 Card 1: Pre-Trip Inspection
-                _buildActionCard(
-                  context,
-                  title: l10n.homeMenuPreTrip,
-                  subtitle: 'Check and report vehicle inspections',
-                  icon: Icons.playlist_add_check_rounded,
-                  iconBgColor: const Color(0xFF10B981).withOpacity(0.12),
-                  iconColor: const Color(0xFF10B981),
-                  onTap: () async {
-                    if (firstRoute != null) {
-                      await context.push(Constants.DVIR_PRE_TRIP_ROUTE, extra: {
-                        'schoolBusId': firstRoute.vehicleId?.toString() ?? '',
-                        'routeName': firstRoute.name,
-                        'route': firstRoute,
-                      });
-                      if (mounted) {
-                        ref.read(homeViewModelProvider.notifier).refreshVehicleState();
-                      }
-                    } else {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text(l10n.homeErrorNoRoutesPreTrip)),
-                      );
-                    }
-                  },
-                ),
-                // Row 2 Card 2: Report Defects
-                _buildActionCard(
-                  context,
-                  title: l10n.homeMenuReportDefects,
-                  subtitle: 'Report and manage vehicle defects',
-                  icon: Icons.report_problem_outlined,
-                  iconBgColor: const Color(0xFFF59E0B).withOpacity(0.12),
-                  iconColor: const Color(0xFFF59E0B),
-                  onTap: () async {
-                    if (firstRoute != null) {
-                      await context.push(Constants.DVIR_POST_TRIP_ROUTE, extra: firstRoute);
-                      if (mounted) {
-                        ref.read(homeViewModelProvider.notifier).refreshVehicleState();
-                      }
-                    } else {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text(l10n.homeErrorNoRoutesReportDefects)),
-                      );
-                    }
-                  },
-                ),
-                // Row 3 Card 1: Log Drill
-                _buildActionCard(
-                  context,
-                  title: l10n.homeMenuDrill,
-                  subtitle: 'Record and submit drill activities',
-                  icon: Icons.assignment_outlined,
-                  iconBgColor: const Color(0xFF8B5CF6).withOpacity(0.12),
-                  iconColor: const Color(0xFF8B5CF6),
-                  onTap: () {
-                    final vState = state.vehicleState;
-                    if (vState != null &&
-                        (vState.isBlocked ||
-                            vState.currentState.toUpperCase() == 'OUT_OF_SERVICE' ||
-                            vState.currentState.toUpperCase() == 'CERTIFIED_PENDING_VERIFICATION' ||
-                            vState.currentState.toUpperCase() == 'INACTIVE' ||
-                            vState.currentState.toUpperCase() == 'BLOCKED')) {
-                      final title = vState.currentState.toUpperCase() == 'CERTIFIED_PENDING_VERIFICATION'
-                          ? 'Vehicle Verification Pending'
-                          : 'Vehicle Out of Service';
-                      final msg = vState.blockReason ??
-                          (vState.currentState.toUpperCase() == 'CERTIFIED_PENDING_VERIFICATION'
-                              ? 'This vehicle has repairs pending inspection sign-off. Drills cannot be logged.'
-                              : 'This vehicle is currently out of service. Drills cannot be logged.');
+            // Quick Actions Grid (Responsive Columns & Aspect Ratio)
+            Builder(
+              builder: (context) {
+                final isLandscape = MediaQuery.of(context).orientation == Orientation.landscape;
+                final screenWidth = MediaQuery.of(context).size.width;
 
-                      showDialog<void>(
-                        context: context,
-                        builder: (dialogContext) => AlertDialog(
-                          title: Text(title, style: const TextStyle(fontWeight: FontWeight.bold)),
-                          content: Text(msg),
-                          actions: [
-                            TextButton(
-                              onPressed: () => Navigator.pop(dialogContext),
-                              child: Text(l10n.genericOk.toUpperCase()),
+                final int crossAxisCount;
+                final double childAspectRatio;
+
+                if (isLandscape) {
+                  crossAxisCount = screenWidth > 900 ? 4 : 3;
+                  childAspectRatio = screenWidth > 900 ? 1.6 : 1.45;
+                } else {
+                  crossAxisCount = screenWidth > 600 ? 3 : 2;
+                  childAspectRatio = screenWidth > 600 ? 1.3 : 1.15;
+                }
+
+                return GridView.count(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  crossAxisCount: crossAxisCount,
+                  crossAxisSpacing: 12,
+                  mainAxisSpacing: 12,
+                  childAspectRatio: childAspectRatio,
+                  children: [
+                    // Top Row Card 1
+                    _buildActionCard(
+                      context,
+                      title: 'Student Pickup / Drop',
+                      subtitle: 'Scan / confirm students at stops',
+                      icon: Icons.people_alt_rounded,
+                      iconBgColor: AppColors.PRIMARY.withOpacity(0.12),
+                      iconColor: AppColors.PRIMARY,
+                      onTap: () => _showRoutesModal(context, l10n),
+                    ),
+                    // Top Row Card 2: Incident Report
+                    _buildActionCard(
+                      context,
+                      title: 'Incident Report',
+                      subtitle: 'Report and manage incidents',
+                      icon: Icons.error_outline_rounded,
+                      iconBgColor: AppColors.ERROR.withOpacity(0.12),
+                      iconColor: AppColors.ERROR,
+                      onTap: () => context.push(Constants.INCIDENT_INTAKE_ROUTE),
+                    ),
+                    // Row 2 Card 1: Pre-Trip Inspection
+                    _buildActionCard(
+                      context,
+                      title: l10n.homeMenuPreTrip,
+                      subtitle: 'Check and report vehicle inspections',
+                      icon: Icons.playlist_add_check_rounded,
+                      iconBgColor: const Color(0xFF10B981).withOpacity(0.12),
+                      iconColor: const Color(0xFF10B981),
+                      onTap: () async {
+                        if (firstRoute != null) {
+                          await context.push(Constants.DVIR_PRE_TRIP_ROUTE, extra: {
+                            'schoolBusId': firstRoute.vehicleId?.toString() ?? '',
+                            'routeName': firstRoute.name,
+                            'route': firstRoute,
+                          });
+                          if (mounted) {
+                            ref.read(homeViewModelProvider.notifier).refreshVehicleState();
+                          }
+                        } else {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text(l10n.homeErrorNoRoutesPreTrip)),
+                          );
+                        }
+                      },
+                    ),
+                    // Row 2 Card 2: Report Defects
+                    _buildActionCard(
+                      context,
+                      title: l10n.homeMenuReportDefects,
+                      subtitle: 'Report and manage vehicle defects',
+                      icon: Icons.report_problem_outlined,
+                      iconBgColor: const Color(0xFFF59E0B).withOpacity(0.12),
+                      iconColor: const Color(0xFFF59E0B),
+                      onTap: () async {
+                        if (firstRoute != null) {
+                          await context.push(Constants.DVIR_POST_TRIP_ROUTE, extra: firstRoute);
+                          if (mounted) {
+                            ref.read(homeViewModelProvider.notifier).refreshVehicleState();
+                          }
+                        } else {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text(l10n.homeErrorNoRoutesReportDefects)),
+                          );
+                        }
+                      },
+                    ),
+                    // Row 3 Card 1: Log Drill
+                    _buildActionCard(
+                      context,
+                      title: l10n.homeMenuDrill,
+                      subtitle: 'Record and submit drill activities',
+                      icon: Icons.assignment_outlined,
+                      iconBgColor: const Color(0xFF8B5CF6).withOpacity(0.12),
+                      iconColor: const Color(0xFF8B5CF6),
+                      onTap: () {
+                        final vState = state.vehicleState;
+                        if (vState != null &&
+                            (vState.isBlocked ||
+                                vState.currentState.toUpperCase() == 'OUT_OF_SERVICE' ||
+                                vState.currentState.toUpperCase() == 'CERTIFIED_PENDING_VERIFICATION' ||
+                                vState.currentState.toUpperCase() == 'INACTIVE' ||
+                                vState.currentState.toUpperCase() == 'BLOCKED')) {
+                          final title = vState.currentState.toUpperCase() == 'CERTIFIED_PENDING_VERIFICATION'
+                              ? 'Vehicle Verification Pending'
+                              : 'Vehicle Out of Service';
+                          final msg = vState.blockReason ??
+                              (vState.currentState.toUpperCase() == 'CERTIFIED_PENDING_VERIFICATION'
+                                  ? 'This vehicle has repairs pending inspection sign-off. Drills cannot be logged.'
+                                  : 'This vehicle is currently out of service. Drills cannot be logged.');
+
+                          showDialog<void>(
+                            context: context,
+                            builder: (dialogContext) => AlertDialog(
+                              title: Text(title, style: const TextStyle(fontWeight: FontWeight.bold)),
+                              content: Text(msg),
+                              actions: [
+                                TextButton(
+                                  onPressed: () => Navigator.pop(dialogContext),
+                                  child: Text(l10n.genericOk.toUpperCase()),
+                                ),
+                              ],
                             ),
-                          ],
-                        ),
-                      );
-                      return;
-                    }
-                    context.push(Constants.DRILL_LIST_ROUTE);
-                  },
-                ),
-                // Row 3 Card 2: Child Safety Check
-                _buildActionCard(
-                  context,
-                  title: l10n.homeMenuChildSafetyCheck,
-                  subtitle: 'Perform post-trip bus sweep',
-                  icon: Icons.shield_outlined,
-                  iconBgColor: const Color(0xFF06B6D4).withOpacity(0.12),
-                  iconColor: const Color(0xFF06B6D4),
-                  onTap: () async {
-                    await context.push(Constants.CHILD_SAFETY_CHECK_ROUTE, extra: firstRoute);
-                  },
-                ),
-              ],
+                          );
+                          return;
+                        }
+                        context.push(Constants.DRILL_LIST_ROUTE);
+                      },
+                    ),
+                    // Row 3 Card 2: Child Safety Check
+                    _buildActionCard(
+                      context,
+                      title: l10n.homeMenuChildSafetyCheck,
+                      subtitle: 'Perform post-trip bus sweep',
+                      icon: Icons.shield_outlined,
+                      iconBgColor: const Color(0xFF06B6D4).withOpacity(0.12),
+                      iconColor: const Color(0xFF06B6D4),
+                      onTap: () async {
+                        await context.push(Constants.CHILD_SAFETY_CHECK_ROUTE, extra: firstRoute);
+                      },
+                    ),
+                  ],
+                );
+              },
             ),
 
             const SizedBox(height: 24),
@@ -879,7 +911,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
         onTap: onTap,
         borderRadius: BorderRadius.circular(18),
         child: Padding(
-          padding: const EdgeInsets.all(14.0),
+          padding: const EdgeInsets.all(12.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -888,45 +920,49 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Container(
-                    padding: const EdgeInsets.all(10),
+                    padding: const EdgeInsets.all(8),
                     decoration: BoxDecoration(
                       color: iconBgColor,
-                      borderRadius: BorderRadius.circular(12),
+                      borderRadius: BorderRadius.circular(10),
                     ),
-                    child: Icon(icon, color: iconColor, size: 24),
+                    child: Icon(icon, color: iconColor, size: 22),
                   ),
                   Icon(
                     Icons.chevron_right_rounded,
                     color: Colors.grey.shade400,
-                    size: 22,
+                    size: 20,
                   ),
                 ],
               ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    title,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: const TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black87,
+              const SizedBox(height: 6),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Text(
+                      title,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: const TextStyle(
+                        fontSize: 13,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black87,
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 4),
-                  Text(
-                    subtitle,
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                      fontSize: 11,
-                      color: Colors.grey.shade600,
-                      height: 1.2,
+                    const SizedBox(height: 2),
+                    Text(
+                      subtitle,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                        fontSize: 11,
+                        color: Colors.grey.shade600,
+                        height: 1.15,
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ],
           ),

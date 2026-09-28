@@ -209,7 +209,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                           ],
                         ),
                         constraints: BoxConstraints(
-                          maxHeight: MediaQuery.of(context).size.height * 0.55,
+                          maxHeight: MediaQuery.of(context).size.height * (MediaQuery.of(context).orientation == Orientation.landscape ? 0.85 : 0.65),
                         ),
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(12),

@@ -218,11 +218,6 @@ class TripViewModel extends StateNotifier<TripState> {
       secondsSinceLastUpdate: next,
       showReconnectWarning: next % 65 == 0,
     );
-    _pollTicks++;
-    if (_pollTicks >= 5) {
-      _pollTicks = 0;
-      _pollBusLocation();
-    }
   }
 
   void dismissReconnectWarning() {
